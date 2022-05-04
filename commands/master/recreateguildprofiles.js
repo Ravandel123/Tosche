@@ -1,4 +1,6 @@
 const C = require('../../modules/common.js');
+const CG = require('../../modules/commonGuild.js');
+const SG = require('../../modules/schematicsGuild.js');
 const DB = require('../../modules/db.js');
 
 module.exports = {
@@ -8,15 +10,16 @@ module.exports = {
    example: '',
    async execute(message, args) {
       const guildMembers = C.dcGetAllMembers(message);
+      const profiles = [];
 
-      for (const member of guildMembers) {
-         try {
-            await DB.gGetProfileById(message, member[1].id);
-         } catch(error) {
-            C.dcRespondToMsg(message, error);
-            return;
-         }
+      for (const member of guildMembers)
+         profiles.push(CG.createNewGuildProfile(member[1]));
+
+      try {
+         const result = await DB.insertMany(SG.profile, profiles);
+         C.dcRespondToMsg(message, result);
+      } catch(error) {
+         C.dcRespondToMsg(message, error);
       }
-      C.dcRespondToMsg(message, `Profiles recreated successfully.`);
    }
 }

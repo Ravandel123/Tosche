@@ -9,8 +9,10 @@ module.exports = {
    description: 'Gives a certain amount of the specified currency to another user. ' +
    'You must either enter the currency name without spaces or use an alias using the first letters of the currency.',
    usage: '[user mention] [name of the currency] [amount]',
-   example: `<@!392728479696814092>` + ' silvercoins 5',
-   otherexample: `<@!392728479696814092>` + ' sc 5',
+   example: [
+      `<@!392728479696814092> silvercoins 5`,
+      `<@!392728479696814092> sc 5`
+   ],
    async execute(message, args) {
       const requiredArgs = ['user name', 'name of the currency', 'amount'];
       if (!CC.checkArgsAmount(message, args, requiredArgs))
@@ -21,7 +23,7 @@ module.exports = {
 
       const currency = CG.getCurrencyObject(args[2]);
       if (!currency) {
-         C.dcRespondFromArray(message, R.resIssue(`${args[2]} isn't a legit currency`));
+         C.dcRespondFromArray(message, R.resIssue(`**${args[2]}** isn't a legit currency`));
          return;
       }
 
@@ -30,13 +32,9 @@ module.exports = {
 
       amountToGive = C.convertToInt(amountToGive);
 
-      const targetID = CC.getUserFromNameOrMention(message, args[1]);
-      if (!targetID)
-         return;
-
       try {
-         ownerProfile = await DB.gGetMsgAuthorProfile(message);
-         targetProfile = await DB.gGetProfileById(message, targetID);
+         ownerProfile = await CG.getMessageAuthorProfile(message);
+         targetProfile = await CG.getMemberProfile(message, args[1]);
       } catch(error) {
          C.dcRespondToMsg(message, error);
          return;

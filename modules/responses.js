@@ -1,10 +1,53 @@
 const C = require('./common.js');
-const AC = require('./arraysCommon.js');
-const G = require('./generators.js');
+const CL_LA = require('./../classes/language.js');
+const DC = require('./dataCommon.js');
+const DS = require('./dataSpeech.js');
+const GEN = require('./generators.js');
+
+"use strict";
+
+const RND = C.arrGetRandom;
+
+//----------------------------------------------------------- COMMON DATA ----------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+const arrayUniversalResponses = [
+   `Excuse me?!`,
+   `I know.`,
+   `I know, right?`,
+   `No point in stating the obvious.`,
+   `So I have been told.`,
+   `Stop it please!`,
+   `True, I couldn't agree more.`,
+   `You too.`,
+   `Mhm, for sure.`,
+   `You're welcome.`,
+   `As the prophecy foretold.`,
+   `Like in my dream.`,
+   `I'm fully convinced you never graduated kindergarden.`,
+   `Because of what you said, now I want to burn down an Ermehn village.`
+];
+
+function universalResponses() {
+   let arrayResult = [
+      `I agree, in ${C.rnd(110)}%.`,
+      `No, ${RND(['you', 'u'])}`,
+      `Well, ${C.rnd(12)} out 10 people agree!`,
+      `${C.strCapitalizeFirstLetter(RND(DS.termsNoDoubt))}.`,
+      `*Tosche pulls out his ${RND(['sword', 'axe', 'gun', 'rocket launcher', 'crossbow', 'minigun', 'shotgun'])}.*`, //weapons here
+      `And now I need to cut off your ${RND(['tongue', 'ears', 'fingers', 'toes', 'tail'])}.`
+   ];
+
+   arrayResult = arrayResult.concat(arrayUniversalResponses);
+
+   return arrayResult;
+}
+
+//---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 //----------------------------------------------------------- COMMON ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resMissingArgs(missingArgs) {
    if (!C.checkIfArray(missingArgs))
       return;
@@ -14,7 +57,7 @@ function resMissingArgs(missingArgs) {
 
    const arrayResult = [
       `You must give me the following arguments:\n${missingArgsEOL}\n`,
-      `You didn\'t provide the correct amount of arguments, you ${G.genPersonalInsult()}. You need to provide:\n${missingArgsEOL}\n`
+      `You didn't provide the correct amount of arguments, you ${GEN.genPersonalInsult()}. You need to provide:\n${missingArgsEOL}\n`
    ];
 
    return arrayResult;
@@ -22,13 +65,13 @@ function resMissingArgs(missingArgs) {
 
 module.exports.resMissingArgs = resMissingArgs;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resIssue(issue, additionalText = '') {
    if (!C.checkIfExists(issue))
       return;
 
    const issueInMid = C.strDecapitalizeFirstLetter(issue);
-   const insult = G.genPersonalInsult();
+   const insult = GEN.genPersonalInsult();
    const insultWithArticle = C.strAddArticle(insult);
 
    let arrayResult = [
@@ -45,23 +88,76 @@ function resIssue(issue, additionalText = '') {
 
 module.exports.resIssue = resIssue;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resIssueSingle(issue, additionalText = '') {
    return C.arrGetRandom(resIssue(issue, additionalText));
 }
 
 module.exports.resIssueSingle = resIssueSingle;
 
+//------------------------------------------------------------------------------------------------------------------
+function resBusy(reason, isMsgAuthor = true, name) {
+   return `${isMsgAuthor ? 'You are ' : name + ' is'} busy. (${reason})`;
+}
+
+module.exports.resBusy = resBusy;
+
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 //----------------------------------------------------------- COMMANDS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
+function resDefault() {
+   const affilction = C.chance(50) ? `${RND(DS.advBase)} ${RND(DS.adjAfflictionsVirtues)}` : `${RND(DS.adjAfflictionsVirtues)}`;
+
+   const opinions = [
+      `I am skeptic about that.`,
+      `I can't agree with that.`,
+      `This doesn't make any sense.`,
+      `What?`,
+      `Woot?`,
+      `Are you serious?`,
+      `Indeed.`
+   ];
+   
+   const gifs = [
+   `https://tenor.com/view/xd-fani-gif-24750348`,
+   `https://tenor.com/view/jerry-seinfeld-i-like-the-way-you-think-gif-14890068`,
+   `https://tenor.com/view/pirates-of-the-caribbean-captain-jack-sparrow-not-making-sense-doesnt-make-any-sense-johnny-depp-gif-16635067`,
+   `https://tenor.com/view/i-knew-it-words-of-wisdom-youre-so-wise-the-shining-jack-nicholson-gif-14741551`,
+   `https://tenor.com/view/everybody-just-calm-down-supt-joe-donovan-hudson-and-rex-everyone-take-it-easy-settle-down-guys-gif-24465700`,
+   `https://tenor.com/view/gandalf-yes-very-good-gif-19209604`,
+   `https://tenor.com/view/keep-telling-yourself-that-darling-captain-jack-sparrow-johnny-depp-gif-10233026`,
+   `https://tenor.com/view/indeed-tealc-stargate-gif-4496552`,
+   `https://tenor.com/view/cheems-bonk-doge-celestev69-gif-24399197`,
+   `https://tenor.com/view/no-nope-smh-kanye-west-gif-4246025`
+   ];
+
+   const speaking = [
+      `sound`, `speak`,
+      `talk`
+   ];
+
+   const arrayResult = [
+      `${RND(opinions)}`,
+      `${RND(gifs)}`,
+      `You ${RND(speaking)} like someone ${affilction}.`,
+      `That information just made me ${affilction}.`,
+      `*${C.strCapitalizeFirstLetter(RND(DS.adjAfflictions))} Tosche noises.*`,
+      `${RND(universalResponses())}`
+   ];
+
+   return RND(arrayResult);
+}
+
+module.exports.resDefault = resDefault;
+
+//------------------------------------------------------------------------------------------------------------------
 function resAmount(maxMultiplier = 8, additionalSymbol = '') {
-   const maxNumber = C.genRandomMultiplier(maxMultiplier, 75) + 1;
+   const maxNumber = GEN.genRandomMultiplier(maxMultiplier, 75) + 1;
    const amountPart = C.rnd(maxNumber) + additionalSymbol;
-   const defaultEnding = G.genAccuracy(false) + ' ' + amountPart;
+   const defaultEnding = GEN.genAccuracy(false) + amountPart;
 
    const arrayResult = [
       `${amountPart}`,
@@ -70,73 +166,75 @@ function resAmount(maxMultiplier = 8, additionalSymbol = '') {
       `I think it's ${defaultEnding}`
    ];
 
-   return G.addFunnyEndingToAll(arrayResult);
+   return GEN.addFunnyEndingToAll(arrayResult);
 }
 
 module.exports.resAmount = resAmount;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resChance() {
-   const number = C.chance(50) ? C.rnd(100) : C.rnd(200);
+   const number = C.chance(90) ? C.rnd(100) : C.rndBetween(100, 200);
 
    let arrayResult = [
       `${number}`,
-      `${G.genAccuracy(true)}${number}`,
+      `${GEN.genAccuracy(true)}${number}`,
       `The chance for that is ${number}`,
-      `The chance for that is ${G.genAccuracy(false)}${number}`
+      `The chance for that is ${GEN.genAccuracy(false)}${number}`
    ];
 
    arrayResult = C.arrAddTextToAllItems(arrayResult, '', '%');
 
-   return G.addFunnyEndingToAll(arrayResult);
+   return GEN.addFunnyEndingToAll(arrayResult);
 }
 
 module.exports.resChance = resChance;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resCost() {
    if (C.chance(10)) {
       const arrayResultSpecial = [
          `That is worthless`,
          `That is priceless`,
          //tmp   'You need to give ' + GenerateRandomWeapon() + ' for that',
-         `Only acceptable payment for that is ${C.arrGetRandom(AC.arrayCharactersIrlOnly)}`
+         `Only acceptable payment for that is ${C.arrGetRandom(DC.charactersIrlOnly)}`
       ];
 
-      return G.addFunnyEndingToAll(arrayResultSpecial);
+      return GEN.addFunnyEndingToAll(arrayResultSpecial);
    } else {
-      const amount = C.rnd(G.genRandomMultiplier(8));
-      const cost = `${amount} ${C.arrGetRandom(AC.arrayCurrenciesAll)}`;
+      const amount = C.rnd(GEN.genRandomMultiplier(8));
+      const cost = `${amount} ${C.arrGetRandom(DC.currenciesAll)}`;
 
       const arrayResult = [
          `${cost}`,
          `That costs ${cost}`,
          `That is worth ${cost}`,
-         `Price for that is ${G.genAccuracy(false)}${cost}`
+         `Price for that is ${GEN.genAccuracy(false)}${cost}`
       ];
       
-      return G.addFunnyEndingToAll(arrayResult);
+      return GEN.addFunnyEndingToAll(arrayResult);
    }
 }
 
 module.exports.resCost = resCost;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resDndalign(who) {
    if (!who)
       return;
 
+   const alignment = `**${RND(DC.dndAlignments)}**`;
    const arrayResult = [
-      `${who} is ${C.arrGetRandom(AC.arrayDnDAlignments)}`,
-      `It seems like ${who} is ${C.arrGetRandom(AC.arrayDnDAlignments)}`
+      `${who} is ${alignment}.`,
+      `It seems like ${who} is ${alignment}.`,
+      `${C.strCapitalizeFirstLetter(RND(DS.termsNoDoubt))} ${alignment}.`
    ];
 
-   return G.addFunnyEndingToAll(arrayResult);
+   return GEN.addFunnyEnding(RND(arrayResult));
 }
 
 module.exports.resDndalign = resDndalign;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resHate() {
    const arrayResult = [
       `I hate you.`,
@@ -174,8 +272,8 @@ function resHate() {
       `You look like something I'd draw with my left hand.`,
       `Of course I talk like an idiot... How else would you understand me?`,
       `What are you doing here? Did someone leave your cage open?`,
-      `I could eat a bowl of alphabet soup and crap out a smarter comeback than what you just said.',
-      'I'd love to insult you, but I won't do as well as nature did.`,
+      `I could eat a bowl of alphabet soup and crap out a smarter comeback than what you just said.`,
+      `I'd love to insult you, but I won't do as well as nature did.`,
       `You're so ugly the only dates you get are on a calendar.`,
       `You're the reason they invented double doors.`,
       `You're so dumb, I bet your pet teaches you tricks.`,
@@ -196,8 +294,10 @@ function resHate() {
 
 module.exports.resHate = resHate;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resIs() {
+   let result;
+
    if (C.chance(5)) {
       let arrayResultSpecialNormal = [
          `I think the answer is obvious`,
@@ -211,10 +311,10 @@ function resIs() {
          `Why are you asking me about that`
       ];
 
-      arrayResultSpecialNormal = G.addFunnyEndingToAll(arrayResultSpecialNormal);
-      arrayResultSpecialQuestion = G.addFunnyEndingToAll(arrayResultSpecialQuestion, '?');
+      arrayResultSpecialNormal = GEN.addFunnyEndingToAll(arrayResultSpecialNormal);
+      arrayResultSpecialQuestion = GEN.addFunnyEndingToAll(arrayResultSpecialQuestion, '?');
 
-      return arrayResultSpecialNormal.concat(arrayResultSpecialQuestion);
+      result = RND(arrayResultSpecialNormal.concat(arrayResultSpecialQuestion));
    } else {
       const arrayResult = [
          `Absolutely`, `Absolutely not`,
@@ -231,18 +331,24 @@ function resIs() {
          `Yeah`, `Nah`,
          `Yes`, `No`,
          `Yup`, `Nope`,
-         `Partially`, `A bit`, `Slightly`, `Somehow`, `Possibly`, `Perhaps`, `Maybe`, `It could be`, `Almost`
+         `Partially`, `A bit`, `Slightly`, `Somehow`, `Possibly`, `Perhaps`, `Maybe`, `It could be`, `Almost`,
+         `https://tenor.com/view/isildur-isilduryes-lotr-gif-17969733`,
+         `https://tenor.com/view/no-nope-no-way-noo-absolutely-not-gif-20244171`
       ];
 
-      return G.addFunnyEndingToAll(arrayResult);
+      result = RND(arrayResult);
+      if (!result.startsWith('http'))
+         result = result + GEN.genFunnyEnding();
    }
+
+   return result;
 }
 
 module.exports.resIs = resIs;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resLove(who) {
-   const pG = new C.PersonGrammar(!who ? 'me' : who);
+   const pG = new CL_LA.PersonGrammar(!who ? 'me' : who);
    const array1 = ['a new book', 'a burning Ermehn village', 'the blood of my enemies'];
    const array2 = ['dumb', 'fat', 'stinky', 'stupid', 'ugly'];
 
@@ -293,7 +399,7 @@ function resLove(who) {
 
 module.exports.resLove = resLove;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resPercentSpecial(who, what) {
    if (!who || !what)
       return;
@@ -304,21 +410,77 @@ function resPercentSpecial(who, what) {
       `${who} is ${value}% ${what}`
    ];
 
-   return G.addFunnyEndingToAll(arrayResult);
+   return GEN.addFunnyEndingToAll(arrayResult);
 }
 
 module.exports.resPercentSpecial = resPercentSpecial;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+function resRate(subject) {
+   const who = C.strCheckIfAnyMatch(subject, ['i', 'me']) ? 'you' : 'that';
+   const auxiliaryVerb = who == 'you' ? 'are' : 'is';
+   const reflexivePronoun = who == 'you' ? 'yourself' : 'that';
+   const additionalS = who == 'you' ? '' : 's';
+   let result;
+
+   if (C.chance(90)) {
+      const arrayResult = [
+         ``,
+         `Hmm... I'd rate ${who}`,
+         `I'd give ${who}`,
+         `${RND(DS.termsNoDoubt)}`,
+         `I think it's gonna be`,
+         `I'd say`
+      ];
+
+      const rating = C.chance(90) ? C.rnd(13) : C.rndNo0(100);
+      const maxRating = C.chance(90) ? 10 : C.rndNo0(100);
+      const minus = C.chance(90) ? '' : '-';
+
+      result = `${RND(arrayResult)} ${minus}${rating}/${maxRating}.`;
+   } else {
+      const arrayResult = [
+         `I think we need a negative scale for ${who}.`,
+         `I don't want to rate ${who}.`,
+         `No way I'm gonna rate that!`,
+         `${who} ${auxiliaryVerb} ${RND(C.chance(50) ? DS.termsExtremelyGood : DS.termsExtremelyBad)}!`,
+         `Why do you even want to rate ${reflexivePronoun}?`,
+         `${who} suck${additionalS}.`,
+         `Better than ${RND(DC.charactersBadGuys)}.`,
+         `${RND(DC.charactersBadGuys)} was better.`,
+         `Over 9000!`,
+         `https://tenor.com/pl/view/caroline-cameron-sportsnet-awful-absolutely-awful-horrible-gif-11225079422258787761`
+      ];
+
+      result = RND(arrayResult);
+   }
+
+   return C.strCapitalizeFirstLetter(result);
+}
+
+module.exports.resRate = resRate;
+
+//------------------------------------------------------------------------------------------------------------------
+function resResolve(who) {
+   if (!who)
+      return;
+
+   const result = C.chance(75) ? `${RND(DS.adjAfflictions)} <:Stress:554734700279627792>` : `${RND(DS.adjVirtues)} <:Virtue:554734699935694848>`;
+   return `${who} is **${C.strCapitalizeFirstLetter(result)}**`;
+}
+
+module.exports.resResolve = resResolve;
+
+//------------------------------------------------------------------------------------------------------------------
 function resWho() {
-   return G.genPerson() + G.genFunnyEnding();
+   return GEN.genPerson() + GEN.genFunnyEnding();
 }
 
 module.exports.resWho = resWho;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resYou() {
-   const arrayResult = [
+   let arrayResult = [
       `After hearing what you just said, I realized that honest people still do exists!`,
       `Are you a spy? Who sent you?`,
       `Are you hitting on me?`,
@@ -328,7 +490,6 @@ function resYou() {
       `Compliment accepted.`,
       `Do you really think I care about your opinion, lol?`,
       `Enough of that!`,
-      `Excuse me?!`,
       `Finally, I found someone who agrees with my parents.`,
       `Flattery won't get you anywhere, fella. Scram!`,
       `Give me a quill and I'll give you my autograph.`,
@@ -337,11 +498,8 @@ function resYou() {
       `I'm glad I made your day brighter.`,
       `I'm sorry, but you can't afford it.`,
       `I'm warning you, I'm too hot for you to handle.`,
-      `I agree, 100%!`,
       `I can see that honesty is still the best policy.`,
       `I get that a lot!`,
-      `I know.`,
-      `I know, right?`,
       `I know. Wish I could say the same about you.`,
       `I love you too!`,
       `I love your honesty and sincerity.`,
@@ -354,12 +512,9 @@ function resYou() {
       `It must be the meds kicking in.`,
       `It must be the tapeworm.`,
       `Just today? What about yesterday?`,
-      `Look who's talking lol.`,
+      `Look who's talking, lol.`,
       `Much obliged!`,
-      `No point in stating the obvious.`,
       `No takebacks, okay!`,
-      `No, u.`,
-      `No, you.`,
       `Not since the accident.`,
       `Not this again... take a number and wait in line.`,
       `Oh, I wish you'd experience it as well.`,
@@ -371,17 +526,13 @@ function resYou() {
       `Peace be with you!`,
       `Shucks, my fluffy neck!`,
       `Shut up baby.`,
-      `So I have been told.`,
       `Sorry, you must have mistaken me for someone else.`,
       `Stop it before I fall in love with you.`,
-      `Stop it please!`,
       `Thanks, but I prefer to be noticed for my intellectual capacity.`,
       `Thanks, fan!`,
       `Thanks, I sacrificed many lives for it.`,
       `Thanks, I woke up like this.`,
       `Thank you, so please vote for me in the next elections.`,
-      `True, I couldn't agree more.`,
-      `Well, 11 out 10 people agree!`,
       `Well, hanging around the right people really changes you.`,
       `Well, that makes two of us!`,
       `What do you need?`,
@@ -394,14 +545,12 @@ function resYou() {
       `Yeah, the genie finally granted my wish.`,
       `You'll get there, eventually.`,
       `You're not the first one to tell me that today.`,
-      `You're welcome.`,
       `You know what? I like you.`,
       `You must be looking at a mirror.`,
-      `You too.`,
-      `Mhm, for sure.`,
-      `And now I need cut off your tongue.`,
       `I am gonna kill you with all my floof.`,
-      `Because of what you said I now want to burn down another Ermehn village`,
+      `I think it's time to pour cement into your eyes.`,
+      `Soon, I will drink from your skull.`,
+      `I'm gonna harvest your toes for that.`,
       `https://i.imgur.com/cTk5o3Y.png`,
       `https://i.imgur.com/gVyMLhT.png`,
       `https://i.imgur.com/b9A9qcU.png`,
@@ -419,7 +568,9 @@ function resYou() {
       `https://tenor.com/view/woman-be-silent-be-silent-tealc-woman-be-silent-stargate-woman-be-silent-sg1woman-be-silent-gif-16017603`
    ];
 
-   return arrayResult;
+   arrayResult = arrayResult.concat(universalResponses());
+
+   return RND(arrayResult);
 }
 
 module.exports.resYou = resYou;
@@ -429,10 +580,10 @@ module.exports.resYou = resYou;
 
 
 //----------------------------------------------------------- ADVANCED COMMANDS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function fishCatchFailed(spotName, fish) {
    const fishName = C.strAddArticle(fish.name);
-   const fishWeight = `${fish.weight} kg (${C.calcKgToImperial(fish.weight)})`;
+   const fishWeight = `**${fish.data?.weight} kg (${C.calcKgToImperial(fish.data?.weight)})**`;
 
    const arrayResult = [
       `Oof... your fish got away...`,
@@ -441,7 +592,7 @@ function fishCatchFailed(spotName, fish) {
    ];
 
    const arrayFishInfoEnding = [
-      `It was ${fishName}, it weighed ${fishWeight}...`
+      `It was **${fishName}**, it weighed ${fishWeight}...`
    ];
 
    return `${C.arrGetRandom(arrayResult)}\n${C.arrGetRandom(arrayFishInfoEnding)}`;
@@ -449,6 +600,87 @@ function fishCatchFailed(spotName, fish) {
 
 module.exports.fishCatchFailed = fishCatchFailed;
 
+//------------------------------------------------------------------------------------------------------------------
+function fishRecord(recordResult, fish, previousRecordHolder) {
+   const correctFish = `${C.strAddArticle(fish.name, true)}`;
+   let finalMessage = '';
+   let arrayPersonalRecord;
+   let arrayServerRecord;
+
+   //-----Personal records-----
+   if (recordResult.previousPersonalRecord != -1) {
+      if (recordResult.previousPersonalRecord > 0) {
+         const correctWeightPersonal = `**${C.getFullKgToImperial(recordResult.previousPersonalRecord)}**`;
+         arrayPersonalRecord = [
+            `This is your personal record for ${correctFish}! Your previous record was: ${correctWeightPersonal}`
+         ];
+      } else if (recordResult.previousPersonalRecord == 0) {
+         arrayPersonalRecord = [
+            `This is your first **${fish.name}** caught!`
+         ];
+      }
+
+      finalMessage += C.arrGetRandom(arrayPersonalRecord) + `\n`;
+   }
+
+   //-----Server records-----
+   if (recordResult.currentPlace != -1) {
+      if (recordResult.currentPlace == 0) {
+         arrayServerRecord = [
+            `And this is also the first **${fish.name}** caught in the server!`
+         ];
+      } else if (recordResult.currentPlace == 1) {
+         arrayServerRecord = [
+            `And this is also the new server record for ${correctFish}!`
+         ];
+      } else if (recordResult.currentPlace > 0) {
+         const correctPlace = recordResult.currentPlace == 2 ? `2nd` : `3rd`;
+         arrayServerRecord = [
+            `This is also the ${correctPlace} best catch on the server for ${correctFish}!`
+         ];
+      }
+
+      finalMessage += C.arrGetRandom(arrayServerRecord);
+
+      if (recordResult.previousServerRecord > 0) {
+         const correctWeightServer = `**${C.getFullKgToImperial(recordResult.previousServerRecord)}**`;
+         finalMessage += ` The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctWeightServer}`;
+      }
+   }
+
+   return finalMessage;
+}
+
+module.exports.fishRecord = fishRecord;
+
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+//----------------------------------------------------------- COMMON DATA ----------------------------------------------------------
+// universalResponses()
+
+//----------------------------------------------------------- COMMON ----------------------------------------------------------
+// resMissingArgs(missingArgs)
+// resIssue(issue, additionalText = '')
+// resIssueSingle(issue, additionalText = '')
+// resBusy(reason, isMsgAuthor = true, name)
+
+//----------------------------------------------------------- COMMANDS ----------------------------------------------------------
+// resDefault()
+// resAmount(maxMultiplier = 8, additionalSymbol = '')
+// resChance()
+// resCost()
+// resDndalign(who)
+// resHate()
+// resIs()
+// resLove(who)
+// resPercentSpecial(who, what)
+// resRate(subject)
+// resResolve(who)
+// resWho()
+// resYou()
+
+//----------------------------------------------------------- ADVANCED COMMANDS ----------------------------------------------------------
+// fishCatchFailed(spotName, fish)
+// fishRecord(recordResult, fish, previousRecordHolder)

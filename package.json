@@ -1,28 +1,19 @@
 {
-
-  "name": "Toschy",
-
-  "description": "",
-
-  "version": "1.0.0",
-
-  "main": "bot.js",
-
-  "scripts": {
-
-   "start": "node bot.js"
-
-  },
-
-  "dependencies": {
-    "discord.js": "^13.6.0",
-    "mongoose": "^6.2.1",
-    "cron": "^1.8.2",
-    "request": "2.81.0",
-    "node-cron": "^1.2.1"
-  },
-
-  "engines": {
-    "node": "^16.6"
-  }
+   "name": "Tosche",
+   "description": "Everyone's favorite BtWD general.",
+   "version": "1.0.0",
+   "main": "bot.js",
+   "scripts": {
+      "start": "node bot.js"
+   },
+   "dependencies": {
+      "discord.js": "^14.14.1",
+      "dotenv": "^16.4.5",
+      "mongoose": "^6.12.8",
+      "node-cron": "^1.2.1",
+      "uuid": "^8.3.2"
+   },
+   "engines": {
+      "node": ">=18.0.0"
+   }
 }

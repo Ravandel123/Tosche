@@ -1,8 +1,11 @@
 const C = require('./common.js');
-const AC = require('./arraysCommon.js');
+const DC = require('./dataCommon.js');
+const DS = require('./dataSpeech.js');
+
+"use strict";
 
 //----------------------------------------------------------- GENERATION ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function genRandomMultiplier(maxDigitScope, nextDigitChance = 50) {
    if (!C.checkIfNumber(maxDigitScope))
       return;
@@ -21,33 +24,34 @@ function genRandomMultiplier(maxDigitScope, nextDigitChance = 50) {
 
 module.exports.genRandomMultiplier = genRandomMultiplier;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function genPerson() {
-   return C.chance(75) ? C.arrGetRandom(AC.arrayCharactersIrlOnly) : C.arrGetRandom(AC.arrayCharactersAll);
+   return C.chance(75) ? C.arrGetRandom(DC.charactersIrlOnly) : C.arrGetRandom(DC.charactersAll);
 }
 
 module.exports.genPerson = genPerson;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function genPersonalInsult() {
-   const adjective = C.chance(75) ? C.arrGetRandom(AC.adjectivesAcceptedInsulting) + ' ' : '';
-   return `${adjective}${C.arrGetRandom(AC.nounsAcceptedInsulting)}`;
+   const adjective = C.chance(75) ? C.arrGetRandom(DS.adjAcceptedInsulting) + ' ' : '';
+   return `${adjective}${C.arrGetRandom(DS.nounsAcceptedInsulting)}`;
 }
 
 module.exports.genPersonalInsult = genPersonalInsult;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function genAccuracy(capitalize = false) {
-   const result = C.arrGetRandom(AC.arrayAccuracy) + ' ';
+   const result = C.arrGetRandom(DS.termsAccuracy) + ' ';
 
    return capitalize ? C.strCapitalizeFirstLetter(result) : result;
 }
 
 module.exports.genAccuracy = genAccuracy;
 
-// OK---------------------------------------------------------------------------------------------------------------
-function genFunnyEnding(endingChar = '.') {
-   return (C.chance(25) ? ', ' + C.arrGetRandom(AC.arrayAdditionalFunnyWords) : '') + endingChar;
+//------------------------------------------------------------------------------------------------------------------
+function genFunnyEnding(endingChar = '.', chanceForEnding = 25) {
+   if (C.checkIfNumber(chanceForEnding))
+      return (C.chance(chanceForEnding) ? `, ${C.arrGetRandom(DC.additionalFunnyWords)}` : '') + endingChar;
 }
 
 module.exports.genFunnyEnding = genFunnyEnding;
@@ -57,7 +61,17 @@ module.exports.genFunnyEnding = genFunnyEnding;
 
 
 //----------------------------------------------------------- MODIFICATION ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+function addFunnyEnding(sentence) {
+   if (!C.checkIfString(sentence))
+      return;
+
+   return C.chance(25) ? `${sentence.slice(0, -1)}, ${C.arrGetRandom(DC.additionalFunnyWords)}${sentence.slice(sentence.length - 1)}` : sentence;
+}
+
+module.exports.addFunnyEnding = addFunnyEnding;
+
+//------------------------------------------------------------------------------------------------------------------
 function addFunnyEndingToAll(arraySentences, endingChar = '.') {
    if (!C.checkIfArray(arraySentences))
       return;

@@ -1,6 +1,5 @@
-const { dcRespondToMsg } = require('../../modules/common.js');
-const { resWho } = require('../../modules/responses.js');
-
+const C = require('../../modules/common.js');
+const R = require('../../modules/responses.js');
 
 module.exports = {
    name: 'who',
@@ -8,6 +7,6 @@ module.exports = {
    usage: '',
    example: 'is Tosch\'s favourite person?',
    execute(message, args) {
-      dcRespondToMsg(message, resWho());
+      C.dcRespondToMsg(message, R.resWho());
    },
 }

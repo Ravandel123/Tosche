@@ -87,7 +87,7 @@ module.exports = {
 };
 
 //----------------------------------------------------------- FUNCTIONS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfThreadIsFishingSpot(thread) {
    if (!C.dcCheckIfThread(thread))
       return;
@@ -98,14 +98,14 @@ function checkIfThreadIsFishingSpot(thread) {
 
 module.exports.checkIfThreadIsFishingSpot = checkIfThreadIsFishingSpot;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getAllFishingLocations() {
    return C.arrConvertToUnqiue(arrFishingSpots.map(e => e.area));
 }
 
 module.exports.getAllFishingLocations = getAllFishingLocations;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getFishingSpotsForArea(areaName) {
    if (C.checkIfExists(areaName))
       return arrFishingSpots.filter(e => C.strCompare(e.area, areaName));
@@ -113,7 +113,7 @@ function getFishingSpotsForArea(areaName) {
 
 module.exports.getFishingSpotsForArea = getFishingSpotsForArea;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getFishingSpot(areaName, spotName) {
    if (C.checkIfExists(areaName) && C.checkIfExists(spotName))
       return arrFishingSpots.find(e => e.area == areaName && e.name == spotName);
@@ -121,7 +121,7 @@ function getFishingSpot(areaName, spotName) {
 
 module.exports.getFishingSpot = getFishingSpot;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getFishingSpotFromThread(thread) {
    if (C.dcCheckIfThread(thread))
       return getFishingSpot(thread.parent.name, thread.name);
@@ -129,23 +129,39 @@ function getFishingSpotFromThread(thread) {
 
 module.exports.getFishingSpotFromThread = getFishingSpotFromThread;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+function getFishById(fishId) {
+   return arrFish.find(e => e.id == fishId);
+}
+
+module.exports.getFishById = getFishById;
+
+//------------------------------------------------------------------------------------------------------------------
+function getFishNameById(fishId) {
+   return getFishById(fishId)?.name;
+}
+
+module.exports.getFishNameById = getFishNameById;
+//------------------------------------------------------------------------------------------------------------------
 function generateRandomFishFromSpot(fishingSpot) {
    const fish = getRandomFishFromSpot(fishingSpot);
 
-   if (fish)
-      return {
-         name: fish.name,
-         weight: C.rndBetween(fish.minWeight, fish.avgWeight, 2)
-      }
+   fish.data = {
+      id: fish.id,
+      weight: C.rndBetween(fish.minWeight, fish.avgWeight, 2)
+   };
+
+   return fish;
 }
 
 module.exports.generateRandomFishFromSpot = generateRandomFishFromSpot;
 
 
 //----------------------------------------------------------- INTERNAL ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getRandomFishFromSpot(fishingSpot) {
    const fishID = C.arrRandomFromFrequency(fishingSpot.fish, `id`, `prevalence`);
    return arrFish.find(e => e.id == fishID);
 }
+//---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

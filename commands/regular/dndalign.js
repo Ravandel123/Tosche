@@ -8,6 +8,6 @@ module.exports = {
    example: 'Tosche',
    execute(message, args) {
       const who = C.recognizeWhoFullText(args[1], message, args[0]);
-      C.dcRespondFromArray(message, R.resDndalign(who));
+      C.dcRespondToMsg(message, R.resDndalign(who));
    },
 }

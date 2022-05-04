@@ -1,8 +1,12 @@
+const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
+
 const R = require('./responses.js');
 
+"use strict";
+
 //----------------------------------------------------------- MAIN -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function showCommands(commands, message, commandName, prefix, groupName) {
    let data;
 
@@ -17,16 +21,24 @@ async function showCommands(commands, message, commandName, prefix, groupName) {
       const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
       if (!command)
-         return C.dcReplyToMsg(message, `that's not a valid command!`);
+         return C.dcReplyToMsg(message, `That's not a valid command!`);
 
       data = `**Name:** ${command.name}\n`;
 
-      if (command.aliases) data += `**Aliases:** ${command.aliases.join(', ')}\n`;
-      if (command.cooldown) data += `**Cooldown:** ${command.cooldown}\n`;
-      if (command.description) data += `**Description:** ${command.description}\n`;
-      if (command.usage) data += `**Usage:** ${prefix}${command.name} ${command.usage}\n`;
-      if (command.example) data += `**Example 1:** ${prefix}${command.name} ${command.example}\n`;
-      if (command.otherexample) data += `**Example 2:** ${prefix}${command.name} ${command.otherexample}\n`;
+      if (command.aliases)
+         data += `**Aliases:** ${command.aliases.join(', ')}\n`;
+      if (command.description)
+         data += `**Description:** ${command.description}\n`;
+      if (command.requirements)
+         data += `**Requirements:** ${command.requirements}\n`;
+      if (command.cooldown)
+         data += `**Cooldown:** ${command.cooldown}\n`;
+      if (command.usage)
+         data += `**Usage:** ${prefix}${command.name} ${command.usage}\n`;
+      if (command.example) {
+         const exampleTemplate = `**Example:** ${prefix}${command.name} `;
+         data += exampleTemplate + (C.checkIfArray(command.example) ? command.example.join(`\n${exampleTemplate}`) : `${command.example}\n`);
+      }
 
       C.dcRespondToMsg(message, data);
    }
@@ -34,55 +46,31 @@ async function showCommands(commands, message, commandName, prefix, groupName) {
 
 module.exports.showCommands = showCommands;
 
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+function dcValidateForBannedWords(message) {
+   if (!C.dcCheckIfMessage(message))
+      return;
 
-
-//----------------------------------------------------------- GETTERS -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function getUserFromNameOrMention(message, string) {
-   let userID = C.dcGetMemberIDFromMention(string);
-
-   if (!userID) {
-      const members = C.dcGetAllMembersByNick(message, string);
-      if (checkFoundMembers(message, members))
-         userID = members.at(0).id;
+   const messageContent = C.strToLowerCase(message.content);
+   const messageText = C.strRemoveAllSpecialChars(messageContent);
+   if (C.strCheckIfContainsAny([messageContent, messageText], SETTINGS.bannedWords)) {
+      C.dcRespondToMsg(message, `Oops, it looks like you said a forbidden word ${message.author}!`);
+      message.delete();
+      return false;
    }
 
-   return userID;
+   return true;
 }
 
-module.exports.getUserFromNameOrMention = getUserFromNameOrMention;
+module.exports.dcValidateForBannedWords = dcValidateForBannedWords;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 //----------------------------------------------------------- CHECKERS -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function checkFoundMembers(message, membersCollection) {
-   if (!C.dcCheckIfCollection(membersCollection))
-      return;
-
-   const membersAmount = membersCollection.size;
-
-   if (membersAmount == 0) {
-      C.dcReplyToMsg(message, `No users found!`);
-   } else if (membersAmount > 1) {
-      let msg = `Found more than 1 user!\nUsers found: `;
-      const memberNames = membersCollection.map(e => e.displayName);
-
-      memberNames.forEach(e => msg += `${e}; `);
-
-      C.dcSendMsg(message, msg, 'reply');
-   } else {
-      return true;
-   }
-}
-
-module.exports.checkFoundMembers = checkFoundMembers;
-
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkArgsAmount(message, args, requiredArgs) {
    if (!C.checkIfArray(args) || !C.checkIfArray(requiredArgs))
       return;
@@ -104,7 +92,7 @@ function checkArgsAmount(message, args, requiredArgs) {
 
 module.exports.checkArgsAmount = checkArgsAmount;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfArgIsNumber(message, argument) {
    if (!C.dcCheckIfMessage(message))
       return;
@@ -121,7 +109,7 @@ function checkIfArgIsNumber(message, argument) {
 
 module.exports.checkIfArgIsNumber = checkIfArgIsNumber;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfArgIsNaturalNumber(message, argument) {
    if (!C.dcCheckIfMessage(message))
       return;
@@ -138,7 +126,7 @@ function checkIfArgIsNaturalNumber(message, argument) {
 
 module.exports.checkIfArgIsNaturalNumber = checkIfArgIsNaturalNumber;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfArgIsNaturalNumberInScope(message, argument, min, max) {
    if (!C.dcCheckIfMessage(message))
       return;
@@ -156,3 +144,14 @@ function checkIfArgIsNaturalNumberInScope(message, argument, min, max) {
 module.exports.checkIfArgIsNaturalNumberInScope = checkIfArgIsNaturalNumberInScope;
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- MAIN -----------------------------------------------------------
+// showCommands(commands, message, commandName, prefix, groupName)
+// dcValidateForBannedWords(message)
+
+//----------------------------------------------------------- CHECKERS -----------------------------------------------------------
+// checkArgsAmount(message, args, requiredArgs)
+// checkIfArgIsNumber(message, argument)
+// checkIfArgIsNaturalNumber(message, argument)
+// checkIfArgIsNaturalNumberInScope(message, argument, min, max)

@@ -8,6 +8,7 @@ module.exports = {
    usage: '',
    example: 'Tosche the best?',
    execute(message, args) {
-      C.dcRespondFromArray(message, R.resIs());
+
+      C.dcRespondToMsg(message, R.resIs());
    },
 }

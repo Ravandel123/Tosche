@@ -1,0 +1,15 @@
+node_modules/
+
+package-lock.json
+
+logs/
+*.log
+npm-debug.log*
+
+.env
+
+*.bak
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.jsonnfo

@@ -1,24 +1,51 @@
-const { Client, Intents, Collection } = require('discord.js');
+require('dotenv').config();
+const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 const FS = require('fs');
 const Mongoose = require('mongoose');
-const Config = require('./config.json');
+const CONFIG = require('./config.json');
 const CRON = require('node-cron');
 const DB = require('./modules/db.js');
+const CG = require('./modules/commonGuild.js');
+const CL_GD = require('./classes/guildData.js');
 
 const client = new Client({
-    partials: ['USER', 'MESSAGE', 'GUILD_MEMBER', 'CHANNEL', 'REACTION'],
-    intents: 32767,
+   intents: [
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildModeration,
+      GatewayIntentBits.GuildEmojisAndStickers,
+      // GatewayIntentBits.GuildIntegrations,
+      // GatewayIntentBits.GuildWebhooks,
+      // GatewayIntentBits.GuildInvites,
+      // GatewayIntentBits.GuildVoiceStates,
+      GatewayIntentBits.GuildPresences,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildMessageReactions,
+      GatewayIntentBits.GuildMessageTyping,
+      GatewayIntentBits.DirectMessages,
+      GatewayIntentBits.DirectMessageReactions,
+      GatewayIntentBits.DirectMessageTyping,
+      GatewayIntentBits.MessageContent
+      // GatewayIntentBits.GuildScheduledEvents,
+      // GatewayIntentBits.AutoModerationConfiguration,
+      // GatewayIntentBits.AutoModerationExecution,
+   ],
+   partials: [
+      Partials.Channel,
+      Partials.Guild,
+      Partials.GuildMember,
+      Partials.Message,
+      Partials.Reaction,
+      Partials.ThreadMember,
+      Partials.User
+   ],
 });
 
 const gBotOwner = '392728479696814092';
 const GUriString = process.env.MONGODB_URI;
-const gData = {
-   arena : {
-      fightInProgress: false
-    },
-}
 
-client.data = gData;
+client.data = new CL_GD.GlobalServerData();
+
 client.commands = new Collection();
 client.commandsRP = new Collection();
 client.commandsG = new Collection();
@@ -52,52 +79,38 @@ for (const file of commandFilesM) {
    client.commandsM.set(command.name, command);
 }
 
+//----------------------------------------DB----------------------------------------
+
 //mongodb+srv://ravandel:dawidson123@cluster0-enjdy.mongodb.net/testdb?retryWrites=true&w=majority
 Mongoose.connect(GUriString, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, res) {
-   if(err)
-      console.log('ERROR connecting to: ' + GUriString + '. ' + err);
-   else
-      console.log('Succeeded connected to: ' + GUriString);
+   if (err) {
+    console.log('ERROR connecting to: ' + GUriString + '. ' + err);
+   } else {
+    console.log(`Successfully connected to the database.`);
+   }
 })
 
+//----------------------------------------Main----------------------------------------
+//Move this function at the bottom after cleanup of bot.js
 //https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
 async function startUp() {
    for (const file of eventFiles) {
       const event = require(`./events/${file}`);
 
-      if (event.once) {
+      if (event.once)
          client.once(event.name, (...args) => event.execute(...args, client));
-      } else {
+      else
          client.on(event.name, (...args) => event.execute(...args, client));
-      }
    }
 }
 
+console.log(`----------------------------------------------------------------------------------------------------`);
+
 startUp();
 
-// https://stackoverflow.com/questions/17039018/how-to-use-a-variable-as-a-field-name-in-mongodb-native-findone
 CRON.schedule('0 * * * *', async () => {
-   await DB.gModifyActionPointsForAll(1);
+   CG.mainUpdate1h(client);
 });
-
-// 0 * * * *
-
-// client.on('interactionCreate', interaction => {
-   // if (!interaction.isButton()) return;
-   // console.log(interaction);
-// });
-
-// CRON.schedule('* * * * *', () => {
-   // console.log('TEST CRON EVERY MINUTE');
-// });
-
-// CRON.schedule('4 * * * *', () => {
-   // console.log('TEST CRON EVERY 4TH MINUTE');
-// });
-
-
-
-
 
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
@@ -109,19 +122,16 @@ client.on('messageCreate', message => {
    if (message.guild == null && !message.author.bot && message.author.id != gBotOwner)
       client.users.cache.get(gBotOwner).send('**' + message.author.username + '** (' + message.author.id + ') sent a message:\n' + message.content)
 
-   if (!message.content.startsWith(Config.prefix)) return
+   if (!message.content.startsWith(CONFIG.prefix)) return
 
-   const args = message.content.slice(Config.prefix.length).trim().split(/ +/g)
+   const args = message.content.slice(CONFIG.prefix.length).trim().split(/ +/g)
    const command = args.shift().toLowerCase()
    var arguments = message.content.split(/[ ]+/)
-   var rollValue
    var response
    var responseList
    var responseList1
    var responseList2
    var specialList
-   var multiplier
-   var multiplierBig
    var i
   
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -265,7 +275,7 @@ client.on('messageCreate', message => {
   //-----People------------------------------------------------------------------------------------------------------------------------------------------------------
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  var serverPeopleList = ['VVooly', 'Dagos', 'Dinly', 'Me', 'Ravandel', 'Catz', 'You']
+  var serverPeopleList = ['Nachtkind', 'Laanar', 'Dinly', 'Me', 'Ravandel', 'Catz', 'You']
   
   var dictatorsPeopleList = [
   'Asha', 'Ashtor', 'Beck', 'Bevan', 'Cain', 'Clovis', 'Crim', 'Dakkan', 'Eira', 'Hardin', 'Janik', 'Kenosh',
@@ -301,7 +311,7 @@ client.on('messageCreate', message => {
   'Cannibalistic', 'Crazy',
   'Degenerate', 'Delusional', 'Depressive', 'Destructive', 'Deviant', 'Dumb',
   'Feral', 'Ferocious', 'Foolish', 'Furious', 'Furry',
-  'Heartless', 'Horny', 
+  'Heartless',
   'Idiotic', 'Imbecilic', 'Inane', 'Insane', 
   'Lazy', 
   'Maniacal', 'Mindless', 'Murderous', 'Mutantic',
@@ -384,7 +394,7 @@ client.on('messageCreate', message => {
   //-----Adverbs-----------------------------------------------------------------------------------------------------------------------------------------------------
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  var baseAdverbsList = [
+  var advBase = [
   'Absentmindedly', 'Absolutely', 'Abstractedly', 'Abundantly', 'Adoringly', 'Aggressively', 'Attractively', 'Awkwardly',
   'Beautifully', 'Briskly', 'Brutally',
   'Cannibalistically', 'Carefully', 'Cautiously', 'Cheerfully', 'Cheerily', 'Competitively', 'Completely', 'Conservatively', 'Contritely', 'Copiously', 'Correctly', 'Cosmically',
@@ -551,7 +561,6 @@ client.on('messageCreate', message => {
   'Survival is a tenuous proposition in this sprawling tomb.',
   'More blood soaks the soil, feeding the evil therein.',
   'Another life wasted in the pursuit of glory and gold.',
-  'This is no place for the weak, or the foolhardy.',
   'This is no place for the weak, or foolhardy.',
   'More dust, more ashes, more disappointment.'
   ]
@@ -614,7 +623,7 @@ client.on('messageCreate', message => {
 
   var placeMainList = [
   'Abbey', 'Altar', 'Amphitheater', 'Arena',
-  'Basement', 'Barrens',
+  'Basement', 'Barren',
   'Cartel', 'Cave', 'Citadel', 'City', 'Chamber', 'Cliffs', 'Colosseum', 'Cornfield',
   'Den', 'Desert', 'Dojo', 'Dungeon',
   'Encampment',
@@ -733,120 +742,7 @@ client.on('messageCreate', message => {
   
    
 
-  switch (command) 
-  {
-      case 'xd':
-      
-         //message.channel.send(`${message.author.id} <@!${message.author.id}>`)
-         //client.users.cache.get(gBotOwner).send(`${message.author} has arrived!`)
-         //client.users.cache.get(arguments[1]).send(arguments[2])
-         client.users.cache.get(arguments[1]).send(message.content.slice(Config.prefix.length + command.length + arguments[1].length + 1))
-
-         break
-
-      case 'dx':
-         client.channels.cache.find(channel => channel.name === arguments[1]).send(message.content.slice(Config.prefix.length + command.length + arguments[1].length + 1))
-      
-         break
-
-      case 'xxx':
-         message.channel.send(`${message.author.displayAvatarURL({ dynamic: true })}`)
-         // console.log(arguments[1])
-      break
-      
-      
-      case 'jaildagos':
-
-      var rolePrisoner = message.guild.roles.cache.find(r => r.name === 'Prisoner')
-      var roleComrade = message.guild.roles.cache.find(r => r.name === 'Comrade')
-      var dagos = message.guild.members.cache.get('762466250189307966')
-
-      var senderID = message.author.id
-
-      if (senderID == '380485376759824385' || senderID == '392728479696814092' || senderID == '762466250189307966' || senderID == '553959824577134593')
-      {
-         dagos.roles.add(rolePrisoner).catch(console.error)
-         dagos.roles.remove(roleComrade).catch(console.error)
-
-         let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
-         channel.send(`Welcome back ${dagos}! ^^`)
-      }
-      else
-         message.channel.send('https://tenor.com/view/abraxas-lotr-lord-of-the-rings-power-rohan-king-gif-14050384')
-
-      break
-      
-
-      //------------------------------------------------------------------
-      case 'jailcatz':
-
-      var rolePrisoner = message.guild.roles.cache.find(r => r.name === 'Prisoner')
-      var roleComrade = message.guild.roles.cache.find(r => r.name === 'Comrade')
-      var catz = message.guild.members.cache.get('355719279967993856')
-      var guest = message.guild.members.cache.get('554696495190769692')
-
-      var senderID = message.author.id
-
-      //if (senderID == '762466250189307966' || senderID == '392728479696814092' || senderID == '554696495190769692')
-      //{
-      //   catz.roles.add(rolePrisoner).catch(console.error)
-      //   catz.roles.remove(roleComrade).catch(console.error)
-
-      //   let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
-      //   channel.send(`Welcome to our dungeon, my dear ${catz}! ^^`)
-      //}
-      //else
-      //   message.channel.send('https://tenor.com/view/abraxas-lotr-lord-of-the-rings-power-rohan-king-gif-14050384')
-      message.channel.send('There is no person named Catz, lol noob.')
-
-      break
-     
-     //------------------------------------------------------------------
-     case 'unjaildagos':
-
-      var rolePrisoner = message.guild.roles.cache.find(r => r.name === 'Prisoner')
-      var roleComrade = message.guild.roles.cache.find(r => r.name === 'Comrade')
-      var dagos = message.guild.members.cache.get('762466250189307966')
-      var guest = message.guild.members.cache.get('554696495190769692')
-      var senderID = message.author.id
-
-      if (senderID == '380485376759824385' || senderID == '392728479696814092' || senderID == '553959824577134593')
-      {
-         dagos.roles.add(roleComrade).catch(console.error)
-         dagos.roles.remove(rolePrisoner).catch(console.error)
-
-         let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
-         channel.send(`Enough of your rotting here, get some fresh air before the next visit ${dagos}!`)
-      }
-      else
-         message.channel.send('https://i.imgur.com/oS67pzi.png')
-
-      break
-     
-     //------------------------------------------------------------------
-     case 'unjailcatz':
-
-      var rolePrisoner = message.guild.roles.cache.find(r => r.name === 'Prisoner')
-      var roleComrade = message.guild.roles.cache.find(r => r.name === 'Comrade')
-      var catz = message.guild.members.cache.get('355719279967993856')
-      var guest = message.guild.members.cache.get('554696495190769692')
-      var senderID = message.author.id
-
-      //if (senderID == '380485376759824385' || senderID == '392728479696814092')
-      //{
-      //   catz.roles.add(roleComrade).catch(console.error)
-      //   catz.roles.remove(rolePrisoner).catch(console.error)
-
-      //   let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
-      //   channel.send(`Enough of your rotting here, get some fresh air before the next visit ${catz}!`)
-      //}
-      //else
-      //   message.channel.send('https://i.imgur.com/oS67pzi.png')
-
-      break
-     
-     
-     
+  switch (command) {
     //----------------------------------------------------------------------------------------------------------------------------
     //----------ambush------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------------------
@@ -1311,474 +1207,6 @@ client.on('messageCreate', message => {
       message.channel.send(ReturnRandom(array1))
       break;
 
-    //---------------------------------------------------------------------------------------------------------------------------
-    //-----peril-----------------------------------------------------------------------------------------------------------------
-    //---------------------------------------------------------------------------------------------------------------------------
-    case 'peril':
-      if (arguments[1] == null)
-      {
-        rollValue = Math.floor(Math.random() * 3);
-        rollValue = rollValue + 3;
-      }
-      else
-        rollValue = arguments[1];
-
-      armellDiceAmount = RollArmelloDices(rollValue);
-      message.channel.send('Peril: [Rot: ' + armellDiceAmount[0] + ', Sword: ' + armellDiceAmount[1] + ', Sun: ' + armellDiceAmount[2] + ', Moon: ' + armellDiceAmount[3] + ', Shield: ' + armellDiceAmount[4] + ', Wyld: ' + armellDiceAmount[5] + ']')
-      break;
-      
-    //---------------------------------------------------------------------------------------------------------------------------
-    //-----pic----------------------------------------------------------
-    //---------------------------------------------------------------------------------------------------------------------------
-    case 'pic':
-      var linkToPic;
-      
-      switch(arguments[1])
-      {
-        case 'kidding':
-          linkToPic = 'https://i.imgur.com/8lJPYe4.png';
-          break;
-          
-        case 'bait':
-          linkToPic = 'https://i.imgur.com/cbqQp0Y.png';
-          break;
-          
-        case 'idontgetit':
-          linkToPic = 'https://i.imgur.com/rVzWUTn.png';
-          break;
-          
-        case 'jackie':
-          linkToPic = 'https://i.imgur.com/hbdTAl8.png';
-          break;
-          
-        case 'noob':
-          linkToPic = 'https://i.imgur.com/NU3XxPO.png';
-          break;
-          
-        case 'throw':
-          linkToPic = 'https://i.imgur.com/9Jnf496.png';
-          break;
-          
-        case 'dosomething':
-          linkToPic = 'https://i.imgur.com/b1wvo8w.png';
-          break;
-          
-        case 'concerned':
-          linkToPic = 'https://i.imgur.com/2wQTVwd.png';
-          break;
-          
-        case 'trollface':
-          linkToPic = 'https://i.imgur.com/RMHWix2.png';
-          break;
-          
-        case 'sad':
-          linkToPic = 'https://i.imgur.com/MznCnvD.png';
-          break;
-          
-        case 'megusta':
-          linkToPic = 'https://i.imgur.com/FogG79P.png';
-          break;
-          
-        case 'truestory':
-          linkToPic = 'https://i.imgur.com/9uTkseS.png';
-          break;
-          
-        case 'impossibru':
-          linkToPic = 'https://i.imgur.com/PRQABCC.png';
-          break;
-          
-        case 'bsmeter':
-          linkToPic = 'https://i.imgur.com/WulIVtE.png';
-          break;
-          
-        case 'nope':
-          linkToPic = 'https://i.imgur.com/jJTZIm0.png';
-          break;
-          
-        case 'cute':
-          linkToPic = 'https://i.imgur.com/BOKeJOG.png';
-          break;
-
-        case 'drakeyes':
-          linkToPic = 'https://i.imgur.com/5ZITUta.png';
-          break;
-          
-        case 'confused':
-          linkToPic = 'https://i.imgur.com/DVQvh46.png';
-          break;
-          
-        case 'seemslegit':
-          linkToPic = 'https://i.imgur.com/vCCXGeB.png';
-          break;
-          
-        case 'chuckok':
-          linkToPic = 'https://i.imgur.com/UZBv7Zc.png';
-          break;
-          
-        case 'pokerface':
-          linkToPic = 'https://i.imgur.com/zjmq40J.png';
-          break;
-          
-        case 'dude':
-          linkToPic = 'https://i.imgur.com/9FiB5OP.png';
-          break;
-          
-        case 'obvious':
-          linkToPic = 'https://i.imgur.com/CixYqts.png';
-          break;
-          
-        case 'iamout':
-          linkToPic = 'https://i.imgur.com/mHpudgf.png';
-          break;
-          
-        case 'fairenough':
-          linkToPic = 'https://i.imgur.com/HJi9wjU.png';
-          break;
-          
-        case 'facepalm':
-          linkToPic = 'https://i.imgur.com/eLUsk9d.png';
-          break;
-          
-        case 'doubt':
-          linkToPic = 'https://i.imgur.com/xBFh4Te.png';
-          break;
-          
-        case 'goodjob':
-          linkToPic = 'https://i.imgur.com/F2n0KMt.png';
-          break;
-          
-        case 'yeah':
-          linkToPic = 'https://i.imgur.com/JA3doBb.png';
-          break;
-
-        case 'cool':
-          linkToPic = 'https://i.imgur.com/cVRVmyf.png';
-          break;
-          
-        case 'bplease':
-          linkToPic = 'https://i.imgur.com/kHV47Ou.png';
-          break;
-          
-        case 'wtf':
-          linkToPic = 'https://i.imgur.com/OV8c83R.png';
-          break;
-          
-        case 'arnielikes':
-          linkToPic = 'https://i.imgur.com/9d6X5R1.png';
-          break;
-          
-        case 'doitnow':
-          linkToPic = 'https://i.imgur.com/EckwoVF.png';
-          break;
-          
-        case 'what':
-          linkToPic = 'https://i.imgur.com/vsr0rjs.png';
-          break;
-
-        case 'mickey':
-          linkToPic = 'https://i.imgur.com/tR7VZE0.png';
-          break;
-          
-        case 'attack':
-          linkToPic = 'https://i.imgur.com/YjHRiJv.png';
-          break;
-          
-        case 'sinister':
-          linkToPic = 'https://i.imgur.com/9hlYrxY.png';
-          break;
-          
-        case 'drakeno':
-          linkToPic = 'https://i.imgur.com/w1kTtJA.png';
-          break;
-          
-        case 'xd':
-          linkToPic = 'https://i.imgur.com/Fyup5xA.png';
-          break;
-          
-        case 'smart':
-          linkToPic = 'https://i.imgur.com/VefDNlk.png';
-          break;
-
-        case 'mellikes':
-          linkToPic = 'https://i.imgur.com/LGCsLMV.png';
-          break;
-          
-        case 'parkerlikes':
-          linkToPic = 'https://i.imgur.com/K8Dyg6e.png';
-          break;
-          
-        case 'angry':
-          linkToPic = 'https://i.imgur.com/nkUiuSU.png';
-          break;
-          
-        case 'pulpfictionlikes':
-          linkToPic = 'https://i.imgur.com/ev7uVuY.png';
-          break;
-          
-        case 'trap':
-          linkToPic = 'https://i.imgur.com/sBDvybj.png';
-          break;
-          
-        case 'wall':
-          linkToPic = 'https://i.imgur.com/uqZPyK5.png';
-          break;
-
-        case 'prehistory':
-          linkToPic = 'https://i.imgur.com/ETPzsbH.png';
-          break;
-          
-        case 'throwanother':
-          linkToPic = 'https://i.imgur.com/u6IwHm9.png';
-          break;
-          
-        case 'krillin':
-          linkToPic = 'https://i.imgur.com/duiEzEQ.png';
-          break;
-          
-        case 'keanu':
-          linkToPic = 'https://i.imgur.com/LLnZqPk.png';
-          break;
-          
-        case 'dontwannalive':
-          linkToPic = 'https://i.imgur.com/IRbUTj2.png';
-          break;
-          
-        case 'charliecocaine':
-          linkToPic = 'https://i.imgur.com/OZqdJcg.png';
-          break;
-
-        case 'trollorstupid':
-          linkToPic = 'https://i.imgur.com/5jXnVLw.png';
-          break;
-          
-        case 'itsatrap':
-          linkToPic = 'https://i.imgur.com/VPvC9jk.png';
-          break;
-          
-        case 'nopower':
-          linkToPic = 'https://i.imgur.com/oS67pzi.png';
-          break;
-          
-        case 'bsintensifies':
-          linkToPic = 'https://i.imgur.com/OSNCumq.png';
-          break;
-          
-        case 'pasta':
-          linkToPic = 'https://i.imgur.com/gd3Lx1T.png';
-          break;
-          
-        case 'mythbusters':
-          linkToPic = 'https://i.imgur.com/lETdU4E.png';
-          break;
-
-        case 'xzibit':
-          linkToPic = 'https://i.imgur.com/bRXSiBb.png';
-          break;
-          
-        case '10score':
-          linkToPic = 'https://i.imgur.com/I9CTKlr.png';
-          break;
-          
-        case 'doublelikes':
-          linkToPic = 'https://i.imgur.com/ph18a49.png';
-          break;
-          
-        case 'genius':
-          linkToPic = 'https://i.imgur.com/PPx5BLM.png';
-          break;
-          
-        case 'sweating':
-          linkToPic = 'https://i.imgur.com/acWwV40.png';
-          break;
-          
-        case 'rambolikes':
-          linkToPic = 'https://i.imgur.com/XvJ83ih.png';
-          break;
-
-        case 'orbital':
-          linkToPic = 'https://i.imgur.com/gNucxNw.png';
-          break;
-
-        case 'crossover':
-          linkToPic = 'https://i.imgur.com/pQljlNR.png';
-          break;
-          
-        case 'offend':
-          linkToPic = 'https://i.imgur.com/2TkYGXE.png';
-          break;
-
-        case 'doesntaffect':
-          linkToPic = 'https://i.imgur.com/f96tYIG.png';
-          break;
-          
-        case 'propaganda':
-          linkToPic = 'https://i.imgur.com/eJPlUkk.png';
-          break;
-          
-        case 'babyyeah':
-          linkToPic = 'https://i.imgur.com/QKp0hq6.png';
-          break;
-          
-        case 'wrong':
-          linkToPic = 'https://i.imgur.com/Ea3ztjf.png';
-          break;
-          
-        case 'worsttrade':
-          linkToPic = 'https://i.imgur.com/pBkajpu.png';
-          break;
-          
-        case 'terminatorlikes':
-          linkToPic = 'https://i.imgur.com/edpMSyL.png';
-          break;
-
-        case 'dafuq':
-          linkToPic = 'https://i.imgur.com/fZPrp8Z.png';
-          break;
-
-        case 'beating':
-          linkToPic = 'https://i.imgur.com/clP1SJf.png';
-          break;
-          
-        case 'booze':
-          linkToPic = 'https://i.imgur.com/Hh58h6B.png';
-          break;
-
-        case 'mcmahon1':
-          linkToPic = 'https://i.imgur.com/wqSZgQN.png';
-          break;
-          
-        case 'mcmahon2':
-          linkToPic = 'https://i.imgur.com/VBJqzAJ.png';
-          break;
-          
-        case 'mcmahon3':
-          linkToPic = 'https://i.imgur.com/BTVb9Kq.png';
-          break;
-          
-        case 'adapt':
-          linkToPic = 'https://i.imgur.com/DlBYayG.png';
-          break;
-          
-        case 'evilestthing':
-          linkToPic = 'https://i.imgur.com/lWWgZ8s.png';
-          break;
-          
-        case 'laugh':
-          linkToPic = 'https://i.imgur.com/O1aCpTA.png';
-          break;
-
-        case 'summon':
-          linkToPic = 'https://i.imgur.com/Rpn7Q8e.png';
-          break;
-          
-        case 'shotgun':
-          linkToPic = 'https://i.imgur.com/qr1upDI.png';
-          break;
-          
-        case 'barbaric':
-          linkToPic = 'https://i.imgur.com/Ml1uB28.png';
-          break;
-        
-        case 'justdoit':
-          linkToPic = 'https://i.imgur.com/yE6Q5fv.png';
-          break;
-          
-        default:
-          linkToPic = 'Available pics!\n' +
-          '**kidding**\n'+
-          '**doubt**\n'+
-          '**bait**\n'+
-          '**idontgetit**\n'+
-          '**jackie**\n'+
-          '**noob**\n'+
-          '**throw**\n'+
-          '**dosomething**\n'+
-          '**concerned**\n'+
-          '**trollface**\n'+
-          '**sad**\n'+
-          '**megusta**\n'+
-          '**truestory**\n'+
-          '**impossibru**\n'+
-          '**bsmeter**\n'+
-          '**nope**\n'+
-          '**cute**\n'+
-          '**drakeyes**\n'+
-          '**confused**\n'+
-          '**seemslegit**\n'+
-          '**chuckok**\n'+
-          '**pokerface**\n'+
-          '**dude**\n'+
-          '**obvious**\n'+
-          '**iamout**\n'+
-          '**fairenough**\n'+
-          '**facepalm**\n'+
-          '**goodjob**\n'+
-          '**yeah**\n'+
-          '**cool**\n'+
-          '**bplease**\n'+
-          '**wtf**\n'+
-          '**arnielikes**\n'+
-          '**doitnow**\n'+
-          '**what**\n'+
-          '**mickey**\n'+
-          '**attack**\n'+
-          '**sinister**\n'+
-          '**drakeno**\n'+
-          '**xd**\n'+
-          '**smart**\n'+
-          '**mellikes**\n'+
-          '**parkerlikes**\n'+
-          '**angry**\n'+
-          '**pulpfictionlikes**\n'+
-          '**trap**\n'+
-          '**wall**\n'+
-          '**prehistory**\n'+
-          '**throwanother**\n'+
-          '**krillin**\n'+
-          '**keanu**\n'+
-          '**dontwannalive**\n'+
-          '**charliecocaine**\n'+
-          '**trollorstupid**\n'+
-          '**itsatrap**\n'+
-          '**nopower**\n'+
-          '**bsintensifies**\n'+
-          '**pasta**\n'+
-          '**mythbusters**\n'+
-          '**xzibit**\n'+
-          '**10score**\n'+
-          '**doublelikes**\n'+
-          '**genius**\n'+
-          '**sweating**\n'+
-          '**rambolikes**\n'+
-          '**orbital**\n'+
-          '**crossover**\n'+
-          '**offend**\n'+
-          '**doesntaffect**\n'+
-          '**propaganda**\n'+
-          '**babyyeah**\n'+
-          '**wrong**\n'+
-          '**worsttrade**\n'+
-          '**terminatorlikes**\n'+
-          '**dafuq**\n'+
-          '**beating**\n'+
-          '**booze**\n'+
-          '**mcmahon1**\n'+
-          '**mcmahon2**\n'+
-          '**mcmahon3**\n'+
-          '**adapt**\n'+
-          '**evilestthing**\n'+
-          '**laugh**\n'+
-          '**summon**\n'+
-          '**shotgun**\n'+
-          '**barbaric**\n'+
-          '**justdoit**\n'
-          ;
-          break;
-      }
-      
-      message.channel.send(linkToPic)
-      break;
-    
     //----------------------------------------------------------------------------------------------------------------------------
     //----------race------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------------------
@@ -1847,7 +1275,7 @@ client.on('messageCreate', message => {
       'Lol, no one cares anyway.',
       'And you made ' + ReturnRandom(peopleAllList) + ' cry' + additionalLol + '.',
       Rnd(100) + ' ' + GenerateRandomAnimal() + ' died because of that' + additionalLol + '.',
-      'That information just made me ' + ReturnRandom(baseAdverbsList) + ' ' + ReturnRandom(adjectivesAfflictionsVirtuesList) + additionalLol + '.',
+      'That information just made me ' + ReturnRandom(advBase) + ' ' + ReturnRandom(adjectivesAfflictionsVirtuesList) + additionalLol + '.',
       'That information just made me ' + ReturnRandom(adjectivesAfflictionsVirtuesList) + additionalLol + '.',
       'You need to visit ' + GenerateRandomPlace() + ' in order to get better' + additionalLol + '.',
       'That problem looks ' + GenerateRandomSize() + additionalLol + '.'
@@ -1863,130 +1291,7 @@ client.on('messageCreate', message => {
           message.channel.send(ReturnRandom(responseList2))
       }
       break;
-      
-    //----------------------------------------------------------------------------------------------------------------------------
-    //----------rate------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------------------
-    case 'rate':
-      var firstPartArray = ['', 'Hmm. I\'d rate that ', 'I\'d give that ', 'I\'d say '];
-      var personifiedFirstPartArray = ['', 'Hmm. I\'d rate you ', 'I\'d give you a ', 'I\'d say '];
 
-      var specialArray = [
-      'I think we need a negative scale for that.',
-      'That is completely out of scale!',
-      'Better than ' + ReturnRandom(dictatorsPeopleList) + '.',
-      ReturnRandom(dictatorsPeopleList) + ' was better.',
-      'Amazing!',
-      'Incredible!',
-      'Why you even wanna rate that?',
-      'Utter garbage.',
-      'Over 9000!'
-      ];
-
-      var personifiedSpecialArray = [
-      'I think we need a negative scale to rate you.',
-      'You are completely out of scale!',
-      'Better than ' + ReturnRandom(dictatorsPeopleList) + '.',
-      ReturnRandom(dictatorsPeopleList) + ' was better than you.',
-      'You are amazing!',
-      'You are incredible!',
-      'Why you even wanna rate yourself?',
-      'You suck lol.',
-      'You suck.',
-      'Over 9000!'
-      ];
-
-      if (arguments[1] == 'me' || arguments[1] == null)
-      {
-        firstPartArray = personifiedFirstPartArray;
-        specialArray = personifiedSpecialArray;
-      }
-
-      if(chance(15))
-        message.channel.send(ReturnRandom(specialArray))
-      else
-        message.channel.send(ReturnRandom(firstPartArray) + Math.floor(Math.random() * 14) + '/10.')
-      break;
-      
-    //------------------------------------------------------------------------------------------------------------------------------
-    //----------resolve-----------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------------------
-    case 'resolve':
-      var result;
-      var quoteList = ddQuotesAfflictionList;
-      who = RecognizeWho(arguments[1], message, command)
-
-      if(chance(20))
-        if(chance(25))
-        {
-          result = ReturnRandom(specialVirtuesList);
-          quoteList = ddQuotesVirtuesList;
-        }
-        else
-          result = ReturnRandom(specialAfflictionsList);
-      else if (chance(25))
-      {
-        result = ReturnRandom(virtuesList);
-        quoteList = ddQuotesVirtuesList;
-      }
-      else
-        result = ReturnRandom(afflictionsList);
-
-      message.channel.send(who + '\'s resolve is tested...\n' + who + ' is **' + result + '**\n\n' + ChangeToBold('"' + ReturnRandom(quoteList) + '"'))
-      break;
-      
-    //---------------------------------------------------------------------------------------------------------------------------
-    //----------roll-----------------------------------------------------------
-    //---------------------------------------------------------------------------------------------------------------------------
-    case 'roll':
-      var rollItems;
-      var numberOfRolls;
-      var typeOfDice;
-      var rollsIndividuals = '[';
-      var rollsTotalAmount = 0;
-
-      if(arguments[1] == null)
-      {
-        numberOfRolls = 1;
-        typeOfDice = 6;
-      }
-      else
-      {
-        rollItems = arguments[1].split('d');
-        numberOfRolls = rollItems[0];
-        typeOfDice = rollItems[1];
-      }
-
-      if(numberOfRolls == null || numberOfRolls == 0)
-        numberOfRolls = 1;
-
-      if(typeOfDice == null || typeOfDice == 0)
-        typeOfDice = 6;
-
-      if(typeOfDice == 'a')
-      {
-        armellDiceAmount = RollArmelloDices(numberOfRolls);
-
-        message.channel.send('Result: [Rot: ' + armellDiceAmount[0] + ', Sword: ' + armellDiceAmount[1] + ', Sun: ' + armellDiceAmount[2] + ', Moon: ' + armellDiceAmount[3] + ', Shield: ' + armellDiceAmount[4] + ', Wyld: ' + armellDiceAmount[5] + ']')
-        break;
-      }
-      else
-      {
-        for (i = 0; i < numberOfRolls; i++)
-        {
-          rollValue = RndNo0(typeOfDice);
-          rollsIndividuals = rollsIndividuals + rollValue;
-
-          if(i != numberOfRolls - 1)
-            rollsIndividuals = rollsIndividuals + ',';
-
-          rollsTotalAmount = rollsTotalAmount + rollValue;
-        }
-      }
-      
-      message.channel.send('Result: ' + rollsIndividuals + '] Total amount: ' + rollsTotalAmount)
-      break;
-      
     //----------------------------------------------------------------------------------------------------------------------------
     //----------size--------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------------------
@@ -2260,137 +1565,6 @@ client.on('messageCreate', message => {
       message.channel.send(ReturnRandom(responseList))
       break;
 
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //----------commandList------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-    case 'commandList':
-      responseList = 'All commands start from h!\n' +
-      '**ambush**\n'+
-      '**animal : [x] = person**\n'+
-      '**braindmg**\n'+
-      '**capacity, volume**\n'+
-      '**celebrate**\n'+
-      '**class [x] : [x] = person**\n'+
-      '**ddcheck [x] : [x] = person**\n'+
-      '**ddquote [x] : [x] = number**\n'+
-      '**heaviness, mass, weight**\n'+
-      '**height, length, widtht**\n'+
-      '**help**\n'+
-      '**how**\n'+
-      '**hug [x] : [x] = person**\n'+
-      '**mood**\n'+
-      '**percent**\n'+
-      '**peril [x] : [x] = number**\n'+
-      '**race : [x] = person**\n'+
-      '**rant [x] : [x] = something**\n'+
-      '**resolve [x] : [x] = person**\n'+
-      '**roll [x]d[y] : [x] = number of rolls, [y] = number of sides, "a" for armello dice**\n'+
-      '**size**\n'+
-      '**weapon**\n'+
-      '**weapons**\n'+
-      '**when**\n'+
-      '**where**\n'+
-      '**whois**\n'+
-      '**why**\n'+
-      '**pic [x] : [x] = pic name**\n'
-      ;
-
-      message.channel.send(responseList)
-      break
-
-     case 'send':
-        if(arguments[1] != null && arguments[1] != "" && arguments[2] != null && arguments[2] != "")
-        {
-           let channel = client.channels.find('name', arguments[1])
-           
-           if (channel != null)
-           {
-              let msg = message.content.slice(Config.prefix.length + 2 + command.length + arguments[1].length)
-              channel.send(msg)   
-           }
-        }
-           
-        break
-
-    //----------------------------------------------------------------------------------------------------------------------------
-    //----------t-----------------------------------------------------------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------------------
-    case 't':
-      var msg = ''
-      var arg1 = arguments[1]
-      var arg2 = arguments[2]
-      var x = 20
-      var y
-      
-      //https://discordjs.guide/popular-topics/intents.html#symptoms-in-version-12
-      
-      message.channel.send('message.author.username = ' + message.author.username)
-      message.channel.send('message.author.id = ' + message.author.id)
-      message.channel.send('message.author.tag = ' + message.author.tag)
-      message.channel.send('message.author.avatar = ' + message.author.avatar)
-      message.channel.send('message.author.toString() = ' + message.author.toString())
-      
-      // get role by ID
-      //let myRole = message.guild.roles.cache.get("264410914592129025")
-
-      // get role by name
-      //let myRole = message.guild.roles.cache.find(role => role.name === "Moderators")
-      
-      //var x = RPRandomFurColour('Canid', 'male')
-
-      //for (i = 0; i < x.length; i++) 
-      //  msg = msg + x[i] + '\n'
-      //  y = ReturnRandom(singleToneFurColoursList)
-      //   msg = msg + y + ' -> ' + FindToneForFurColour(y) + '\n'
-      
-      //var tmpArray = arrGetPopulatedFrom2D(furColours333)
-      
-      //for (i = 0; i < tmpArray.length; i++)
-      //{
-      //  msg =  msg + tmpArray[i] + '\n'
-      //}
-
-      //for (var i = 0; i < 10; i++)
-        //msg = msg + GenerateRandomMaleName2(arg1) + '\n'
-
-      //var myArr = Array.from(list.members)
-      //msg = ReturnRandom(list2SyllablesMale[0]) + ReturnRandom(list2SyllablesMale[1])
-      //<@!355719279967993856>
-      
-      
-      //client.emit("guildMemberAdd", "485910048032161792")
-      //client.emit("guildMemberAdd", message.member)
-
-      //const list = client.guilds.get('553933942193913856')
-
-      //list.members.forEach(member => console.log(member.user.username))
-
-      //var myArr = []
-
-      //list.members.forEach(member => myArr.push(member.user.username)) 
-        
-      //for (var i = 0; i < myArr.length; i++)
-        //msg = msg + myArr[i] + '\n'
-
-
-
-      //message.channel.send('checkIfString string = ' + com.checkIfString('1'))
-      //message.channel.send('checkIfString integer = ' + com.checkIfString(1))
-      //message.channel.send('convertToString string = ' + com.checkIfString(com.convertToString('1')))
-      //message.channel.send('convertToString integer = ' + com.checkIfString(com.convertToString(1)))
-
-      //message.channel.send('strGetPronoun my = ' + random1.strGetPronoun('my'))
-
-      //message.channel.send('https://tenor.com/view/no-asian-not-another-teen-gif-7699292')
-      //message.channel.send('https://media1.tenor.com/images/660bad00528f2861b214ee108928ba63/tenor.gif?itemid=10784297')
-
-
-
-      //console.log(msg)
-      //message.channel.send(msg)
-      //message.channel.send(myArr[3])
-      break
-
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     //-------------------------------------------------------------------RP------------------------------------------------------------------------------------------------------------------------
@@ -2520,7 +1694,7 @@ client.on('messageCreate', message => {
   {
     const nameGen = require("./modules/advanced/nameGenerator.js")
 
-    return nameGen.GenerateRandomName(sex, RndNo0(4))
+    return nameGen.generateRandomName(sex, RndNo0(4))
   }
   
   function RPRandomRace()
@@ -3112,7 +2286,7 @@ client.on('messageCreate', message => {
     if(strCompare(A_argument, 'me') || A_argument == null)
       result = A_message.author.toString();
     else
-      result = A_message.content.slice(Config.prefix.length + A_command.length + 1)
+      result = A_message.content.slice(CONFIG.prefix.length + A_command.length + 1)
       
     return result
   }
@@ -3136,7 +2310,7 @@ client.on('messageCreate', message => {
     if(strCompare(A_argument, 'me') || A_argument == null)
       result = 'you'
     else
-      result = A_message.content.slice(Config.prefix.length + A_command.length + 1);
+      result = A_message.content.slice(CONFIG.prefix.length + A_command.length + 1);
       
     return result
   }
@@ -3157,22 +2331,22 @@ client.on('messageCreate', message => {
   
   function GenerateRandomPlace()
   {
-    return 'the ' + GenerateRandomString4(baseAdverbsList, adjectivesAllList, placeMainList, adjectivesEndingAllSingle);
+    return 'the ' + GenerateRandomString4(advBase, adjectivesAllList, placeMainList, adjectivesEndingAllSingle);
   }
   
   function GenerateRandomAnimal()
   {
-    return GenerateRandomString4(baseAdverbsList, adjectivesAllList, animalsStandardList, adjectivesEndingAllSingle);
+    return GenerateRandomString4(advBase, adjectivesAllList, animalsStandardList, adjectivesEndingAllSingle);
   }
   
   function GenerateRandomRace()
   {
-    return GenerateRandomString3Prefix(baseAdverbsList, adjectivesAllList, racesList);
+    return GenerateRandomString3Prefix(advBase, adjectivesAllList, racesList);
   }
   
   function GenerateRandomWeapon()
   {
-    return GenerateRandomString4(baseAdverbsList, adjectivesStandardList, itemsWeaponsList, adjectivesEndingAllSingle);
+    return GenerateRandomString4(advBase, adjectivesStandardList, itemsWeaponsList, adjectivesEndingAllSingle);
   }
   
   function GenerateRandomItem()
@@ -3379,11 +2553,11 @@ client.on('messageCreate', message => {
       'Evil',
       'Faceless', 'Flame', 'Forbidden', 'Forest', 'Forgotten', 'Furious', 'Furry', 'Fury',
       'Ghost', 'Glowing', 'Good', 'Greater',
-      'Heartless', 'Honorable', 'Horny', 'Hungry',
+      'Heartless', 'Honorable', 'Horny',
       'Icy', 'Immortal', 'Immoral', 'Insane',
       'Just',
       'Lesser', 'Lunar',
-      'Mad', 'Magica', 'Maniacal', 'Meek', 'Mighty', 'Mindless', 'Murderous',
+      'Mad', 'Magical', 'Maniacal', 'Meek', 'Mighty', 'Mindless', 'Murderous',
       'Nutty',
       'Power', 'Primitive', 'Psychopathic',
       'Rocket', 'Rotten', 'Ruby',

@@ -1,6 +1,10 @@
-const C = require("../modules/common.js");
+const SETTINGS = require('../modules/serverSettings.js');
+const C = require('../modules/common.js');
+const G = require('../modules/generators.js');
 const R = require('../modules/responses.js');
-const AC = require("../modules/arraysCommon.js");
+const DC = require('../modules/dataCommon.js');
+const DG = require('../modules/dataGuild.js');
+const CC = require('../modules/commonCommands.js');
 const { Collection } = require('discord.js');
 const {
    prefix,
@@ -19,10 +23,10 @@ module.exports = {
          if (message.author.bot)
             return;
 
-         if (!C.dcValidateForBannedWords(message))
+         if (!CC.dcValidateForBannedWords(message))
             return;
 
-         let prefixLength, commandName, command, commands, arguments;
+         let prefixLength, commandName, command, commands, args;
 
          if (message.content.startsWith(prefix)) {
             prefixLength = prefix.length;
@@ -38,7 +42,11 @@ module.exports = {
                return;
             }
             prefixLength = prefixRP.length;
-         } else if (message.content.startsWith(prefixM) && message.author.id == ownerID) {
+         } else if (message.content.startsWith(prefixM)) {
+            if (message.author.id != ownerID) {
+               C.dcReplyToMsg(message, `You are not the Imperator, you ${G.genPersonalInsult()}.`);
+               return;
+            }
             prefixLength = prefixM.length;
          } else {
             defaultBehavior(message);
@@ -47,7 +55,7 @@ module.exports = {
 
          commandName = message.content.slice(prefixLength).trim().split(/ +/g);
          commandName = commandName.shift().toLowerCase();
-         arguments = message.content.split(/[ ]+/);
+         args = message.content.split(/[ ]+/);
 
          if (message.content.startsWith(prefix))
             commands = client.commands;
@@ -76,7 +84,7 @@ module.exports = {
 
             if (now < expirationTime) {
                const timeLeft = (expirationTime - now) / 1000;
-               return message.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+               return message.reply(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
             }
          }
 
@@ -84,7 +92,7 @@ module.exports = {
          setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
          try {
-            command.execute(message, arguments);
+            command.execute(message, args);
          } catch (error) {
             console.error(error);
             C.dcReplyToMsg(message, `There was an error trying to execute that command!`);
@@ -101,6 +109,15 @@ function defaultBehavior(message) {
    if (C.strCheckIfContains(msgContent, 'clovis'))
       message.react('😢');
 
-   if (C.strCheckIfContains(msgContent, 'tosch'))
-      C.chance(65) ? C.dcRespondToMsg(message, C.arrGetRandom(R.resYou())) : C.dcRespondToMsg(message, C.arrGetRandom(R.resHate()));
+   if (C.strCheckIfAnyMatch(message.channel.name, SETTINGS.noToscheCommentsChannels))
+      return;
+
+   if (C.strCheckIfContains(msgContent, 'tosch')) {
+      C.dcRespondToMsg(message, R.resYou());
+      return;
+   }
+
+   if (C.chance(2)) {
+      C.dcRespondToMsg(message, R.resDefault());
+   }
 }

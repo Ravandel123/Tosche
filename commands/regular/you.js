@@ -5,8 +5,8 @@ module.exports = {
    name: 'you',
    description: 'Responds to a direct provocation attempt.',
    usage: '',
-   example: 'are awesome general Tosch',
+   example: 'are an awesome general, Tosche',
    execute(message, args) {
-      C.dcRespondFromArray(message, R.resYou());
+      C.dcRespondToMsg(message, R.resYou());
    },
 }

@@ -1,22 +1,60 @@
 const C = require('../../modules/common.js');
+const CG = require('../../modules/commonGuild.js');
 const DB = require('../../modules/db.js');
+const SG = require('../../modules/schematicsGuild.js');
 
 module.exports = {
    name: 'updatedb',
-   description: 'Updates the guild profiles.',
+   description: 'Updates db.',
    usage: '',
    example: '',
    async execute(message, args) {
-      let guildProfiles = await DB.gGetColGuildChar();
+      if (args[1] == 'hourly') {
+         CG.mainUpdate1h(message.client);
+         return;
+      }
+
+      let guildProfiles = await SG.profile;
+      let records = await SG.record;
       let profile;
 
       if (args[2])
-         profile = await DB.gGetProfileById(message, args[2]);
+         profile = await CG.getProfileById(message, args[2]);
       else
-         profile = await DB.gGetMsgAuthorProfile(message);
+         profile = await CG.getMessageAuthorProfile(message);
 
 
-      if (args[1] == 'add') {
+
+      // let members = C.dcGetAllMembers(message);
+
+      // for (const member of members) {
+         // defaultUpdate(message, member[1].id).then((value) => {
+            // console.log(value)
+         // });
+      // }
+
+      // await C.sleep(2);
+
+      // for (const member of members) {
+         // let xd = await defaultUpdate(message, member[1].id);
+         // console.log(`Other: ${xd}`);
+      // }
+
+
+
+
+
+
+
+      await updateGuildProfiles(guildProfiles);
+
+
+
+
+
+
+
+      // if (args[1] == 'add') {
          //---------------OK---------------
          // let actionPoints = {
             // current: 48,
@@ -77,11 +115,11 @@ module.exports = {
          // profile.currencies.push({ name: 'Gold Coins', amount: 15 })
          // await profile.save()
 
-         //const res = await guildProfiles.findOne({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Gold Coins', amount : { $gt : 10, $lte: 12 } } } })
+         // const res = await guildProfiles.findOne({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Gold Coins', amount : { $gt : 10, $lte: 12 } } } })
          // const res = await guildProfiles.updateMany({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Amber Drops' } } }, { $set: { 'currencies.$.name' : 'Amber XD' } })
          // const res = await guildProfiles.updateMany({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Amber Drops' } } }, { $set: { 'currencies.$.amount' : 123 } })
 
-      } else if (args[1] == 'remove') {
+      // } else if (args[1] == 'remove') {
          //---------------OK---------------
          // const res = await guildProfiles.updateMany({$unset : { actionPoints : ""} }); //REMOVE ACTION POINTS
          
@@ -125,6 +163,150 @@ module.exports = {
          // console.log(res.n)
          // console.log(res.nModified)
          // console.log(res)
-      }
+      // } else if (args[1] == 'change') {
+         // records.updateMany({}, { $rename: { fish.ownerId: 'place1Id' } }, { multi: true }, function(err, blocks) {
+          // if(err) { throw err; }
+          // console.log('done!');
+         // });
+         
+         
+      // }
    },
+}
+
+async function defaultUpdate(message, id) {
+   let profile = await CG.getProfileById(message, id);
+   profile.actionPoints.current += 1;
+   await profile.save();
+   // console.log(`${id} updated!!!`);
+   return Promise.resolve(`${id} updated!!!`);
+}
+
+
+
+
+
+async function updateGuildProfiles(guildProfiles) {
+   //ALL STUFF NEED TO BE FIRST IN SCHEMATICS, EVEN FOR REMOVAL
+   // const filter = {ownerId: '466378653216014359'};
+   const filter = {};
+
+
+
+
+   // const swimming = {
+      // current: 1,
+      // progress: 0,
+   // };
+
+   const skills = {
+      general: {
+         cooking : {
+            current: 1,
+            progress: 0,
+         },
+         fishing: {
+            current: 1,
+            progress: 0,
+         },
+         swimming: {
+            current: 1,
+            progress: 0,
+         },
+      },
+      weapon: {
+         melee: {
+            current: 1,
+            progress: 0,
+         },
+         ranged: {
+            current: 1,
+            progress: 0,
+         },
+         unarmed: {
+            current: 1,
+            progress: 0,
+         },
+      },
+   };
+
+   // await guildProfiles.updateMany({ownerId: '466378653216014359', "skills.swimming" : {$exists : false}}, {$set : {"skills.swimming" : swimming}}); //ADD SKILL
+   // await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$unset : {smackdownSpire : ""}});
+
+   // await guildProfiles.updateMany(filter, {$unset : {weaponSkills : ""}});
+   await guildProfiles.updateMany(filter, {$unset : {"resources.hp" : ""}});
+   // await guildProfiles.updateMany(filter, {$set : {skills : skills}});
+   // await guildProfiles.updateMany(filter, {$rename:{"resources.hp" : "resources.health"}});
+
+
+
+//----------------------------------------------------------------------------------------------------------------------
+   // let actionPoints = {
+      // current: 0,
+      // totalEarned: 0,
+   // };
+
+   // let resources = {
+      // hp: 10,
+      // hunger: 0,
+      // satisfaction: 0,
+      // stamina: 0,
+      // stress: 0,
+      // insanity: 0,
+      // fate: 0,
+      // fortune: 0,
+      // resilience: 0,
+      // resolve: 0,
+   // };
+
+   // let attributes = {
+      // strength: 10,
+      // toughness: 10,
+      // agility: 10,
+      // dexterity: 10,
+      // perception: 10,
+      // intelligence: 10,
+      // willpower: 10,
+      // charisma: 10,
+      // luck: 10,
+   // };
+
+   // let skills = {
+      // cooking : {
+         // current: 1,
+         // progress: 0,
+      // },
+      // fishing: {
+         // current: 1,
+         // progress: 0,
+      // },
+   // };
+
+   // let weaponSkills = {
+      // melee: {
+         // current: 1,
+         // progress: 0,
+      // },
+      // ranged: {
+         // current: 1,
+         // progress: 0,
+      // },
+      // unarmed: {
+         // current: 1,
+         // progress: 0,
+      // },
+   // };
+
+   // await guildProfiles.updateMany(
+      // {},
+      // {
+         // $set : {
+            // actionPoints,
+            // resources,
+            // attributes,
+            // skills,
+            // weaponSkills
+         // }
+      // }
+   // );
 }

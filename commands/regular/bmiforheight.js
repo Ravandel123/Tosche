@@ -1,6 +1,6 @@
 const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
-const AC = require('../../modules/arraysCommon.js');
+const DC = require('../../modules/dataCommon.js');
 
 module.exports = {
    name: 'bmiforheight',
@@ -18,12 +18,12 @@ module.exports = {
 
       let msg = '';
 
-      for (let i = 0; i < AC.arrayBodyShapes.length; i++) {
-         const currentBMI = AC.arrayBodyShapes[i];
+      for (let i = 0; i < DC.bodyShapes.length; i++) {
+         const currentBMI = DC.bodyShapes[i];
          const minWeight = C.calcBMIWeight(args[1], currentBMI.minBMI);
          const maxWeight = C.calcBMIWeight(args[1], currentBMI.maxBMI);
 
-         msg = msg + `${currentBMI.name}: ${minWeight} kg - ${maxWeight} kg\n`;
+         msg = msg + `${C.strCapitalizeFirstLetter(currentBMI.name)}: **${minWeight} kg - ${maxWeight} kg** // **${C.calcKgToImperial(minWeight)} - ${C.calcKgToImperial(maxWeight)}**\n`;
       }
 
       C.dcRespondToMsg(message, msg);
