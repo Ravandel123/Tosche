@@ -14,7 +14,27 @@ module.exports = {
    example: '',
    async execute(message, args) {
 
-   console.log("poszlo");
+   const newFishing = new S.gFishing({
+      ownerId: message.author.id
+   });
+
+   // profile.currencies = {
+      // amberDrops : C.rndNo0(10),
+      // pearlFlakes : C.rndNo0(10),
+      // obsidianChips : C.rndNo0(10),
+      // silverCoins : C.rndNo0(10),
+      // goldCoins : C.rndNo0(10),
+      // deltradaCoins : C.rndNo0(100),
+   // }
+
+   try {
+      await newFishing.save().catch(err => console.log(err));
+   } catch(error) {
+      console.log(error)
+   }
+
+   console.log(newFishing);
+
    // ownerId: String,
    // rod: {
       // id: String,
@@ -32,14 +52,6 @@ module.exports = {
       // id: String,
       // weight: Number,
    // }]
-
-
-
-
-
-
-
-
 
 
 
