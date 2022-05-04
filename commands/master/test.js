@@ -14,7 +14,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
 
-   
+   //lol
    // ownerId: String,
    // rod: {
       // id: String,
