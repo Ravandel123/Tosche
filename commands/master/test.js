@@ -5,7 +5,7 @@ const CC = require('../../modules/commonCommands.js');
 const AG = require('../../modules/arraysGuild.js');
 const G = require('../../modules/common.js');
 const DB = require('../../modules/db.js');
-const S = require('../../modules/guildSchematics.js');
+const SGUILD = require('../../modules/schematicsGuild.js');
 
 module.exports = {
    name: 'test',
@@ -14,26 +14,36 @@ module.exports = {
    example: '',
    async execute(message, args) {
 
-   const newFishing = new S.gFishing({
-      ownerId: message.author.id
-   });
+   let fishingProfile;
 
-   // profile.currencies = {
-      // amberDrops : C.rndNo0(10),
-      // pearlFlakes : C.rndNo0(10),
-      // obsidianChips : C.rndNo0(10),
-      // silverCoins : C.rndNo0(10),
-      // goldCoins : C.rndNo0(10),
-      // deltradaCoins : C.rndNo0(100),
-   // }
+   if (!args[1]) {
+      const fishingProfile = new SGUILD.gFishing({
+         ownerId: message.author.id
+      });
+
+      try {
+         await fishingProfile.save().catch(err => console.log(err));
+      } catch(error) {
+         console.log(error)
+      }
+
+   } else {
+      let fishingProfile = await SGUILD.gFishing.findOne({ ownerId: message.author.id });
+      fishingProfile.fish.push({
+         id: `fish_smallmouthBass`,
+         weight: C.rndNo0(10)
+      });
+
+      fishingProfile.rod = { id: 'xd', condition: 2.15 };
+   }
 
    try {
-      await newFishing.save().catch(err => console.log(err));
+      await fishingProfile.save().catch(err => console.log(err));
    } catch(error) {
       console.log(error)
    }
 
-   console.log(newFishing);
+   console.log(fishingProfile);
 
    // ownerId: String,
    // rod: {

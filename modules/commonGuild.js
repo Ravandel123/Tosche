@@ -1,6 +1,6 @@
 const C = require('./common.js');
 const AG = require('./arraysGuild.js');
-const { gCharacter } = require('./guildSchematics.js');
+const { gCharacter } = require('./schematicsGuild.js');
 
 
 // OK----------------------------------------------------------- PROFILE ----------------------------------------------------------
