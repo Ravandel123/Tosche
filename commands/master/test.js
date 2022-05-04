@@ -17,7 +17,7 @@ module.exports = {
    let fishingProfile;
 
    if (!args[1]) {
-      const fishingProfile = new SGUILD.gFishing({
+      fishingProfile = new SGUILD.gFishing({
          ownerId: message.author.id
       });
 
@@ -28,7 +28,7 @@ module.exports = {
       }
 
    } else {
-      let fishingProfile = await SGUILD.gFishing.findOne({ ownerId: message.author.id });
+      fishingProfile = await SGUILD.gFishing.findOne({ ownerId: message.author.id });
       fishingProfile.fish.push({
          id: `fish_smallmouthBass`,
          weight: C.rndNo0(10)
