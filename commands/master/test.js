@@ -30,9 +30,10 @@ module.exports = {
    } else {
       fishingProfile = await SGUILD.gFishing.findOne({ ownerId: message.author.id });
       fishingProfile.fish.push({
-         id: `fish_smallmouthBass`,
+         _id: `fish_smallmouthBass`,
          weight: C.rndNo0(10)
       });
+      fishingProfile.records.push(fishingProfile.fish[0]);
 
       fishingProfile.rod = { id: 'xd', condition: 2.15 };
    }
