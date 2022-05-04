@@ -52,7 +52,7 @@ const gFishingSchema = new MG.Schema({
       weight: Number,
    }],
    fish: [{
-      _id: String,
+      id: String,
       weight: Number,
    }]
 });
