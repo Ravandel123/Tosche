@@ -5,7 +5,7 @@ const CC = require('../../modules/commonCommands.js');
 const AG = require('../../modules/arraysGuild.js');
 const G = require('../../modules/common.js');
 const DB = require('../../modules/db.js');
-const SGUILD = require('../../modules/schematicsGuild.js');
+const SG = require('../../modules/schematicsGuild.js');
 
 module.exports = {
    name: 'test',
@@ -17,7 +17,7 @@ module.exports = {
    let fishingProfile;
 
    if (!args[1]) {
-      fishingProfile = new SGUILD.gFishing({
+      fishingProfile = new SG.fishing({
          ownerId: message.author.id
       });
 
@@ -28,7 +28,7 @@ module.exports = {
       }
 
    } else {
-      fishingProfile = await SGUILD.gFishing.findOne({ ownerId: message.author.id });
+      fishingProfile = await SG.fishing.findOne({ ownerId: message.author.id });
       fishingProfile.fish.push({
          id: `fish_smallmouthBass`,
          weight: C.rndNo0(10)

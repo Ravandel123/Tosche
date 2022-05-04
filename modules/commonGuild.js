@@ -1,11 +1,11 @@
 const C = require('./common.js');
 const AG = require('./arraysGuild.js');
-const { gCharacter } = require('./schematicsGuild.js');
+const SG = require('./schematicsGuild.js');
 
 
 // OK----------------------------------------------------------- PROFILE ----------------------------------------------------------
 function checkIfProfile(value) {
-   return value instanceof gCharacter;
+   return value instanceof SG.character;
 }
 
 module.exports.checkIfProfile = checkIfProfile;

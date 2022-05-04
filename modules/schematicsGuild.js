@@ -34,7 +34,7 @@ const gCharSchema = new MG.Schema({
    }
 });
 
-const gCharacter = MG.model('gchars', gCharSchema);
+const character = MG.model('gcharacter', gCharSchema);
 
 //---------------------------------------------------------------------------------------------------------------
 const gFishingSchema = new MG.Schema({
@@ -57,12 +57,12 @@ const gFishingSchema = new MG.Schema({
    }]
 });
 
-const gFishing = MG.model('gfishing', gFishingSchema);
+const fishing = MG.model('gfishing', gFishingSchema);
 
 //---------------------------------------------------------------------------------------------------------------
 module.exports = {
-   gCharacter,
-   gFishing
+   character,
+   fishing
 };
 
 

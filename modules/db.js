@@ -1,6 +1,6 @@
 const C = require('./common.js');
 const AG = require('./arraysGuild.js');
-const { gCharacter } = require('./schematicsGuild.js');
+const SG = require('./schematicsGuild.js');
 
 
 //----------------------------------------------------------- PROFILES ----------------------------------------------------------
@@ -9,7 +9,7 @@ async function gGetMsgAuthorProfile(message) {
    if (!C.dcCheckIfMessage(message))
       return Promise.reject(`Wrong input argument!`);
 
-   let profile = await gCharacter.findOne({ ownerId: message.author.id });
+   let profile = await SG.character.findOne({ ownerId: message.author.id });
 
    if (!profile) {
       try {
@@ -29,7 +29,7 @@ async function gGetProfileById(message, id) {
    if (!C.dcCheckIfMessage(message) || !id)
       return Promise.reject(`Wrong input argument!`);
 
-   let profile = await gCharacter.findOne({ ownerId: id });
+   let profile = await SG.character.findOne({ ownerId: id });
 
    if (!profile) {
       const member = C.dcGetMemberByID(message.guild, id);
@@ -51,14 +51,14 @@ module.exports.gGetProfileById = gGetProfileById;
 
 // OK---------------------------------------------------------------------------------------------------------------
 async function gGetColGuildChar() {
-   return await gCharacter;
+   return await SG.character;
 }
 
 module.exports.gGetColGuildChar = gGetColGuildChar;
 
 // OK---------------------------------------------------------------------------------------------------------------
 async function gGetAllProfiles() {
-   return await gCharacter.find({});
+   return await SG.character.find({});
 }
 
 module.exports.gGetAllProfiles = gGetAllProfiles;
@@ -80,7 +80,7 @@ async function createNewGuildProfile(user) {
    let currencyAmount;
 
    //Main
-   const profile = new gCharacter({
+   const profile = new SG.character({
       ownerId: user.id,
       ownerTag: user?.user.tag,
       ownerName: user.displayName,
