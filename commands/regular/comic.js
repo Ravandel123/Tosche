@@ -49,7 +49,7 @@ module.exports = {
 function generatePageEmbed(chapter, page) {
    return [new D.MessageEmbed()
       .setTitle(`${BWD[chapter].name}: ${page == 0 ? 'Title' : 'Page ' + page}`)
-      .setURL(`https://www.westerndeep.net/comic/comingsoon/`)
+      .setURL(generatePageUrl(chapter, page))
       .setImage(BWD[chapter].pages[page])];
 }
 
@@ -104,4 +104,11 @@ function generatePageArray(chapter) {
       pageArray.push({ label: i.toString(), value: i.toString() });
 
    return pageArray;
+}
+
+function generatePageUrl(chapter, page) {
+   const baseUrl = `https://www.westerndeep.net/comic/`;
+   const chapterUrl = BWD[chapter].exceptions.get(page) ?? BWD[chapter].regularUrl + page;
+
+   return baseUrl + chapterUrl;
 }

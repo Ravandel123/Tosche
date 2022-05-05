@@ -16,7 +16,16 @@ const prologue = {
       `https://www.westerndeep.net/wp-content/uploads/2012/02/2012-02-18-prologue-12.jpeg`,
       `https://www.westerndeep.net/wp-content/uploads/2012/02/2012-02-25-prologue-13.jpeg`,
       `https://www.westerndeep.net/wp-content/uploads/2012/03/2012-03-03-prologue-14.jpeg`
-   ]
+   ],
+   regularUrl: `prologue-page-`,
+   exceptions: new Map([
+      [0, `comingsoon`],
+      [1, `prologue-01`],
+      [2, `prologue-02`],
+      [3, `prologue-03`],
+      [4, `prologue-04`],
+      [5, `prologue-05`]
+   ])
 };
 
 const chapter1 = {
@@ -88,7 +97,12 @@ const chapter1 = {
       `https://www.westerndeep.net/wp-content/uploads/2013/05/2013-05-25-078_color.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2013/06/2013-06-01-079_color.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2013/06/2013-06-02-080_color.jpg`
-   ]
+   ],
+   regularUrl: `chapter-1-page-`,
+   exceptions: new Map([
+      [0, `chapter01-00`],
+      [1, `chapter01-01`]
+   ])
 };
 
 const chapter2 = {
