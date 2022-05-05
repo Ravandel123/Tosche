@@ -29,6 +29,7 @@ module.exports = {
                case 'randomId':
                   chapter = Object.keys(BWD)[C.rnd(Object.keys(BWD).length)];
                   page =  C.rnd(BWD[chapter].pages.length);
+                  console.log(`chapter: ${chapter}, page ${page}`);
                   break;
                default:
                   break;
