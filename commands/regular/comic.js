@@ -28,14 +28,11 @@ module.exports = {
                   break;
                case 'randomId':
                   chapter = Object.keys(BWD)[C.rnd(Object.keys(BWD).length - 1)];
-                  console.log(`chapter: ${chapter}`);
                   page =  C.rnd(BWD[chapter].pages.length - 1);
-                  console.log(`chapter: ${chapter}, page ${page}`);
                   break;
                default:
                   break;
             }
-            // i.customId === 'backId' ? page-- : page++;
          } else if (i.isSelectMenu()) {
             if (i.customId === 'chapterId') {
                chapter = i.values[0];
