@@ -84,7 +84,7 @@ function createPageMovementRow(chapter, page) {
       .setPlaceholder('Jump to a page')
       .addOptions(generatePageArray(chapter))];
 
-   return [C.dcCreateRow([backButton, forwardButton]), C.dcCreateRow(chapterMenu), C.dcCreateRow(chapterPage)];
+   return [C.dcCreateRow([backButton, randomButton, forwardButton]), C.dcCreateRow(chapterMenu), C.dcCreateRow(chapterPage)];
 }
 
 function generateChapterArray() {
