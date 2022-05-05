@@ -19,7 +19,21 @@ module.exports = {
       const collector = embedMessage.createMessageComponentCollector();
       collector.on('collect', async i => {
          if (i.isButton()) {
-            i.customId === 'backId' ? page-- : page++;
+            switch(i.customId) {
+               case 'backId':
+                  page--;
+                  break;
+               case 'forwardId':
+                  page++;
+                  break;
+               case 'randomId':
+                  chapter = C.rnd(Object.keys(BWD).length);
+                  page =  C.rnd(BWD[chapter].pages.length);
+                  break;
+               default:
+                  break;
+            }
+            // i.customId === 'backId' ? page-- : page++;
          } else if (i.isSelectMenu()) {
             if (i.customId === 'chapterId') {
                chapter = i.values[0];
@@ -40,6 +54,12 @@ function generatePageEmbed(chapter, page) {
 }
 
 function createPageMovementRow(chapter, page) {
+   const randomButton = new D.MessageButton()
+      .setCustomId(`randomId`)
+      // .setLabel(`Previous`)
+      .setEmoji(`🎲`)
+      .setStyle(`DANGER`);
+
    const backButton = new D.MessageButton()
       .setCustomId(`backId`)
       .setLabel(`Previous`)
