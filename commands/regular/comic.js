@@ -27,9 +27,9 @@ module.exports = {
                   page++;
                   break;
                case 'randomId':
-                  chapter = Object.keys(BWD)[C.rnd(Object.keys(BWD).length)];
+                  chapter = Object.keys(BWD)[C.rnd(Object.keys(BWD).length - 1)];
                   console.log(`chapter: ${chapter}`);
-                  page =  C.rnd(BWD[chapter].pages.length);
+                  page =  C.rnd(BWD[chapter].pages.length - 1);
                   console.log(`chapter: ${chapter}, page ${page}`);
                   break;
                default:
