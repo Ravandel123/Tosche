@@ -49,13 +49,13 @@ module.exports = {
 function generatePageEmbed(chapter, page) {
    return [new D.MessageEmbed()
       .setTitle(`${BWD[chapter].name}: ${page == 0 ? 'Title' : 'Page ' + page}`)
+      .setURL(`https://www.westerndeep.net/comic/comingsoon/`)
       .setImage(BWD[chapter].pages[page])];
 }
 
 function createPageMovementRow(chapter, page) {
    const randomButton = new D.MessageButton()
       .setCustomId(`randomId`)
-      // .setLabel(`Previous`)
       .setEmoji(`🎲`)
       .setStyle(`DANGER`);
 
