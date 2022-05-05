@@ -205,7 +205,11 @@ const chapter2 = {
       `https://www.westerndeep.net/wp-content/uploads/2017/02/174_color.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2015/09/175.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2015/09/176.jpg`
-   ]
+   ],
+   regularUrl: `chapter-2-page-`,
+   exceptions: new Map([
+      [0, `chapter-2-title-2`]
+   ])
 };
 
 const chapter3 = {
@@ -305,7 +309,11 @@ const chapter3 = {
       `https://www.westerndeep.net/wp-content/uploads/2019/04/3-91.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2019/04/3-92.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2019/05/3-93.jpg`
-   ]
+   ],
+   regularUrl: `chapter-3-page-`,
+   exceptions: new Map([
+      [0, `chapter-3-title`]
+   ])
 };
 
 const chapter4 = {
@@ -377,7 +385,21 @@ const chapter4 = {
       `https://www.westerndeep.net/wp-content/uploads/2022/04/4-63.jpeg`,
       `https://www.westerndeep.net/wp-content/uploads/2022/04/4-64.jpeg`,
       `https://www.westerndeep.net/wp-content/uploads/2022/04/4-65.jpeg`
-   ]
+   ],
+   regularUrl: `chapter-4-page-`,
+   exceptions: new Map([
+      [0, `chapter-4-title`],
+      [1, `chapter-4-page-01`],
+      [2, `chapter-4-page-02`],
+      [3, `chapter-4-page-03`],
+      [4, `chapter-4-page-04`],
+      [5, `chapter-4-page-05`],
+      [6, `chapter-4-page-06`],
+      [7, `chapter-4-page-07`],
+      [8, `chapter-4-page-08`],
+      [9, `chapter-4-page-09`],
+      [52, `chapter-4-page-52-and-emerald-city-comic-con`]
+   ])
 };
 
 const songOfTheEasternSands = {
@@ -429,7 +451,20 @@ const songOfTheEasternSands = {
       `https://www.westerndeep.net/wp-content/uploads/2016/09/043b.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2016/09/044.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2016/10/045.jpg`
-   ]
+   ],
+   regularUrl: `song-of-the-eastern-sands-page-`,
+   exceptions: new Map([
+      [0, `song-of-the-eastern-sands-title`],
+      [1, `song-of-the-eastern-sands-page-01`],
+      [2, `song-of-the-eastern-sands-page-02`],
+      [3, `song-of-the-eastern-sands-page-03`],
+      [4, `song-of-the-eastern-sands-page-04`],
+      [5, `song-of-the-eastern-sands-page-05`],
+      [6, `song-of-the-eastern-sands-page-06`],
+      [7, `song-of-the-eastern-sands-page-07`],
+      [8, `song-of-the-eastern-sands-page-08`],
+      [9, `song-of-the-eastern-sands-page-09`]
+   ])
 };
 
 const theScholarAndTheSeawal = {
@@ -446,7 +481,11 @@ const theScholarAndTheSeawal = {
       `https://www.westerndeep.net/wp-content/uploads/2018/05/Seawal_08.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2018/06/Seawal9.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2018/06/Seawal10.jpg`
-   ]
+   ],
+   regularUrl: `the-scholar-and-the-seawal-page-`,
+   exceptions: new Map([
+      [0, `the-scholar-and-the-seawal-title`]
+   ])
 };
 
 const theAdventuresOfCainAndYurk = {
@@ -457,7 +496,11 @@ const theAdventuresOfCainAndYurk = {
       `https://www.westerndeep.net/wp-content/uploads/2015/10/CainYurk21-e1444134015908.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2015/10/CainYurk3-e1444437384473.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2015/10/CainYurk4-e1445042772595.jpg`
-   ]
+   ],
+   regularUrl: `the-adventures-of-cain-yurk-page-0`,
+   exceptions: new Map([
+      [0, `the-adventures-of-cain-yurk-page-01`]
+   ])
 };
 
 const theAbyssalDunes = {
@@ -513,7 +556,20 @@ const theAbyssalDunes = {
       `https://www.westerndeep.net/wp-content/uploads/2020/06/Abyssal_47.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2020/06/Abyssal_48.jpg`,
       `https://www.westerndeep.net/wp-content/uploads/2020/07/Abyssal_49.jpg`
-   ]
+   ],
+   regularUrl: `the-abyssal-dunes-page-`,
+   exceptions: new Map([
+      [0, `the-abyssal-dunes-title`],
+      [1, `the-abyssal-dunes-page-01`],
+      [2, `the-abyssal-dunes-page-02`],
+      [3, `the-abyssal-dunes-page-03`],
+      [4, `the-abyssal-dunes-page-04`],
+      [5, `the-abyssal-dunes-page-05`],
+      [6, `the-abyssal-dunes-page-06`],
+      [7, `the-abyssal-dunes-page-07`],
+      [8, `the-abyssal-dunes-page-08`],
+      [9, `the-abyssal-dunes-page-09`]
+   ])
 };
 
 //-----------------------------------------------------------Exports----------------------------------------------------------
