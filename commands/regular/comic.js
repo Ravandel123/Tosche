@@ -27,7 +27,7 @@ module.exports = {
                   page++;
                   break;
                case 'randomId':
-                  chapter = C.rnd(Object.keys(BWD).length);
+                  chapter = Object.keys(BWD)[C.rnd(Object.keys(BWD).length)];
                   page =  C.rnd(BWD[chapter].pages.length);
                   break;
                default:
