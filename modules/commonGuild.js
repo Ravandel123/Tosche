@@ -84,17 +84,17 @@ async function getProfileById(message, id) {
 module.exports.getProfileById = getProfileById;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function createNewGuildProfile(user) {
-   if (!C.dcCheckIfMember(user))
-      return Promise.reject(`Unable to create guild profile! The user is not a valid guild member: \n${user}`);
+function createNewGuildProfile(member) {
+   if (!C.dcCheckIfMember(member))
+      return Promise.reject(`Unable to create guild profile! The user ${user} is not a valid guild member!`);
 
    let currencyAmount;
 
    //Main
    const profile = new SG.character({
-      ownerId: user.id,
-      ownerTag: user?.user.tag,
-      ownerName: user.displayName,
+      ownerId: member.id,
+      ownerTag: member?.user.tag,
+      ownerName: member.displayName,
    });
 
    profile.currencies = {
@@ -106,13 +106,6 @@ function createNewGuildProfile(user) {
       deltradaCoins : C.rndNo0(100),
    }
 
-   // try {
-      // await profile.save();
-   // } catch(error) {
-      // return Promise.reject(error);
-   // }
-
-   // return Promise.resolve(profile);
    return profile;
 }
 
