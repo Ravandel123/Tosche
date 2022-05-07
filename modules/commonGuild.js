@@ -51,7 +51,7 @@ async function getMemberProfile(message, nameOrMention) {
       }
    }
 
-   return Promise.resolve(getProfileById(message, foundID)):
+   return Promise.resolve(getProfileById(message, foundID));
 }
 
 module.exports.getMemberProfile = getMemberProfile;
