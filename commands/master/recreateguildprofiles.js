@@ -1,7 +1,7 @@
 const C = require('../../modules/common.js');
 const CG = require('../../modules/commonGuild.js');
 const DB = ('../../modules/db.js');
-const SG = require('../../schematicsGuild.js');
+const SG = require('../../modules/schematicsGuild.js');
 
 module.exports = {
    name: 'recreateguildprofiles',
