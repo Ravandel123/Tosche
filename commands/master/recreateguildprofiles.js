@@ -24,7 +24,7 @@ module.exports = {
          // }
       }
       
-      await SG.insertMany(profiles).then(function() {
+      await SG.character.insertMany(profiles).then(function() {
           C.dcRespondToMsg(message, `Profiles recreated successfully.`);
       }).catch(function(error) {
           console.log(error)      // Failure
