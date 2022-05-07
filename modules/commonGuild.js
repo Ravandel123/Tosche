@@ -86,7 +86,7 @@ module.exports.getProfileById = getProfileById;
 // OK---------------------------------------------------------------------------------------------------------------
 function createNewGuildProfile(member) {
    if (!C.dcCheckIfMember(member))
-      return Promise.reject(`Unable to create guild profile! The user ${user} is not a valid guild member!`);
+      return Promise.reject(`Unable to create guild profile! The user ${member} is not a valid guild member!`);
 
    let currencyAmount;
 
