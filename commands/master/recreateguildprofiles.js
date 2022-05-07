@@ -13,7 +13,7 @@ module.exports = {
       const profiles = [];
 
       for (const member of guildMembers) {
-         profiles.push(CG.createNewGuildProfile(member));
+         profiles.push(CG.createNewGuildProfile(member[1]));
          
          
          // try {

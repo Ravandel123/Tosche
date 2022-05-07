@@ -65,10 +65,8 @@ module.exports.getMemberProfile = getMemberProfile;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function createNewGuildProfile(member) {
-   if (!C.dcCheckIfMember(member)) {
-      console.log(`nie dziala : ${member}`);
+   if (!C.dcCheckIfMember(member))
       return;
-   }
 
    //Main
    const profile = new SG.character({
