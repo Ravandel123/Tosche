@@ -1,4 +1,5 @@
 const C = require('../../modules/common.js');
+const CG = require('../../modules/commonGuild.js');
 const DB = require('../../modules/db.js');
 
 module.exports = {
