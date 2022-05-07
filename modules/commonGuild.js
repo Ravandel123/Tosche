@@ -15,15 +15,14 @@ async function getMessageAuthorProfile(message) {
    if (!C.dcCheckIfMessage(message))
       return Promise.reject(`Wrong input argument!`);
 
-   let profile = await SG.character.findOne({ ownerId: message.author.id });
+   const profile = await SG.character.findOne({ ownerId: message.author.id }) ?? createNewGuildProfile(message.member);
+   if !(profile)
+      return Promise.reject(`Unable to find or create guild profile! The user ${member} is probably not a valid guild member!`);
 
-   if (!profile) {
-      try {
-         profile = createNewGuildProfile(message.member);
-         await profile.save();
-      } catch(error) {
-         return Promise.reject(error);
-      }
+   try {
+      await profile.save();
+   } catch(error) {
+      return Promise.reject(error);
    }
 
    return Promise.resolve(profile); 
@@ -86,7 +85,7 @@ module.exports.getProfileById = getProfileById;
 // OK---------------------------------------------------------------------------------------------------------------
 function createNewGuildProfile(member) {
    if (!C.dcCheckIfMember(member))
-      return Promise.reject(`Unable to create guild profile! The user ${member} is not a valid guild member!`);
+      return;
 
    let currencyAmount;
 
