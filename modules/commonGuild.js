@@ -15,9 +15,30 @@ async function getMessageAuthorProfile(message) {
    if (!C.dcCheckIfMessage(message))
       return Promise.reject(`Wrong input argument!`);
 
-   const profile = await SG.character.findOne({ ownerId: message.author.id }) ?? createNewGuildProfile(message.member);
+   // const profile = await SG.character.findOne({ ownerId: message.author.id }) ?? createNewGuildProfile(message.member);
+   // if (!profile)
+      // return Promise.reject(`Unable to find or create guild profile! The user ${member} is probably not a valid guild member!`);
+
+   // try {
+      // await profile.save();
+   // } catch(error) {
+      // return Promise.reject(error);
+   // }
+
+   // return Promise.resolve(profile);
+   return Promise.resolve(getProfileById(message, message.author.id));
+}
+
+module.exports.getMessageAuthorProfile = getMessageAuthorProfile;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function getProfileById(message, id) {
+   if (!C.dcCheckIfMessage(message) || !id)
+      return Promise.reject(`Wrong input argument!`);
+
+   const profile = await SG.character.findOne({ ownerId: id }) ?? createNewGuildProfileFromID(message, id);
    if (!profile)
-      return Promise.reject(`Unable to find or create guild profile! The user ${member} is probably not a valid guild member!`);
+      return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);
 
    try {
       await profile.save();
@@ -25,10 +46,26 @@ async function getMessageAuthorProfile(message) {
       return Promise.reject(error);
    }
 
-   return Promise.resolve(profile); 
+   // let profile = await SG.character.findOne({ ownerId: id });
+
+   // if (!profile) {
+      // const member = C.dcGetMemberByID(message.guild, id);
+      // if (member) {
+         // try {
+            // profile = createNewGuildProfile(member);
+            // await profile.save();
+         // } catch(error) {
+            // return Promise.reject(error);
+         // }
+      // } else {
+         // return Promise.reject(`That user doesn't exist or is not in Deltrada!`);
+      // }
+   // }
+
+   return Promise.resolve(profile);
 }
 
-module.exports.getMessageAuthorProfile = getMessageAuthorProfile;
+module.exports.getProfileById = getProfileById;
 
 // OK---------------------------------------------------------------------------------------------------------------
 async function getMemberProfile(message, nameOrMention) {
@@ -57,37 +94,9 @@ async function getMemberProfile(message, nameOrMention) {
 module.exports.getMemberProfile = getMemberProfile;
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function getProfileById(message, id) {
-   if (!C.dcCheckIfMessage(message) || !id)
-      return Promise.reject(`Wrong input argument!`);
-
-   let profile = await SG.character.findOne({ ownerId: id });
-
-   if (!profile) {
-      const member = C.dcGetMemberByID(message.guild, id);
-      if (member) {
-         try {
-            profile = createNewGuildProfile(member);
-            await profile.save();
-         } catch(error) {
-            return Promise.reject(error);
-         }
-      } else {
-         return Promise.reject(`That user doesn't exist or is not in Deltrada!`);
-      }
-   }
-
-   return Promise.resolve(profile);
-}
-
-module.exports.getProfileById = getProfileById;
-
-// OK---------------------------------------------------------------------------------------------------------------
 function createNewGuildProfile(member) {
    if (!C.dcCheckIfMember(member))
       return;
-
-   let currencyAmount;
 
    //Main
    const profile = new SG.character({
@@ -109,6 +118,12 @@ function createNewGuildProfile(member) {
 }
 
 module.exports.createNewGuildProfile = createNewGuildProfile;
+
+function createNewGuildProfileFromID(message, id) {
+   const member = C.dcGetMemberByID(message, id);
+   return createNewGuildProfile(member);
+}
+
 
 // OK---------------------------------------------------------------------------------------------------------------
 function getMainProfileInfo(profile) {

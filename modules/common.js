@@ -1009,7 +1009,7 @@ function dcGetRoleByName(element, roleName) {
       return element.guild.roles.cache.find(searchFunction);
    else if (dcCheckIfGuild(element))
       return element.roles.cache.find(searchFunction);
-   else if (dcCheckIfMessage(element) && dcCheckIfGuildMessage(element))
+   else if (dcCheckIfGuildMessage(element))
       return element.guild.roles.cache.find(searchFunction);
 }
 
@@ -1061,7 +1061,7 @@ function dcGetMemberByID(element, userID) {
 
    if (dcCheckIfGuild(element))
       return element.members?.cache.get(userID);
-   else if (dcCheckIfMessage(element) && dcCheckIfGuildMessage(element))
+   else if (dcCheckIfGuildMessage(element))
       return element.guild.members.cache.get(userID);
 }
 
