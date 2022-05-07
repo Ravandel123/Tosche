@@ -12,20 +12,6 @@ module.exports.checkIfProfile = checkIfProfile;
 
 // OK---------------------------------------------------------------------------------------------------------------
 async function getMessageAuthorProfile(message) {
-   if (!C.dcCheckIfMessage(message))
-      return Promise.reject(`Wrong input argument!`);
-
-   // const profile = await SG.character.findOne({ ownerId: message.author.id }) ?? createNewGuildProfile(message.member);
-   // if (!profile)
-      // return Promise.reject(`Unable to find or create guild profile! The user ${member} is probably not a valid guild member!`);
-
-   // try {
-      // await profile.save();
-   // } catch(error) {
-      // return Promise.reject(error);
-   // }
-
-   // return Promise.resolve(profile);
    return Promise.resolve(getProfileById(message, message.author.id));
 }
 
@@ -45,22 +31,6 @@ async function getProfileById(message, id) {
    } catch(error) {
       return Promise.reject(error);
    }
-
-   // let profile = await SG.character.findOne({ ownerId: id });
-
-   // if (!profile) {
-      // const member = C.dcGetMemberByID(message.guild, id);
-      // if (member) {
-         // try {
-            // profile = createNewGuildProfile(member);
-            // await profile.save();
-         // } catch(error) {
-            // return Promise.reject(error);
-         // }
-      // } else {
-         // return Promise.reject(`That user doesn't exist or is not in Deltrada!`);
-      // }
-   // }
 
    return Promise.resolve(profile);
 }
@@ -95,8 +65,10 @@ module.exports.getMemberProfile = getMemberProfile;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function createNewGuildProfile(member) {
-   if (!C.dcCheckIfMember(member))
+   if (!C.dcCheckIfMember(member)) {
+      console.log(`nie dziala : ${member}`);
       return;
+   }
 
    //Main
    const profile = new SG.character({
