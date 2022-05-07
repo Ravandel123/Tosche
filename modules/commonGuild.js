@@ -89,60 +89,14 @@ function createNewGuildProfile(member) {
 
 module.exports.createNewGuildProfile = createNewGuildProfile;
 
+// OK---------------------------------------------------------------------------------------------------------------
 function createNewGuildProfileFromID(message, id) {
    const member = C.dcGetMemberByID(message, id);
    return createNewGuildProfile(member);
 }
 
 
-// OK---------------------------------------------------------------------------------------------------------------
-function getMainProfileInfo(profile) {
-   if (!checkIfProfile(profile))
-      return;
-
-   return `Profile of ${C.strBold(profile.ownerTag)}` +
-          `\n--------------------------------------------------` + 
-          `\n**ID**: ${profile.ownerId}` +
-          `\n**Name**: ${profile.ownerName}` +
-          `\n**Action Points**: ${profile.actionPoints.current}`;
-}
-
-module.exports.getMainProfileInfo = getMainProfileInfo;
-
-// OK---------------------------------------------------------------------------------------------------------------
-function getCurrenciesInfo(profile) {
-   if (!checkIfProfile(profile))
-      return;
-
-   const currencies = profile.currencies;
-
-   let msg = `Currencies of ${C.strBold(profile.ownerName)}` + 
-             `\n--------------------------------------------------` +
-             `\n**Amber Drops:** ${currencies.amberDrops}` +
-             `\n**Pearl Flakes:** ${currencies.pearlFlakes}` +
-             `\n**Obsidian Chips:** ${currencies.obsidianChips}` +
-             `\n**Silver Coin:** ${currencies.silverCoins}` +
-             `\n**Gold Coins:** ${currencies.goldCoins}` +
-             `\n**Deltrada Coins:** ${currencies.deltradaCoins}`;
-
-   return msg;
-}
-
-module.exports.getCurrenciesInfo = getCurrenciesInfo
-
-// OK---------------------------------------------------------------------------------------------------------------
-function getUserInfo(profile, argument) {
-   let msg = '';
-
-   if (C.strCompare(argument, 'currencies'))
-      msg = getCurrenciesInfo(profile);
-   else
-      msg = getMainProfileInfo(profile);
-
-   return msg;
-}
-
-module.exports.getUserInfo = getUserInfo;
+module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
