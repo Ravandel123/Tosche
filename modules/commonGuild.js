@@ -16,7 +16,7 @@ async function getMessageAuthorProfile(message) {
       return Promise.reject(`Wrong input argument!`);
 
    const profile = await SG.character.findOne({ ownerId: message.author.id }) ?? createNewGuildProfile(message.member);
-   if !(profile)
+   if (!profile)
       return Promise.reject(`Unable to find or create guild profile! The user ${member} is probably not a valid guild member!`);
 
    try {
