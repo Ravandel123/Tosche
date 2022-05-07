@@ -19,7 +19,8 @@ async function getMessageAuthorProfile(message) {
 
    if (!profile) {
       try {
-         profile = await createNewGuildProfile(message.member);
+         profile = createNewGuildProfile(message.member);
+         await profile.save();
       } catch(error) {
          return Promise.reject(error);
       }
@@ -67,7 +68,8 @@ async function getProfileById(message, id) {
       const member = C.dcGetMemberByID(message.guild, id);
       if (member) {
          try {
-            profile = await createNewGuildProfile(member);
+            profile = createNewGuildProfile(member);
+            await profile.save();
          } catch(error) {
             return Promise.reject(error);
          }
@@ -82,7 +84,7 @@ async function getProfileById(message, id) {
 module.exports.getProfileById = getProfileById;
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function createNewGuildProfile(user) {
+function createNewGuildProfile(user) {
    if (!C.dcCheckIfMember(user))
       return Promise.reject(`Unable to create guild profile! The user is not a valid guild member: \n${user}`);
 
@@ -104,13 +106,14 @@ async function createNewGuildProfile(user) {
       deltradaCoins : C.rndNo0(100),
    }
 
-   try {
-      await profile.save().catch(err => console.log(err));
-   } catch(error) {
-      return Promise.reject(error);
-   }
+   // try {
+      // await profile.save();
+   // } catch(error) {
+      // return Promise.reject(error);
+   // }
 
-   return Promise.resolve(profile);
+   // return Promise.resolve(profile);
+   return profile;
 }
 
 module.exports.createNewGuildProfile = createNewGuildProfile;

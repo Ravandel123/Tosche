@@ -1,6 +1,7 @@
 const C = require('../../modules/common.js');
 const CG = require('../../modules/commonGuild.js');
-const DB = require('../../modules/db.js');
+const DB = ('../../modules/db.js');
+const SG = require('../../schematicsGuild.js');
 
 module.exports = {
    name: 'recreateguildprofiles',
@@ -9,15 +10,26 @@ module.exports = {
    example: '',
    async execute(message, args) {
       const guildMembers = C.dcGetAllMembers(message);
+      const profiles = [];
 
       for (const member of guildMembers) {
-         try {
-            await CG.getProfileById(message, member[1].id);
-         } catch(error) {
-            C.dcRespondToMsg(message, error);
-            return;
-         }
+         profiles.push();
+         
+         
+         // try {
+            // await CG.getProfileById(message, member[1].id);
+         // } catch(error) {
+            // C.dcRespondToMsg(message, error);
+            // return;
+         // }
       }
-      C.dcRespondToMsg(message, `Profiles recreated successfully.`);
+      
+      await SG.insertMany(profiles).then(function() {
+          C.dcRespondToMsg(message, `Profiles recreated successfully.`);
+      }).catch(function(error) {
+          console.log(error)      // Failure
+      });
+
+      // C.dcRespondToMsg(message, `Profiles recreated successfully.`);
    }
 }
