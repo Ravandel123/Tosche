@@ -1000,7 +1000,7 @@ module.exports.dcValidateForBannedWords = dcValidateForBannedWords;
 //-------------------------------------------------------Roles-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function dcGetRoleByName(element, roleName) {
-   if (!checkIfExists(roleName)
+   if (!checkIfExists(roleName))
       return;
 
    const searchFunction = e => e.name == roleName;
