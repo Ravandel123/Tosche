@@ -14,7 +14,7 @@ function resMissingArgs(missingArgs) {
 
    const arrayResult = [
       `You must give me the following arguments:\n${missingArgsEOL}\n`,
-      `You didn\'t provide the correct amount of arguments, you ${G.genPersonalInsult()}. You need to provide:\n${missingArgsEOL}\n`
+      `You didn't provide the correct amount of arguments, you ${G.genPersonalInsult()}. You need to provide:\n${missingArgsEOL}\n`
    ];
 
    return arrayResult;

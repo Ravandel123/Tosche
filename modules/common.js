@@ -999,11 +999,18 @@ module.exports.dcValidateForBannedWords = dcValidateForBannedWords;
 
 //-------------------------------------------------------Roles-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-function dcGetRoleByName(member, roleName) {
-   if (!dcCheckIfMember(member) || !roleName)
+function dcGetRoleByName(element, roleName) {
+   if (!checkIfExists(roleName)
       return;
 
-   return member.guild.roles.cache.find(r => r.name === roleName);
+   const searchFunction = e => e.name == roleName;
+
+   if (dcCheckIfMember(element))
+      return element.guild.roles.cache.find(searchFunction);
+   else if (dcCheckIfGuild(element))
+      return element.roles.cache.find(searchFunction);
+   else if (dcCheckIfMessage(element) && dcCheckIfGuildMessage(element))
+      return element.guild.roles.cache.find(searchFunction);
 }
 
 module.exports.dcGetRoleByName = dcGetRoleByName;
@@ -1030,10 +1037,8 @@ module.exports.dcRemoveRoleFromMember = dcRemoveRoleFromMember;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCheckIfMemberHasRole(member, roleName) {
-   if (!dcCheckIfMember(member) || !roleName)
-      return;
-
-   return member.roles.cache.some(r => r.name === roleName);
+   if (dcCheckIfMember(member) && roleName)
+      return member.roles.cache.some(e => e.name == roleName);
 }
 
 module.exports.dcCheckIfMemberHasRole = dcCheckIfMemberHasRole;
@@ -1043,51 +1048,62 @@ module.exports.dcCheckIfMemberHasRole = dcCheckIfMemberHasRole;
 
 //-------------------------------------------------------Members-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-function dcGetMemberByID(guild, userID) {
-   if (!dcCheckIfGuild(guild) || !userID)
+function getMemberIdByNameOrMention(message, nameOrMention) {
+   return dcGetMemberIDFromMention(nameOrMention) ?? dcGetAllMembersByNick(message, nameOrMention);
+}
+
+module.exports.getMemberIdByNameOrMention = getMemberIdByNameOrMention;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function dcGetMemberByID(element, userID) {
+   if (!userID)
       return;
 
-   return guild.members?.cache.get(userID);
+   if (dcCheckIfGuild(element))
+      return element.members?.cache.get(userID);
+   else if (dcCheckIfMessage(element) && dcCheckIfGuildMessage(element))
+      return element.guild.members.cache.get(userID);
 }
 
 module.exports.dcGetMemberByID = dcGetMemberByID;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcGetMessageAuthorAsMember(message) {
-   if (!dcCheckIfMessage(message))
-      return;
-
-   return message.member;
+   if (dcCheckIfGuildMessage(message))
+      return message.member;
 }
 
 module.exports.dcGetMessageAuthorAsMember = dcGetMessageAuthorAsMember;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function dcGetAllMembersByNick(message, string) {
-   if (!dcCheckIfGuildMessage(message) || !checkIfExists(string))
+function dcGetAllMembersByNick(element, nick) {
+   if (!checkIfExists(nick))
       return;
 
-   return message.guild.members.cache.filter((e => strCheckIfContains(e.displayName, string)));
+   const searchFunction = e => strCheckIfContains(e.displayName, nick);
+
+   if (dcCheckIfGuildMessage(element))
+      return element.guild.members.cache.filter(searchFunction);
+   else (dcCheckIfGuild(element))
+      return element.guild.members.cache.filter(searchFunction);
 }
 
 module.exports.dcGetAllMembersByNick = dcGetAllMembersByNick;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function dcGetAllMembers(message) {
-   if (!dcCheckIfGuildMessage(message))
-      return;
-
-   return message.guild.members.cache;
+function dcGetAllMembers(element) {
+   if (dcCheckIfGuildMessage(message))
+      return element.guild.members.cache;
+   else if (dcCheckIfGuild(message)
+      return element.members.cache;
 }
 
 module.exports.dcGetAllMembers = dcGetAllMembers;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcGetMentionedMember(message) {
-   if (!dcCheckIfMessage(message))
-      return;
-
-   return message.mentions?.members?.first();
+   if (dcCheckIfMessage(message))
+      return message.mentions?.members?.first();
 }
 
 module.exports.dcGetMentionedMember = dcGetMentionedMember;
@@ -1103,16 +1119,22 @@ function dcGetMemberIDFromMention(mention) {
 }
 
 module.exports.dcGetMemberIDFromMention = dcGetMemberIDFromMention;
+
 // ---------------------------------------------------------------------------------------------------------------
 
 
 //-------------------------------------------------------Channels-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-function dcGetChannelByName(guild, channelName) {
-   if (!dcCheckIfGuild(guild))
+function dcGetChannelByName(element, channelName) {
+   if (!checkIfExists(channelName))
       return;
 
-   return guild.channels.cache.find(channel => channel.name === channelName);
+   const searchFunction = e => e.name === channelName;
+
+   if (dcCheckIfGuild(element))
+      return element.channels.cache.find(searchFunction);
+   else if (dcCheckIfGuildMessage(element))
+      return element.guild.channels.cache.find(searchFunction);
 }
 
 module.exports.dcGetChannelByName = dcGetChannelByName;
@@ -1141,7 +1163,7 @@ async function dcGetCreateOrUnarchiveThread(channel, threadName, member) {
 
    await thread.members.add(member.id);
 
-   return new Promise(resolve => { resolve(thread); });
+   return Promise.resolve(thread);
 }
 
 module.exports.dcGetCreateOrUnarchiveThread = dcGetCreateOrUnarchiveThread;
@@ -1152,11 +1174,9 @@ module.exports.dcGetCreateOrUnarchiveThread = dcGetCreateOrUnarchiveThread;
 //-------------------------------------------------------Interactions-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCreateRow(components) {
-   if(!dcCheckIfMessageComponents(components))
-      return;
-
-   return new D.MessageActionRow()
-      .addComponents(components);
+   if(dcCheckIfMessageComponents(components))
+      return new D.MessageActionRow()
+         .addComponents(components);
 }
 
 module.exports.dcCreateRow = dcCreateRow;
@@ -1164,13 +1184,11 @@ module.exports.dcCreateRow = dcCreateRow;
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCreateButton(id, label, style = `PRIMARY`) {
    const availableStyles = [`PRIMARY`, `SECONDARY`, `SUCCESS`, `DANGER`, `LINK`];
-   if (!checkIfExists(id) || !checkIfExists(label) || !checkIfAnyMatch(style, availableStyles))
-      return;
-
-   return new D.MessageButton()
-      .setCustomId(id)
-      .setLabel(label)
-      .setStyle(style);
+   if (checkIfExists(id) && checkIfExists(label) && checkIfAnyMatch(style, availableStyles))
+      return new D.MessageButton()
+         .setCustomId(id)
+         .setLabel(label)
+         .setStyle(style);
 }
 
 module.exports.dcCreateButton = dcCreateButton;

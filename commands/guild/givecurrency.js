@@ -30,13 +30,9 @@ module.exports = {
 
       amountToGive = C.convertToInt(amountToGive);
 
-      const targetID = CC.getUserFromNameOrMention(message, args[1]);
-      if (!targetID)
-         return;
-
       try {
-         ownerProfile = await DB.gGetMsgAuthorProfile(message);
-         targetProfile = await DB.gGetProfileById(message, targetID);
+         ownerProfile = await CG.getMessageAuthorProfile(message);
+         targetProfile = await CG.getMemberProfile(message, args[1]);
       } catch(error) {
          C.dcRespondToMsg(message, error);
          return;

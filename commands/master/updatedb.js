@@ -1,4 +1,5 @@
 const C = require('../../modules/common.js');
+const CG = require('../../modules/commonGuild.js');
 const DB = require('../../modules/db.js');
 
 module.exports = {
@@ -11,9 +12,9 @@ module.exports = {
       let profile;
 
       if (args[2])
-         profile = await DB.gGetProfileById(message, args[2]);
+         profile = await CG.getProfileById(message, args[2]);
       else
-         profile = await DB.gGetMsgAuthorProfile(message);
+         profile = await CG.getMessageAuthorProfile(message);
 
 
       if (args[1] == 'add') {

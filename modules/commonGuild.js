@@ -11,6 +11,111 @@ function checkIfProfile(value) {
 module.exports.checkIfProfile = checkIfProfile;
 
 // OK---------------------------------------------------------------------------------------------------------------
+async function getMessageAuthorProfile(message) {
+   if (!C.dcCheckIfMessage(message))
+      return Promise.reject(`Wrong input argument!`);
+
+   let profile = await SG.character.findOne({ ownerId: message.author.id });
+
+   if (!profile) {
+      try {
+         profile = await createNewGuildProfile(message.member);
+      } catch(error) {
+         return Promise.reject(error);
+      }
+   }
+
+   return Promise.resolve(profile); 
+}
+
+module.exports.getMessageAuthorProfile = getMessageAuthorProfile;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function getMemberProfile(message, nameOrMention) {
+   let foundID = C.getMemberIdByNameOrMention(message, nameOrMention);
+
+   if (C.dcCheckIfCollection(foundID)) {
+      const membersAmount = foundID.size;
+
+      if (membersAmount == 0) {
+         return Promise.reject(`No users found!`);
+      } else if (membersAmount > 1) {
+         let msg = `Found more than 1 user!\nUsers found: `;
+         const memberNames = foundID.map(e => e.displayName);
+
+         memberNames.forEach(e => msg += `${e}; `);
+
+         return Promise.reject(msg);
+      } else {
+         foundID = foundID.at(0).id;
+      }
+   }
+
+   return Promise.resolve(getProfileById(message, foundID)):
+}
+
+module.exports.getMemberProfile = getMemberProfile;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function getProfileById(message, id) {
+   if (!C.dcCheckIfMessage(message) || !id)
+      return Promise.reject(`Wrong input argument!`);
+
+   let profile = await SG.character.findOne({ ownerId: id });
+
+   if (!profile) {
+      const member = C.dcGetMemberByID(message.guild, id);
+      if (member) {
+         try {
+            profile = await createNewGuildProfile(member);
+         } catch(error) {
+            return Promise.reject(error);
+         }
+      } else {
+         return Promise.reject(`That user doesn't exist or is not in Deltrada!`);
+      }
+   }
+
+   return Promise.resolve(profile);
+}
+
+module.exports.getProfileById = getProfileById;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function createNewGuildProfile(user) {
+   if (!C.dcCheckIfMember(user))
+      return Promise.reject(`Unable to create guild profile! The user is not a valid guild member: \n${user}`);
+
+   let currencyAmount;
+
+   //Main
+   const profile = new SG.character({
+      ownerId: user.id,
+      ownerTag: user?.user.tag,
+      ownerName: user.displayName,
+   });
+
+   profile.currencies = {
+      amberDrops : C.rndNo0(10),
+      pearlFlakes : C.rndNo0(10),
+      obsidianChips : C.rndNo0(10),
+      silverCoins : C.rndNo0(10),
+      goldCoins : C.rndNo0(10),
+      deltradaCoins : C.rndNo0(100),
+   }
+
+   try {
+      await profile.save().catch(err => console.log(err));
+   } catch(error) {
+      return Promise.reject(error);
+   }
+
+   return Promise.resolve(profile);
+}
+
+module.exports.createNewGuildProfile = createNewGuildProfile;
+
+// OK---------------------------------------------------------------------------------------------------------------
 function getMainProfileInfo(profile) {
    if (!checkIfProfile(profile))
       return;

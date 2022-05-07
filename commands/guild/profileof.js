@@ -13,14 +13,10 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      const userID = CC.getUserFromNameOrMention(message, args[1]);
-      if (!userID)
-         return;
-
       let msg;
 
       try {
-         const userProfile = await DB.gGetProfileById(message, userID);
+         const userProfile = await CG.getMemberProfile(message, args[1]);
          msg = CG.getUserInfo(userProfile, args[2]);
       } catch (error) {
          msg = error;

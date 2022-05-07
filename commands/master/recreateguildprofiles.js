@@ -11,7 +11,7 @@ module.exports = {
 
       for (const member of guildMembers) {
          try {
-            await DB.gGetProfileById(message, member[1].id);
+            await CG.getProfileById(message, member[1].id);
          } catch(error) {
             C.dcRespondToMsg(message, error);
             return;

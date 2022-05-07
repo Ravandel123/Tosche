@@ -38,50 +38,8 @@ module.exports.showCommands = showCommands;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-//----------------------------------------------------------- GETTERS -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function getUserFromNameOrMention(message, string) {
-   let userID = C.dcGetMemberIDFromMention(string);
-
-   if (!userID) {
-      const members = C.dcGetAllMembersByNick(message, string);
-      if (checkFoundMembers(message, members))
-         userID = members.at(0).id;
-   }
-
-   return userID;
-}
-
-module.exports.getUserFromNameOrMention = getUserFromNameOrMention;
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 //----------------------------------------------------------- CHECKERS -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function checkFoundMembers(message, membersCollection) {
-   if (!C.dcCheckIfCollection(membersCollection))
-      return;
-
-   const membersAmount = membersCollection.size;
-
-   if (membersAmount == 0) {
-      C.dcReplyToMsg(message, `No users found!`);
-   } else if (membersAmount > 1) {
-      let msg = `Found more than 1 user!\nUsers found: `;
-      const memberNames = membersCollection.map(e => e.displayName);
-
-      memberNames.forEach(e => msg += `${e}; `);
-
-      C.dcSendMsg(message, msg, 'reply');
-   } else {
-      return true;
-   }
-}
-
-module.exports.checkFoundMembers = checkFoundMembers;
-
 // OK---------------------------------------------------------------------------------------------------------------
 function checkArgsAmount(message, args, requiredArgs) {
    if (!C.checkIfArray(args) || !C.checkIfArray(requiredArgs))

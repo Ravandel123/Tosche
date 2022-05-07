@@ -19,15 +19,11 @@ module.exports = {
             if (!CC.checkArgsAmount(message, args, requiredDuelArgs))
                return;
 
-            const userID = CC.getUserFromNameOrMention(message, args[2]);
-            if (!userID)
-               return;
-
             message.client.data.arena.fightInProgress = true;
             try {
                let msg;
-               const user1 = await DB.gGetMsgAuthorProfile(message);
-               const user2 = await DB.gGetProfileById(message, userID);
+               const user1 = await CG.getMessageAuthorProfile(message);
+               const user2 = await CG.getMemberProfile(message, args[2]);
                await duel(message, user1, user2);
             } catch (error) {
                C.dcRespondToMsg(message, error);

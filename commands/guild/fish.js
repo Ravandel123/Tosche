@@ -19,7 +19,7 @@ module.exports = {
 
 async function getOrCreateFishingThread(message) {
    if (FIS.checkIfThreadIsFishingSpot(message.channel))
-      return new Promise(resolve => { resolve(message.channel) });
+      return Promise.resolve(message.channel);
 
    let replyMsg, fishingThread;
    const spots = FIS.getFishingSpotsForArea(message.channel.name);
@@ -33,7 +33,7 @@ async function getOrCreateFishingThread(message) {
       const fishingAreas = FIS.getAllFishingLocations().join(`\n`);
       const msgContent = `**You can't fish here! Consider going to the following areas:**\n${fishingAreas}`;
       await message.reply({ content: msgContent, components: [] });
-      return new Promise(resolve => { resolve(fishingThread) });
+      return Promise.resolve(fishingThread);
    }
 
    const filter = i => i.user.id == message.author.id;
