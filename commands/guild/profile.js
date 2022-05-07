@@ -9,7 +9,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
       let userProfile, msg;
-      
+
       try {
          userProfile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
       } catch (error) {

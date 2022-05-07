@@ -1092,9 +1092,9 @@ module.exports.dcGetAllMembersByNick = dcGetAllMembersByNick;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcGetAllMembers(element) {
-   if (dcCheckIfGuildMessage(message))
+   if (dcCheckIfGuildMessage(element))
       return element.guild.members.cache;
-   else if (dcCheckIfGuild(message))
+   else if (dcCheckIfGuild(element))
       return element.members.cache;
 }
 

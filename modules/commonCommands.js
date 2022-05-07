@@ -17,7 +17,7 @@ async function showCommands(commands, message, commandName, prefix, groupName) {
       const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
       if (!command)
-         return C.dcReplyToMsg(message, `that's not a valid command!`);
+         return C.dcReplyToMsg(message, `That's not a valid command!`);
 
       data = `**Name:** ${command.name}\n`;
 
