@@ -37,8 +37,9 @@ module.exports = {
             if (i.customId === 'chapterId') {
                chapter = i.values[0];
                page = 0;
-            } else
+            } else {
                page = parseInt(i.values[0]);
+            }
          }
 
          await i.update({ embeds: generatePageEmbed(chapter, page), components: generatePageMovementRow(chapter, page) });

@@ -26,8 +26,11 @@ module.exports = {
       const filter = i => i.user.id == message.author.id;
       const collector = embedMessage.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU'});
       collector.on('collect', async i => {
-         if (i.isSelectMenu())
-            currentMenu = i.customId;
+         if (i.isSelectMenu()) {
+            if (i.customId === 'chapterId') {
+               currentMenu = i.value[0];
+            }
+         }
 
          await i.update({ embeds: generatePageEmbed(userProfile, currentMenu), components: generateMenu() });
       });
@@ -50,8 +53,8 @@ function generateMenu() {
 
 function generateMenuItems() {
    const menuArray = [];
-   menuArray.push({ label: 'main', value: 'Main', emoji: '📋' });
-   menuArray.push({ label: 'currencies', value: 'Currencies', emoji: '💰' });
+   menuArray.push({ label: 'Main', value: 'main', emoji: '📋' });
+   menuArray.push({ label: 'Currencies', value: 'currencies', emoji: '💰' });
 
    return menuArray;
 }
@@ -66,9 +69,6 @@ function generatePageContent(profile, menuItem) {
          return getCurrenciesInfo(profile);
    }
 }
-
-
-
 
 function getMainProfileInfo(profile) {
    return `Profile of ${C.strBold(profile.ownerTag)}` +
