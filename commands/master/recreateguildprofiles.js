@@ -14,11 +14,18 @@ module.exports = {
       for (const member of guildMembers)
          profiles.push(CG.createNewGuildProfile(member[1]));
 
-      try {
-         await SG.character.insertMany(profiles);
-         C.dcRespondToMsg(message, `Profiles recreated successfully.`);
-      } catch(error) {
-         C.dcRespondToMsg(message, error);
-      }
+
+      SG.character.insertMany(profiles).then(function() {
+          console.log("Data inserted")  // Success
+      }).catch(function(error){
+          console.log(error)      // Failure
+      });
+
+      // try {
+         // await SG.character.insertMany(profiles);
+         // C.dcRespondToMsg(message, `Profiles recreated successfully.`);
+      // } catch(error) {
+         // C.dcRespondToMsg(message, error);
+      // }
    }
 }

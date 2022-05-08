@@ -1,6 +1,7 @@
 const C = require('../../modules/common.js');
 const CG = require('../../modules/commonGuild.js');
 const DB = require('../../modules/db.js');
+const SG = require('../../modules/schematicsGuild.js');
 
 module.exports = {
    name: 'updatedb',
@@ -8,7 +9,7 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
-      let guildProfiles = await DB.gGetColGuildChar();
+      let guildProfiles = await SG.character;
       let profile;
 
       if (args[2])

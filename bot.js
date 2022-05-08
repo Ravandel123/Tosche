@@ -77,7 +77,7 @@ startUp();
 
 // https://stackoverflow.com/questions/17039018/how-to-use-a-variable-as-a-field-name-in-mongodb-native-findone
 CRON.schedule('0 * * * *', async () => {
-   await DB.gModifyActionPointsForAll(1);
+   await CG.modifyActionPointsForAll(1);
 });
 
 // 0 * * * *

@@ -14,7 +14,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
 
-   await DB.gModifyActionPointsForAll(args[1]);
+   await CG.modifyActionPointsForAll(args[1]);
 
    // let fishingProfile;
 
