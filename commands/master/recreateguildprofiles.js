@@ -14,7 +14,7 @@ module.exports = {
       for (const member of guildMembers)
          profiles.push(CG.createNewGuildProfile(member[1]));
 
-      const res = awaitSG.character.insertMany(profiles);
+      const res = await SG.character.insertMany(profiles);
       console.log(res);
       
       
