@@ -38,6 +38,7 @@ module.exports = {
 
 function generatePageEmbed(profile, menuItem) {
    return [new D.MessageEmbed()
+      .setTitle(generatePageTitle(profile, menuItem))
       .setDescription(generatePageContent(profile, menuItem))];
 }
 
@@ -59,6 +60,16 @@ function generateMenuItems() {
 }
 
 //-------------------------PAGES-------------------------
+function generatePageTitle(profile, menuItem) {
+   switch (menuItem) {
+      case 'main':
+         return `Profile of ${C.strBold(profile.ownerTag)}`;
+
+      case 'currencies':
+         return `Currencies of ${C.strBold(profile.ownerName)}`;
+   }
+}
+
 function generatePageContent(profile, menuItem) {
    switch (menuItem) {
       case 'main':
