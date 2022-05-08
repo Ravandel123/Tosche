@@ -5,7 +5,7 @@ const MG = require('mongoose');
 //----------------------------------------------------------- CHECKERS ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function checkIfMongooseModel(value){
-    return value.hasOwnProperty('schema') && value.schema instanceof MG.Schema;
+   return value.hasOwnProperty('schema') && value.schema instanceof MG.Schema;
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ function checkIfMongooseModel(value){
 //----------------------------------------------------------- INSERT MANY ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function insertMany(model, dataToInsert) {
-   if (!checkIfMongooseModel(model) || C.checkIfExists(dataToInsert))
+   if (!checkIfMongooseModel(model) || !C.checkIfExists(dataToInsert))
       return Promise.reject(`Wrong input argument!`);
 
    const res = await model.insertMany(dataToInsert);
