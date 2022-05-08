@@ -12,10 +12,8 @@ module.exports = {
       const guildMembers = C.dcGetAllMembers(message);
       const profiles = [];
 
-      for (const member of guildMembers)
-         profiles.push(CG.createNewGuildProfile(member[1]));
-      
-      profiles.push('x');
+      // for (const member of guildMembers)
+         // profiles.push(CG.createNewGuildProfile(member[1]));
 
       try {
          await DB.insertMany(SG.character, profiles);
