@@ -1,7 +1,7 @@
 const C = require('./common.js');
 const AG = require('./arraysGuild.js');
 const SG = require('./schematicsGuild.js');
-const DB = require('../db.js');
+const DB = require('./db.js');
 
 // OK----------------------------------------------------------- PROFILE ----------------------------------------------------------
 function checkIfProfile(value) {
