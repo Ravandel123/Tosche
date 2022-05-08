@@ -12,7 +12,8 @@ module.exports = {
       const profiles = [];
 
       for (const member of guildMembers)
-         profiles.push(CG.createNewGuildProfile(member[1]));
+         // profiles.push(CG.createNewGuildProfile(member[1]));
+         profiles.push('x');
 
 
       SG.character.insertMany(profiles).then(function() {
