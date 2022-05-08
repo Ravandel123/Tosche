@@ -22,7 +22,6 @@ async function getProfileById(message, id) {
    if (!C.dcCheckIfMessage(message) || !id)
       return Promise.reject(`Wrong input argument!`);
 
-   // const profile = await SG.character.findOne({ ownerId: id }) ?? createNewGuildProfileFromID(message, id);
    const profile = await DB.findOne(SG.character, { ownerId: id }) ?? createNewGuildProfileFromID(message, id);
    if (!profile)
       return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);

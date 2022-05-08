@@ -26,9 +26,9 @@ async function getOrCreateFishingThread(message) {
 
    if (C.arrCheckIfNotEmpty(spots)) {
       const buttonSpots = C.convertByFunction(spots, e => C.dcCreateButton(e.name, C.strCapitalizeFirstLetter(e.name)));
-      const rowLocations = C.dcCreateRow(buttonSpots);
+      const rowSpots = C.dcCreateRow(buttonSpots);
 
-      replyMsg = await message.reply({ content: `Where would you like to fish?`, components: [rowLocations] });
+      replyMsg = await message.reply({ content: `Where would you like to fish?`, components: [rowSpots] });
    } else {
       const fishingAreas = FIS.getAllFishingLocations().join(`\n`);
       const msgContent = `**You can't fish here! Consider going to the following areas:**\n${fishingAreas}`;
