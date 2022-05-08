@@ -27,9 +27,10 @@ module.exports = {
       // const collector = embedMessage.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU' });
       const collector = embedMessage.createMessageComponentCollector({ componentType: 'SELECT_MENU' });
       collector.on('collect', async i => {
-         if (i => i.user.id != message.author.id) {
+         if (i.user.id != message.author.id) {
             // await i.deferUpdate();
             await i.reply({ content: `Only the person who ran the command can use it!`, ephemeral: true});
+            return;
          }
 
          if (i.isSelectMenu()) {
