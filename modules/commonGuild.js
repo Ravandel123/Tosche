@@ -28,6 +28,7 @@ async function getProfileById(message, id) {
 
    try {
       const res = await profile.save();
+      console.log(res);
       console.log(res.n);
       console.log(res.nModified);
    } catch(error) {
