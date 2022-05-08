@@ -11,18 +11,19 @@ async function gGetColGuildChar() {
 
 module.exports.gGetColGuildChar = gGetColGuildChar;
 
-// OK---------------------------------------------------------------------------------------------------------------
-async function gGetAllProfiles() {
-   return await SG.character.find({});
-}
+OK---------------------------------------------------------------------------------------------------------------
+// async function gGetAllProfiles() {
+   // return await SG.character.find({});
+// }
 
-module.exports.gGetAllProfiles = gGetAllProfiles;
+// module.exports.gGetAllProfiles = gGetAllProfiles;
 
 // ---------------------------------------------------------------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function gModifyActionPointsForAll(amount) {
-   const guildProfiles = await gGetColGuildChar();
-   await guildProfiles.updateMany({}, {$inc: {"actionPoints.current" : amount, "actionPoints.totalEarned" : amount}});
+   // const guildProfiles = await gGetColGuildChar();
+   // await guildProfiles.updateMany({}, {$inc: {"actionPoints.current" : amount, "actionPoints.totalEarned" : amount}});
+   await SG.character.updateMany({}, {$inc: {"actionPoints.current" : amount, "actionPoints.totalEarned" : amount}});
 }
 
 module.exports.gModifyActionPointsForAll = gModifyActionPointsForAll;

@@ -14,37 +14,39 @@ module.exports = {
    example: '',
    async execute(message, args) {
 
-   let fishingProfile;
+   await DB.gModifyActionPointsForAll(args[1]);
 
-   if (!args[1]) {
-      fishingProfile = new SG.fishing({
-         ownerId: message.author.id
-      });
+   // let fishingProfile;
 
-      try {
-         await fishingProfile.save().catch(err => console.log(err));
-      } catch(error) {
-         console.log(error)
-      }
+   // if (!args[1]) {
+      // fishingProfile = new SG.fishing({
+         // ownerId: message.author.id
+      // });
 
-   } else {
-      fishingProfile = await SG.fishing.findOne({ ownerId: message.author.id });
-      fishingProfile.fish.push({
-         id: `fish_smallmouthBass`,
-         weight: C.rndNo0(10)
-      });
-      fishingProfile.records.push(fishingProfile.fish[0]);
+      // try {
+         // await fishingProfile.save().catch(err => console.log(err));
+      // } catch(error) {
+         // console.log(error)
+      // }
 
-      fishingProfile.rod = { id: 'xd', condition: 2.15 };
-   }
+   // } else {
+      // fishingProfile = await SG.fishing.findOne({ ownerId: message.author.id });
+      // fishingProfile.fish.push({
+         // id: `fish_smallmouthBass`,
+         // weight: C.rndNo0(10)
+      // });
+      // fishingProfile.records.push(fishingProfile.fish[0]);
 
-   try {
-      await fishingProfile.save().catch(err => console.log(err));
-   } catch(error) {
-      console.log(error)
-   }
+      // fishingProfile.rod = { id: 'xd', condition: 2.15 };
+   // }
 
-   console.log(fishingProfile);
+   // try {
+      // await fishingProfile.save().catch(err => console.log(err));
+   // } catch(error) {
+      // console.log(error)
+   // }
+
+   // console.log(fishingProfile);
 
    // ownerId: String,
    // rod: {
