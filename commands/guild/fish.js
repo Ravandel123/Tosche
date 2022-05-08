@@ -36,13 +36,12 @@ async function getOrCreateFishingThread(message) {
       return Promise.resolve(fishingThread);
    }
 
-   const filter = i => i.user.id == message.author.id;
-   const locationCollector = replyMsg.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: 10000 });
+   const locationCollector = replyMsg.createMessageComponentCollector({ componentType: 'BUTTON', time: 10000 });
    locationCollector.on('collect', async i => {
       if (i.user.id != message.author.id) {
-            await i.reply({ content: `Only the person who ran the command can use this button!`, ephemeral: true , time: 2000});
-            return;
-         }
+         await i.reply({ content: `Only the person who ran the command can use this button!`, ephemeral: true , time: 2000});
+         return;
+      }
 
       fishingThread = await C.dcGetCreateOrUnarchiveThread(message.channel, i.customId, C.dcGetMemberByID(message.guild, message.author.id));
       await i.update({ content: `Now go to the <#${fishingThread.id}>!`, components: [] });
