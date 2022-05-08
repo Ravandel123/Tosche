@@ -23,9 +23,14 @@ module.exports = {
          components: generateMenu()
       });
 
-      const filter = i => i.user.id == message.author.id;
+      // const filter = i => i.user.id == message.author.id;
       const collector = embedMessage.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU'});
       collector.on('collect', async i => {
+         if (i => i.user.id != message.author.id) {
+            await i.deferUpdate();
+            await i.reply({ content: `Only the person who ran the command can use it!`, ephemeral: true});
+         }
+
          if (i.isSelectMenu()) {
             if (i.customId === 'menuId')
                currentMenu = i.values[0];
