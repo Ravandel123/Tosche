@@ -39,6 +39,11 @@ async function getOrCreateFishingThread(message) {
    const filter = i => i.user.id == message.author.id;
    const locationCollector = replyMsg.createMessageComponentCollector({ filter, componentType: 'BUTTON', time: 10000 });
    locationCollector.on('collect', async i => {
+      if (i.user.id != message.author.id) {
+            await i.reply({ content: `Only the person who ran the command can use this button!`, ephemeral: true , time: 2000});
+            return;
+         }
+
       fishingThread = await C.dcGetCreateOrUnarchiveThread(message.channel, i.customId, C.dcGetMemberByID(message.guild, message.author.id));
       await i.update({ content: `Now go to the <#${fishingThread.id}>!`, components: [] });
       locationCollector.stop();
@@ -75,9 +80,13 @@ async function startFishing(message, thread) {
 
    let fishCaught = false;
 
-   const filter = i => i.user.id == message.author.id;
-   const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: 'BUTTON'});
+   const fishingCollector = mainMessage.createMessageComponentCollector({ componentType: 'BUTTON'});
    fishingCollector.on('collect', async i => {
+      if (i.user.id != message.author.id) {
+            await i.reply({ content: `Only the person who ran the command can use this button!`, ephemeral: true , time: 2000});
+            return;
+         }
+
       if (i.customId === 'start') {
          msgContent = `You cast your fishing rod, and wait`;
          await i.update({ content: msgContent, components: [] });
