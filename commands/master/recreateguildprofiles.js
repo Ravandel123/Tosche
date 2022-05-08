@@ -14,8 +14,9 @@ module.exports = {
       for (const member of guildMembers)
          profiles.push(CG.createNewGuildProfile(member[1]));
 
-      const res = await SG.character.insertMany(profiles);
-      console.log(res.length);
+      await insertMany(SG.character, profiles);
+      // const res = await SG.character.insertMany(profiles);
+      // console.log(res.length);
       
       
       
@@ -25,4 +26,10 @@ module.exports = {
           // C.dcRespondToMsg(message, error);
       // });
    }
+}
+
+async function insertMany(collection, dataToInsert) {
+   const res = await collection.insertMany(dataToInsert);
+   console.log(res.length);
+   console.log(collection);
 }
