@@ -24,13 +24,11 @@ module.exports = {
       });
 
       const filter = i => i.user.id == message.author.id;
-      const collector = embedMessage.createMessageComponentCollector({ filter });
+      const collector = embedMessage.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU'});
       collector.on('collect', async i => {
          if (i.isSelectMenu()) {
-            if (i.customId === 'chapterId') {
-               console.log(`i.values = ${i.values}`);
+            if (i.customId === 'menuId')
                currentMenu = i.values[0];
-            }
          }
 
          await i.update({ embeds: generatePageEmbed(userProfile, currentMenu), components: generateMenu() });
