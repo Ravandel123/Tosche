@@ -81,22 +81,18 @@ function generatePageContent(profile, menuItem) {
 }
 
 function getMainProfileInfo(profile) {
-   return `Profile of ${C.strBold(profile.ownerTag)}` +
-          `\n--------------------------------------------------` + 
-          `\n**ID**: ${profile.ownerId}` +
-          `\n**Name**: ${profile.ownerName}` +
-          `\n**Action Points**: ${profile.actionPoints.current}`;
+   return `**ID**: ${profile.ownerId}\n` +
+          `**Name**: ${profile.ownerName}\n` +
+          `**Action Points**: ${profile.actionPoints.current}`;
 }
 
 function getCurrenciesInfo(profile) {
    const currencies = profile.currencies;
 
-   return `Currencies of ${C.strBold(profile.ownerName)}` + 
-          `\n--------------------------------------------------` +
-          `\n**Amber Drops:** ${currencies.amberDrops}` +
-          `\n**Pearl Flakes:** ${currencies.pearlFlakes}` +
-          `\n**Obsidian Chips:** ${currencies.obsidianChips}` +
-          `\n**Silver Coin:** ${currencies.silverCoins}` +
-          `\n**Gold Coins:** ${currencies.goldCoins}` +
-          `\n**Deltrada Coins:** ${currencies.deltradaCoins}`;
+   return `**Amber Drops:** ${currencies.amberDrops}\n` +
+          `**Pearl Flakes:** ${currencies.pearlFlakes}\n` +
+          `**Obsidian Chips:** ${currencies.obsidianChips}\n` +
+          `**Silver Coin:** ${currencies.silverCoins}\n` +
+          `**Gold Coins:** ${currencies.goldCoins}\n` +
+          `**Deltrada Coins:** ${currencies.deltradaCoins}`;
 }
