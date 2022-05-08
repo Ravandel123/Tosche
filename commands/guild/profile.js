@@ -28,6 +28,7 @@ module.exports = {
       collector.on('collect', async i => {
          if (i.isSelectMenu()) {
             if (i.customId === 'chapterId') {
+               console.log(`i.values = ${i.values}`);
                currentMenu = i.values[0];
             }
          }
