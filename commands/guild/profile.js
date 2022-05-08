@@ -24,7 +24,8 @@ module.exports = {
       });
 
       // const filter = i => i.user.id == message.author.id;
-      const collector = embedMessage.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU'});
+      // const collector = embedMessage.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU' });
+      const collector = embedMessage.createMessageComponentCollector({ componentType: 'SELECT_MENU' });
       collector.on('collect', async i => {
          if (i => i.user.id != message.author.id) {
             await i.deferUpdate();
