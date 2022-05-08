@@ -26,7 +26,7 @@ module.exports = {
       const collector = embedMessage.createMessageComponentCollector({ componentType: 'SELECT_MENU' });
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
-            await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true , time: 2000});
+            await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true });
             return;
          }
 
