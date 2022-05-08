@@ -1,3 +1,4 @@
+const D = require('discord.js');
 const C = require('../../modules/common.js');
 const CG = require('../../modules/commonGuild.js');
 
