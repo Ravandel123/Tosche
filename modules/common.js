@@ -683,7 +683,7 @@ module.exports.checkIfFunction = checkIfFunction;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function checkIfObject(value) {
-   return typeof value === 'object';
+   return typeof value === 'object' && !checkIfArray(value);
 }
 
 module.exports.checkIfObject = checkIfObject;
