@@ -11,7 +11,7 @@ module.exports = {
 
       try {
          userProfile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
-      } catch (error) {
+      } catch(error) {
          C.dcRespondToMsg(message, error);
          return;
       }

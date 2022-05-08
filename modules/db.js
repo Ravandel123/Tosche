@@ -16,8 +16,12 @@ async function insertMany(model, dataToInsert) {
    if (!checkIfMongooseModel(model) || !C.checkIfExists(dataToInsert))
       return Promise.reject(`Wrong input argument!`);
 
-   const res = await model.insertMany(dataToInsert);
-   return res.length > 0 ? Promise.resolve(`Successfully inserted ${res.length} documents.`) : Promise.reject(`No document was inserted!`);
+   try {
+      const res = await model.insertMany(dataToInsert);
+      return res.length > 0 ? Promise.resolve(`Successfully inserted ${res.length} documents.`) : Promise.reject(`No document was inserted!`);
+   } catch(error) {
+      return Promise.Reject(error);
+   }
 }
 
 module.exports.insertMany = insertMany;
