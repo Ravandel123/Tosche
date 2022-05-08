@@ -29,8 +29,7 @@ async function getProfileById(message, id) {
    try {
       const res = await profile.save();
       console.log(res);
-      console.log(res.n);
-      console.log(res.nModified);
+      return await profile.save();
    } catch(error) {
       return Promise.reject(error);
    }
