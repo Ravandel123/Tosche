@@ -12,13 +12,14 @@ module.exports = {
       const guildMembers = C.dcGetAllMembers(message);
       const profiles = [];
 
-      // for (const member of guildMembers)
-         // profiles.push(CG.createNewGuildProfile(member[1]));
+      for (const member of guildMembers)
+         profiles.push(CG.createNewGuildProfile(member[1]));
 
       try {
          await DB.insertMany(SG.character, profiles);
+         C.dcRespondToMsg(message, `Profiles have been successfully recreated`);
       } catch(error) {
-         console.log(error);
+         C.dcRespondToMsg(message, error);
       }
    }
 }
