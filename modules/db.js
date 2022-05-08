@@ -11,7 +11,7 @@ async function gGetColGuildChar() {
 
 module.exports.gGetColGuildChar = gGetColGuildChar;
 
-OK---------------------------------------------------------------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
 // async function gGetAllProfiles() {
    // return await SG.character.find({});
 // }
