@@ -20,7 +20,7 @@ async function insertMany(model, dataToInsert) {
       const res = await model.insertMany(dataToInsert);
       return res.length > 0 ? Promise.resolve(`Successfully inserted ${res.length} documents.`) : Promise.reject(`No document was inserted!`);
    } catch(error) {
-      return Promise.Reject(error);
+      return Promise.reject(error);
    }
 }
 
