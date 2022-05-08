@@ -23,4 +23,6 @@ async function insertMany(collection, dataToInsert) {
    return res.length > 0 ? Promise.resolve(`Successfully inserted ${res.length} documents.`) : Promise.reject(`No document was inserted!`);
 }
 
+module.exports.insertMany = insertMany;
+
 // ---------------------------------------------------------------------------------------------------------------
