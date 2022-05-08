@@ -4,6 +4,7 @@ const Mongoose = require('mongoose');
 const Config = require('./config.json');
 const CRON = require('node-cron');
 const DB = require('./modules/db.js');
+const CG = require('./modules/commonGuild.js');
 
 const client = new Client({
     partials: ['USER', 'MESSAGE', 'GUILD_MEMBER', 'CHANNEL', 'REACTION'],

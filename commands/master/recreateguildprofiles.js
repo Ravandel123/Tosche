@@ -13,23 +13,13 @@ module.exports = {
 
       for (const member of guildMembers)
          profiles.push(CG.createNewGuildProfile(member[1]));
+      
+      profiles.push('x');
 
-      await insertMany(SG.character, profiles);
-      // const res = await SG.character.insertMany(profiles);
-      // console.log(res.length);
-      
-      
-      
-      // .then(function() {
-          // C.dcRespondToMsg(message, `Profiles recreated successfully.`);
-      // }).catch(function(error) {
-          // C.dcRespondToMsg(message, error);
-      // });
+      try {
+         await DB.insertMany(SG.character, profiles);
+      } catch(error) {
+         console.log(error);
+      }
    }
-}
-
-async function insertMany(collection, dataToInsert) {
-   const res = await collection.insertMany(dataToInsert);
-   console.log(res.length);
-   console.log(collection);
 }
