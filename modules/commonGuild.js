@@ -27,7 +27,9 @@ async function getProfileById(message, id) {
       return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);
 
    try {
-      await profile.save();
+      const res = await profile.save();
+      console.log(res.n);
+      console.log(res.nModified);
    } catch(error) {
       return Promise.reject(error);
    }

@@ -12,21 +12,12 @@ module.exports = {
       const profiles = [];
 
       for (const member of guildMembers)
-         // profiles.push(CG.createNewGuildProfile(member[1]));
-         profiles.push('x');
-
+         profiles.push(CG.createNewGuildProfile(member[1]));
 
       SG.character.insertMany(profiles).then(function() {
-          console.log("Data inserted")  // Success
-      }).catch(function(error){
-          console.log(error)      // Failure
+          C.dcRespondToMsg(message, `Profiles recreated successfully.`);
+      }).catch(function(error) {
+          C.dcRespondToMsg(message, error);
       });
-
-      // try {
-         // await SG.character.insertMany(profiles);
-         // C.dcRespondToMsg(message, `Profiles recreated successfully.`);
-      // } catch(error) {
-         // C.dcRespondToMsg(message, error);
-      // }
    }
 }
