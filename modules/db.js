@@ -4,21 +4,19 @@ const MG = require('mongoose');
 
 //----------------------------------------------------------- CHECKERS ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-function checkIfMongooseModel(value) {
-   return value instanceof MG.Model;
+function checkIfMongooseModel(value){
+    return value.hasOwnProperty('schema') && value.schema instanceof MG.Schema;
 }
-
-module.exports.checkIfMongooseModel = checkIfMongooseModel;
 
 // ---------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------- INSERT MANY ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-async function insertMany(collection, dataToInsert) {
-   if (!checkIfMongooseModel(collection) || C.checkIfExists(dataToInsert))
+async function insertMany(model, dataToInsert) {
+   if (!checkIfMongooseModel(model) || C.checkIfExists(dataToInsert))
       return Promise.reject(`Wrong input argument!`);
 
-   const res = await collection.insertMany(dataToInsert);
+   const res = await model.insertMany(dataToInsert);
    return res.length > 0 ? Promise.resolve(`Successfully inserted ${res.length} documents.`) : Promise.reject(`No document was inserted!`);
 }
 
