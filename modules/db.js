@@ -1,12 +1,11 @@
 const C = require('./common.js');
-const AG = require('./arraysGuild.js');
 const SG = require('./schematicsGuild.js');
-
+const MG = require('mongoose');
 
 //----------------------------------------------------------- CHECKERS ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function checkIfMongooseModel(value) {
-   return value instanceof mongoose.Model;
+   return value instanceof MG.Model;
 }
 
 module.exports.checkIfMongooseModel = checkIfMongooseModel;
