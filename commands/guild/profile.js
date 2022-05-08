@@ -24,7 +24,7 @@ module.exports = {
       });
 
       const filter = i => i.user.id == message.author.id;
-      const collector = embedMessage.createMessageComponentCollector({ filter, componentType: 'SELECT_MENU'});
+      const collector = embedMessage.createMessageComponentCollector({ filter });
       collector.on('collect', async i => {
          if (i.isSelectMenu()) {
             if (i.customId === 'chapterId') {
