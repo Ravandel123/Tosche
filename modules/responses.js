@@ -59,7 +59,7 @@ module.exports.resIssueSingle = resIssueSingle;
 //----------------------------------------------------------- COMMANDS ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function resAmount(maxMultiplier = 8, additionalSymbol = '') {
-   const maxNumber = C.genRandomMultiplier(maxMultiplier, 75) + 1;
+   const maxNumber = G.genRandomMultiplier(maxMultiplier, 75) + 1;
    const amountPart = C.rnd(maxNumber) + additionalSymbol;
    const defaultEnding = G.genAccuracy(false) + ' ' + amountPart;
 
