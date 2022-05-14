@@ -1,4 +1,4 @@
-const C = require("../modules/commonCommands.js");
+const CC = require("../modules/commonCommands.js");
 
 module.exports = {
    name: 'messageUpdate',
