@@ -1,4 +1,5 @@
 const C = require('./common.js');
+const AC = require('./arraysCommon.js');
 const R = require('./responses.js');
 
 //----------------------------------------------------------- MAIN -----------------------------------------------------------
@@ -33,6 +34,24 @@ async function showCommands(commands, message, commandName, prefix, groupName) {
 }
 
 module.exports.showCommands = showCommands;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function dcValidateForBannedWords(message) {
+   if (!C.dcCheckIfMessage(message))
+      return;
+
+   const messageContent = C.strToLowerCase(message.content);
+   const messageText = C.strRemoveAllSpecialChars(messageContent);
+   if (C.strCheckIfContainsAny([messageContent, messageText], AC.arrayBannedWords)) {
+      C.dcRespondToMsg(message, `Oops, it looks like you said a forbidden word ${message.author}!`);
+      message.delete();
+      return false;
+   }
+
+   return true;
+}
+
+module.exports.dcValidateForBannedWords = dcValidateForBannedWords;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

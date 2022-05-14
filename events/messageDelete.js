@@ -1,7 +1,7 @@
 module.exports = {
    name: 'messageDelete',
    execute(message, client) {
-      if (message.guild.id != 553933942193913856)
+      if (message.guild.id != '553933942193913856')
          return;
 
       message.guild.channels.cache.find(c => c.name == 'espionage')?.send(

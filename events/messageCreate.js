@@ -1,6 +1,7 @@
 const C = require("../modules/common.js");
 const R = require('../modules/responses.js');
 const AC = require("../modules/arraysCommon.js");
+const CC = require("../modules/commonCommands.js");
 const { Collection } = require('discord.js');
 const {
    prefix,
@@ -19,7 +20,7 @@ module.exports = {
          if (message.author.bot)
             return;
 
-         if (!C.dcValidateForBannedWords(message))
+         if (!CC.dcValidateForBannedWords(message))
             return;
 
          let prefixLength, commandName, command, commands, arguments;

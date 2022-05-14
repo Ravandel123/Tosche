@@ -1,12 +1,12 @@
-const C = require("../modules/common.js");
+const C = require("../modules/commonCommands.js");
 
 module.exports = {
    name: 'messageUpdate',
    execute(oldMessage, newMessage, client) {
-      if (newMessage.guild.id != 553933942193913856)
+      if (newMessage.guild.id != '553933942193913856')
          return;
 
-      newMessage.guild.channels.cache.find(c => c.name == 'espionage')?.send(
+      newMessage.guild.channels.cache.find(e => e.name == 'espionage')?.send(
       `A message has been edited.\n` +
       `Author: ${oldMessage.author}\n` +
       `Channel: ${oldMessage.channel}\n` +
@@ -14,6 +14,6 @@ module.exports = {
       `New message: ${newMessage}\n` +
       `--------------------------------------------------`);
 
-      C.dcValidateForBannedWords(newMessage);
+      CC.dcValidateForBannedWords(newMessage);
    },
 };

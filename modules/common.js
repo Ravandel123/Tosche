@@ -976,24 +976,6 @@ function dcRespondFromArray(message, array) {
 
 module.exports.dcRespondFromArray = dcRespondFromArray;
 
-// OK---------------------------------------------------------------------------------------------------------------
-function dcValidateForBannedWords(message) {
-   if (!dcCheckIfMessage(message))
-      return;
-
-   const messageContent = strToLowerCase(message.content);
-   const messageText = strRemoveAllSpecialChars(messageContent);
-   if (strCheckIfContainsAny([messageContent, messageText], AC.arrayBannedWords)) {
-      dcRespondToMsg(message, `Oops, it looks like you said a forbidden word ${message.author}!`);
-      message.delete();
-      return false;
-   }
-
-   return true;
-}
-
-module.exports.dcValidateForBannedWords = dcValidateForBannedWords;
-
 // ---------------------------------------------------------------------------------------------------------------
 
 
