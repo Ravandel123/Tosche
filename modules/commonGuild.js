@@ -205,6 +205,7 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
 
    fishingDoc.fish.push(fishToAdd);
    fishingDoc.records = getUpdatedFishingRecords(fishingDoc.records, fishToAdd);
+   console.log(fishingDoc);
 
    await fishingDoc.save()
    .catch(error => {
@@ -219,6 +220,9 @@ module.exports.addFishToFishingDoc = addFishToFishingDoc;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function getUpdatedFishingRecords(fishingRecords, fish) {
+   console.log(fishingRecords);
+   console.log(fish);
+   console.log(`*******************************`);
    if (fishingRecords.some(e => e.id == fish.id)) {
       fishingRecords.push(fish);
    } else {
@@ -227,6 +231,10 @@ function getUpdatedFishingRecords(fishingRecords, fish) {
             e.weight = fish.weight;
       });
    }
+   
+   console.log(fishingRecords);
+   console.log(fish);
+   console.log(`*******************************2222222222`);
 
    return fishingRecords;
 }
