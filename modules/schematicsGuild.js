@@ -34,7 +34,7 @@ const gProfileSchema = new MG.Schema({
    }
 });
 
-const profile = MG.model('gprofile', gProfileSchema);
+const profile = MG.model('gProfile', gProfileSchema);
 
 //---------------------------------------------------------------------------------------------------------------
 const gFishingSchema = new MG.Schema({
@@ -57,12 +57,23 @@ const gFishingSchema = new MG.Schema({
    }]
 });
 
-const fishing = MG.model('gfishing', gFishingSchema);
+const fishing = MG.model('gFishing', gFishingSchema);
 
+//---------------------------------------------------------------------------------------------------------------
+const gRecordSchema = new MG.Schema({
+   fish: [{
+      ownerId: String,
+      fishId: String,
+      weight: Number,
+   }]
+});
+
+const record = MG.model('gRecord', gRecordSchema);
 //---------------------------------------------------------------------------------------------------------------
 module.exports = {
    profile,
-   fishing
+   fishing,
+   record
 };
 
 

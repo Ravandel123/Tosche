@@ -142,6 +142,17 @@ module.exports.transferCurrency = transferCurrency;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+//----------------------------------------------------------- RECORD ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+async function getRecordDoc() {
+   return await DB.findOne(SG.record, {})
+}
+
+module.exports.getCurrencyObject = getCurrencyObject;
+
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 //----------------------------------------------------------- FISHING ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
@@ -203,16 +214,31 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
    if (!checkIfFishingDoc(fishingDoc) || !fishToAdd)
       return Promise.reject(`Wrong input argument!`);
 
+   let errors = '';
+
+   const records = await getRecordDoc()
+      .catch(error => {
+         console.log(error)
+         errors += error;
+      });
+
    fishingDoc.fish.push(fishToAdd);
-   getUpdatedFishingRecords(fishingDoc.records, fishToAdd);
-   // fishingDoc.records = getUpdatedFishingRecords(fishingDoc.records, fishToAdd);
-   console.log(fishingDoc);
+   updatedFishingRecords(fishingDoc, fishToAdd, records);
 
    await fishingDoc.save()
-   .catch(error => {
-      console.log(error)
-      return Promise.reject(error);
-   });
+      .catch(error => {
+         console.log(error)
+         errors += error;
+      });
+
+   await records.save()
+      .catch(error => {
+         console.log(error)
+         errors += error;
+      });
+      
+   if (errors != '')
+      return Promise.reject(errors);
 
    return Promise.resolve();
 }
@@ -220,17 +246,33 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
 module.exports.addFishToFishingDoc = addFishToFishingDoc;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function getUpdatedFishingRecords(fishingRecords, fish) {
-   if (!fishingRecords.some(e => e.id == fish.id)) {
-      fishingRecords.push(fish);
+function updatedFishingRecords(fishingDoc, fish, records) {
+   if (!fishingDoc.records.some(e => e.id == fish.id)) {
+      fishingDoc.records.push(fish);
    } else {
-      fishingRecords.forEach(e => {
+      fishingDoc.records.forEach(e => {
          if (e.id == fish.id && e.weight < fish.weight)
             e.weight = fish.weight;
       });
    }
 
-   return fishingRecords;
+   if (!records.fish.some(e => e.fishId == fish.id)) {
+      records.push(createFishRecord(fishingDoc, fish));
+   } else {
+      records.fish.forEach(e => {
+         if (e.fishId == fish.id && e.weight < fish.weight)
+            e = createFishRecord(fishingDoc, fish);
+      });
+   }
+}
+
+// OK---------------------------------------------------------------------------------------------------------------
+function createFishRecord(fishingDoc, fish) {
+   return {
+      ownerId: fishingDoc.ownerId,
+      fishId: fish.id,
+      weight: fish.weight
+   }
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
