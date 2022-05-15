@@ -204,7 +204,7 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
       return Promise.reject(`Wrong input argument!`);
 
    fishingDoc.fish.push(fishToAdd);
-   fishingDoc.records = updateFishingRecords(fishingDoc.records, fishToAdd);
+   fishingDoc.records = getUpdatedFishingRecords(fishingDoc.records, fishToAdd);
 
    await fishingDoc.save()
    .catch(error => {

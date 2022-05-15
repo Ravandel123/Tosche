@@ -35,7 +35,7 @@ function dcSendMsgToChannel2(message, channelName, msgContent)
 
 15. Dodaj klase fish (potrzebne do checkIfFish czy cos)
 
-16. 
+16. Dodaj uaktualnianie nazwy w profilu
 
 -----FINISHED COMMANDS-----
 --Normal--
