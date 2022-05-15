@@ -94,7 +94,7 @@ async function startFishing(message, thread) {
          fishingCollector.stop();
       } else if (i.customId === 'reelIn') {
          fishCaught = true;
-         await i.update({ content: `Congratulations <@!${message.author.id}>! You caught ${C.strAddArticle(fish.name)}! It weights ${fish.data.weight} kg (${C.calcKgToImperial(fish.data.weight)})!`, components: [] });
+         await i.update({ content: `Congratulations <@!${message.author.id}>! You caught **${C.strAddArticle(fish.name)}**! It weights **${fish.data.weight} kg (${C.calcKgToImperial(fish.data.weight)})**!`, components: [] });
          fishingCollector.stop();
       }
    });

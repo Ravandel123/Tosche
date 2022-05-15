@@ -275,6 +275,7 @@ function updateFishingRecords(fishingDoc, fish, records) {
       });
    }
 
+   console.log(records);
    return result;
 }
 
