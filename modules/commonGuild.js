@@ -269,7 +269,7 @@ function updatedFishingRecords(fishingDoc, fish, records) {
    }
 
    if (!records.fish.some(e => e.fishId == fish.id)) {
-      records.push(createFishRecord(fishingDoc, fish));
+      records.fish.push(createFishRecord(fishingDoc, fish));
    } else {
       records.fish.forEach(e => {
          if (e.fishId == fish.id && e.weight < fish.weight)
