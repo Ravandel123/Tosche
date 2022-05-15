@@ -432,7 +432,7 @@ module.exports.resYou = resYou;
 // OK---------------------------------------------------------------------------------------------------------------
 function fishCatchFailed(spotName, fish) {
    const fishName = C.strAddArticle(fish.name);
-   const fishWeight = `${fish.data?.weight} kg (${C.calcKgToImperial(fish.data?.weight)})`;
+   const fishWeight = `**${fish.data?.weight} kg (${C.calcKgToImperial(fish.data?.weight)})**`;
 
    const arrayResult = [
       `Oof... your fish got away...`,
@@ -441,7 +441,7 @@ function fishCatchFailed(spotName, fish) {
    ];
 
    const arrayFishInfoEnding = [
-      `It was ${fishName}, it weighed ${fishWeight}...`
+      `It was **${fishName}**, it weighed ${fishWeight}...`
    ];
 
    return `${C.arrGetRandom(arrayResult)}\n${C.arrGetRandom(arrayFishInfoEnding)}`;
