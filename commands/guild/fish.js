@@ -103,7 +103,7 @@ async function startFishing(message, thread) {
       if (i.size == 1) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
       } else {
-         await addFishToMessageOwnerFishingDoc(message, fish.data);
+         await CG.addFishToMessageOwnerFishingDoc(message, fish.data);
       }
    });
 }

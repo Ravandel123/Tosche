@@ -16,6 +16,7 @@ module.exports = {
          profiles.push(CG.createNewGuildProfile(member[1]));
 
       try {
+         console.log(profiles);
          await DB.insertMany(SG.profile, profiles);
          C.dcRespondToMsg(message, `Profiles have been successfully recreated`);
       } catch(error) {
