@@ -15,12 +15,12 @@ function checkIfMongooseModel(value){
 //----------------------------------------------------------- INSERT MANY ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function insertMany(model, dataToInsert) {
-   if (!checkIfMongooseModel(model) || !C.checkIfExists(dataToInsert))
+   if (!checkIfMongooseModel(model) || !C.checkIfObject(updateQuery))
       return Promise.reject(`Wrong input argument!`);
 
    try {
       const res = await model.insertMany(dataToInsert);
-      return res.length > 0 ? Promise.resolve(`Successfully inserted ${res.length} documents.`) : Promise.reject(`No document was inserted!`);
+      return res.length > 0 ? Promise.resolve(`Successfully inserted ${res.length} documents.`) : Promise.resolve(`No document was inserted!`);
    } catch(error) {
       return Promise.reject(error);
    }
@@ -35,18 +35,12 @@ module.exports.insertMany = insertMany;
 //----------------------------------------------------------- UPDATE MANY ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function updateMany(model, filter, updateQuery) {
-   // if (!checkIfMongooseModel(model) || !C.checkIfExists(updateQuery))
    if (!checkIfMongooseModel(model) || !C.checkIfObject(filter) || !C.checkIfObject(updateQuery))
       return Promise.reject(`Wrong input argument!`);
 
    try {
       const res = await model.updateMany(filter, updateQuery);
-      console.log(`res.matchedCount = ${res.matchedCount}`);
-      console.log(`res.modifiedCount = ${res.modifiedCount}`);
-      console.log(`res.acknowledged = ${res.acknowledged}`);
-      console.log(`res.upsertedId = ${res.upsertedId}`);
-      console.log(`res.upsertedCount = ${res.upsertedCount}`);
-      // return res.length > 0 ? Promise.resolve(`Successfully updated the documents.`) : Promise.reject(`No document was updated!`);
+      return res.modifiedCount > 0 ? Promise.resolve(`Successfully updated ${res.modifiedCount} documents.`) : Promise.resolve(`No document was updated!`);
    } catch(error) {
       return Promise.reject(error);
    }

@@ -105,7 +105,6 @@ module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
 //----------------------------------------------------------- ACTION POINTS ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function modifyActionPointsForAll(amount) {
-   // await SG.character.updateMany({}, );
    await DB.updateMany(SG.character, {}, {$inc: {"actionPoints.current" : amount, "actionPoints.totalEarned" : amount}});
 }
 
