@@ -154,6 +154,7 @@ function generateRandomFishFromSpot(fishingSpot) {
          // weight: C.rndBetween(fish.minWeight, fish.avgWeight, 2)
       // }
 // }
+}
 
 module.exports.generateRandomFishFromSpot = generateRandomFishFromSpot;
 
