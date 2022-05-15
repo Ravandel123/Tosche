@@ -107,7 +107,7 @@ async function startFishing(message, thread) {
             const result = await CG.addFishToMessageOwnerFishingDoc(message, fish.data);
             const response = R.fishRecord(result, fish);
             if (response)
-               C.dcRespondToMsg(mainMessage, response);
+               thread.send(response);
          } catch(error) {
             C.dcRespondToMsg(mainMessage, error);
          }
