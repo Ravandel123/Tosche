@@ -451,7 +451,7 @@ module.exports.fishCatchFailed = fishCatchFailed;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function fishRecord(recordResult, fish, previousRecordHolder) {
-   const correctFish = `**{C.strAddArticle(fish.name)}**`;
+   const correctFish = `**${C.strAddArticle(fish.name)}**`;
    let finalMessage = '';
 
    if (recordResult.previousPersonalRecord > 0) {

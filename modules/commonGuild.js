@@ -265,12 +265,11 @@ function updateFishingRecords(fishingDoc, fish, records) {
       result.previousServerRecord = 0;
       records.fish.push(createFishRecord(fishingDoc, fish));
    } else {
-      records.fish.forEach(e => {
+      records.fish.forEach((e, index) => {
          if (e.fishId == fish.id && e.weight < fish.weight) {
             result.previousServerRecordHolder = e.ownerId;
             result.previousServerRecord = e.weight;
-            e = createFishRecord(fishingDoc, fish);
-            console.log(e);
+            records.fish[index] = createFishRecord(fishingDoc, fish);
          }
       });
    }
