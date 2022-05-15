@@ -15,7 +15,7 @@ function checkIfMongooseModel(value){
 //----------------------------------------------------------- INSERT MANY ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function insertMany(model, dataToInsert) {
-   if (!checkIfMongooseModel(model) || !C.checkIfObject(updateQuery))
+   if (!checkIfMongooseModel(model) || !C.checkIfObject(dataToInsert))
       return Promise.reject(`Wrong input argument!`);
 
    try {
