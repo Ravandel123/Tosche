@@ -223,7 +223,7 @@ function getUpdatedFishingRecords(fishingRecords, fish) {
    console.log(fishingRecords);
    console.log(fish);
    console.log(`*******************************`);
-   if (fishingRecords.some(e => e.id == fish.id)) {
+   if (!fishingRecords.some(e => e.id == fish.id)) {
       fishingRecords.push(fish);
    } else {
       fishingRecords.forEach(e => {
