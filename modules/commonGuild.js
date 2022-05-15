@@ -243,7 +243,7 @@ module.exports.addFishToFishingDoc = addFishToFishingDoc;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function updateFishingRecords(fishingDoc, fish, records) {
-   const result = {
+   let result = {
       previousPersonalRecord: 0,
       previousServerRecord: 0,
       previousServerRecordHolder: ''
