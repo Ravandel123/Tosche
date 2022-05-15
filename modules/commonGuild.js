@@ -145,15 +145,15 @@ module.exports.transferCurrency = transferCurrency;
 //----------------------------------------------------------- RECORD ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function getRecordDoc() {
-   let recordDoc = await DB.findOne(SG.record, {});
-   if (!recordDoc) {
-      recordDoc = new SG.record({});
-      await recordDoc.save()
-         .catch(error => {
-            console.log(error);
-            return Promise.reject(error);
-         });
-   }
+   let recordDoc = await DB.findOne(SG.record, {}) : new SG.record({});
+   // if (!recordDoc) {
+      // recordDoc = new SG.record({});
+      // await recordDoc.save()
+         // .catch(error => {
+            // console.log(error);
+            // return Promise.reject(error);
+         // });
+   // }
 
    return Promise.resolve(recordDoc);
 }
@@ -231,6 +231,8 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
          console.log(error)
          errors += error;
       });
+      
+   console.log(records);
 
    fishingDoc.fish.push(fishToAdd);
    updatedFishingRecords(fishingDoc, fishToAdd, records);
