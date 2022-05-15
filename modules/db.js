@@ -9,6 +9,7 @@ function checkIfMongooseModel(value){
 }
 
 // ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 //----------------------------------------------------------- INSERT MANY ----------------------------------------------------------
@@ -28,9 +29,35 @@ async function insertMany(model, dataToInsert) {
 module.exports.insertMany = insertMany;
 
 // ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-//----------------------------------------------------------- INSERT MANY ----------------------------------------------------------
+//----------------------------------------------------------- UPDATE MANY ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+async function updateMany(model, filter, updateQuery) {
+   if (!checkIfMongooseModel(model) || !C.checkIfExists(dataToInsert))
+      return Promise.reject(`Wrong input argument!`);
+
+   try {
+      const res = await model.updateMany(filter, updateQuery);
+      console.log(`res.matchedCount = ${res.matchedCount}`);
+      console.log(`res.modifiedCount = ${res.modifiedCount}`);
+      console.log(`res.acknowledged = ${res.acknowledged}`);
+      console.log(`res.upsertedId = ${res.upsertedId}`);
+      console.log(`res.upsertedCount = ${res.upsertedCount}`);
+      // return res.length > 0 ? Promise.resolve(`Successfully updated the documents.`) : Promise.reject(`No document was updated!`);
+   } catch(error) {
+      return Promise.reject(error);
+   }
+}
+
+module.exports.updateMany = updateMany;
+
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- FIND ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function findOne(model, filter) {
    if (!checkIfMongooseModel(model) || !C.checkIfObject(filter))
