@@ -145,7 +145,7 @@ module.exports.transferCurrency = transferCurrency;
 //----------------------------------------------------------- RECORD ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function getRecordDoc() {
-   let recordDoc = await DB.findOne(SG.record, {}) : new SG.record({});
+   let recordDoc = await DB.findOne(SG.record, {}) ?? new SG.record({});
    // if (!recordDoc) {
       // recordDoc = new SG.record({});
       // await recordDoc.save()
