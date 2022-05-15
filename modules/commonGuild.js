@@ -204,7 +204,7 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
       return Promise.reject(`Wrong input argument!`);
 
    fishingDoc.fish.push(fishToAdd);
-   updateFishingRecords(fishingDoc, fishToAdd);
+   fishingDoc.records = updateFishingRecords(fishingDoc.records, fishToAdd);
 
    await fishingDoc.save()
    .catch(error => {
@@ -218,15 +218,17 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
 module.exports.addFishToFishingDoc = addFishToFishingDoc;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function updateFishingRecords(fishingDoc, fish) {
-   if (fishingDoc.records.some(e => e.id == fish.id)) {
-      fishingDoc.records.push(fish);
+function getUpdatedFishingRecords(fishingRecords, fish) {
+   if (fishingRecords.some(e => e.id == fish.id)) {
+      fishingRecords.push(fish);
    } else {
-      fishingDoc.records.forEach(e => {
+      fishingRecords.forEach(e => {
          if (e.id == fish.id && e.weight < fish.weight)
             e.weight = fish.weight;
       });
    }
+
+   return fishingRecords;
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
