@@ -145,16 +145,7 @@ module.exports.transferCurrency = transferCurrency;
 //----------------------------------------------------------- RECORD ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function getRecordDoc() {
-   let recordDoc = await DB.findOne(SG.record, {}) ?? new SG.record({});
-   // if (!recordDoc) {
-      // recordDoc = new SG.record({});
-      // await recordDoc.save()
-         // .catch(error => {
-            // console.log(error);
-            // return Promise.reject(error);
-         // });
-   // }
-
+   const recordDoc = await DB.findOne(SG.record, {}) ?? new SG.record({});
    return Promise.resolve(recordDoc);
 }
 
@@ -224,18 +215,11 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
    if (!checkIfFishingDoc(fishingDoc) || !fishToAdd)
       return Promise.reject(`Wrong input argument!`);
 
+   const records = await getRecordDoc();
    let errors = '';
 
-   const records = await getRecordDoc()
-      .catch(error => {
-         console.log(error)
-         errors += error;
-      });
-      
-   console.log(records);
-
    fishingDoc.fish.push(fishToAdd);
-   updatedFishingRecords(fishingDoc, fishToAdd, records);
+   const result = updateFishingRecords(fishingDoc, fishToAdd, records);
 
    await fishingDoc.save()
       .catch(error => {
@@ -248,34 +232,49 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
          console.log(error)
          errors += error;
       });
-      
+
    if (errors != '')
       return Promise.reject(errors);
 
-   return Promise.resolve();
+   return Promise.resolve(result);
 }
 
 module.exports.addFishToFishingDoc = addFishToFishingDoc;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function updatedFishingRecords(fishingDoc, fish, records) {
+function updateFishingRecords(fishingDoc, fish, records) {
+   const result = {
+      previousPersonalRecord: 0,
+      previousServerRecord: 0,
+      previousServerRecordHolder: ''
+   };
+
    if (!fishingDoc.records.some(e => e.id == fish.id)) {
+      result.previousPersonalRecord = 0;
       fishingDoc.records.push(fish);
    } else {
       fishingDoc.records.forEach(e => {
-         if (e.id == fish.id && e.weight < fish.weight)
+         if (e.id == fish.id && e.weight < fish.weight) {
+            result.previousPersonalRecord = e.weight;
             e.weight = fish.weight;
+         }
       });
    }
 
    if (!records.fish.some(e => e.fishId == fish.id)) {
+      result.previousServerRecord = 0;
       records.fish.push(createFishRecord(fishingDoc, fish));
    } else {
       records.fish.forEach(e => {
-         if (e.fishId == fish.id && e.weight < fish.weight)
+         if (e.fishId == fish.id && e.weight < fish.weight) {
+            result.previousServerRecordHolder = e.ownerId;
+            result.previousServerRecord = e.weight;
             e = createFishRecord(fishingDoc, fish);
+         }
       });
    }
+
+   return result;
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
@@ -291,8 +290,8 @@ function createFishRecord(fishingDoc, fish) {
 async function addFishToMessageOwnerFishingDoc(message, fish) {
    try {
       const fishingDoc = await getMessageAuthorFishingDoc(message);
-      await addFishToFishingDoc(fishingDoc, fish);
-      return Promise.resolve();
+      const result = await addFishToFishingDoc(fishingDoc, fish);
+      return Promise.resolve(result);
    } catch(error) {
       return Promise.reject(error);
    }
