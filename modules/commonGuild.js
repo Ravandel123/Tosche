@@ -244,8 +244,8 @@ module.exports.addFishToFishingDoc = addFishToFishingDoc;
 // OK---------------------------------------------------------------------------------------------------------------
 function updateFishingRecords(fishingDoc, fish, records) {
    let result = {
-      previousPersonalRecord: 0,
-      previousServerRecord: 0,
+      previousPersonalRecord: -1,
+      previousServerRecord: -1,
       previousServerRecordHolder: ''
    };
 
@@ -274,7 +274,6 @@ function updateFishingRecords(fishingDoc, fish, records) {
       });
    }
 
-   console.log(records);
    return result;
 }
 
