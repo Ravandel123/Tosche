@@ -455,7 +455,7 @@ function fishRecord(recordResult, fish, previousRecordHolder) {
    let finalMessage = '';
 
    if (recordResult.previousPersonalRecord > 0) {
-      const correctCurrentWeight = `${recordResult.previousPersonalRecord} kg (${C.calcKgToImperial(recordResult.previousPersonalRecord}))`;
+      const correctCurrentWeight = `${recordResult.previousPersonalRecord} kg (${C.calcKgToImperial(recordResult.previousPersonalRecord)})`;
       const arrayPersonalRecord = [
          `Congratulations! This is your personal record for ${correctFish}! Your previous record was: ${correctCurrentWeight}`
       ];
@@ -464,7 +464,7 @@ function fishRecord(recordResult, fish, previousRecordHolder) {
    }
 
    if (recordResult.previousPersonalRecord > 0) {
-      const correctRecordWeight = `${recordResult.previousServerRecord} kg (${C.calcKgToImperial(recordResult.previousServerRecord}))`;
+      const correctRecordWeight = `${recordResult.previousServerRecord} kg (${C.calcKgToImperial(recordResult.previousServerRecord)})`;
       const arrayServerRecord = [
          `Wow! This is Deltrada record for ${correctFish}! The previous record was held by ${previousRecordHolder} who caught ${correctFish} weighing ${correctRecordWeight}`
       ];
