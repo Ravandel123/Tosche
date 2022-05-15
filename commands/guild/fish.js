@@ -2,7 +2,6 @@ const D = require('discord.js');
 const C = require('../../modules/common.js');
 const FIS = require('../../modules/advanced/fishing.js');
 const R = require('../../modules/responses.js');
-
 const CG = require('../../modules/commonGuild.js');
 
 module.exports = {
@@ -90,18 +89,21 @@ async function startFishing(message, thread) {
             await i.editReply({ content: msgContent , components: [] });
             await C.sleep(1);
          }
-         await mainMessage.edit({ content: `There's something on the line! Quickly, reel in!` , components: [C.dcCreateRow([C.dcCreateButton('reelIn', `*Reel in*`)])] });
+         await mainMessage.edit({ content: `There's something on the line! Quickly, reel in!`, components: [C.dcCreateRow([C.dcCreateButton('reelIn', `*Reel in*`)])] });
          await C.sleep(C.rndNo0(3));
          fishingCollector.stop();
       } else if (i.customId === 'reelIn') {
          fishCaught = true;
-         await i.update({ content: `Congratulations <@!${message.author.id}>! You caught ${C.strAddArticle(fish.name)}! It weights ${fish.weight} kg (${C.calcKgToImperial(fish.weight)})!`, components: [] });
+         await i.update({ content: `Congratulations <@!${message.author.id}>! You caught ${C.strAddArticle(fish.name)}! It weights ${fish.data.weight} kg (${C.calcKgToImperial(fish.data.weight)})!`, components: [] });
          fishingCollector.stop();
       }
    });
 
    fishingCollector.on('end', async i => {
-      if (i.size == 1)
+      if (i.size == 1) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
+      } else {
+         await addFishToMessageOwnerFishingDoc(message, fish.data);
+      }
    });
 }

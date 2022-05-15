@@ -130,15 +130,30 @@ function getFishingSpotFromThread(thread) {
 module.exports.getFishingSpotFromThread = getFishingSpotFromThread;
 
 // OK---------------------------------------------------------------------------------------------------------------
+function getFishById(fishId) {
+   return arrFish.find(e => e.id == id);
+}
+
+module.exports.getFishById = getFishById;
+
+// OK---------------------------------------------------------------------------------------------------------------
 function generateRandomFishFromSpot(fishingSpot) {
    const fish = getRandomFishFromSpot(fishingSpot);
 
-   if (fish)
-      return {
-         name: fish.name,
-         weight: C.rndBetween(fish.minWeight, fish.avgWeight, 2)
-      }
-}
+   fish.data = {
+      id: fish.id,
+      weight: C.rndBetween(fish.minWeight, fish.avgWeight, 2)
+   };
+
+   return fish;
+
+   // if (fish)
+      // return {
+         // // name: fish.name,
+         // id: fish.id,
+         // weight: C.rndBetween(fish.minWeight, fish.avgWeight, 2)
+      // }
+// }
 
 module.exports.generateRandomFishFromSpot = generateRandomFishFromSpot;
 

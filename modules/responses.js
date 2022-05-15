@@ -174,8 +174,8 @@ function resHate() {
       `You look like something I'd draw with my left hand.`,
       `Of course I talk like an idiot... How else would you understand me?`,
       `What are you doing here? Did someone leave your cage open?`,
-      `I could eat a bowl of alphabet soup and crap out a smarter comeback than what you just said.',
-      'I'd love to insult you, but I won't do as well as nature did.`,
+      `I could eat a bowl of alphabet soup and crap out a smarter comeback than what you just said.`,
+      `I'd love to insult you, but I won't do as well as nature did.`,
       `You're so ugly the only dates you get are on a calendar.`,
       `You're the reason they invented double doors.`,
       `You're so dumb, I bet your pet teaches you tricks.`,
@@ -432,7 +432,7 @@ module.exports.resYou = resYou;
 // OK---------------------------------------------------------------------------------------------------------------
 function fishCatchFailed(spotName, fish) {
    const fishName = C.strAddArticle(fish.name);
-   const fishWeight = `${fish.weight} kg (${C.calcKgToImperial(fish.weight)})`;
+   const fishWeight = `${fish.data?.weight} kg (${C.calcKgToImperial(fish.data?.weight)})`;
 
    const arrayResult = [
       `Oof... your fish got away...`,

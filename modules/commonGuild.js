@@ -3,12 +3,11 @@ const AG = require('./arraysGuild.js');
 const SG = require('./schematicsGuild.js');
 const DB = require('./db.js');
 
-// OK----------------------------------------------------------- PROFILE ----------------------------------------------------------
+//----------------------------------------------------------- PROFILE ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
 function checkIfProfile(value) {
-   return value instanceof SG.character;
+   return value instanceof SG.profile;
 }
-
-module.exports.checkIfProfile = checkIfProfile;
 
 // OK---------------------------------------------------------------------------------------------------------------
 async function getMessageAuthorProfile(message) {
@@ -22,17 +21,17 @@ async function getProfileById(message, id) {
    if (!C.dcCheckIfMessage(message) || !id)
       return Promise.reject(`Wrong input argument!`);
 
-   const profile = await DB.findOne(SG.character, { ownerId: id }) ?? createNewGuildProfileFromID(message, id);
-   if (!profile)
+   const profileDoc = await DB.findOne(SG.profile, { ownerId: id }) ?? createNewGuildProfileFromID(message, id);
+   if (!profileDoc)
       return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);
 
    try {
-      await profile.save();
+      await profileDoc.save();
    } catch(error) {
       return Promise.reject(error);
    }
 
-   return Promise.resolve(profile);
+   return Promise.resolve(profileDoc);
 }
 
 module.exports.getProfileById = getProfileById;
@@ -69,13 +68,13 @@ function createNewGuildProfile(member) {
       return;
 
    //Main
-   const profile = new SG.character({
+   const profileDoc = new SG.profile({
       ownerId: member.id,
       ownerTag: member?.user.tag,
       ownerName: member.displayName,
    });
 
-   profile.currencies = {
+   profileDoc.currencies = {
       amberDrops : C.rndNo0(10),
       pearlFlakes : C.rndNo0(10),
       obsidianChips : C.rndNo0(10),
@@ -84,7 +83,7 @@ function createNewGuildProfile(member) {
       deltradaCoins : C.rndNo0(100),
    }
 
-   return profile;
+   return profileDoc;
 }
 
 module.exports.createNewGuildProfile = createNewGuildProfile;
@@ -95,7 +94,6 @@ function createNewGuildProfileFromID(message, id) {
    return createNewGuildProfile(member);
 }
 
-
 module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -105,7 +103,7 @@ module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
 //----------------------------------------------------------- ACTION POINTS ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function modifyActionPointsForAll(amount) {
-   await DB.updateMany(SG.character, {}, {$inc: {"actionPoints.current" : amount, "actionPoints.totalEarned" : amount}});
+   await DB.updateMany(SG.profile, {}, {$inc: {"actionPoints.current" : amount, "actionPoints.totalEarned" : amount}});
 }
 
 module.exports.modifyActionPointsForAll = modifyActionPointsForAll;
@@ -140,5 +138,97 @@ function transferCurrency(message, source, target, amount, currency) {
 
 module.exports.transferCurrency = transferCurrency;
 
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+//----------------------------------------------------------- FISHING ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function checkIfFishingDoc(value) {
+   return value instanceof SG.fishing;
+}
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function getMessageAuthorFishingDoc(message) {
+   return Promise.resolve(getFishingDocById(message, message.author.id));
+}
+
+module.exports.getMessageAuthorFishingDoc = getMessageAuthorFishingDoc;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function getFishingDocById(message, id) {
+   if (!C.dcCheckIfMessage(message) || !id)
+      return Promise.reject(`Wrong input argument!`);
+
+   const fishingDoc = await DB.findOne(SG.fishing, { ownerId: id }) ?? createNewFishingDocFromID(message, id);
+   if (!fishingDoc)
+      return Promise.reject(`Unable to find or create fishing profile! The user ${member} doesn't exist or is not in Deltrada!`);
+
+   try {
+      await fishingDoc.save();
+   } catch(error) {
+      return Promise.reject(error);
+   }
+
+   return Promise.resolve(fishingDoc);
+}
+
+module.exports.getFishingDocById = getFishingDocById;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function createNewFishingDocFromID(message, id) {
+   const member = C.dcGetMemberByID(message, id);
+   return createNewFishingDoc(member);
+}
+
+module.exports.createNewFishingDocFromID = createNewFishingDocFromID;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function createNewFishingDoc(member) {
+   if (!C.dcCheckIfMember(member))
+      return;
+
+   const fishingDoc = new SG.fishing({
+      ownerId: member.id
+   });
+
+   return fishingDoc;
+}
+
+module.exports.createNewFishingDoc = createNewFishingDoc;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function addFishToFishingDoc(fishingDoc, fishToAdd) {
+   if (!checkIfFishingDoc(fishingDoc) || !fishToAdd)
+      return Promise.reject(`Wrong input argument!`);
+
+
+   fishingDoc.fish.push(fishToAdd);
+   // fishingProfile.records.push(fishingProfile.fish[0]);
+
+   await fishingDoc.save()
+   .catch(error => {
+      console.log(error)
+      return Promise.reject(error);
+   });
+
+   return Promise.resolve();
+}
+
+module.exports.addFishToFishingDoc = addFishToFishingDoc;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function addFishToMessageOwnerFishingDoc(message, fish) {
+   try {
+      const fishingDoc = await CG.getMessageAuthorFishingDoc(message);
+      await addFishToFishingDoc(fishingDoc, fish);
+      return Promise.resolve();
+   } catch(error) {
+      return Promise.reject(error);
+   }
+}
+
+module.exports.addFishToMessageOwnerFishingDoc = addFishToMessageOwnerFishingDoc;
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

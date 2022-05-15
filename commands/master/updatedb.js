@@ -9,7 +9,7 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
-      let guildProfiles = await SG.character;
+      let guildProfiles = await SG.profile;
       let profile;
 
       if (args[2])

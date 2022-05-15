@@ -1,7 +1,7 @@
 const MG = require('mongoose');
 
 //---------------------------------------------------------------------------------------------------------------
-const gCharSchema = new MG.Schema({
+const gProfileSchema = new MG.Schema({
    ownerId: String,
    ownerTag: String,
    ownerName: String,
@@ -34,7 +34,7 @@ const gCharSchema = new MG.Schema({
    }
 });
 
-const character = MG.model('gcharacter', gCharSchema);
+const profile = MG.model('gprofile', gProfileSchema);
 
 //---------------------------------------------------------------------------------------------------------------
 const gFishingSchema = new MG.Schema({
@@ -61,7 +61,7 @@ const fishing = MG.model('gfishing', gFishingSchema);
 
 //---------------------------------------------------------------------------------------------------------------
 module.exports = {
-   character,
+   profile,
    fishing
 };
 
