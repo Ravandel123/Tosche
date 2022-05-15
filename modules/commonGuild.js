@@ -270,6 +270,7 @@ function updateFishingRecords(fishingDoc, fish, records) {
             result.previousServerRecordHolder = e.ownerId;
             result.previousServerRecord = e.weight;
             e = createFishRecord(fishingDoc, fish);
+            console.log(e);
          }
       });
    }

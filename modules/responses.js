@@ -451,22 +451,22 @@ module.exports.fishCatchFailed = fishCatchFailed;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function fishRecord(recordResult, fish, previousRecordHolder) {
-   const correctFish = C.strAddArticle(fish.name);
+   const correctFish = `**{C.strAddArticle(fish.name)}**`;
    let finalMessage = '';
 
    if (recordResult.previousPersonalRecord > 0) {
-      const correctCurrentWeight = `${recordResult.previousPersonalRecord} kg (${C.calcKgToImperial(recordResult.previousPersonalRecord)})`;
+      const correctCurrentWeight = `**${recordResult.previousPersonalRecord} kg (${C.calcKgToImperial(recordResult.previousPersonalRecord)})**`;
       const arrayPersonalRecord = [
-         `Congratulations! This is your personal record for ${correctFish}! Your previous record was: ${correctCurrentWeight}`
+         `Incredible! This is your personal record for ${correctFish}! Your previous record was: ${correctCurrentWeight}`
       ];
 
       finalMessage += C.arrGetRandom(arrayPersonalRecord) + `\n`;
    }
 
    if (recordResult.previousPersonalRecord > 0) {
-      const correctRecordWeight = `${recordResult.previousServerRecord} kg (${C.calcKgToImperial(recordResult.previousServerRecord)})`;
+      const correctRecordWeight = `**${recordResult.previousServerRecord} kg (${C.calcKgToImperial(recordResult.previousServerRecord)})**`;
       const arrayServerRecord = [
-         `Wow! This is Deltrada record for ${correctFish}! The previous record was held by ${previousRecordHolder} who caught ${correctFish} weighing ${correctRecordWeight}`
+         `Wow! This is Deltrada record for ${correctFish}! The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctRecordWeight}`
       ];
 
       finalMessage += C.arrGetRandom(arrayServerRecord);
