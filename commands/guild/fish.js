@@ -105,7 +105,9 @@ async function startFishing(message, thread) {
       } else {
          try {
             const result = await CG.addFishToMessageOwnerFishingDoc(message, fish.data);
-            const response = R.fishRecord(result, fish);
+            const member = C.dcGetMemberByID(message, result.previousServerRecordHolder);
+            const response = R.fishRecord(result, fish, member.displayName);
+            console.log(response);
             if (response)
                thread.send(response);
          } catch(error) {
