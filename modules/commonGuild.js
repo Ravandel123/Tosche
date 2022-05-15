@@ -221,7 +221,7 @@ module.exports.addFishToFishingDoc = addFishToFishingDoc;
 // OK---------------------------------------------------------------------------------------------------------------
 async function addFishToMessageOwnerFishingDoc(message, fish) {
    try {
-      const fishingDoc = await CG.getMessageAuthorFishingDoc(message);
+      const fishingDoc = await getMessageAuthorFishingDoc(message);
       await addFishToFishingDoc(fishingDoc, fish);
       return Promise.resolve();
    } catch(error) {

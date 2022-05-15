@@ -3,7 +3,7 @@ const CC = require("../modules/commonCommands.js");
 module.exports = {
    name: 'messageUpdate',
    execute(oldMessage, newMessage, client) {
-      if (newMessage.guild.id != '553933942193913856')
+      if (newMessage.guild.id != '553933942193913856' || oldMessage.author.id == '553959824577134593')
          return;
 
       newMessage.guild.channels.cache.find(e => e.name == 'espionage')?.send(

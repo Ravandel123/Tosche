@@ -17,8 +17,9 @@ module.exports = {
 
       try {
          console.log(profiles);
-         await DB.insertMany(SG.profile, profiles);
-         C.dcRespondToMsg(message, `Profiles have been successfully recreated`);
+         const result = await DB.insertMany(SG.profile, profiles);
+         C.dcRespondToMsg(message, result);
+         // C.dcRespondToMsg(message, `Profiles have been successfully recreated`);
       } catch(error) {
          C.dcRespondToMsg(message, error);
       }
