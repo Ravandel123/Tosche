@@ -153,7 +153,6 @@ async function getRecordDoc() {
             console.log(error);
             return Promise.reject(error);
          });
-      }
    }
 
    return Promise.resolve(recordDoc);
