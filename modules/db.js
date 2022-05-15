@@ -35,7 +35,8 @@ module.exports.insertMany = insertMany;
 //----------------------------------------------------------- UPDATE MANY ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function updateMany(model, filter, updateQuery) {
-   if (!checkIfMongooseModel(model) || !C.checkIfExists(updateQuery))
+   // if (!checkIfMongooseModel(model) || !C.checkIfExists(updateQuery))
+   if (!checkIfMongooseModel(model) || !C.checkIfObject(filter) || !C.checkIfObject(updateQuery))
       return Promise.reject(`Wrong input argument!`);
 
    try {
