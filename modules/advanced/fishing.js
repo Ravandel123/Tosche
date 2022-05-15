@@ -146,14 +146,6 @@ function generateRandomFishFromSpot(fishingSpot) {
    };
 
    return fish;
-
-   // if (fish)
-      // return {
-         // // name: fish.name,
-         // id: fish.id,
-         // weight: C.rndBetween(fish.minWeight, fish.avgWeight, 2)
-      // }
-// }
 }
 
 module.exports.generateRandomFishFromSpot = generateRandomFishFromSpot;

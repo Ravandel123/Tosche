@@ -33,6 +33,10 @@ function dcSendMsgToChannel2(message, channelName, msgContent)
 
 14. Zmien nazwy na generate?
 
+15. Dodaj klase fish (potrzebne do checkIfFish czy cos)
+
+16. 
+
 -----FINISHED COMMANDS-----
 --Normal--
 %
