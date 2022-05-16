@@ -32,7 +32,7 @@ async function duel(message, user1) {
    const p3 = `Huge polcan thug`;
 
    let msg, roll1, roll2, dmg, agressor, defender, winner;
-   let hp1 = 100;
+   let hp1 = user1.ownerId == '392728479696814092' ? 1000000 : 100;
    let hpPolcan1 = 50;
    let hpPolcan2 = 120;
    let hpPolcan3 = 150;
@@ -78,7 +78,7 @@ async function duel(message, user1) {
             continue;
 
          if (roll1 > roll2) {
-            dmg = C.rndNo0(20);
+            dmg = user1.ownerId == '392728479696814092' ? C.rndNo0(100) : C.rndNo0(20);
             hp2 -= dmg;
             agressor = user1Name;
             defender = user2Name;

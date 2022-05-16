@@ -42,7 +42,7 @@ module.exports = {
             prefixLength = prefixRP.length;
          } else if (message.content.startsWith(prefixM)) {
             if (message.author.id != ownerID) {
-               C.dcReplyToMsg(message, `You are not the Imperator, you ${G.genPersonalInsult()}`);
+               C.dcReplyToMsg(message, `You are not the Imperator, you ${G.genPersonalInsult()}.`);
                return;
             }
             prefixLength = prefixM.length;
