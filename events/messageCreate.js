@@ -1,4 +1,5 @@
 const C = require("../modules/common.js");
+const G = require('../modules/generators.js');
 const R = require('../modules/responses.js');
 const AC = require("../modules/arraysCommon.js");
 const CC = require("../modules/commonCommands.js");
@@ -39,8 +40,11 @@ module.exports = {
                return;
             }
             prefixLength = prefixRP.length;
-         } else if (message.content.startsWith(prefixM) && message.author.id == ownerID) {
-            prefixLength = prefixM.length;
+         } else if (message.content.startsWith(prefixM))
+            if (message.author.id != ownerID)
+               C.dcReplyToMsg(message, `You are not the Imperator, you ${G.genPersonalInsult()}`);
+            else
+               prefixLength = prefixM.length;
          } else {
             defaultBehavior(message);
             return;

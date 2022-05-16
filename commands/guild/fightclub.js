@@ -89,7 +89,7 @@ async function duel(message, user1, user2) {
             `-----------------------------------------------------------`;
 
       C.dcSendMsgToChannel(fightClubChannel, msg);
-      await C.sleep(2.5);
+      await C.sleep(2);
    } while (hp1 > 0 && hp2 > 0);
 
    winner = hp1 > hp2 ? user1Name : user2Name;
