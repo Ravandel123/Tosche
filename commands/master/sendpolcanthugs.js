@@ -106,7 +106,7 @@ async function duel(message, user1) {
    } while (hp1 > 0 && (hpPolcan1 > 0 || hpPolcan2 > 0 || hpPolcan3 > 0));
 
    if (hp1 > 0)
-      C.dcSendMsgToChannel(fightClubChannel, `Incredible! **${user1Name} has defeated the polcan thugs!`);
+      C.dcSendMsgToChannel(fightClubChannel, `Incredible! **${user1Name}** has defeated the polcan thugs!`);
    else
       C.dcSendMsgToChannel(fightClubChannel, `The polcan thugs have taught **${user1Name}** a lesson!`);
 
