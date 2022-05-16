@@ -40,7 +40,7 @@ module.exports = {
                return;
             }
             prefixLength = prefixRP.length;
-         } else if (message.content.startsWith(prefixM))
+         } else if (message.content.startsWith(prefixM)) {
             if (message.author.id != ownerID)
                C.dcReplyToMsg(message, `You are not the Imperator, you ${G.genPersonalInsult()}`);
             else
