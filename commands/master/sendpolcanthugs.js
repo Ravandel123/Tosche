@@ -9,20 +9,18 @@ module.exports = {
    usage: '[amount]',
    example: '',
    async execute(message, args) {
-            message.client.data.arena.fightInProgress = true;
-            try {
-               let msg;
-               const user1 = await CG.getMemberProfile(message, args[1]);
-               await duel(message, user1);
-            } catch(error) {
-               C.dcRespondToMsg(message, error);
-            }
-            message.client.data.arena.fightInProgress = false;
-         } else {
-            C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
+      if (!message.client.data.arena.fightInProgress) {
+         message.client.data.arena.fightInProgress = true;
+         try {
+            let msg;
+            const user1 = await CG.getMemberProfile(message, args[1]);
+            await duel(message, user1);
+         } catch(error) {
+            C.dcRespondToMsg(message, error);
          }
+         message.client.data.arena.fightInProgress = false;
       } else {
-         C.dcRespondToMsg(message, `There is no fight club action called ${args[1]}.`);
+         C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
       }
    },
 }
