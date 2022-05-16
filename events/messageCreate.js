@@ -41,10 +41,11 @@ module.exports = {
             }
             prefixLength = prefixRP.length;
          } else if (message.content.startsWith(prefixM)) {
-            if (message.author.id != ownerID)
+            if (message.author.id != ownerID) {
                C.dcReplyToMsg(message, `You are not the Imperator, you ${G.genPersonalInsult()}`);
-            else
-               prefixLength = prefixM.length;
+               return;
+            }
+            prefixLength = prefixM.length;
          } else {
             defaultBehavior(message);
             return;

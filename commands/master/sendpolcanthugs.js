@@ -50,7 +50,7 @@ async function duel(message, user1) {
    await C.sleep(2);
 
    do {
-      for (let i; i < 3; i++) {
+      for (let i = 0; i < 3; i++) {
          if (hp1 <= 0) {
             break;
          } else if (i == 0 && hpPolcan1 > 0) {
