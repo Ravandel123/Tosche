@@ -8,18 +8,18 @@ module.exports = {
    usage: '[user]',
    example: '',
    async execute(message, args) {
-      let userProfile;
+      let user;
       let currentMenu = 'main';
 
       try {
-         userProfile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
+         user.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
       } catch(error) {
          C.dcRespondToMsg(message, error);
          return;
       }
 
       const embedMessage = await message.channel.send({
-         embeds: generatePageEmbed(userProfile, currentMenu),
+         embeds: generatePageEmbed(user.profile, currentMenu),
          components: generateMenu()
       });
 
@@ -35,7 +35,7 @@ module.exports = {
                currentMenu = i.values[0];
          }
 
-         await i.update({ embeds: generatePageEmbed(userProfile, currentMenu), components: generateMenu() });
+         await i.update({ embeds: generatePageEmbed(user.profile, currentMenu), components: generateMenu() });
       });
    },
 }
