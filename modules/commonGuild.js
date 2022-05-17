@@ -21,14 +21,17 @@ async function getProfileById(message, id) {
    if (!C.dcCheckIfMessage(message) || !id)
       return Promise.reject(`Wrong input argument!`);
 
-   const profileDoc = await DB.findOne(SG.profile, { ownerId: id }) ?? createNewGuildProfileFromID(message, id);
-   if (!profileDoc)
-      return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);
+   let profileDoc = await DB.findOne(SG.profile, { ownerId: id });
+   if (!profileDoc) {
+      profileDoc = createNewGuildProfileFromID(message, id);
+      if (!profileDoc)
+         return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);
 
-   try {
-      await profileDoc.save();
-   } catch(error) {
-      return Promise.reject(error);
+      try {
+         await profileDoc.save();
+      } catch(error) {
+         return Promise.reject(error);
+      }
    }
 
    return Promise.resolve(profileDoc);
