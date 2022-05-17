@@ -8,7 +8,7 @@ module.exports = {
    usage: '[user]',
    example: '',
    async execute(message, args) {
-      let user;
+      let user = {};
       let currentMenu = 'main';
 
       try {
