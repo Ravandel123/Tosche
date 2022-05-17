@@ -22,7 +22,7 @@ module.exports = {
          embeds: generatePageEmbed(user.profile, currentMenu),
          components: generateMenu()
       });
-
+await test(user);
       const collector = embedMessage.createMessageComponentCollector({ componentType: 'SELECT_MENU' });
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
@@ -99,4 +99,14 @@ function getCurrenciesInfo(profile) {
           `**Silver Coin:** ${currencies.silverCoins}\n` +
           `**Gold Coins:** ${currencies.goldCoins}\n` +
           `**Deltrada Coins:** ${currencies.deltradaCoins}`;
+}
+
+async function test(usr) {
+   usr.actionPoints += 500;
+
+   try {
+      await usr.save();
+   } catch(error) {
+      return Promise.reject(error);
+   }
 }
