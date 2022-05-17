@@ -102,10 +102,10 @@ function getCurrenciesInfo(profile) {
 }
 
 async function test(usr) {
-   usr.actionPoints += 500;
+   usr.profile.actionPoints += 500;
 
    try {
-      await usr.save();
+      await usr.profile.save();
    } catch(error) {
       return Promise.reject(error);
    }
