@@ -776,7 +776,6 @@ client.on('messageCreate', message => {
          message.channel.send('https://tenor.com/view/abraxas-lotr-lord-of-the-rings-power-rohan-king-gif-14050384')
 
       break
-      
 
       //------------------------------------------------------------------
       case 'jailcatz':
@@ -788,20 +787,19 @@ client.on('messageCreate', message => {
 
       var senderID = message.author.id
 
-      //if (senderID == '762466250189307966' || senderID == '392728479696814092' || senderID == '554696495190769692')
-      //{
-      //   catz.roles.add(rolePrisoner).catch(console.error)
-      //   catz.roles.remove(roleComrade).catch(console.error)
+      if (senderID == '380485376759824385' || senderID == '392728479696814092' || senderID == '554696495190769692')
+      {
+        catz.roles.add(rolePrisoner).catch(console.error)
+        catz.roles.remove(roleComrade).catch(console.error)
 
-      //   let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
-      //   channel.send(`Welcome to our dungeon, my dear ${catz}! ^^`)
-      //}
-      //else
-      //   message.channel.send('https://tenor.com/view/abraxas-lotr-lord-of-the-rings-power-rohan-king-gif-14050384')
-      message.channel.send('There is no person named Catz, lol noob.')
+        let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
+        channel.send(`Welcome to our dungeon, my dear ${catz}! ^^`)
+      }
+      else
+        message.channel.send('https://tenor.com/view/abraxas-lotr-lord-of-the-rings-power-rohan-king-gif-14050384')
 
       break
-     
+
      //------------------------------------------------------------------
      case 'unjaildagos':
 
@@ -823,7 +821,7 @@ client.on('messageCreate', message => {
          message.channel.send('https://i.imgur.com/oS67pzi.png')
 
       break
-     
+
      //------------------------------------------------------------------
      case 'unjailcatz':
 
@@ -833,16 +831,16 @@ client.on('messageCreate', message => {
       var guest = message.guild.members.cache.get('554696495190769692')
       var senderID = message.author.id
 
-      //if (senderID == '380485376759824385' || senderID == '392728479696814092')
-      //{
-      //   catz.roles.add(roleComrade).catch(console.error)
-      //   catz.roles.remove(rolePrisoner).catch(console.error)
+      if (senderID == '380485376759824385' || senderID == '392728479696814092')
+      {
+        catz.roles.add(roleComrade).catch(console.error)
+        catz.roles.remove(rolePrisoner).catch(console.error)
 
-      //   let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
-      //   channel.send(`Enough of your rotting here, get some fresh air before the next visit ${catz}!`)
-      //}
-      //else
-      //   message.channel.send('https://i.imgur.com/oS67pzi.png')
+        let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
+        channel.send(`Enough of your rotting here, get some fresh air before the next visit ${catz}!`)
+      }
+      else
+        message.channel.send('https://i.imgur.com/oS67pzi.png')
 
       break
      

@@ -17,6 +17,7 @@ const arrayBannedWords = [
    'faggot', 'fuck',
    'kurva', 'kurwa',
    'niga', 'nigga', 'nigger',
+   '0laffson', 'titusW',
    'e621.net', 'furaffinity.net', 'weasyl.com'
 ];
 
