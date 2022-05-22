@@ -36,9 +36,9 @@ module.exports = {
          // return;
       // }
 
-      const button1 = C.dcCreateButton('button1', 'choose color');
+      const button1 = C.dcCreateButton('button1', 'Let');
       const row = C.dcCreateRow(button1);
-      const embedMessage = await message.channel.send({ content : "TEST", components: [row] });
+      const embedMessage = await message.channel.send({ content : "Time for a therapy!", components: [row] });
 
 
       const collector = embedMessage.createMessageComponentCollector();
@@ -48,9 +48,9 @@ module.exports = {
             return;
          }
 
-         await i.deferUpdate();
          await i.showModal(modal);
-         i.awaitModalSubmit({ time: 1500000 })
+         const filter = (interaction) => interaction.customId === 'myModal';
+         i.awaitModalSubmit({ filter, time: 1500000 })
             .then(async i => {
                const favoriteColor = await i.fields.getTextInputValue('categoryInput');
                const hobbies = await i.fields.getTextInputValue('explanationInput');
