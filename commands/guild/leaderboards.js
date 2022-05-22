@@ -3,6 +3,8 @@ const C = require('../../modules/common.js');
 const CG = require('../../modules/commonGuild.js');
 const FIS = require('../../modules/advanced/fishing.js');
 
+const MAX_ITEMS_ON_PAGE = 3;
+
 module.exports = {
    name: 'leaderboards',
    aliases: ['leaderboard'],
@@ -12,7 +14,7 @@ module.exports = {
    async execute(message, args) {
       let leaderboards = {};
       let currentMenu = 'vFishing';
-      let startingIndex = 0;
+      let index = 0;
 
       try {
          leaderboards = await CG.getRecordDoc();
@@ -24,8 +26,8 @@ module.exports = {
       leaderboards = translateData(leaderboards, message);
 
       const embedMessage = await message.channel.send({
-         embeds: generateMessageEmbed(leaderboards, currentMenu, startingIndex),
-         components: generateMenu()
+         embeds: generateMessageEmbed(leaderboards, currentMenu, index),
+         components: generateMenu(index)
       });
 
       const collector = embedMessage.createMessageComponentCollector();
@@ -33,9 +35,14 @@ module.exports = {
          if (i.isSelectMenu()) {
             if (i.customId === 'menuId')
                currentMenu = i.values[0];
+            console.log(i.values[0])
+            console.log(i.values[1])
+            console.log(i.values)
+         } else if (i.isButton()) {
+            index = i.customId == 'backId' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
          }
 
-         await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenu, startingIndex), components: generateMenu() });
+         await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenu, index), components: generateMenu(index) });
       });
    },
 }
@@ -55,19 +62,33 @@ function translateData(leaderboards, message) {
 }
 
 //-------------------------MENU-------------------------
-function generateMenu() {
-   const profilePage = [new D.MessageSelectMenu()
+function generateMenu(index, data, currentMenuName) {
+   const recordsMenu = [new D.MessageSelectMenu()
       .setCustomId('menuId')
       .setPlaceholder('Select a category to display the records')
       .addOptions(generateMenuItems())];
 
-   return [C.dcCreateRow(profilePage)];
+   const backButton = new D.MessageButton()
+      .setCustomId('backId')
+      .setLabel('Previous')
+      .setEmoji('⬅️')
+      .setStyle('PRIMARY')
+      .setDisabled(index == 0);
+
+   const forwardButton = new D.MessageButton()
+      .setCustomId('forwardId')
+      .setLabel('Next')
+      .setEmoji('➡️')
+      .setStyle('PRIMARY')
+      .setDisabled(index * 3 >= data[currentMenuName].length);
+
+   return [C.dcCreateRow([backButton, forwardButton]), C.dcCreateRow(recordsMenu)];
 }
 
 function generateMenuItems() {
    const menuArray = [];
-   menuArray.push({ label: 'Fishing', value: 'vFishing', emoji: '🐟' });
-   menuArray.push({ label: 'Fishing2', value: 'vFishing2', emoji: '🐟' });
+   menuArray.push({ label: 'Fish', value: 'vFishing', emoji: '🐟' });
+   menuArray.push({ label: 'Fish', value: 'vFishing2', emoji: '🐟' });
 
    return menuArray;
 }
@@ -77,7 +98,7 @@ function generateMenuItems() {
 function generateMessageEmbed(leaderboards, menuItem, startingIndex) {
    return [new D.MessageEmbed()
       .setTitle(generateTitle(menuItem))
-      .setDescription(generateContent(leaderboards, menuItem, startingIndex))];
+      .setDescription(generatePageContent(leaderboards, menuItem, startingIndex))];
 }
 
 //-------------------------PAGES-------------------------
@@ -91,7 +112,7 @@ function generateTitle(menuItem) {
    }
 }
 
-function generateContent(leaderboards, menuItem, index) {
+function generatePageContent(leaderboards, menuItem, index) {
    switch (menuItem) {
       case 'vFishing':
          return getFishingContent(leaderboards.fish, index);
@@ -103,8 +124,10 @@ function generateContent(leaderboards, menuItem, index) {
 
 function getFishingContent(content, startingIndex) {
    let result = ``;
+   const permissibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
+   const maxIndex = content.length <= permissibleMaxIndex ? content.length : permissibleMaxIndex;
 
-   for (let i = startingIndex; i < content.length; i++) {
+   for (let i = startingIndex; i < maxIndex; i++) {
       result += `🐟 **${content[i].fishId}**\n` +
                 `🥇 ${content[i].ownerId}\n` +
                 `⚖️ ${content[i].weight} kg (${C.calcKgToImperial(content[i].weight)})\n` +
@@ -116,14 +139,14 @@ function getFishingContent(content, startingIndex) {
 
 function getFishingContent2(content, startingIndex) {
    let result = ``;
+   const permissibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
+   const maxIndex = content.length <= permissibleMaxIndex ? content.length : permissibleMaxIndex;
 
-   for (let j = 0; j < 10; j++) {
-      for (let i = startingIndex; i < content.length; i++) {
-      result += `🐟 **${content[i].fishId}**:\n` +
+   for (let i = startingIndex; i < maxIndex; i++) {
+      result += `🐟 **${content[i].fishId}**\n` +
                 `🥇 ${content[i].ownerId}\n` +
-                `**Weight**: ${content[i].weight}\n` +
-                `---\n`;
-      }
+                `⚖️ ${content[i].weight} kg (${C.calcKgToImperial(content[i].weight)})\n` +
+                `-----\n`;
    }
 
    return result;
