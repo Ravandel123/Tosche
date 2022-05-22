@@ -3,7 +3,7 @@ const C = require('../../modules/common.js');
 
 module.exports = {
    name: 'therapy',
-   description: 'Shows Deltrada leaderboards.',
+   description: 'Tosche gonna diagnose how crazy you are.',
    usage: '',
    example: '',
    async execute(message, args) {
@@ -28,7 +28,7 @@ module.exports = {
       const secondActionRow = new D.MessageActionRow().addComponents(explanationInput);
       modal.addComponents(firstActionRow, secondActionRow);
 
-      const collector = embedMessage.createMessageComponentCollector({ time: 7000 });
+      const collector = embedMessage.createMessageComponentCollector({ time: 10000 });
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
             await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true });
@@ -39,7 +39,7 @@ module.exports = {
 
          await i.showModal(modal);
          i.editReply({ content: `Therapy in progress...`, components: [] });
-         await i.awaitModalSubmit({ filter, time: 2000 })
+         await i.awaitModalSubmit({ filter, time: 120000 })
             .then(async i => {
                const favoriteColor = await i.fields.getTextInputValue('categoryInput');
                const hobbies = await i.fields.getTextInputValue('explanationInput');
