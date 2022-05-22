@@ -35,9 +35,7 @@ module.exports = {
          if (i.isSelectMenu()) {
             if (i.customId === 'menuId')
                currentMenu = i.values[0];
-            console.log(i.values[0])
-            console.log(i.values[1])
-            console.log(i.values)
+            console.log(embedMessage.components)
          } else if (i.isButton()) {
             index = i.customId == 'backId' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
          }
