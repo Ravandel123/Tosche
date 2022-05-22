@@ -37,35 +37,17 @@ module.exports = {
 
          const filter = (interaction) => interaction.customId === customId;
 
-         //1st method
          await i.showModal(modal);
          i.editReply({ content: `Therapy in progress...`, components: [] });
-         const collected = await i.awaitModalSubmit({ filter, time: 2000 })
-            .catch(() => null);
-            
-         if(!collected) {
-            embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
-            return;
-         }
-
-         const category1 = await collected.fields.getTextInputValue('categoryInput');
-         const explanation1 = await collected.fields.getTextInputValue('explanationInput');
-         console.log(`Category: ${category1}, Explanation: ${explanation1}`);
-         await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
-
-
-         //2nd method
-         // await i.showModal(modal);
-         // i.editReply({ content: `Therapy in progress...`, components: [] });
-         // await i.awaitModalSubmit({ filter, time: 2000 })
-            // .then(async i => {
-               // const favoriteColor = await i.fields.getTextInputValue('categoryInput');
-               // const hobbies = await i.fields.getTextInputValue('explanationInput');
-               // await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
-            // })
-            // .catch(() => {
-               // embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
-            // });
+         await i.awaitModalSubmit({ filter, time: 2000 })
+            .then(async i => {
+               const favoriteColor = await i.fields.getTextInputValue('categoryInput');
+               const hobbies = await i.fields.getTextInputValue('explanationInput');
+               await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
+            })
+            .catch(() => {
+               embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
+            });
       });
 
       collector.on('end', async i => {
