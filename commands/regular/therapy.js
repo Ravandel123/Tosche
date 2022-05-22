@@ -37,6 +37,7 @@ module.exports = {
          
          i.showModal(modal);
          i.editReply({ content: `Therapy in progress...`, components: [] });
+         const filter = (interaction) => interaction.customId === customId;
          // const collected = await i.awaitModalSubmit({ filter, time: 2000 }).catch(() => null);
          const collected = await i.awaitModalSubmit({ filter, time: 2000 }).catch(err => console.log(err));
          if (collected) {
