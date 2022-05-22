@@ -36,7 +36,9 @@ module.exports = {
          }
          
          i.showModal(modal);
-         const collected = await i.awaitModalSubmit({ filter, time: 2000 }).catch(() => null);
+         i.editReply({ content: `Therapy in progress...`, components: [] });
+         // const collected = await i.awaitModalSubmit({ filter, time: 2000 }).catch(() => null);
+         const collected = await i.awaitModalSubmit({ filter, time: 2000 }).catch(err => console.log(err));
          if (collected) {
             console.log("XD");
          }
