@@ -10,52 +10,38 @@ module.exports = {
    example: '',
    async execute(message, args) {
       let leaderboards = {};
-      let currentEmbed = 'fishing';
-      let currentIndex = 0;
+      let currentMenu = 'fishing';
+      let startingIndex = 0;
 
       try {
-         leaderboards.fishing = await CG.getRecordDoc();
+         leaderboards = await CG.getRecordDoc();
       } catch(error) {
          C.dcRespondToMsg(message, error);
          return;
       }
 
-
-
-
-
       const embedMessage = await message.channel.send({
-         embeds: generatePageEmbed(user.profile, currentMenu),
+         embeds: generateMessageEmbed(leaderboards, currentMenu, startingIndex),
          components: generateMenu()
       });
 
-      const collector = embedMessage.createMessageComponentCollector({ componentType: 'SELECT_MENU' });
+      const collector = embedMessage.createMessageComponentCollector();
       collector.on('collect', async i => {
-         if (i.user.id != message.author.id) {
-            await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true });
-            return;
-         }
-
          if (i.isSelectMenu()) {
             if (i.customId === 'menuId')
                currentMenu = i.values[0];
          }
 
-         await i.update({ embeds: generatePageEmbed(user.profile, currentMenu), components: generateMenu() });
+         await i.update({ embeds: generatePageEmbed(leaderboards, currentMenu, startingIndex), components: generateMenu() });
       });
    },
 }
 
-function generatePageEmbed(profile, menuItem) {
-   return [new D.MessageEmbed()
-      .setTitle(generatePageTitle(profile, menuItem))
-      .setDescription(generatePageContent(profile, menuItem))];
-}
-
+//-------------------------MENU-------------------------
 function generateMenu() {
    const profilePage = [new D.MessageSelectMenu()
       .setCustomId('menuId')
-      .setPlaceholder('Select the information to display')
+      .setPlaceholder('Select a category to display the records')
       .addOptions(generateMenuItems())];
 
    return [C.dcCreateRow(profilePage)];
@@ -63,46 +49,79 @@ function generateMenu() {
 
 function generateMenuItems() {
    const menuArray = [];
-   menuArray.push({ label: 'Main', value: 'main', emoji: '📋' });
-   menuArray.push({ label: 'Currencies', value: 'currencies', emoji: '💰' });
+   menuArray.push({ label: 'Fishing', value: 'vFishing', emoji: '🐟' });
+   menuArray.push({ label: 'Fishing2', value: 'vFishing2', emoji: '🐟🐟🐟' });
 
    return menuArray;
 }
 
+//-------------------------EMBED-------------------------
+
+function generateMessageEmbed(leaderboards, menuItem, startingIndex) {
+   return [new D.MessageEmbed()
+      .setTitle(generateTitle(menuItem))
+      .setDescription(generateContent(leaderboards, menuItem, startingIndex))];
+}
+
+
 //-------------------------PAGES-------------------------
-function generatePageTitle(profile, menuItem) {
+function generateTitle(menuItem) {
    switch (menuItem) {
-      case 'main':
-         return `Profile of ${C.strBold(profile.ownerTag)}`;
+      case 'vFishing':
+         return `Fishing records:`;
 
-      case 'currencies':
-         return `Currencies of ${C.strBold(profile.ownerName)}`;
+      case 'vFishing2':
+         return `Fishing test records:`;
    }
 }
 
-function generatePageContent(profile, menuItem) {
+function generateContent(leaderboards, menuItem, index) {
    switch (menuItem) {
-      case 'main':
-         return getMainProfileInfo(profile);
+      case 'vFishing':
+         return getFishingContent(leaderboards.fish, index);
 
-      case 'currencies':
-         return getCurrenciesInfo(profile);
+      case 'vFishing2':
+         return getFishingContent2(leaderboards.fish, index);
    }
 }
 
-function getMainProfileInfo(profile) {
-   return `**ID**: ${profile.ownerId}\n` +
-          `**Name**: ${profile.ownerName}\n` +
-          `**Action Points**: ${profile.actionPoints.current}`;
+function getFishingContent(content, startingIndex) {
+   let content;
+
+   for (let i = startingIndex; i < conten.length; i++) {
+      content += `**Name**: ${content.fishId}\n` +
+                 `**Person**: ${content.ownerId}\n` +
+                 `**Weight**: ${content.weight}`\n +
+                 `---`;
+   }
+
+   return content;
 }
 
-function getCurrenciesInfo(profile) {
-   const currencies = profile.currencies;
+function getFishingContent2(content, startingIndex) {
+   let content;
 
-   return `**Amber Drops:** ${currencies.amberDrops}\n` +
-          `**Pearl Flakes:** ${currencies.pearlFlakes}\n` +
-          `**Obsidian Chips:** ${currencies.obsidianChips}\n` +
-          `**Silver Coin:** ${currencies.silverCoins}\n` +
-          `**Gold Coins:** ${currencies.goldCoins}\n` +
-          `**Deltrada Coins:** ${currencies.deltradaCoins}`;
+   for (let i = startingIndex; i < conten.length; i++) {
+      content += `**Name**: ${content.fishId}\n` +
+                 `**Person**: ${content.ownerId}\n` +
+                 `**Weight**: ${content.weight}`\n +
+                 `---`;
+   }
+
+   return content;
 }
+
+   // return `**ID**: ${profile.ownerId}\n` +
+          // `**Name**: ${profile.ownerName}\n` +
+          // `**Action Points**: ${profile.actionPoints.current}`;
+          
+// function getCurrenciesInfo(profile) {
+   // const currencies = profile.currencies;
+
+   // return `**Amber Drops:** ${currencies.amberDrops}\n` +
+          // `**Pearl Flakes:** ${currencies.pearlFlakes}\n` +
+          // `**Obsidian Chips:** ${currencies.obsidianChips}\n` +
+          // `**Silver Coin:** ${currencies.silverCoins}\n` +
+          // `**Gold Coins:** ${currencies.goldCoins}\n` +
+          // `**Deltrada Coins:** ${currencies.deltradaCoins}`;
+// }
