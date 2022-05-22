@@ -48,7 +48,8 @@ module.exports = {
                })
                .catch(async err => {
                   console.log(err);
-                  await i.update({ content: `Sorry, your time ran out. Come next time!`, components: [] });
+                  embedMessage.edit({ content: `XD`, components: [] });
+                  // await i.update({ content: `Sorry, your time ran out. Come next time!`, components: [] });
                });
          }
       });
@@ -56,7 +57,7 @@ module.exports = {
       collector.on('end', async i => {
       if (i.size == 0)
          embedMessage.edit({ content: `It looks like you are not interested in my diagnose. A shame.`, components: [] });
-      
+
       });
    },
 }
