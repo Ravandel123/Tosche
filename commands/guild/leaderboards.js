@@ -132,4 +132,3 @@ function getFishingContent(content, startingIndex) {
 
    return result;
 }
-}
