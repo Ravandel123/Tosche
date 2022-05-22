@@ -28,29 +28,31 @@ module.exports = {
       const secondActionRow = new D.MessageActionRow().addComponents(explanationInput);
       modal.addComponents(firstActionRow, secondActionRow);
 
-      // const collector = embedMessage.createMessageComponentCollector({ time: 5000 });
-      const collector = embedMessage.createMessageComponentCollector();
+      const collector = embedMessage.createMessageComponentCollector({ time: 7000 });
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
             await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true });
             return;
          }
+         
+         // i.showModal(modal);
+         // const collected = await i.awaitModalSubmit({ filter, time: 2000 }).catch(() => null)
+         
+         
 
          await i.showModal(modal);
          await i.editReply({ content: `Therapy in progress...`, components: [] });
 
          const filter = (interaction) => interaction.customId === customId;
-         i.awaitModalSubmit({ filter, time: 2000 })
+         await i.awaitModalSubmit({ filter, time: 2000 })
             .then(async i => {
                const favoriteColor = await i.fields.getTextInputValue('categoryInput');
                const hobbies = await i.fields.getTextInputValue('explanationInput');
                await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
             })
-            .catch(async err => {
+            .catch(err => {
                console.log(err);
-               // await modalInteraction.deferUpdate();
-               await embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
-               // await i.update({ content: `Sorry, your time ran out. Come next time!`, components: [] });
+               embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
             });
 
       });
