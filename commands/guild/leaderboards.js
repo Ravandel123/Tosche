@@ -48,14 +48,13 @@ module.exports = {
             return;
          }
 
-         if (i.isModalSubmit()) {
-            const favoriteColor = i.fields.getTextInputValue('categoryInput');
-            const hobbies = i.fields.getTextInputValue('explanationInput');
-            console.log({ favoriteColor, hobbies });
-         } else {
-            await i.showModal(modal);
-         }
-
+         await i.showModal(modal);
+         i.awaitModalSubmit({ time: 1500000 })
+         .then(async i => {
+               const favoriteColor = await i.fields.getTextInputValue('categoryInput');
+               const hobbies = await i.fields.getTextInputValue('explanationInput');
+               console.log(`${favoriteColor}: ${hobbies}`)})
+         .catch(err => console.log(err))
       });
    },
 }
