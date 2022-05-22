@@ -40,13 +40,16 @@ module.exports = {
             await i.editReply({ content: `Therapy in progress...`, components: [] });
 
             const filter = (interaction) => interaction.customId === customId;
-            i.awaitModalSubmit({ filter, time: 60000 })
+            i.awaitModalSubmit({ filter, time: 2000 })
                .then(async i => {
                   const favoriteColor = await i.fields.getTextInputValue('categoryInput');
                   const hobbies = await i.fields.getTextInputValue('explanationInput');
                   await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
                })
-               .catch(err => console.log(err));
+               .catch(err => {
+                  console.log(err));
+                  await i.update({ content: `Sorry, your time ran out. Come next time!`, components: [] });
+               }
          }
       });
 
