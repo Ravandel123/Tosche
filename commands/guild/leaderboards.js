@@ -19,7 +19,7 @@ module.exports = {
          C.dcRespondToMsg(message, error);
          return;
       }
-
+console.log(leaderboards);
       const embedMessage = await message.channel.send({
          embeds: generateMessageEmbed(leaderboards, currentMenu, startingIndex),
          components: generateMenu()
@@ -30,12 +30,9 @@ module.exports = {
          if (i.isSelectMenu()) {
             if (i.customId === 'menuId')
                currentMenu = i.values[0];
-               console.log(i.values[1]);
-               console.log(`***************`);
-               console.log(i.values);
          }
 
-         await i.update({ embeds: generatePageEmbed(leaderboards, currentMenu, startingIndex), components: generateMenu() });
+         await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenu, startingIndex), components: generateMenu() });
       });
    },
 }
