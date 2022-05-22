@@ -91,7 +91,7 @@ function getFishingContent(content, startingIndex) {
    for (let i = startingIndex; i < conten.length; i++) {
       result += `**Name**: ${content.fishId}\n` +
                  `**Person**: ${content.ownerId}\n` +
-                 `**Weight**: ${content.weight}`\n +
+                 `**Weight**: ${content.weight}\n` +
                  `---`;
    }
 
@@ -104,7 +104,7 @@ function getFishingContent2(content, startingIndex) {
    for (let i = startingIndex; i < conten.length; i++) {
       result += `**Name**: ${content.fishId}\n` +
                  `**Person**: ${content.ownerId}\n` +
-                 `**Weight**: ${content.weight}`\n +
+                 `**Weight**: ${content.weight}\n` +
                  `---`;
    }
 
