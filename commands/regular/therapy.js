@@ -46,7 +46,7 @@ module.exports = {
                   const hobbies = await i.fields.getTextInputValue('explanationInput');
                   await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
                })
-               .catch(err => {
+               .catch(async err => {
                   console.log(err);
                   await i.update({ content: `Sorry, your time ran out. Come next time!`, components: [] });
                });
