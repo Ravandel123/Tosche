@@ -35,7 +35,8 @@ module.exports = {
          if (i.isSelectMenu()) {
             if (i.customId === 'menuId')
                currentMenu = i.values[0];
-            console.log(embedMessage.components)
+            console.log(embedMessage.components[1]);
+            console.log(embedMessage.components[1]?.options);
          } else if (i.isButton()) {
             index = i.customId == 'backId' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
          }
@@ -85,8 +86,8 @@ function generateMenu(index, data, currentMenuName) {
 
 function generateMenuItems() {
    const menuArray = [];
-   menuArray.push({ label: 'Fish', value: 'vFishing', emoji: '🐟' });
-   menuArray.push({ label: 'Fish', value: 'vFishing2', emoji: '🐟' });
+   menuArray.push({ label: 'Fish', value: 'Fish', emoji: '🐟' });
+   menuArray.push({ label: 'Fish', value: 'Fish', emoji: '🐟' });
 
    return menuArray;
 }
