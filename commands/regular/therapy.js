@@ -42,7 +42,6 @@ module.exports = {
                .then(async i => {
                   const favoriteColor = await i.fields.getTextInputValue('categoryInput');
                   const hobbies = await i.fields.getTextInputValue('explanationInput');
-                  console.log(`${favoriteColor}: ${hobbies}`);
                   await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
                })
                .catch(err => console.log(err));
