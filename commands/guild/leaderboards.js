@@ -31,6 +31,7 @@ module.exports = {
             if (i.customId === 'menuId')
                currentMenu = i.values[0];
                console.log(i.values[1]);
+               console.log(`***************`);
                console.log(i.values);
          }
 
@@ -52,7 +53,7 @@ function generateMenu() {
 function generateMenuItems() {
    const menuArray = [];
    menuArray.push({ label: 'Fishing', value: 'vFishing', emoji: '🐟' });
-   menuArray.push({ label: 'Fishing2', value: 'vFishing2', emoji: '🐟🐟🐟' });
+   menuArray.push({ label: 'Fishing2', value: 'vFishing2', emoji: '🐟' });
 
    return menuArray;
 }
