@@ -19,7 +19,7 @@ module.exports = {
          C.dcRespondToMsg(message, error);
          return;
       }
-console.log(leaderboards);
+
       const embedMessage = await message.channel.send({
          embeds: generateMessageEmbed(leaderboards, currentMenu, startingIndex),
          components: generateMenu()
@@ -89,10 +89,10 @@ function getFishingContent(content, startingIndex) {
    let result;
 
    for (let i = startingIndex; i < content.length; i++) {
-      result += `**Name**: ${content.fishId}\n` +
-                 `**Person**: ${content.ownerId}\n` +
-                 `**Weight**: ${content.weight}\n` +
-                 `---`;
+      result += `**Name**: ${content[i].fishId}\n` +
+                `**Person**: ${content[i].ownerId}\n` +
+                `**Weight**: ${content[i].weight}\n` +
+                `---\n`;
    }
 
    return result;
@@ -102,26 +102,11 @@ function getFishingContent2(content, startingIndex) {
    let result;
 
    for (let i = startingIndex; i < content.length; i++) {
-      result += `**Name**: ${content.fishId}\n` +
-                 `**Person**: ${content.ownerId}\n` +
-                 `**Weight**: ${content.weight}\n` +
+      result += `**Name**: ${content[i].fishId}\n` +
+                 `**Person**: ${content[i].ownerId}\n` +
+                 `**Weight**: ${content[i].weight}\n` +
                  `---`;
    }
 
    return result;
 }
-
-   // return `**ID**: ${profile.ownerId}\n` +
-          // `**Name**: ${profile.ownerName}\n` +
-          // `**Action Points**: ${profile.actionPoints.current}`;
-          
-// function getCurrenciesInfo(profile) {
-   // const currencies = profile.currencies;
-
-   // return `**Amber Drops:** ${currencies.amberDrops}\n` +
-          // `**Pearl Flakes:** ${currencies.pearlFlakes}\n` +
-          // `**Obsidian Chips:** ${currencies.obsidianChips}\n` +
-          // `**Silver Coin:** ${currencies.silverCoins}\n` +
-          // `**Gold Coins:** ${currencies.goldCoins}\n` +
-          // `**Deltrada Coins:** ${currencies.deltradaCoins}`;
-// }
