@@ -52,7 +52,7 @@ module.exports = {
 
       collector.on('end', async i => {
       if (i.size == 0)
-         embedMessage.edit({ content: `It looks like you are not interested in my diagnose. A shame.` });
+         embedMessage.edit({ content: `It looks like you are not interested in my diagnose. A shame.`, components: [] });
       
       });
    },
