@@ -1,10 +1,8 @@
 const D = require('discord.js');
 const C = require('../../modules/common.js');
-const CG = require('../../modules/commonGuild.js');
 
 module.exports = {
-   name: 'leaderboards',
-   aliases: ['leaderboard'],
+   name: 'therapy',
    description: 'Shows Deltrada leaderboards.',
    usage: '',
    example: '',
