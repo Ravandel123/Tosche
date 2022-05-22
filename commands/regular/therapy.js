@@ -40,16 +40,15 @@ module.exports = {
          //1st method
          await i.showModal(modal);
          i.editReply({ content: `Therapy in progress...`, components: [] });
-         try {
-            const collected = await i.awaitModalSubmit({ filter, time: 2000 });
-            const category1 = await collected.fields.getTextInputValue('categoryInput');
-            const explanation1 = await collected.fields.getTextInputValue('explanationInput');
-            console.log(`Category: ${category1}, Explanation: ${explanation1}`);
-            await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
-         } catch(e) {
-            embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
-         }
-         
+         const collected = await i.awaitModalSubmit({ filter, time: 2000 })
+            .catch( () => embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] }); );
+
+         const category1 = await collected.fields.getTextInputValue('categoryInput');
+         const explanation1 = await collected.fields.getTextInputValue('explanationInput');
+         console.log(`Category: ${category1}, Explanation: ${explanation1}`);
+         await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
+
+
          //2nd method
          // await i.showModal(modal);
          // i.editReply({ content: `Therapy in progress...`, components: [] });
