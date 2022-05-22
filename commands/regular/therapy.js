@@ -28,7 +28,8 @@ module.exports = {
       const secondActionRow = new D.MessageActionRow().addComponents(explanationInput);
       modal.addComponents(firstActionRow, secondActionRow);
 
-      const collector = embedMessage.createMessageComponentCollector({ time: 5000 });
+      // const collector = embedMessage.createMessageComponentCollector({ time: 5000 });
+      const collector = embedMessage.createMessageComponentCollector();
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
             await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true });
