@@ -47,8 +47,8 @@ module.exports = {
             })
             .catch(err => {
                console.log(err);
-               embedMessage.edit({ content: `XD`, components: [] });
-               // await i.update({ content: `Sorry, your time ran out. Come next time!`, components: [] });
+               embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
+               return err;
             });
 
       });
