@@ -41,8 +41,9 @@ module.exports = {
          i.editReply({ content: `Therapy in progress...`, components: [] });
          await i.awaitModalSubmit({ filter, time: 120000 })
             .then(async i => {
-               const favoriteColor = await i.fields.getTextInputValue('categoryInput');
-               const hobbies = await i.fields.getTextInputValue('explanationInput');
+               const catInput = await i.fields.getTextInputValue('categoryInput');
+               const expInput = await i.fields.getTextInputValue('explanationInput');
+               console.log(`${message.author.tag} - Input: ${catInput}, Explanation: ${expInput}`);
                await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
             })
             .catch(() => {
