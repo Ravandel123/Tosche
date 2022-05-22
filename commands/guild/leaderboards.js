@@ -39,7 +39,7 @@ MAX_ITEMS_ON_PAGE = args[1];
             index = i.customId == 'backId' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
          }
 
-         await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenu, index), components: generateMenu(index, leaderboards, currentMenuName) });
+         await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenuName, index), components: generateMenu(index, leaderboards, currentMenuName) });
       });
    },
 }
