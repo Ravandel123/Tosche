@@ -68,7 +68,7 @@ function generateMessageEmbed(leaderboards, menuItem, startingIndex) {
 function generateTitle(menuItem) {
    switch (menuItem) {
       case 'vFishing':
-         return `Fishing records:`;
+         return `Fishing records 🐟`;
 
       case 'vFishing2':
          return `Fishing test records:`;
@@ -86,7 +86,7 @@ function generateContent(leaderboards, menuItem, index) {
 }
 
 function getFishingContent(content, startingIndex) {
-   let result;
+   let result = ``;
 
    for (let i = startingIndex; i < content.length; i++) {
       result += `**Name**: ${content[i].fishId}\n` +
@@ -99,13 +99,15 @@ function getFishingContent(content, startingIndex) {
 }
 
 function getFishingContent2(content, startingIndex) {
-   let result;
+   let result = ``;
 
-   for (let i = startingIndex; i < content.length; i++) {
-      result += `**Name**: ${content[i].fishId}\n` +
-                 `**Person**: ${content[i].ownerId}\n` +
-                 `**Weight**: ${content[i].weight}\n` +
-                 `---`;
+   for (let j = 0; j < 10; j++) {
+      for (let i = startingIndex; i < content.length; i++) {
+         result += `**Name**: ${content[i].fishId}\n` +
+                   `**Person**: ${content[i].ownerId}\n` +
+                   `**Weight**: ${content[i].weight}\n` +
+                   `---\n`;
+      }
    }
 
    return result;
