@@ -51,11 +51,12 @@ module.exports = {
          if (i.isButton()) {
             await i.showModal(modal);
             const filter = (interaction) => interaction.customId === 'myModal';
-            return i.awaitModalSubmit({ filter, time: 1500000 })
+            i.awaitModalSubmit({ filter, time: 1500000 })
                .then(async i => {
                   const favoriteColor = await i.fields.getTextInputValue('categoryInput');
                   const hobbies = await i.fields.getTextInputValue('explanationInput');
-                  console.log(`${favoriteColor}: ${hobbies}`)
+                  console.log(`${favoriteColor}: ${hobbies}`);
+                  await i.update({ content: `Thanks for your submission! My diagnose: you are clearly insane. Have a nice day!`, components: [] });
                })
                .catch(err => console.log(err));
          }
