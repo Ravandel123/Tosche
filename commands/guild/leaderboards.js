@@ -10,9 +10,6 @@ module.exports = {
    example: '',
    async execute(message, args) {
 
-      const modal = new D.Modal()
-         .setCustomId('myModal')
-         .setTitle('Therapy with Tosche');
       const categoryInput = new D.TextInputComponent()
          .setCustomId('categoryInput')
          .setLabel("What is the category of your problem?")
@@ -21,13 +18,13 @@ module.exports = {
          .setCustomId('explanationInput')
          .setLabel("Explain your problem.")
          .setStyle('PARAGRAPH');
+
       const firstActionRow = new D.MessageActionRow().addComponents(categoryInput);
       const secondActionRow = new D.MessageActionRow().addComponents(explanationInput);
-      modal.addComponents(firstActionRow, secondActionRow);
 
       const button1 = C.dcCreateButton('button1', `Sure, let's go!`);
       const row = C.dcCreateRow(button1);
-      const embedMessage = await message.channel.send({ content : "Time for a therapy!", components: [row] });
+      const embedMessage = await message.channel.send({ content : "Time for a therapy!", components: [firstActionRow, secondActionRow] });
 
 
       const collector = embedMessage.createMessageComponentCollector();
@@ -38,15 +35,10 @@ module.exports = {
          }
 
          if (i.isButton()) {
-            await i.showModal(modal);
-            const filter = (interaction) => interaction.customId === 'myModal';
-            i.awaitModalSubmit({ filter, time: 1500000 })
-               .then(async i => {
-                  const favoriteColor = await i.fields.getTextInputValue('categoryInput');
-                  const hobbies = await i.fields.getTextInputValue('explanationInput');
-                  await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
-               })
-               .catch(err => console.log(err));
+            i.editReply({ content: `Therapy in progress...`, components: [] });
+         } else {
+            console.log(i);
+            // i.editReply({ content: i., components: [] });
          }
       });
    },
