@@ -90,7 +90,7 @@ function generateContent(leaderboards, menuItem, index) {
 function getFishingContent(content, startingIndex) {
    let result;
 
-   for (let i = startingIndex; i < conten.length; i++) {
+   for (let i = startingIndex; i < content.length; i++) {
       result += `**Name**: ${content.fishId}\n` +
                  `**Person**: ${content.ownerId}\n` +
                  `**Weight**: ${content.weight}\n` +
@@ -103,7 +103,7 @@ function getFishingContent(content, startingIndex) {
 function getFishingContent2(content, startingIndex) {
    let result;
 
-   for (let i = startingIndex; i < conten.length; i++) {
+   for (let i = startingIndex; i < content.length; i++) {
       result += `**Name**: ${content.fishId}\n` +
                  `**Person**: ${content.ownerId}\n` +
                  `**Weight**: ${content.weight}\n` +
