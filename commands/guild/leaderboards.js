@@ -3,7 +3,7 @@ const C = require('../../modules/common.js');
 const CG = require('../../modules/commonGuild.js');
 const FIS = require('../../modules/advanced/fishing.js');
 
-// const MAX_ITEMS_ON_PAGE = 3;
+var MAX_ITEMS_ON_PAGE = 3;
 
 module.exports = {
    name: 'leaderboards',
@@ -15,7 +15,7 @@ module.exports = {
       let leaderboards = {};
       let currentMenuName = 'fish';
       let index = 0;
-const MAX_ITEMS_ON_PAGE = args[1];
+MAX_ITEMS_ON_PAGE = args[1];
       try {
          leaderboards = await CG.getRecordDoc();
       } catch(error) {
