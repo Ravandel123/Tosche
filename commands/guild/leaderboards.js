@@ -58,7 +58,7 @@ const insanities = [
    'crackbrained', 'crazy',
    'hysterical',
    'insane',
-   'looney', 'lunatic'
+   'looney', 'lunatic',
    'mad', 'maniac', 'maniacal', 'mental',
    'nuts', 'nutso', 'nutsy', 'nutty',
    'paranoid', 'psycho', 'psychopathic', 'psychotic',
