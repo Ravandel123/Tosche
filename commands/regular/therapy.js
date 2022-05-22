@@ -48,8 +48,8 @@ module.exports = {
             .catch(async err => {
                console.log(err);
                // await modalInteraction.deferUpdate();
-               // embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
-               await i.update({ content: `Sorry, your time ran out. Come next time!`, components: [] });
+               await embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
+               // await i.update({ content: `Sorry, your time ran out. Come next time!`, components: [] });
             });
 
       });
