@@ -53,9 +53,11 @@ module.exports = {
          // return;
       // }
 
-      const embedMessage = await message.channel.send({ content : "TEST" });
       const button1 = C.dcCreateButton('button1', 'choose color');
-      
+      const row = C.dcCreateRow(button1);
+      const embedMessage = await message.channel.send({ content : "TEST", components: [row] });
+
+
       const collector = embedMessage.createMessageComponentCollector({ componentType: 'BUTTON' });
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
