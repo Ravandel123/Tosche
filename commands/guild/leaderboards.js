@@ -9,40 +9,23 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
-      
-      
-      
-      
-      
-      
-      
-      
-      const modal = new D.Modal()
-			.setCustomId('myModal')
-			.setTitle('My Modal');
-		// Add components to modal
-		// Create the text input components
-		const favoriteColorInput = new D.TextInputComponent()
-			.setCustomId('favoriteColorInput')
-		    // The label is the prompt the user sees for this input
-			.setLabel("What's your favorite color?")
-		    // Short means only a single line of text
-			.setStyle('SHORT');
-		const hobbiesInput = new D.TextInputComponent()
-			.setCustomId('hobbiesInput')
-			.setLabel("What's some of your favorite hobbies?")
-		    // Paragraph means multiple lines of text.
-			.setStyle('PARAGRAPH');
-		// An action row only holds one text input,
-		// so you need one action row per text input.
-		const firstActionRow = new D.MessageActionRow().addComponents(favoriteColorInput);
-		const secondActionRow = new D.MessageActionRow().addComponents(hobbiesInput);
-		// Add inputs to the modal
-		modal.addComponents(firstActionRow, secondActionRow);
-		// Show the modal to the user
-		
 
-   
+      const modal = new D.Modal()
+         .setCustomId('myModal')
+         .setTitle('Therapy with Tosche');
+      const categoryInput = new D.TextInputComponent()
+         .setCustomId('categoryInput')
+         .setLabel("What is the category of your problem?")
+         .setStyle('SHORT');
+      const explanationInput = new D.TextInputComponent()
+         .setCustomId('explanationInput')
+         .setLabel("Explain your problem.")
+         .setStyle('PARAGRAPH');
+      const firstActionRow = new D.MessageActionRow().addComponents(categoryInput);
+      const secondActionRow = new D.MessageActionRow().addComponents(explanationInput);
+      modal.addComponents(firstActionRow, secondActionRow);
+
+
       // let user = {};
       // let currentMenu = 'main';
 
@@ -64,10 +47,15 @@ module.exports = {
             await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true });
             return;
          }
+         
+         if (i.isModalSubmit()) {
+            const favoriteColor = i.fields.getTextInputValue('categoryInput');
+            const hobbies = i.fields.getTextInputValue('explanationInput');
+            console.log({ favoriteColor, hobbies });
+         } else {
+            await i.showModal(modal);
+         }
 
-         await i.showModal(modal);
-
-         // await i.update({ embeds: generatePageEmbed(user.profile, currentMenu), components: generateMenu() });
       });
    },
 }
