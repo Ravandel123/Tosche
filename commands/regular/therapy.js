@@ -29,7 +29,6 @@ module.exports = {
       const row = C.dcCreateRow(button1);
       const embedMessage = await message.channel.send({ content : "Time for a therapy!", components: [row] });
 
-
       const collector = embedMessage.createMessageComponentCollector();
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
@@ -39,16 +38,38 @@ module.exports = {
 
          if (i.isButton()) {
             await i.showModal(modal);
+            await i.update({ content: `Therapy in progress...`, components: [] });
             const filter = (interaction) => interaction.customId === 'myModal';
             i.awaitModalSubmit({ filter, time: 1500000 })
                .then(async i => {
                   const favoriteColor = await i.fields.getTextInputValue('categoryInput');
                   const hobbies = await i.fields.getTextInputValue('explanationInput');
-                  await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
+                  await i.editReply({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
+                  // await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
                })
                .catch(err => console.log(err));
          }
       });
+
+      // const collector = embedMessage.createMessageComponentCollector();
+      // collector.on('collect', async i => {
+         // if (i.user.id != message.author.id) {
+            // await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true });
+            // return;
+         // }
+
+         // if (i.isButton()) {
+            // await i.showModal(modal);
+            // const filter = (interaction) => interaction.customId === 'myModal';
+            // i.awaitModalSubmit({ filter, time: 1500000 })
+               // .then(async i => {
+                  // const favoriteColor = await i.fields.getTextInputValue('categoryInput');
+                  // const hobbies = await i.fields.getTextInputValue('explanationInput');
+                  // await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
+               // })
+               // .catch(err => console.log(err));
+         // }
+      // });
    },
 }
 
