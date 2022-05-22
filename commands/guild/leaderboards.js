@@ -21,7 +21,7 @@ module.exports = {
          return;
       }
 
-      leaderboards = translateData(leaderboards);
+      leaderboards = translateData(leaderboards, message);
 
       const embedMessage = await message.channel.send({
          embeds: generateMessageEmbed(leaderboards, currentMenu, startingIndex),
@@ -41,7 +41,7 @@ module.exports = {
 }
 
 //-------------------------UTILITY-------------------------
-function translateData(leaderboards) {
+function translateData(leaderboards, message) {
    const guildMembers = C.dcGetAllMembers(message);
    let result = leaderboards;
 
