@@ -9,9 +9,12 @@ module.exports = {
    async execute(message, args) {
 
       const button1 = C.dcCreateButton('button1', `Sure, let's go!`);
-      
+      const row = C.dcCreateRow(button1);
+      const embedMessage = await message.channel.send({ content : 'Time for a therapy!', components: [row] });
+
+      const customId = 'm' + embedMessage.id;
       const modal = new D.Modal()
-         .setCustomId('myModal')
+         .setCustomId(customId)
          .setTitle('Therapy with Tosche');
       const categoryInput = new D.TextInputComponent()
          .setCustomId('categoryInput')
@@ -25,10 +28,6 @@ module.exports = {
       const secondActionRow = new D.MessageActionRow().addComponents(explanationInput);
       modal.addComponents(firstActionRow, secondActionRow);
 
-
-      const row = C.dcCreateRow(button1);
-      const embedMessage = await message.channel.send({ content : "Time for a therapy!", components: [row] });
-
       const collector = embedMessage.createMessageComponentCollector();
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
@@ -39,12 +38,11 @@ module.exports = {
          if (i.isButton()) {
             await i.showModal(modal);
             await i.editReply({ content: `Therapy in progress...`, components: [] });
-            const filter = (interaction) => interaction.customId === 'myModal';
-            i.awaitModalSubmit({ filter, time: 1500000 })
+            const filter = (interaction) => interaction.customId === customId;
+            i.awaitModalSubmit({ filter, time: 60000 })
                .then(async i => {
                   const favoriteColor = await i.fields.getTextInputValue('categoryInput');
                   const hobbies = await i.fields.getTextInputValue('explanationInput');
-                  // await i.editReply({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
                   await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
                })
                .catch(err => console.log(err));
@@ -60,6 +58,7 @@ module.exports = {
 
          // if (i.isButton()) {
             // await i.showModal(modal);
+            // await i.editReply({ content: `Therapy in progress...`, components: [] });
             // const filter = (interaction) => interaction.customId === 'myModal';
             // i.awaitModalSubmit({ filter, time: 1500000 })
                // .then(async i => {

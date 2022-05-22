@@ -108,5 +108,5 @@ function defaultBehavior(message) {
       message.react('😢');
 
    if (C.strCheckIfContains(msgContent, 'tosch'))
-      C.chance(65) ? C.dcRespondToMsg(message, C.arrGetRandom(R.resYou())) : C.dcRespondToMsg(message, C.arrGetRandom(R.resHate()));
+      C.dcRespondToMsg(message, C.arrGetRandom(R.resYou()));
 }
