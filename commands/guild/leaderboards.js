@@ -87,7 +87,7 @@ function generateMenu(index, data, currentMenuName) {
 function generateMenuItems() {
    const menuArray = [];
    menuArray.push({ label: 'Fish', value: 'Fish', emoji: '🐟' });
-   menuArray.push({ label: 'Fish', value: 'Fish', emoji: '🐟' });
+   menuArray.push({ label: 'Fish', value: 'Fish2', emoji: '🐟' });
 
    return menuArray;
 }
