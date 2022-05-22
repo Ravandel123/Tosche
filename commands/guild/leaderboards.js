@@ -44,9 +44,15 @@ module.exports = {
 function translateData(leaderboards, message) {
    const guildMembers = C.dcGetAllMembers(message);
    let result = leaderboards;
-console.log(guildMembers);
+
    //Fish
    for (item of result.fish) {
+      console.log(`***`);
+      console.log(item);
+      console.log(item?.id);
+      console.log(item[1]);
+      console.log(item[1]?.id);
+      console.log(`***`);
       item.fishId = FIS.getFishNameId(item.fishId);
       item.ownerId = guildMembers.find(e => e[1].id == item.ownerId)?.displayName;
    }
