@@ -120,9 +120,12 @@ function generatePageContent(leaderboards, menuItem, index) {
 
 function getFishingContent(content, startingIndex) {
    let result = ``;
-   const permissibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
-   const maxIndex = content.length <= permissibleMaxIndex ? content.length : permissibleMaxIndex;
-
+   const possibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
+   const maxIndex = content.length <= possibleMaxIndex ? content.length : possibleMaxIndex;
+   
+   console.log(startingIndex)
+   console.log(possibleMaxIndex)
+   console.log(maxIndex)
    for (let i = startingIndex; i < maxIndex; i++) {
       result += `🐟 **${content[i].fishId}**\n` +
                 `🥇 ${content[i].ownerId}\n` +
