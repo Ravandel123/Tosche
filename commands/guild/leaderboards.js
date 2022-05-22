@@ -86,29 +86,29 @@ function generateContent(leaderboards, menuItem, index) {
 }
 
 function getFishingContent(content, startingIndex) {
-   let content;
+   let result;
 
    for (let i = startingIndex; i < conten.length; i++) {
-      content += `**Name**: ${content.fishId}\n` +
+      result += `**Name**: ${content.fishId}\n` +
                  `**Person**: ${content.ownerId}\n` +
                  `**Weight**: ${content.weight}`\n +
                  `---`;
    }
 
-   return content;
+   return result;
 }
 
 function getFishingContent2(content, startingIndex) {
-   let content;
+   let result;
 
    for (let i = startingIndex; i < conten.length; i++) {
-      content += `**Name**: ${content.fishId}\n` +
+      result += `**Name**: ${content.fishId}\n` +
                  `**Person**: ${content.ownerId}\n` +
                  `**Weight**: ${content.weight}`\n +
                  `---`;
    }
 
-   return content;
+   return result;
 }
 
    // return `**ID**: ${profile.ownerId}\n` +
