@@ -131,7 +131,7 @@ module.exports.getFishingSpotFromThread = getFishingSpotFromThread;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function getFishById(fishId) {
-   return arrFish.find(e => e.id == id);
+   return arrFish.find(e => e.id == fishId);
 }
 
 module.exports.getFishById = getFishById;
