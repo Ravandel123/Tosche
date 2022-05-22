@@ -50,6 +50,7 @@ function translateData(leaderboards, message) {
       item.fishId = FIS.getFishNameId(item.fishId);
       item.ownerId = guildMembers.find(e => e.id == item.ownerId)?.displayName ?? `A long-forgotten user`;
       item.weight = `${item.weight} kg (${C.calcKgToImperial(item.weight)})`;
+      console.log(item.weight);
    }
 
    return result;
