@@ -3,7 +3,7 @@ const C = require('../../modules/common.js');
 const CG = require('../../modules/commonGuild.js');
 const FIS = require('../../modules/advanced/fishing.js');
 
-const MAX_ITEMS_ON_PAGE = 2;
+const MAX_ITEMS_ON_PAGE = 3;
 
 module.exports = {
    name: 'leaderboards',
@@ -33,8 +33,8 @@ module.exports = {
       const collector = embedMessage.createMessageComponentCollector();
       collector.on('collect', async i => {
          if (i.isSelectMenu()) {
-            if (i.customId === 'menuId')
-               currentMenuName = i.values[0];
+            currentMenuName = i.values[0];
+            index = 0;
          } else if (i.isButton()) {
             index = i.customId == 'backId' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
          }
