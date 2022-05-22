@@ -41,13 +41,13 @@ module.exports = {
       const embedMessage = await message.channel.send({ content : "TEST", components: [row] });
 
 
-      const collector = embedMessage.createMessageComponentCollector({ componentType: 'BUTTON' });
+      const collector = embedMessage.createMessageComponentCollector();
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
             await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true });
             return;
          }
-         
+
          if (i.isModalSubmit()) {
             const favoriteColor = i.fields.getTextInputValue('categoryInput');
             const hobbies = i.fields.getTextInputValue('explanationInput');
