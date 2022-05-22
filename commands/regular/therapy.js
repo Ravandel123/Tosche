@@ -9,7 +9,6 @@ module.exports = {
    async execute(message, args) {
 
       const button1 = C.dcCreateButton('button1', `Sure, let's go!`);
-      const button2 = C.dcCreateButton('button2', `Click it in case you got anger problems!`);
       
       const modal = new D.Modal()
          .setCustomId('myModal')
@@ -24,8 +23,7 @@ module.exports = {
          .setStyle('PARAGRAPH');
       const firstActionRow = new D.MessageActionRow().addComponents(categoryInput);
       const secondActionRow = new D.MessageActionRow().addComponents(explanationInput);
-      const thirdActionRow = new D.MessageActionRow().addComponents(button2);
-      modal.addComponents(firstActionRow, secondActionRow, thirdActionRow);
+      modal.addComponents(firstActionRow, secondActionRow);
 
 
       const row = C.dcCreateRow(button1);
