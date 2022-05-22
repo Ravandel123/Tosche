@@ -48,7 +48,7 @@ function translateData(leaderboards, message) {
    //Fish
    for (item of result.fish) {
       item.fishId = FIS.getFishNameId(item.fishId);
-      item.ownerId = guildMembers.find(e => e.id == item.ownerId)?.displayName;
+      item.ownerId = guildMembers.find(e => e.id == item.ownerId)?.displayName ?? `A long-forgotten user`;
    }
 
    return result;
@@ -84,7 +84,7 @@ function generateMessageEmbed(leaderboards, menuItem, startingIndex) {
 function generateTitle(menuItem) {
    switch (menuItem) {
       case 'vFishing':
-         return `Fishing records 🐟`;
+         return `Fishing records`;
 
       case 'vFishing2':
          return `Fishing test records:`;
@@ -105,8 +105,8 @@ function getFishingContent(content, startingIndex) {
    let result = ``;
 
    for (let i = startingIndex; i < content.length; i++) {
-      result += `**Name**: ${content[i].fishId}\n` +
-                `**Person**: ${content[i].ownerId}\n` +
+      result += `🐟 **${content[i].fishId}**:\n` +
+                `🥇 ${content[i].ownerId}\n` +
                 `**Weight**: ${content[i].weight}\n` +
                 `---\n`;
    }
@@ -119,10 +119,10 @@ function getFishingContent2(content, startingIndex) {
 
    for (let j = 0; j < 10; j++) {
       for (let i = startingIndex; i < content.length; i++) {
-         result += `**Name**: ${content[i].fishId}\n` +
-                   `**Person**: ${content[i].ownerId}\n` +
-                   `**Weight**: ${content[i].weight}\n` +
-                   `---\n`;
+      result += `🐟 **${content[i].fishId}**:\n` +
+                `🥇 ${content[i].ownerId}\n` +
+                `**Weight**: ${content[i].weight}\n` +
+                `---\n`;
       }
    }
 
