@@ -48,13 +48,15 @@ module.exports = {
             return;
          }
 
+         await i.deferUpdate();
          await i.showModal(modal);
          i.awaitModalSubmit({ time: 1500000 })
-         .then(async i => {
+            .then(async i => {
                const favoriteColor = await i.fields.getTextInputValue('categoryInput');
                const hobbies = await i.fields.getTextInputValue('explanationInput');
-               console.log(`${favoriteColor}: ${hobbies}`)})
-         .catch(err => console.log(err))
+               console.log(`${favoriteColor}: ${hobbies}`)
+            })
+            .catch(err => console.log(err));
       });
    },
 }
