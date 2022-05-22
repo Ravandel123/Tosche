@@ -137,6 +137,12 @@ function getFishById(fishId) {
 module.exports.getFishById = getFishById;
 
 // OK---------------------------------------------------------------------------------------------------------------
+function getFishNameId(fishId) {
+   return getFishById(fishId)?.name;
+}
+
+module.exports.getFishNameId = getFishNameId;
+// OK---------------------------------------------------------------------------------------------------------------
 function generateRandomFishFromSpot(fishingSpot) {
    const fish = getRandomFishFromSpot(fishingSpot);
 

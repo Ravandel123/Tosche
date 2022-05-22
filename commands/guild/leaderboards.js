@@ -1,6 +1,7 @@
 const D = require('discord.js');
 const C = require('../../modules/common.js');
 const CG = require('../../modules/commonGuild.js');
+const FIS = require('../../modules/advanced/fishing.js');
 
 module.exports = {
    name: 'leaderboards',
@@ -20,6 +21,8 @@ module.exports = {
          return;
       }
 
+      leaderboards = translateData(leaderboards);
+
       const embedMessage = await message.channel.send({
          embeds: generateMessageEmbed(leaderboards, currentMenu, startingIndex),
          components: generateMenu()
@@ -35,6 +38,20 @@ module.exports = {
          await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenu, startingIndex), components: generateMenu() });
       });
    },
+}
+
+//-------------------------UTILITY-------------------------
+function translateData(leaderboards) {
+   const guildMembers = C.dcGetAllMembers(message);
+   let result = leaderboards;
+
+   //Fish
+   for (item of result.fish) {
+      item.fishId = FIS.getFishNameId(item.fishId);
+      item.ownerId = guildMembers.find(e => e[1].id == item.ownerId)?.displayName;
+   }
+
+   return result;
 }
 
 //-------------------------MENU-------------------------
@@ -62,7 +79,6 @@ function generateMessageEmbed(leaderboards, menuItem, startingIndex) {
       .setTitle(generateTitle(menuItem))
       .setDescription(generateContent(leaderboards, menuItem, startingIndex))];
 }
-
 
 //-------------------------PAGES-------------------------
 function generateTitle(menuItem) {
