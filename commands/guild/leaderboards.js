@@ -13,7 +13,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
       let leaderboards = {};
-      let currentMenu = 'vFishing';
+      let currentMenuName = 'fish';
       let index = 0;
 
       try {
@@ -26,7 +26,7 @@ module.exports = {
       leaderboards = translateData(leaderboards, message);
 
       const embedMessage = await message.channel.send({
-         embeds: generateMessageEmbed(leaderboards, currentMenu, index),
+         embeds: generateMessageEmbed(leaderboards, currentMenuName, index),
          components: generateMenu(index, leaderboards, 'fish')
       });
 
@@ -34,14 +34,12 @@ module.exports = {
       collector.on('collect', async i => {
          if (i.isSelectMenu()) {
             if (i.customId === 'menuId')
-               currentMenu = i.values[0];
-            console.log(embedMessage.components[1]);
-            console.log(embedMessage.components[1]?.options);
+               currentMenuName = i.values[0];
          } else if (i.isButton()) {
             index = i.customId == 'backId' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
          }
 
-         await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenu, index), components: generateMenu(index, leaderboards, 'fish') });
+         await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenu, index), components: generateMenu(index, leaderboards, currentMenuName) });
       });
    },
 }
@@ -86,8 +84,7 @@ function generateMenu(index, data, currentMenuName) {
 
 function generateMenuItems() {
    const menuArray = [];
-   menuArray.push({ label: 'Fish', value: 'Fish', emoji: '🐟' });
-   menuArray.push({ label: 'Fish', value: 'Fish2', emoji: '🐟' });
+   menuArray.push({ label: 'Fish', value: 'fish', emoji: '🐟' });
 
    return menuArray;
 }
@@ -103,21 +100,21 @@ function generateMessageEmbed(leaderboards, menuItem, startingIndex) {
 //-------------------------PAGES-------------------------
 function generateTitle(menuItem) {
    switch (menuItem) {
-      case 'vFishing':
+      case 'fish':
          return `Fishing records`;
 
-      case 'vFishing2':
+      case 'tmp':
          return `Fishing test records:`;
    }
 }
 
 function generatePageContent(leaderboards, menuItem, index) {
    switch (menuItem) {
-      case 'vFishing':
+      case 'fish':
          return getFishingContent(leaderboards.fish, index);
 
-      case 'vFishing2':
-         return getFishingContent2(leaderboards.fish, index);
+      case 'tmp':
+         return getFishingContent(leaderboards.fish, index);
    }
 }
 
@@ -135,18 +132,4 @@ function getFishingContent(content, startingIndex) {
 
    return result;
 }
-
-function getFishingContent2(content, startingIndex) {
-   let result = ``;
-   const permissibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
-   const maxIndex = content.length <= permissibleMaxIndex ? content.length : permissibleMaxIndex;
-
-   for (let i = startingIndex; i < maxIndex; i++) {
-      result += `🐟 **${content[i].fishId}**\n` +
-                `🥇 ${content[i].ownerId}\n` +
-                `⚖️ ${content[i].weight} kg (${C.calcKgToImperial(content[i].weight)})\n` +
-                `-----\n`;
-   }
-
-   return result;
 }
