@@ -47,15 +47,8 @@ function translateData(leaderboards, message) {
 
    //Fish
    for (item of result.fish) {
-      console.log(`***`);
-      console.log(guildMembers[0]);
-      console.log(guildMembers[1]);
-      console.log(guildMembers[0].id);
-      console.log(guildMembers[1].id);
-      
-      console.log(`***`);
       item.fishId = FIS.getFishNameId(item.fishId);
-      item.ownerId = guildMembers.find(e => e[1].id == item.ownerId)?.displayName;
+      item.ownerId = guildMembers.find(e => e.id == item.ownerId)?.displayName;
    }
 
    return result;
