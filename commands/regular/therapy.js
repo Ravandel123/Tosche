@@ -41,7 +41,12 @@ module.exports = {
          await i.showModal(modal);
          i.editReply({ content: `Therapy in progress...`, components: [] });
          const collected = await i.awaitModalSubmit({ filter, time: 2000 })
-            .catch( () => embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] }); );
+            .catch(() => null);
+            
+         if(!collected) {
+            embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
+            return;
+         }
 
          const category1 = await collected.fields.getTextInputValue('categoryInput');
          const explanation1 = await collected.fields.getTextInputValue('explanationInput');
