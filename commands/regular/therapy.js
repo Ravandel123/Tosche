@@ -38,7 +38,7 @@ module.exports = {
 
          if (i.isButton()) {
             await i.showModal(modal);
-            await i.update({ content: `Therapy in progress...`, components: [] });
+            await i.editReply({ content: `Therapy in progress...`, components: [] });
             const filter = (interaction) => interaction.customId === 'myModal';
             i.awaitModalSubmit({ filter, time: 1500000 })
                .then(async i => {
