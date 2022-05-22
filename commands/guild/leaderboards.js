@@ -3,7 +3,7 @@ const C = require('../../modules/common.js');
 const CG = require('../../modules/commonGuild.js');
 const FIS = require('../../modules/advanced/fishing.js');
 
-var MAX_ITEMS_ON_PAGE = 3;
+const MAX_ITEMS_ON_PAGE = 2;
 
 module.exports = {
    name: 'leaderboards',
@@ -15,7 +15,7 @@ module.exports = {
       let leaderboards = {};
       let currentMenuName = 'fish';
       let index = 0;
-MAX_ITEMS_ON_PAGE = args[1];
+
       try {
          leaderboards = await CG.getRecordDoc();
       } catch(error) {
@@ -123,9 +123,6 @@ function getFishingContent(content, startingIndex) {
    const possibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
    const maxIndex = content.length <= possibleMaxIndex ? content.length : possibleMaxIndex;
    
-   console.log(startingIndex)
-   console.log(possibleMaxIndex)
-   console.log(maxIndex)
    for (let i = startingIndex; i < maxIndex; i++) {
       result += `🐟 **${content[i].fishId}**\n` +
                 `🥇 ${content[i].ownerId}\n` +
