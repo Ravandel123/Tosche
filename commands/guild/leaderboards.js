@@ -49,8 +49,6 @@ function translateData(leaderboards, message) {
    for (item of result.fish) {
       item.fishId = FIS.getFishNameId(item.fishId);
       item.ownerId = guildMembers.find(e => e.id == item.ownerId)?.displayName ?? `A long-forgotten user`;
-      item.weight = `${item.weight} kg (${C.calcKgToImperial(item.weight)})`;
-      console.log(item.weight);
    }
 
    return result;
@@ -109,7 +107,7 @@ function getFishingContent(content, startingIndex) {
    for (let i = startingIndex; i < content.length; i++) {
       result += `🐟 **${content[i].fishId}**\n` +
                 `🥇 ${content[i].ownerId}\n` +
-                `⚖️ ${content[i].weight}\n` +
+                `⚖️ ${content[i].weight} kg (${C.calcKgToImperial(content[i].weight)})\n` +
                 `-----\n`;
    }
 
