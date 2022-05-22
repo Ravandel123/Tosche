@@ -10,7 +10,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
       let leaderboards = {};
-      let currentMenu = 'fishing';
+      let currentMenu = 'vFishing';
       let startingIndex = 0;
 
       try {
@@ -30,6 +30,8 @@ module.exports = {
          if (i.isSelectMenu()) {
             if (i.customId === 'menuId')
                currentMenu = i.values[0];
+               console.log(i.values[1]);
+               console.log(i.values);
          }
 
          await i.update({ embeds: generatePageEmbed(leaderboards, currentMenu, startingIndex), components: generateMenu() });
