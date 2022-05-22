@@ -46,7 +46,7 @@ module.exports = {
             const explanation1 = await collected.fields.getTextInputValue('explanationInput');
             console.log(`Category: ${category1}, Explanation: ${explanation1}`);
             await i.update({ content: `Thanks for your submission! My diagnose: you are clearly ${C.arrGetRandom(insanities)}. Have a nice day!`, components: [] });
-         } catch() {
+         } catch(e) {
             embedMessage.edit({ content: `Sorry, your time ran out. Come next time!`, components: [] });
          }
          
