@@ -245,7 +245,7 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
 module.exports.addFishToFishingDoc = addFishToFishingDoc;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function updateFishingRecords(fishingDoc, fish, records) {
+function updateFishingRecords(fishingDoc, fish, serverRecords) {
    let result = {
       previousPersonalRecord: -1,
       previousServerRecord: -1,
@@ -264,15 +264,15 @@ function updateFishingRecords(fishingDoc, fish, records) {
       });
    }
 
-   if (!records.fish.some(e => e.fishId == fish.id)) {
+   if (!serverRecords.fish.some(e => e.fishId == fish.id)) {
       result.previousServerRecord = 0;
-      records.fish.push(createFishRecord(fishingDoc, fish));
+      serverRecords.fish.push(createFishRecord(fishingDoc, fish));
    } else {
-      records.fish.forEach((e, index) => {
+      serverRecords.fish.forEach((e, index) => {
          if (e.fishId == fish.id && e.weight < fish.weight) {
             result.previousServerRecordHolder = e.ownerId;
             result.previousServerRecord = e.weight;
-            records.fish[index] = createFishRecord(fishingDoc, fish);
+            serverRecords.fish[index] = createFishRecord(fishingDoc, fish);
          }
       });
    }

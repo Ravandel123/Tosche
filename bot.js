@@ -756,26 +756,26 @@ client.on('messageCreate', message => {
       break
       
       
-      case 'jaildagos':
+      // case 'jaildagos':
 
-      var rolePrisoner = message.guild.roles.cache.find(r => r.name === 'Prisoner')
-      var roleComrade = message.guild.roles.cache.find(r => r.name === 'Comrade')
-      var dagos = message.guild.members.cache.get('762466250189307966')
+      // var rolePrisoner = message.guild.roles.cache.find(r => r.name === 'Prisoner')
+      // var roleComrade = message.guild.roles.cache.find(r => r.name === 'Comrade')
+      // var dagos = message.guild.members.cache.get('762466250189307966')
 
-      var senderID = message.author.id
+      // var senderID = message.author.id
 
-      if (senderID == '380485376759824385' || senderID == '392728479696814092' || senderID == '762466250189307966' || senderID == '553959824577134593')
-      {
-         dagos.roles.add(rolePrisoner).catch(console.error)
-         dagos.roles.remove(roleComrade).catch(console.error)
+      // if (senderID == '380485376759824385' || senderID == '392728479696814092' || senderID == '762466250189307966' || senderID == '553959824577134593')
+      // {
+         // dagos.roles.add(rolePrisoner).catch(console.error)
+         // dagos.roles.remove(roleComrade).catch(console.error)
 
-         let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
-         channel.send(`Welcome back ${dagos}! ^^`)
-      }
-      else
-         message.channel.send('https://tenor.com/view/abraxas-lotr-lord-of-the-rings-power-rohan-king-gif-14050384')
+         // let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
+         // channel.send(`Welcome back ${dagos}! ^^`)
+      // }
+      // else
+         // message.channel.send('https://tenor.com/view/abraxas-lotr-lord-of-the-rings-power-rohan-king-gif-14050384')
 
-      break
+      // break
 
       //------------------------------------------------------------------
       case 'jailcatz':

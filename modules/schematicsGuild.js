@@ -62,9 +62,16 @@ const fishing = MG.model('gFishing', gFishingSchema);
 //---------------------------------------------------------------------------------------------------------------
 const gRecordSchema = new MG.Schema({
    fish: [{
-      ownerId: String,
       fishId: String,
+      ownerId: String,
       weight: Number,
+
+      place1Id: String,
+      place1Weight: Number,
+      place2Id: String,
+      place2Weight: Number,
+      place3Id: String,
+      place3Weight: Number,
    }]
 });
 
