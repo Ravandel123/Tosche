@@ -245,6 +245,19 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
 module.exports.addFishToFishingDoc = addFishToFishingDoc;
 
 // OK---------------------------------------------------------------------------------------------------------------
+async function addFishToMessageOwnerFishingDoc(message, fish) {
+   try {
+      const fishingDoc = await getMessageAuthorFishingDoc(message);
+      const result = await addFishToFishingDoc(fishingDoc, fish);
+      return Promise.resolve(result);
+   } catch(error) {
+      return Promise.reject(error);
+   }
+}
+
+module.exports.addFishToMessageOwnerFishingDoc = addFishToMessageOwnerFishingDoc;
+
+// OK---------------------------------------------------------------------------------------------------------------
 function updateFishingRecords(fishingDoc, fish, serverRecords) {
    let result = {
       previousPersonalRecord: -1,
@@ -277,21 +290,26 @@ function updateFishingRecords(fishingDoc, fish, serverRecords) {
       serverRecords.fish.forEach((e, index) => {
          if (e.fishId == fish.id) {
             if (e.place1Weight < fish.weight) {
-               result.previousRecordHolder = e.place1Id;
-               result.previousServerRecord = e.place1Weight;
-               result.currentPlace = 1;
+               // result.previousRecordHolder = e.place1Id;
+               // result.previousServerRecord = e.place1Weight;
+               // result.currentPlace = 1;
+               setFishingResult(result, e, 1);
+               moveFishingRecordDown(serverRecords.fish[index], 1);
                serverRecords.fish[index].place1Id = fishingDoc.ownerId;
                serverRecords.fish[index].place1Weight = fish.weight;
             } else if (e.place2Weight < fish.weight) {
-               result.previousRecordHolder = e.place2Id;
-               result.previousServerRecord = e.place2Weight;
-               result.currentPlace = 2;
+               // result.previousRecordHolder = e.place2Id;
+               // result.previousServerRecord = e.place2Weight;
+               // result.currentPlace = 2;
+               setFishingResult(result, e, 2);
+               moveFishingRecordDown(serverRecords.fish[index], 2);
                serverRecords.fish[index].place2Id = fishingDoc.ownerId;
                serverRecords.fish[index].place2Weight = fish.weight;
             } else if (e.place3Weight < fish.weight) {
-               result.previousRecordHolder = e.place3Id;
-               result.previousServerRecord = e.place3Weight;
-               result.currentPlace = 3;
+               // result.previousRecordHolder = e.place3Id;
+               // result.previousServerRecord = e.place3Weight;
+               // result.currentPlace = 3;
+               setFishingResult(result, e, 3);
                serverRecords.fish[index].place3Id = fishingDoc.ownerId;
                serverRecords.fish[index].place3Weight = fish.weight;
             }
@@ -303,17 +321,26 @@ function updateFishingRecords(fishingDoc, fish, serverRecords) {
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function addFishToMessageOwnerFishingDoc(message, fish) {
-   try {
-      const fishingDoc = await getMessageAuthorFishingDoc(message);
-      const result = await addFishToFishingDoc(fishingDoc, fish);
-      return Promise.resolve(result);
-   } catch(error) {
-      return Promise.reject(error);
-   }
+function setFishingResult(result, element, place) {
+   const defaultBeginning = 'place' + place;
+
+   result.previousRecordHolder = e[defaultBeginning + 'Id'];
+   result.previousServerRecord = e[defaultBeginning + 'Weight'];
+   result.currentPlace = place;
 }
 
-module.exports.addFishToMessageOwnerFishingDoc = addFishToMessageOwnerFishingDoc;
+// OK---------------------------------------------------------------------------------------------------------------
+function moveFishingRecordDown(records, place) {
+   if (place < 3) {
+      records.place3Id = records.place2Id;
+      records.place3Weight = records.place2Weight;
+   }
+
+   if (place < 2) {
+      records.place2Id = records.place1Id;
+      records.place2Weight = records.place1Weight;
+   }
+}
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
