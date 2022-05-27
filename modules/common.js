@@ -506,7 +506,7 @@ function strRemoveAllSpecialChars(string) {
 module.exports.strRemoveAllSpecialChars = strRemoveAllSpecialChars;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function strAddArticle(string) {
+function strAddArticle(string, makeBold = false) {
    if (!checkIfString(string))
       return;
 
@@ -536,7 +536,7 @@ function strAddArticle(string) {
       }
    }
 
-   return result + string;
+   return makeBold ? `${result} + **${string}**` : `${result} + ${string}`;
 }
 
 module.exports.strAddArticle = strAddArticle;

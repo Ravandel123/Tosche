@@ -451,7 +451,7 @@ module.exports.fishCatchFailed = fishCatchFailed;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function fishRecord(recordResult, fish, previousRecordHolder) {
-   const correctFish = `**${C.strAddArticle(fish.name)}**`;
+   const correctFish = `${C.strAddArticle(fish.name, true)}`;
    let finalMessage = '';
    let arrayPersonalRecord;
    let arrayServerRecord;
@@ -461,7 +461,7 @@ function fishRecord(recordResult, fish, previousRecordHolder) {
       if (recordResult.previousPersonalRecord > 0) {
          const correctWeightPersonal = `**${recordResult.previousPersonalRecord} kg (${C.calcKgToImperial(recordResult.previousPersonalRecord)})**`;
          arrayPersonalRecord = [
-            `Incredible! This is your personal record for ${correctFish}! Your previous record was: ${correctWeightPersonal}`
+            `This is your personal record for ${correctFish}! Your previous record was: ${correctWeightPersonal}`
          ];
       } else if (recordResult.previousPersonalRecord == 0) {
          arrayPersonalRecord = [
