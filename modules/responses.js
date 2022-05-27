@@ -491,7 +491,7 @@ function fishRecord(recordResult, fish, previousRecordHolder) {
 
       finalMessage += C.arrGetRandom(arrayServerRecord);
 
-      if (recordResult.previousServerRecord != 0) {
+      if (recordResult.previousServerRecord > 0) {
          const correctWeightServer = `**${C.getFullKgToImperial(recordResult.previousServerRecord)}**`;
          finalMessage += ` The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctWeightServer}`;
       }

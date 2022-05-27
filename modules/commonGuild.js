@@ -312,22 +312,22 @@ function updateFishingRecords(fishingDoc, fish, serverRecords) {
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
-function setFishingResult(result, element, place) {
-   const defaultBeginning = 'place' + place;
+function setFishingResult(result, element, placeNumber) {
+   const defaultBeginning = 'place' + placeNumber;
 
    result.previousRecordHolder = element[defaultBeginning + 'Id'];
    result.previousServerRecord = element[defaultBeginning + 'Weight'];
-   result.currentPlace = place;
+   result.currentPlace = placeNumber;
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
-function moveFishingRecordDown(records, place) {
-   if (place < 3) {
+function moveFishingRecordDown(records, placeNumber) {
+   if (placeNumber < 3 && records.place2Weight > 0) {
       records.place3Id = records.place2Id;
       records.place3Weight = records.place2Weight;
    }
 
-   if (place < 2) {
+   if (placeNumber < 2) {
       records.place2Id = records.place1Id;
       records.place2Weight = records.place1Weight;
    }
