@@ -536,7 +536,7 @@ function strAddArticle(string, makeBold = false) {
       }
    }
 
-   return makeBold ? `${result} **${string}**` : `${result} ${string}`;
+   return makeBold ? `${result}**${string}**` : `${result}${string}`;
 }
 
 module.exports.strAddArticle = strAddArticle;
@@ -1216,6 +1216,7 @@ function getFixedMessageContent(msgContent) {
 
 
 //----------------------------------------------------------- CALCULATION ----------------------------------------------------------
+//-------------------------------------------------------Main-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function calcBMI(height, weight) {
    if (!checkIfNumber(height) || !checkIfNumber(weight))
@@ -1303,6 +1304,24 @@ function calcCelsiusToFahrenheit(value) {
 module.exports.calcCelsiusToFahrenheit = calcCelsiusToFahrenheit;
 
 // ---------------------------------------------------------------------------------------------------------------
+
+
+//-------------------------------------------------------Other-------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function getFullKgToImperial(kilograms, decimalPlaces = 0) {
+   return `${kilograms} kg (${calcKgToImperial(kilograms, decimalPlaces = 0)})`;
+}
+
+module.exports.getFullKgToImperial = getFullKgToImperial;
+
+
+// OK---------------------------------------------------------------------------------------------------------------
+function getFullCmToImperial(centimeters, decimalPlaces = 0) {
+   return `${centimeters} cm (${calcCmToImperial(centimeters, decimalPlaces = 0)})`;
+}
+
+module.exports.getFullCmToImperial = getFullCmToImperial;
+
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 

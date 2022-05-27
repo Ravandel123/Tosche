@@ -459,7 +459,7 @@ function fishRecord(recordResult, fish, previousRecordHolder) {
    //-----Personal records-----
    if (recordResult.previousPersonalRecord != -1) {
       if (recordResult.previousPersonalRecord > 0) {
-         const correctWeightPersonal = `**${recordResult.previousPersonalRecord} kg (${C.calcKgToImperial(recordResult.previousPersonalRecord)})**`;
+         const correctWeightPersonal = `**${getFullKgToImperial(recordResult.previousPersonalRecord)}**`;
          arrayPersonalRecord = [
             `This is your personal record for ${correctFish}! Your previous record was: ${correctWeightPersonal}`
          ];
@@ -480,7 +480,7 @@ function fishRecord(recordResult, fish, previousRecordHolder) {
          ];
       } else if (recordResult.currentPlace == 1) {
          arrayServerRecord = [
-            `And this is also the server record for ${correctFish}!`
+            `And this is also the new server record for ${correctFish}!`
          ];
       } else if (recordResult.currentPlace > 0) {
          const correctPlace = recordResult.currentPlace == 2 ? `2nd` : `3rd`;
@@ -492,8 +492,8 @@ function fishRecord(recordResult, fish, previousRecordHolder) {
       finalMessage += C.arrGetRandom(arrayServerRecord);
 
       if (recordResult.previousServerRecord != 0) {
-         const correctWeightServer = `**${recordResult.previousServerRecord} kg (${C.calcKgToImperial(recordResult.previousServerRecord)})**`;
-         finalMessage += ` The previous record was held by **${recordResult.previousRecordHolder}** who caught ${correctFish} weighing ${correctWeightServer}`;
+         const correctWeightServer = `**${getFullKgToImperial(recordResult.previousServerRecord)}**`;
+         finalMessage += ` The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctWeightServer}`;
       }
    }
 
