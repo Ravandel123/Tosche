@@ -453,35 +453,43 @@ module.exports.fishCatchFailed = fishCatchFailed;
 function fishRecord(recordResult, fish, previousRecordHolder) {
    const correctFish = `**${C.strAddArticle(fish.name)}**`;
    let finalMessage = '';
+   let arrayPersonalRecord;
+   let arrayServerRecord;
 
-   if (recordResult.previousPersonalRecord > 0) {
-      const correctCurrentWeight = `**${recordResult.previousPersonalRecord} kg (${C.calcKgToImperial(recordResult.previousPersonalRecord)})**`;
-      const arrayPersonalRecord = [
-         `Incredible! This is your personal record for ${correctFish}! Your previous record was: ${correctCurrentWeight}`
-      ];
-
-      finalMessage += C.arrGetRandom(arrayPersonalRecord) + `\n`;
-   } else if (recordResult.previousPersonalRecord == 0) {
-      const correctCurrentWeight = `**${recordResult.previousPersonalRecord} kg (${C.calcKgToImperial(recordResult.previousPersonalRecord)})**`;
-      const arrayPersonalRecord = [
-         `This is your first **${fish.name}** caught!`
-      ];
+   //-----Personal records-----
+   if (recordResult.previousPersonalRecord != -1) {
+      if (recordResult.previousPersonalRecord > 0) {
+         const correctWeightPersonal = `**${recordResult.previousPersonalRecord} kg (${C.calcKgToImperial(recordResult.previousPersonalRecord)})**`;
+         arrayPersonalRecord = [
+            `Incredible! This is your personal record for ${correctFish}! Your previous record was: ${correctWeightPersonal}`
+         ];
+      } else if (recordResult.previousPersonalRecord == 0) {
+         arrayPersonalRecord = [
+            `This is your first **${fish.name}** caught!`
+         ];
+      }
 
       finalMessage += C.arrGetRandom(arrayPersonalRecord) + `\n`;
    }
 
-   if (recordResult.previousServerRecord > 0) {
-      const correctRecordWeight = `**${recordResult.previousServerRecord} kg (${C.calcKgToImperial(recordResult.previousServerRecord)})**`;
-      const arrayServerRecord = [
-         `And this is also the server record for ${correctFish}! The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctRecordWeight}`
-      ];
+   //-----Server records-----
+   if (recordResult.currentPlace != -1) {
+      const correctWeightServer = `**${recordResult.previousServerRecord} kg (${C.calcKgToImperial(recordResult.previousServerRecord)})**`;
 
-      finalMessage += C.arrGetRandom(arrayServerRecord);
-   } else if (recordResult.previousServerRecord == 0) {
-      const correctRecordWeight = `**${recordResult.previousServerRecord} kg (${C.calcKgToImperial(recordResult.previousServerRecord)})**`;
-      const arrayServerRecord = [
-         `And this is also the first **${fish.name}** caught in the server!`
-      ];
+      if (recordResult.currentPlace == 0) {
+         arrayServerRecord = [
+            `And this is also the first **${fish.name}** caught in the server!`
+         ];
+      } else if (recordResult.currentPlace == 1) {
+         arrayServerRecord = [
+            `And this is also the server record for ${correctFish}! The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctWeightServer}`
+         ];
+      } else if (recordResult.currentPlace > 0) {
+         const correctPlace = recordResult.currentPlace == 2 ? `2nd` : `3rd`;
+         arrayServerRecord = [
+            `This is also the ${correctPlace} best catch on the server for ${correctFish}! The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctWeightServer}`
+         ];
+      }
 
       finalMessage += C.arrGetRandom(arrayServerRecord);
    }

@@ -21,7 +21,7 @@ module.exports = {
 
       const currency = CG.getCurrencyObject(args[2]);
       if (!currency) {
-         C.dcRespondFromArray(message, R.resIssue(`${args[2]} isn't a legit currency`));
+         C.dcRespondFromArray(message, R.resIssue(`**${args[2]}** isn't a legit currency`));
          return;
       }
 

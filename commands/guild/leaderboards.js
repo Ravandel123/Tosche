@@ -52,7 +52,9 @@ function translateData(leaderboards, message) {
    //Fish
    for (item of result.fish) {
       item.fishId = FIS.getFishNameId(item.fishId);
-      item.ownerId = guildMembers.find(e => e.id == item.ownerId)?.displayName ?? `A long-forgotten user`;
+      item.place1Id = guildMembers.find(e => e.id == item.place1Id)?.displayName ?? `A long-forgotten user`;
+      item.place2Id = guildMembers.find(e => e.id == item.place2Id)?.displayName ?? `A long-forgotten user`;
+      item.place3Id = guildMembers.find(e => e.id == item.place3Id)?.displayName ?? `A long-forgotten user`;
    }
 
    return result;
@@ -125,8 +127,15 @@ function getFishingContent(content, startingIndex) {
    
    for (let i = startingIndex; i < maxIndex; i++) {
       result += `**${content[i].fishId}** 🐟 \n` +
-                `🥇 ${content[i].ownerId}: ${content[i].weight} kg (${C.calcKgToImperial(content[i].weight)})\n` +
-                `-----\n`;
+                `🥇 ${content[i].place1Id}: ${content[i].place1Weight} kg (${C.calcKgToImperial(content[i].place1Weight)})\n`;
+
+      if (content[i].place2Weight > 0)
+         result += `🥈 ${content[i].place2Id}: ${content[i].place2Weight} kg (${C.calcKgToImperial(content[i].place2Weight)})\n`;
+
+      if (content[i].place3Weight > 0)
+         result += `🥉 ${content[i].place3Id}: ${content[i].place3Weight} kg (${C.calcKgToImperial(content[i].place3Weight)})\n`;
+
+      result += `-----\n`;
    }
 
    return result;

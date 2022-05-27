@@ -249,7 +249,8 @@ function updateFishingRecords(fishingDoc, fish, serverRecords) {
    let result = {
       previousPersonalRecord: -1,
       previousServerRecord: -1,
-      previousServerRecordHolder: ''
+      currentPlace: -1,
+      previousRecordHolder: ''
    };
 
    if (!fishingDoc.records.some(e => e.id == fish.id)) {
@@ -265,28 +266,40 @@ function updateFishingRecords(fishingDoc, fish, serverRecords) {
    }
 
    if (!serverRecords.fish.some(e => e.fishId == fish.id)) {
-      result.previousServerRecord = 0;
-      serverRecords.fish.push(createFishRecord(fishingDoc, fish));
+      result.currentPlace = 0;
+      const newFishingDoc = {
+         fishId: fish.id,
+         place1Id: fishingDoc.ownerId,
+         place1Weight: fish.weight
+      };
+      serverRecords.fish.push(newFishingDoc);
    } else {
       serverRecords.fish.forEach((e, index) => {
-         if (e.fishId == fish.id && e.weight < fish.weight) {
-            result.previousServerRecordHolder = e.ownerId;
-            result.previousServerRecord = e.weight;
-            serverRecords.fish[index] = createFishRecord(fishingDoc, fish);
+         if (e.fishId == fish.id) {
+            if (e.place1Weight < fish.weight) {
+               result.previousRecordHolder = e.place1Id;
+               result.previousServerRecord = e.place1Weight;
+               result.currentPlace = 1;
+               serverRecords.fish[index].place1Id = fishingDoc.ownerId;
+               serverRecords.fish[index].place1Weight = fish.weight;
+            } else if (e.place2Weight < fish.weight) {
+               result.previousRecordHolder = e.place2Id;
+               result.previousServerRecord = e.place2Weight;
+               result.currentPlace = 2;
+               serverRecords.fish[index].place2Id = fishingDoc.ownerId;
+               serverRecords.fish[index].place2Weight = fish.weight;
+            } else if (e.place3Weight < fish.weight) {
+               result.previousRecordHolder = e.place3Id;
+               result.previousServerRecord = e.place3Weight;
+               result.currentPlace = 3;
+               serverRecords.fish[index].place3Id = fishingDoc.ownerId;
+               serverRecords.fish[index].place3Weight = fish.weight;
+            }
          }
       });
    }
 
    return result;
-}
-
-// OK---------------------------------------------------------------------------------------------------------------
-function createFishRecord(fishingDoc, fish) {
-   return {
-      ownerId: fishingDoc.ownerId,
-      fishId: fish.id,
-      weight: fish.weight
-   }
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
