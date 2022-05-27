@@ -124,9 +124,8 @@ function getFishingContent(content, startingIndex) {
    const maxIndex = content.length <= possibleMaxIndex ? content.length : possibleMaxIndex;
    
    for (let i = startingIndex; i < maxIndex; i++) {
-      result += `🐟 **${content[i].fishId}**\n` +
-                `🥇 ${content[i].ownerId}\n` +
-                `⚖️ ${content[i].weight} kg (${C.calcKgToImperial(content[i].weight)})\n` +
+      result += `**${content[i].fishId}** 🐟 \n` +
+                `🥇 ${content[i].ownerId}: ${content[i].weight} kg (${C.calcKgToImperial(content[i].weight)})\n` +
                 `-----\n`;
    }
 

@@ -129,10 +129,10 @@ module.exports = {
          // console.log(res.nModified)
          // console.log(res)
       } else if (args[1] == 'change') {
-         records.updateMany({}, { $rename: { fish.ownerId: 'place1Id' } }, { multi: true }, function(err, blocks) {
-          if(err) { throw err; }
-          console.log('done!');
-         });
+         // records.updateMany({}, { $rename: { fish.ownerId: 'place1Id' } }, { multi: true }, function(err, blocks) {
+          // if(err) { throw err; }
+          // console.log('done!');
+         // });
       }
    },
 }
