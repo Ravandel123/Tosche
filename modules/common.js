@@ -536,7 +536,7 @@ function strAddArticle(string, makeBold = false) {
       }
    }
 
-   return makeBold ? `${result} + **${string}**` : `${result} + ${string}`;
+   return makeBold ? `${result} **${string}**` : `${result} ${string}`;
 }
 
 module.exports.strAddArticle = strAddArticle;
