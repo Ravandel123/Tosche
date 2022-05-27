@@ -290,25 +290,16 @@ function updateFishingRecords(fishingDoc, fish, serverRecords) {
       serverRecords.fish.forEach((e, index) => {
          if (e.fishId == fish.id) {
             if (e.place1Weight < fish.weight) {
-               // result.previousRecordHolder = e.place1Id;
-               // result.previousServerRecord = e.place1Weight;
-               // result.currentPlace = 1;
                setFishingResult(result, e, 1);
                moveFishingRecordDown(serverRecords.fish[index], 1);
                serverRecords.fish[index].place1Id = fishingDoc.ownerId;
                serverRecords.fish[index].place1Weight = fish.weight;
             } else if (e.place2Weight < fish.weight) {
-               // result.previousRecordHolder = e.place2Id;
-               // result.previousServerRecord = e.place2Weight;
-               // result.currentPlace = 2;
                setFishingResult(result, e, 2);
                moveFishingRecordDown(serverRecords.fish[index], 2);
                serverRecords.fish[index].place2Id = fishingDoc.ownerId;
                serverRecords.fish[index].place2Weight = fish.weight;
             } else if (e.place3Weight < fish.weight) {
-               // result.previousRecordHolder = e.place3Id;
-               // result.previousServerRecord = e.place3Weight;
-               // result.currentPlace = 3;
                setFishingResult(result, e, 3);
                serverRecords.fish[index].place3Id = fishingDoc.ownerId;
                serverRecords.fish[index].place3Weight = fish.weight;

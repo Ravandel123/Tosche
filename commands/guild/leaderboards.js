@@ -79,7 +79,7 @@ function generateMenu(index, data, currentMenuName) {
       .setLabel('Next')
       .setEmoji('➡️')
       .setStyle('PRIMARY')
-      .setDisabled(index * 3 >= data[currentMenuName].length);
+      .setDisabled(index + MAX_ITEMS_ON_PAGE >= data[currentMenuName].length);
 
    return [C.dcCreateRow([backButton, forwardButton]), C.dcCreateRow(recordsMenu)];
 }
