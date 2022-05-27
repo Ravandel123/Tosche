@@ -482,16 +482,20 @@ function fishRecord(recordResult, fish, previousRecordHolder) {
          ];
       } else if (recordResult.currentPlace == 1) {
          arrayServerRecord = [
-            `And this is also the server record for ${correctFish}! The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctWeightServer}`
+            `And this is also the server record for ${correctFish}!`
          ];
       } else if (recordResult.currentPlace > 0) {
          const correctPlace = recordResult.currentPlace == 2 ? `2nd` : `3rd`;
          arrayServerRecord = [
-            `This is also the ${correctPlace} best catch on the server for ${correctFish}! The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctWeightServer}`
+            `This is also the ${correctPlace} best catch on the server for ${correctFish}!`
          ];
       }
 
       finalMessage += C.arrGetRandom(arrayServerRecord);
+
+      if (previousServerRecord != 0) {
+         finalMessage += ` The previous record was held by **${previousRecordHolder}** who caught ${correctFish} weighing ${correctWeightServer}`;
+      }
    }
 
    return finalMessage;
