@@ -324,8 +324,8 @@ function updateFishingRecords(fishingDoc, fish, serverRecords) {
 function setFishingResult(result, element, place) {
    const defaultBeginning = 'place' + place;
 
-   result.previousRecordHolder = e[defaultBeginning + 'Id'];
-   result.previousServerRecord = e[defaultBeginning + 'Weight'];
+   result.previousRecordHolder = element[defaultBeginning + 'Id'];
+   result.previousServerRecord = element[defaultBeginning + 'Weight'];
    result.currentPlace = place;
 }
 
