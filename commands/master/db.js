@@ -4,12 +4,13 @@ const DB = require('../../modules/db.js');
 const SG = require('../../modules/schematicsGuild.js');
 
 module.exports = {
-   name: 'updatedb',
-   description: 'Updates the guild profiles.',
+   name: 'db',
+   description: 'Updates db.',
    usage: '',
    example: '',
    async execute(message, args) {
       let guildProfiles = await SG.profile;
+      let records = await SG.record;
       let profile;
 
       if (args[2])
@@ -127,6 +128,11 @@ module.exports = {
          // console.log(res.n)
          // console.log(res.nModified)
          // console.log(res)
+      } else if (args[1] == 'change') {
+         records.updateMany({}, { $rename: { ownerId: 'place1Id' } }, { multi: true }, function(err, blocks) {
+          if(err) { throw err; }
+          console.log('done!');
+         });
       }
    },
 }
