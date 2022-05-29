@@ -60,8 +60,7 @@ function generateMessageEmbed(userData, menuItem, message) {
    return [new D.MessageEmbed()
       .setTitle(generateEmbedTitle(userData, menuItem))
       .setImage('https://i.imgur.com/iSpEc6r.png')
-      .setFooter(generateEmbedContent(userData, menuItem))];
-      // .setDescription(generateEmbedContent(userData, menuItem))];
+      .setDescription(generateEmbedContent(userData, menuItem))];
 }
 
 function generateEmbedTitle(userData, menuItem) {
