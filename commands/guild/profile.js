@@ -70,7 +70,7 @@ function generateComponents(currentButton, currentMenu, index) {
       menuItems.push(generatePaginationButtons, index);
 
    menuItems.push(generateMainButtons());
-   menuItems.push(C.dcCreateRow(generateMenu(currentButton)));
+   menuItems.push(generateMenu(currentButton));
 
    return menuItems;
 }
@@ -115,7 +115,7 @@ function generateMenu(buttonId) {
       menuArray.push({ label: MENU1_ITEM_2.label, value: MENU1_ITEM_2.value, emoji: MENU1_ITEM_2.emoji });
    }
 
-   return C.dcCreateSelectMenu('menu', 'Select the information to display', menuArray);
+   return C.dcCreateRow(C.dcCreateSelectMenu('menu', 'Select the information to display', menuArray));
 }
 
 

@@ -20,13 +20,13 @@ module.exports = {
       collector.on('collect', async i => {
          if (i.isButton()) {
             switch(i.customId) {
-               case 'backId':
+               case 'back':
                   page--;
                   break;
-               case 'forwardId':
+               case 'forward':
                   page++;
                   break;
-               case 'randomId':
+               case 'random':
                   chapter = Object.keys(BWD)[C.rnd(Object.keys(BWD).length - 1)];
                   page =  C.rnd(BWD[chapter].pages.length - 1);
                   break;
@@ -55,34 +55,39 @@ function generatePageEmbed(chapter, page) {
 }
 
 function generatePageMovementRow(chapter, page) {
-   const randomButton = new D.MessageButton()
-      .setCustomId('randomId')
-      .setEmoji('🎲')
-      .setStyle('DANGER');
+   const randomButton = C.dcCreateButton('random', '', '🎲', 'DANGER');
+   const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'PRIMARY', page == 0);
+   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY', page == BWD[chapter].pages.length - 1);
+   const chapterMenu = C.dcCreateSelectMenu('chapterId', 'Change chapter', generateChapterArray());
+   const chapterMenu = C.dcCreateSelectMenu('pageId', 'Jump to a page', generatePageArray(chapter));
+   // const randomButton = new D.MessageButton()
+      // .setCustomId('randomId')
+      // .setEmoji('🎲')
+      // .setStyle('DANGER');
 
-   const backButton = new D.MessageButton()
-      .setCustomId('backId')
-      .setLabel('Previous')
-      .setEmoji('⬅️')
-      .setStyle('PRIMARY')
-      .setDisabled(page == 0);
+   // const backButton = new D.MessageButton()
+      // .setCustomId('backId')
+      // .setLabel('Previous')
+      // .setEmoji('⬅️')
+      // .setStyle('PRIMARY')
+      // .setDisabled(page == 0);
 
-   const forwardButton = new D.MessageButton()
-      .setCustomId('forwardId')
-      .setLabel('Next')
-      .setEmoji('➡️')
-      .setStyle('PRIMARY')
-      .setDisabled(page == BWD[chapter].pages.length - 1);
+   // const forwardButton = new D.MessageButton()
+      // .setCustomId('forwardId')
+      // .setLabel('Next')
+      // .setEmoji('➡️')
+      // .setStyle('PRIMARY')
+      // .setDisabled(page == BWD[chapter].pages.length - 1);
 
-   const chapterMenu = [new D.MessageSelectMenu()
-      .setCustomId('chapterId')
-      .setPlaceholder(`Change chapter`)
-      .addOptions(generateChapterArray())];
+   // const chapterMenu = [new D.MessageSelectMenu()
+      // .setCustomId('chapterId')
+      // .setPlaceholder(`Change chapter`)
+      // .addOptions(generateChapterArray())];
 
-   const pageMenu = [new D.MessageSelectMenu()
-      .setCustomId('pageId')
-      .setPlaceholder(`Jump to a page`)
-      .addOptions(generatePageArray(chapter))];
+   // const pageMenu = [new D.MessageSelectMenu()
+      // .setCustomId('pageId')
+      // .setPlaceholder(`Jump to a page`)
+      // .addOptions(generatePageArray(chapter))];
 
    return [C.dcCreateRow([backButton, randomButton, forwardButton]), C.dcCreateRow(chapterMenu), C.dcCreateRow(pageMenu)];
 }

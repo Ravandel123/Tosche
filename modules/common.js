@@ -1221,13 +1221,15 @@ module.exports.dcCreateRow = dcCreateRow;
 function dcCreateButton(id, label, emoji, style = `PRIMARY`, isDisabled = false) {
    const availableStyles = [`PRIMARY`, `SECONDARY`, `SUCCESS`, `DANGER`, `LINK`];
 
-   if (checkIfExists(id) && checkIfExists(label) && checkIfAnyMatch(style, availableStyles))
+   if (checkIfExists(id) && checkIfAnyMatch(style, availableStyles))
    {
       const button = new D.MessageButton()
          .setCustomId(id)
-         .setLabel(label)
          .setStyle(style)
          .setDisabled(isDisabled);
+
+      if (label)
+         button.setLabel(label)
 
       if (emoji)
          button.setEmoji(emoji);
