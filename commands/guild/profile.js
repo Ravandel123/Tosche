@@ -10,7 +10,7 @@ module.exports = {
    async execute(message, args) {
       let userData = {};
       let currentButton = MAIN_BUTTON1.id;
-      let currentMenu = MENU1_ITEM_1;
+      let currentMenu = MENU1_ITEM_1.value;
       let index = 0;
 
       try {
