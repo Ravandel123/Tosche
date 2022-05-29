@@ -818,13 +818,6 @@ function dcCheckIfMessageComponents(value) {
 module.exports.dcCheckIfMessage = dcCheckIfMessage;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function dcCheckIfMessageSelectOptionData(value) {
-   return value[0] instanceof D.MessageSelectOption;
-}
-
-module.exports.dcCheckIfMessageSelectOptionData = dcCheckIfMessageSelectOptionData;
-
-// OK---------------------------------------------------------------------------------------------------------------
 function dcCheckIfGuildMessage(message) {
    if (!dcCheckIfMessage(message))
       return;
@@ -1194,7 +1187,7 @@ module.exports.dcCreateButton = dcCreateButton;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCreateSelectMenu(id, placeholderText, options) {
-   if (checkIfExists(id) && checkIfString(placeholderText) && dcCheckIfMessageSelectOptionData(options))
+   if (checkIfExists(id) && checkIfString(placeholderText) && checkIfExists(options))
       return [new D.MessageSelectMenu()
          .setCustomId(id)
          .setPlaceholder(placeholderText)
