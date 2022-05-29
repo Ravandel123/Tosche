@@ -129,7 +129,7 @@ function generateMessageEmbed(userData, button, menu) {
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(userData, button, menu))
       .setDescription(generateEmbedContent(userData, button, menu))
-      .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/07/5f/65/075f65850e258ccf338c5d0348fd836d.jpg' });
+      .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg' });
 
    if (image)
       embed.setImage(image);
@@ -140,10 +140,10 @@ function generateMessageEmbed(userData, button, menu) {
 function generateEmbedTitle(userData, button, menu) {
    switch (menu) {
       case MENU1_ITEM_1.value:
-         return `Profile of ${C.strBold(userData.profile?.ownerTag)}`;
+         return `-----Profile-----`;
 
       case MENU1_ITEM_2.value:
-         return `Currencies of ${C.strBold(userData.profile?.ownerName)}`;
+         return `-----Currencies-----`;
    }
 }
 
