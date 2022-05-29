@@ -22,7 +22,7 @@ module.exports = {
 
       const embedMessage = await message.channel.send({
          embeds: generateMessageEmbed(userData, currentMenu),
-         components: generateMenu(currentButton, currentMenu, index)
+         components: generateComponents(currentButton, currentMenu, index)
       });
 
       const collector = embedMessage.createMessageComponentCollector();
@@ -33,13 +33,13 @@ module.exports = {
          }
 
          if (i.isSelectMenu()) {
-            if (i.customId === 'menuId')
+            if (i.customId === 'menu')
                currentMenu = i.values[0];
          } else if (i.isButton()) {
             currentButton = i.customId;
          }
 
-         await i.update({ embeds: generateMessageEmbed(userData, currentMenu), components: generateMenu(currentButton, currentMenu, index) });
+         await i.update({ embeds: generateMessageEmbed(userData, currentMenu), components: generateComponents(currentButton, currentMenu, index) });
       });
    },
 }
@@ -100,14 +100,14 @@ function getCurrenciesInfo(profile) {
 }
 
 //-------------------------MENU-------------------------
-function generateMenu(currentButton, currentMenu, index) {
+function generateComponents(currentButton, currentMenu, index) {
    const menuItems = [];
 
    if (hasPagination(currentMenu))
       menuItems.push(generatePaginationButtons, index);
 
    menuItems.push(generateMainButtons());
-   // menuItems.push(C.dcCreateRow(generateMenu(currentButton)));
+   menuItems.push(C.dcCreateRow(generateMenu(currentButton)));
 
    return menuItems;
 }
@@ -152,5 +152,5 @@ function generateMenu(button) {
       menuArray.push({ label: C.strCapitalizeFirstLetter(MENU1_ITEM_2), value: MENU1_ITEM_2, emoji: '💰' });
    }
 
-   return C.dcCreateSelectMenu('menuId', 'Select the information to display', menuArray);
+   return C.dcCreateSelectMenu('menu', 'Select the information to display', menuArray);
 }
