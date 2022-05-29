@@ -15,6 +15,7 @@ const arrayBannedWords = [
    'cunt',
    'dick',
    'faggot', 'fuck',
+   'god dammit', 'god damn it',
    'kurva', 'kurwa',
    'niga', 'nigga', 'nigger',
    '0laffson', 'titusW',

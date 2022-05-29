@@ -55,6 +55,10 @@ const MAIN_BUTTON3 = 'records';
 const MENU1_ITEM_1 = 'info';
 const MENU1_ITEM_2 = 'currencies';
 
+const MENU2_ITEM_1 = 'invFishes';
+
+const MENU3_ITEM_1 = 'recFishes';
+
 
 //-------------------------MENU-------------------------
 function generateComponents(currentButton, currentMenu, index) {
@@ -115,10 +119,18 @@ function generateMenu(button) {
 
 //-------------------------EMBED-------------------------
 function generateMessageEmbed(userData, button, menu) {
-   return new D.MessageEmbed()
-      .setTitle(generateEmbedTitle(userData, button, menu))
-      .setImage('https://i.imgur.com/iSpEc6r.png')
-      .setDescription(generateEmbedContent(userData, button, menu));
+   const image = generateEmbedImage(menu);
+
+   if (image) {
+      return [new D.MessageEmbed()
+         .setTitle(generateEmbedTitle(userData, button, menu))
+         .setImage(image)
+         .setDescription(generateEmbedContent(userData, button, menu))];
+   } else {
+      return [new D.MessageEmbed()
+         .setTitle(generateEmbedTitle(userData, button, menu))
+         .setDescription(generateEmbedContent(userData, button, menu))];
+   }
 }
 
 function generateEmbedTitle(userData, button, menu) {
@@ -131,17 +143,28 @@ function generateEmbedTitle(userData, button, menu) {
    }
 }
 
+function generateEmbedImage(menu) {
+   switch (menu) {
+      case MENU1_ITEM_1:
+         return 'https://i.imgur.com/iSpEc6r.png';
+
+      default:
+         return '';
+   }
+}
+
 function generateEmbedContent(userData, button, menu) {
    switch (menu) {
       case MENU1_ITEM_1:
-         return getMainProfileInfo(userData.profile);
+         return getCharacterInfo(userData.profile);
 
       case MENU1_ITEM_2:
          return getCurrenciesInfo(userData.profile);
    }
 }
 
-function getMainProfileInfo(profile) {
+//-------------------------CONTENT-------------------------
+function getCharacterInfo(profile) {
    return `**ID**: ${profile.ownerId}\n` +
           `**Name**: ${profile.ownerName}\n` +
           `**Action Points**: ${profile.actionPoints?.current}`;
