@@ -129,7 +129,7 @@ function generateMessageEmbed(userData, button, menu) {
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(userData, button, menu))
       .setDescription(generateEmbedContent(userData, button, menu))
-      .setThumbnail(image)
+      .setThumbnail('https://www.westerndeep.net/wp-content/uploads/2022/05/4-67.jpeg')
       .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg' });
 
    if (image)
