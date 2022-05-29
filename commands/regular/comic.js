@@ -59,7 +59,7 @@ function generatePageMovementRow(chapter, page) {
    const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'PRIMARY', page == 0);
    const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY', page == BWD[chapter].pages.length - 1);
    const chapterMenu = C.dcCreateSelectMenu('chapterId', 'Change chapter', generateChapterArray());
-   const chapterMenu = C.dcCreateSelectMenu('pageId', 'Jump to a page', generatePageArray(chapter));
+   const pageMenu = C.dcCreateSelectMenu('pageId', 'Jump to a page', generatePageArray(chapter));
    // const randomButton = new D.MessageButton()
       // .setCustomId('randomId')
       // .setEmoji('🎲')
