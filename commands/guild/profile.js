@@ -121,16 +121,24 @@ function generateMenu(button) {
 function generateMessageEmbed(userData, button, menu) {
    const image = generateEmbedImage(menu);
 
-   if (image) {
-      return [new D.MessageEmbed()
+   let xd = new D.MessageEmbed()
          .setTitle(generateEmbedTitle(userData, button, menu))
-         .setImage(image)
-         .setDescription(generateEmbedContent(userData, button, menu))];
-   } else {
-      return [new D.MessageEmbed()
-         .setTitle(generateEmbedTitle(userData, button, menu))
-         .setDescription(generateEmbedContent(userData, button, menu))];
-   }
+         .setDescription(generateEmbedContent(userData, button, menu));
+
+   if (image)
+      xd.setImage(image);
+
+   return [xd];
+   // if (image) {
+      // return [new D.MessageEmbed()
+         // .setTitle(generateEmbedTitle(userData, button, menu))
+         // .setImage(image)
+         // .setDescription(generateEmbedContent(userData, button, menu))];
+   // } else {
+      // return [new D.MessageEmbed()
+         // .setTitle(generateEmbedTitle(userData, button, menu))
+         // .setDescription(generateEmbedContent(userData, button, menu))];
+   // }
 }
 
 function generateEmbedTitle(userData, button, menu) {
