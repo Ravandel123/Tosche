@@ -1,7 +1,8 @@
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
+const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
 
-const arrayCharactersIrl = ['VVooly', 'Dinly', 'Dagos', 'Jeri', 'Me', 'Ravandel', 'Catz', 'You', 'Wolf Scribe'];
+const arrayCharactersIrl = ['VVooly', 'Dinly', 'Lanaar', 'Me', 'Ravandel', 'Catz', 'You', 'Nachtkinda'];
 const arrayCharactersSpecial = ['Everybody', 'Nobody'];
 const arrayCharactersBwd = [
    'Asha', 'Ashtor', 'Beck', 'Bevan', 'Cain', 'Clovis', 'Crim', 'Dakkan', 'Eira', 'Hardin', 'Janik', 'Kenosh',
@@ -149,6 +150,7 @@ const arrayPronouns = [
 
 //-----------------------------------------------------------Exports----------------------------------------------------------
 module.exports = {
+   vowels,
    arrayCharactersIrlOnly,
    arrayCharactersAll,
    arrayBannedWords,

@@ -576,7 +576,7 @@ function strAddArticle(string, makeBold = false) {
       return;
 
    let result = '';
-   const firstLetter = strGetFirstChar(stringLowered);
+   const firstLetter = strGetFirstChar(string);
 
    if (strCheckIfAnyMatch(string, AC.arrayExceptionsWithA)) {
       result = 'a ';
@@ -584,20 +584,10 @@ function strAddArticle(string, makeBold = false) {
       result = 'an ';
    } else if (strCheckIfAnyMatch(string, AC.arrayExceptionsWithNone)) {
       result = '';
+   } else if (strCheckIfAnyMatch(string, AC.vowels) {
+      result = 'an ';
    } else {
-      switch(firstLetter) {
-         case 'a':
-         case 'e':
-         case 'i':
-         case 'o':
-         case 'u':
-         case 'y':
-           result = 'an ';
-           break;
-
-         default:
-           result = 'a ';
-      }
+      result = 'a ';
    }
 
    return makeBold ? `${result}**${string}**` : `${result}${string}`;
@@ -1244,10 +1234,6 @@ function dcCreateButton(id, label, emoji, style = `PRIMARY`, isDisabled = false)
 
       return button;
    }
-      // return new D.MessageButton()
-         // .setCustomId(id)
-         // .setLabel(label)
-         // .setStyle(style);
 }
 
 module.exports.dcCreateButton = dcCreateButton;
