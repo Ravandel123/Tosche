@@ -10,6 +10,8 @@ module.exports = {
    async execute(message, args) {
       let user = {};
       let currentMenu = 'main';
+      let currentButton = 'profile';
+      let index = 0;
 
       try {
          user.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
@@ -19,68 +21,64 @@ module.exports = {
       }
 
       const embedMessage = await message.channel.send({
-         embeds: generatePageEmbed(user.profile, currentMenu),
-         components: generateMenu()
+         embeds: generateMessageEmbed(user.profile, currentMenu),
+         components: generateMenu(currentMenu, currentButton, index)
       });
 
-      const collector = embedMessage.createMessageComponentCollector({ componentType: 'SELECT_MENU' });
+      const collector = embedMessage.createMessageComponentCollector();
       collector.on('collect', async i => {
          if (i.user.id != message.author.id) {
-            await i.reply({ content: `Only the person who ran the command can use this menu!`, ephemeral: true });
+            await i.reply({ content: `Only the person who ran the command can do that!`, ephemeral: true });
             return;
          }
 
          if (i.isSelectMenu()) {
             if (i.customId === 'menuId')
                currentMenu = i.values[0];
+         } else if (i.isButton()) {
+            currentButton = i.customId;
          }
 
-         await i.update({ embeds: generatePageEmbed(user.profile, currentMenu), components: generateMenu() });
+         await i.update({ embeds: generateMessageEmbed(user, currentMenu), components: generateMenu(currentButton, currentMenu, index) });
       });
    },
 }
 
-function generatePageEmbed(profile, menuItem) {
+//-------------------------CONST-------------------------
+const MAX_ITEMS_ON_PAGE = 3;
+
+const MAIN_BUTTON1 = 'character';
+const MAIN_BUTTON2 = 'inventory';
+const MAIN_BUTTON3 = 'records';
+
+const MENU1_ITEM_1 = 'main';
+const MENU1_ITEM_2 = 'currencies';
+
+
+//-------------------------EMBED-------------------------
+function generateMessageEmbed(profile, menuItem) {
    return [new D.MessageEmbed()
-      .setTitle(generatePageTitle(profile, menuItem))
-      .setDescription(generatePageContent(profile, menuItem))];
+      .setTitle(generateEmbedTitle(profile, menuItem))
+      .setDescription(generateEmbedContent(profile, menuItem))];
 }
 
-function generateMenu() {
-   const profilePage = [new D.MessageSelectMenu()
-      .setCustomId('menuId')
-      .setPlaceholder('Select the information to display')
-      .addOptions(generateMenuItems())];
-
-   return [C.dcCreateRow(profilePage)];
-}
-
-function generateMenuItems() {
-   const menuArray = [];
-   menuArray.push({ label: 'Main', value: 'main', emoji: '📋' });
-   menuArray.push({ label: 'Currencies', value: 'currencies', emoji: '💰' });
-
-   return menuArray;
-}
-
-//-------------------------PAGES-------------------------
-function generatePageTitle(profile, menuItem) {
+function generateEmbedTitle(user, menuItem) {
    switch (menuItem) {
-      case 'main':
-         return `Profile of ${C.strBold(profile.ownerTag)}`;
+      case MENU1_ITEM_1:
+         return `Profile of ${C.strBold(user.profile.ownerTag)}`;
 
-      case 'currencies':
-         return `Currencies of ${C.strBold(profile.ownerName)}`;
+      case MENU1_ITEM_2:
+         return `Currencies of ${C.strBold(user.profile.ownerName)}`;
    }
 }
 
-function generatePageContent(profile, menuItem) {
+function generateEmbedContent(user, menuItem) {
    switch (menuItem) {
-      case 'main':
-         return getMainProfileInfo(profile);
+      case MENU1_ITEM_1:
+         return getMainProfileInfo(user.profile);
 
-      case 'currencies':
-         return getCurrenciesInfo(profile);
+      case MENU1_ITEM_2:
+         return getCurrenciesInfo(user.profile);
    }
 }
 
@@ -99,4 +97,60 @@ function getCurrenciesInfo(profile) {
           `**Silver Coin:** ${currencies.silverCoins}\n` +
           `**Gold Coins:** ${currencies.goldCoins}\n` +
           `**Deltrada Coins:** ${currencies.deltradaCoins}`;
+}
+
+//-------------------------MENU-------------------------
+function generateMenu(currentButton, currentMenu, index) {
+   const menuItems = [];
+
+   if (hasPagination(currentMenu))
+      menuItems.push(generatePaginationButtons, index);
+
+   menuItems.push(generateMainButtons());
+   menuItems.push(C.dcCreateRow(generateMenu(currentButton)));
+
+   return menuItems;
+}
+
+function generateMainButtons() {
+   const characterButton = C.dcCreateButton(MAIN_BUTTON1, C.strCapitalizeFirstLetter(MAIN_BUTTON1), 'SECONDARY');
+   const inventoryButton = C.dcCreateButton(MAIN_BUTTON2, C.strCapitalizeFirstLetter(MAIN_BUTTON2), 'SECONDARY');
+   const recordsButton = C.dcCreateButton(MAIN_BUTTON3, C.strCapitalizeFirstLetter(MAIN_BUTTON3), 'SECONDARY');
+
+   return C.dcCreateRow([characterButton, inventoryButton, recordsButton]);
+}
+
+function hasPagination(menuName) {
+   const menusWithPages = ['recordsFishing'];
+
+   return C.strCheckIfAnyMatch(menuName, menusWithPages);
+}
+
+function generatePaginationButtons(index) {
+   const backButton = new D.MessageButton()
+      .setCustomId('backId')
+      .setLabel('Previous')
+      .setEmoji('⬅️')
+      .setStyle('PRIMARY')
+      .setDisabled(index == 0);
+
+   const forwardButton = new D.MessageButton()
+      .setCustomId('forwardId')
+      .setLabel('Next')
+      .setEmoji('➡️')
+      .setStyle('PRIMARY')
+      .setDisabled(true);
+
+   return C.dcCreateRow([backButton, forwardButton]);
+}
+
+function generateMenu(button) {
+   const menuArray = [];
+
+   if (C.strCompare(button, MAIN_BUTTON1) {
+      menuArray.push({ label: C.strCapitalizeFirstLetter(MENU1_ITEM_1), value: MENU1_ITEM_1, emoji: '📋' });
+      menuArray.push({ label: C.strCapitalizeFirstLetter(MENU1_ITEM_2), value: MENU1_ITEM_2, emoji: '💰' });
+   }
+
+   return C.dcCreateSelectMenu('menuId', 'Select the information to display', menuArray);
 }

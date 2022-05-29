@@ -8,7 +8,7 @@ const PREFIX_LENGTH = 2;
 // OK---------------------------------------------------------------------------------------------------------------
 class PersonGrammar {
    constructor(who) {
-      if (!who || checkIfAnyMatch(who, ['i', 'me', 'you'])) {
+      if (!who || strCheckIfAnyMatch(who, ['i', 'me', 'you'])) {
          this._pronoun = 'you';
          this._pronounUC = 'You';
          this._verb = 'are';
@@ -480,6 +480,16 @@ function strCheckIfContainsAll(string, array, ignoreCase = true) {
 module.exports.strCheckIfContainsAll = strCheckIfContainsAll;
 
 // OK---------------------------------------------------------------------------------------------------------------
+function strCheckIfAnyMatch(string, array, ignoreCase = true) {
+   if (!checkIfString(string) || !checkIfArray(array))
+      return;
+
+   return ignoreCase ? checkIfAnyMatch(strToLowerCase(argument), array) : checkIfAnyMatch(argument, array);
+}
+
+module.exports.strCheckIfAnyMatch = strCheckIfAnyMatch;
+
+// OK---------------------------------------------------------------------------------------------------------------
 function strRemoveBetween(string, startIndex, endIndex) {
    if (!checkIfString(string) || !checkIfNaturalNumber(startIndex) || !checkIfNaturalNumber(endIndex))
       return;
@@ -511,14 +521,13 @@ function strAddArticle(string, makeBold = false) {
       return;
 
    let result = '';
-   const stringLowered = strToLowerCase(string);
    const firstLetter = strGetFirstChar(stringLowered);
 
-   if (checkIfAnyMatch(stringLowered, AC.arrayExceptionsWithA)) {
+   if (strCheckIfAnyMatch(string, AC.arrayExceptionsWithA)) {
       result = 'a ';
-   } else if (checkIfAnyMatch(stringLowered, AC.arrayExceptionsWithAn)) {
+   } else if (strCheckIfAnyMatch(string, AC.arrayExceptionsWithAn)) {
       result = 'an ';
-   } else if (checkIfAnyMatch(stringLowered, AC.arrayExceptionsWithNone)) {
+   } else if (strCheckIfAnyMatch(string, AC.arrayExceptionsWithNone)) {
       result = '';
    } else {
       switch(firstLetter) {
@@ -807,6 +816,13 @@ function dcCheckIfMessageComponents(value) {
 }
 
 module.exports.dcCheckIfMessage = dcCheckIfMessage;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function dcCheckIfMessageSelectOptionData(value) {
+   return value instanceof D.MessageSelectOptionData;
+}
+
+module.exports.dcCheckIfMessageSelectOptionData = dcCheckIfMessageSelectOptionData;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCheckIfGuildMessage(message) {
@@ -1166,6 +1182,7 @@ module.exports.dcCreateRow = dcCreateRow;
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCreateButton(id, label, style = `PRIMARY`) {
    const availableStyles = [`PRIMARY`, `SECONDARY`, `SUCCESS`, `DANGER`, `LINK`];
+
    if (checkIfExists(id) && checkIfExists(label) && checkIfAnyMatch(style, availableStyles))
       return new D.MessageButton()
          .setCustomId(id)
@@ -1174,6 +1191,17 @@ function dcCreateButton(id, label, style = `PRIMARY`) {
 }
 
 module.exports.dcCreateButton = dcCreateButton;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function dcCreateSelectMenu(id, placeholderText, options) {
+   if (checkIfExists(id) && checkIfString(placeholderText) && dcCheckIfMessageSelectOptionData(options))
+      return [new D.MessageSelectMenu()
+         .setCustomId(id)
+         .setPlaceholder(placeholderText)
+         .addOptions(options)];
+}
+
+module.exports.dcCreateSelectMenu = dcCreateSelectMenu;
 
 // ---------------------------------------------------------------------------------------------------------------
 
@@ -1344,7 +1372,7 @@ function recognizeWhoFullText(argument, message, command) {
    if (!dcCheckIfMessage(message) || !command)
       return;
 
-   return (checkIfAnyMatch(argument, ['i', 'me']) || !argument) ? message.author.toString() : message.content.slice(command.length + 1);
+   return (strCheckIfAnyMatch(argument, ['i', 'me']) || !argument) ? message.author.toString() : message.content.slice(command.length + 1);
 }
 
 module.exports.recognizeWhoFullText = recognizeWhoFullText;
@@ -1354,7 +1382,7 @@ function recognizeWhoOneArg(argument, message) {
    if (!dcCheckIfMessage(message))
       return;
 
-   return (checkIfAnyMatch(argument, ['i', 'me']) || !argument) ? message.author.toString() : argument;
+   return (strCheckIfAnyMatch(argument, ['i', 'me']) || !argument) ? message.author.toString() : argument;
 }
 
 module.exports.recognizeWhoOneArg = recognizeWhoOneArg;
@@ -1364,7 +1392,7 @@ function recognizeWhoOneArgNoAuthor(argument, message) {
    if (!dcCheckIfMessage(message))
       return;
 
-   return (checkIfAnyMatch(argument, ['i', 'me']) || !argument) ? 'you' : argument;
+   return (strCheckIfAnyMatch(argument, ['i', 'me']) || !argument) ? 'you' : argument;
 }
 
 module.exports.recognizeWhoOneArgNoAuthor = recognizeWhoOneArgNoAuthor;

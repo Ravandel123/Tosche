@@ -13,7 +13,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
       let leaderboards = {};
-      let currentMenuName = 'fish';
+      let currentMenu = 'fish';
       let index = 0;
 
       try {
@@ -26,20 +26,20 @@ module.exports = {
       leaderboards = translateData(leaderboards, message);
 
       const embedMessage = await message.channel.send({
-         embeds: generateMessageEmbed(leaderboards, currentMenuName, index),
+         embeds: generateMessageEmbed(leaderboards, currentMenu, index),
          components: generateMenu(index, leaderboards, 'fish')
       });
 
       const collector = embedMessage.createMessageComponentCollector();
       collector.on('collect', async i => {
          if (i.isSelectMenu()) {
-            currentMenuName = i.values[0];
+            currentMenu = i.values[0];
             index = 0;
          } else if (i.isButton()) {
             index = i.customId == 'backId' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
          }
 
-         await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenuName, index), components: generateMenu(index, leaderboards, currentMenuName) });
+         await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenu, index), components: generateMenu(index, leaderboards, currentMenu) });
       });
    },
 }
@@ -61,7 +61,7 @@ function translateData(leaderboards, message) {
 }
 
 //-------------------------MENU-------------------------
-function generateMenu(index, data, currentMenuName) {
+function generateMenu(index, data, currentMenu) {
    const recordsMenu = [new D.MessageSelectMenu()
       .setCustomId('menuId')
       .setPlaceholder('Select a category to display the records')
@@ -79,7 +79,7 @@ function generateMenu(index, data, currentMenuName) {
       .setLabel('Next')
       .setEmoji('➡️')
       .setStyle('PRIMARY')
-      .setDisabled(index + MAX_ITEMS_ON_PAGE >= data[currentMenuName].length);
+      .setDisabled(index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
 
    return [C.dcCreateRow([backButton, forwardButton]), C.dcCreateRow(recordsMenu)];
 }
