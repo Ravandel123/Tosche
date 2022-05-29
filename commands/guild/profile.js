@@ -129,7 +129,7 @@ function generateMessageEmbed(userData, button, menu) {
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(userData, button, menu))
       .setDescription(generateEmbedContent(userData, button, menu))
-      .setAuthor({ name: userData.profile.ownerName });
+      .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/07/5f/65/075f65850e258ccf338c5d0348fd836d.jpg' });
 
    if (image)
       embed.setImage(image);
@@ -169,7 +169,7 @@ function generateEmbedContent(userData, button, menu) {
 
 //-------------------------CONTENT-------------------------
 function getCharacterInfo(profile) {
-   return `**Name**: ${profile.ownerName}\n` +
+   return `**Tag**: ${profile.ownerTag}\n` +
           `**Id**: ${profile.ownerId}\n` +
           `**Action Points**: ${profile.actionPoints?.current}`;
 }
