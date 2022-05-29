@@ -1228,7 +1228,7 @@ function dcCreateRow(components) {
 module.exports.dcCreateRow = dcCreateRow;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function dcCreateButton(id, label, emoji, style = `PRIMARY`) {
+function dcCreateButton(id, label, emoji, style = `PRIMARY`, isDisabled = false) {
    const availableStyles = [`PRIMARY`, `SECONDARY`, `SUCCESS`, `DANGER`, `LINK`];
 
    if (checkIfExists(id) && checkIfExists(label) && checkIfAnyMatch(style, availableStyles))
@@ -1236,7 +1236,8 @@ function dcCreateButton(id, label, emoji, style = `PRIMARY`) {
       const button = new D.MessageButton()
          .setCustomId(id)
          .setLabel(label)
-         .setStyle(style);
+         .setStyle(style)
+         .setDisabled(isDisabled);
 
       if (emoji)
          button.setEmoji(emoji);

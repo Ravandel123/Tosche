@@ -64,11 +64,11 @@ function translateData(leaderboards, message) {
 function generateMenu(index, data, currentMenu) {
    const recordsMenu = C.dcCreateSelectMenu('menu', 'Select a category to display the records', generateMenuItems());
 
-   const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'PRIMARY');
-   backButton.setDisabled(index == 0);
+   const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'PRIMARY', index == 0);
+   // backButton.setDisabled(index == 0);
 
-   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY');
-   backButton.setDisabled(index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
+   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY', index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
+   // forwardButton.setDisabled(index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
    // new D.MessageButton()
       // .setCustomId('back')
       // .setLabel('Previous')
