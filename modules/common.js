@@ -584,7 +584,7 @@ function strAddArticle(string, makeBold = false) {
       result = 'an ';
    } else if (strCheckIfAnyMatch(string, AC.arrayExceptionsWithNone)) {
       result = '';
-   } else if (strCheckIfAnyMatch(string, AC.vowels) {
+   } else if (strCheckIfAnyMatch(string, AC.vowels)) {
       result = 'an ';
    } else {
       result = 'a ';
