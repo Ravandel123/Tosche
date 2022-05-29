@@ -36,7 +36,7 @@ module.exports = {
             currentMenu = i.values[0];
             index = 0;
          } else if (i.isButton()) {
-            index = i.customId == 'backId' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
+            index = i.customId == 'back' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
          }
 
          await i.update({ embeds: generateMessageEmbed(leaderboards, currentMenu, index), components: generateMenu(index, leaderboards, currentMenu) });
@@ -64,19 +64,24 @@ function translateData(leaderboards, message) {
 function generateMenu(index, data, currentMenu) {
    const recordsMenu = C.dcCreateSelectMenu('menu', 'Select a category to display the records', generateMenuItems());
 
-   const backButton = new D.MessageButton()
-      .setCustomId('backId')
-      .setLabel('Previous')
-      .setEmoji('⬅️')
-      .setStyle('PRIMARY')
-      .setDisabled(index == 0);
+   const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'PRIMARY');
+   backButton.setDisabled(index == 0);
 
-   const forwardButton = new D.MessageButton()
-      .setCustomId('forwardId')
-      .setLabel('Next')
-      .setEmoji('➡️')
-      .setStyle('PRIMARY')
-      .setDisabled(index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
+   const backButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY');
+   backButton.setDisabled(index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
+   // new D.MessageButton()
+      // .setCustomId('back')
+      // .setLabel('Previous')
+      // .setEmoji('⬅️')
+      // .setStyle('PRIMARY')
+      // .setDisabled(index == 0);
+
+   // const forwardButton = new D.MessageButton()
+      // .setCustomId('forward')
+      // .setLabel('Next')
+      // .setEmoji('➡️')
+      // .setStyle('PRIMARY')
+      // .setDisabled(index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
 
    return [C.dcCreateRow([backButton, forwardButton]), C.dcCreateRow(recordsMenu)];
 }
