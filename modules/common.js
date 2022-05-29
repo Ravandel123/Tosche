@@ -819,7 +819,7 @@ module.exports.dcCheckIfMessage = dcCheckIfMessage;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCheckIfMessageSelectOptionData(value) {
-   return value instanceof D.MessageSelectOptionData;
+   return value[0] instanceof D.MessageSelectOption;
 }
 
 module.exports.dcCheckIfMessageSelectOptionData = dcCheckIfMessageSelectOptionData;
