@@ -102,6 +102,33 @@ class ButtonData {
 
 module.exports.ButtonData = ButtonData;
 
+// OK---------------------------------------------------------------------------------------------------------------
+class SelectOptionData {
+   constructor(value, label, emoji, description) {
+      this._value = value;
+      this._label = label;
+      this._emoji = emoji;
+      this._description = description;
+   }
+
+   get value() {
+      return this._value;
+   }
+
+   get label() {
+      return this._label;
+   }
+
+   get emoji() {
+      return this._emoji;
+   }
+   
+   get description() {
+      return this._description;
+   }
+}
+
+module.exports.SelectOptionData = SelectOptionData;
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

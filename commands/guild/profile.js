@@ -48,12 +48,12 @@ module.exports = {
 //-------------------------CONST-------------------------
 const MAX_ITEMS_ON_PAGE = 3;
 
-const MAIN_BUTTON1 = new C.ButtonData('character', 'Character');
+const MAIN_BUTTON1 = new C.ButtonData('character', 'Character', '', 'SUCCESS');
 const MAIN_BUTTON2 = new C.ButtonData('inventory', 'Inventory', '', 'SUCCESS');
-const MAIN_BUTTON3 = new C.ButtonData('records', 'Records');
+const MAIN_BUTTON3 = new C.ButtonData('records', 'Records', '', 'SUCCESS');
 
-const MENU1_ITEM_1 = 'info';
-const MENU1_ITEM_2 = 'currencies';
+const MENU1_ITEM_1 = new C.SelectOptionData('info', 'Info', '📋');
+const MENU1_ITEM_2 = new C.SelectOptionData('currencies', 'Currencies', '💰');
 
 const MENU2_ITEM_1 = 'invFishes';
 
@@ -109,8 +109,8 @@ function generateMenu(buttonId) {
    const menuArray = [];
 
    if (C.strCompare(buttonId, MAIN_BUTTON1.id)) {
-      menuArray.push({ label: C.strCapitalizeFirstLetter(MENU1_ITEM_1), value: MENU1_ITEM_1, emoji: '📋' });
-      menuArray.push({ label: C.strCapitalizeFirstLetter(MENU1_ITEM_2), value: MENU1_ITEM_2, emoji: '💰' });
+      menuArray.push({ label: MENU1_ITEM_1.label, value: MENU1_ITEM_1.value, emoji: MENU1_ITEM_1.emoji });
+      menuArray.push({ label: MENU1_ITEM_2.label, value: MENU1_ITEM_2.value, emoji: MENU1_ITEM_2.emoji });
    }
 
    return C.dcCreateSelectMenu('menu', 'Select the information to display', menuArray);
@@ -133,17 +133,17 @@ function generateMessageEmbed(userData, button, menu) {
 
 function generateEmbedTitle(userData, button, menu) {
    switch (menu) {
-      case MENU1_ITEM_1:
+      case MENU1_ITEM_1.value:
          return `Profile of ${C.strBold(userData.profile?.ownerTag)}`;
 
-      case MENU1_ITEM_2:
+      case MENU1_ITEM_2.value:
          return `Currencies of ${C.strBold(userData.profile?.ownerName)}`;
    }
 }
 
 function generateEmbedImage(menu) {
    switch (menu) {
-      case MENU1_ITEM_1:
+      case MENU1_ITEM_1.value:
          return 'https://i.imgur.com/iSpEc6r.png';
 
       default:
@@ -153,10 +153,10 @@ function generateEmbedImage(menu) {
 
 function generateEmbedContent(userData, button, menu) {
    switch (menu) {
-      case MENU1_ITEM_1:
+      case MENU1_ITEM_1.value:
          return getCharacterInfo(userData.profile);
 
-      case MENU1_ITEM_2:
+      case MENU1_ITEM_2.value:
          return getCurrenciesInfo(userData.profile);
    }
 }
