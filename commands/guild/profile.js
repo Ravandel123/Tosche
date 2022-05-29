@@ -113,9 +113,9 @@ function generateComponents(currentButton, currentMenu, index) {
 }
 
 function generateMainButtons() {
-   const characterButton = C.dcCreateButton(MAIN_BUTTON1, C.strCapitalizeFirstLetter(MAIN_BUTTON1), 'SECONDARY');
-   const inventoryButton = C.dcCreateButton(MAIN_BUTTON2, C.strCapitalizeFirstLetter(MAIN_BUTTON2), 'SECONDARY');
-   const recordsButton = C.dcCreateButton(MAIN_BUTTON3, C.strCapitalizeFirstLetter(MAIN_BUTTON3), 'SECONDARY');
+   const characterButton = C.dcCreateButton(MAIN_BUTTON1, C.strCapitalizeFirstLetter(MAIN_BUTTON1), 'SUCCESS');
+   const inventoryButton = C.dcCreateButton(MAIN_BUTTON2, C.strCapitalizeFirstLetter(MAIN_BUTTON2), 'SUCCESS');
+   const recordsButton = C.dcCreateButton(MAIN_BUTTON3, C.strCapitalizeFirstLetter(MAIN_BUTTON3), 'SUCCESS');
 
    return C.dcCreateRow([characterButton, inventoryButton, recordsButton]);
 }

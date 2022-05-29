@@ -62,10 +62,7 @@ function translateData(leaderboards, message) {
 
 //-------------------------MENU-------------------------
 function generateMenu(index, data, currentMenu) {
-   const recordsMenu = [new D.MessageSelectMenu()
-      .setCustomId('menuId')
-      .setPlaceholder('Select a category to display the records')
-      .addOptions(generateMenuItems())];
+   const recordsMenu = C.dcCreateSelectMenu('menu', 'Select a category to display the records', generateMenuItems());
 
    const backButton = new D.MessageButton()
       .setCustomId('backId')
