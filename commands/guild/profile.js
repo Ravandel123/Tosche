@@ -49,7 +49,7 @@ module.exports = {
 const MAX_ITEMS_ON_PAGE = 3;
 
 const MAIN_BUTTON1 = new C.ButtonData('character', 'Character');
-const MAIN_BUTTON2 = new C.ButtonData('inventory', 'Inventory');
+const MAIN_BUTTON2 = new C.ButtonData('inventory', 'Inventory', '', 'SUCCESS');
 const MAIN_BUTTON3 = new C.ButtonData('records', 'Records');
 
 const MENU1_ITEM_1 = 'info';
@@ -122,8 +122,8 @@ function generateMessageEmbed(userData, button, menu) {
    const image = generateEmbedImage(menu);
 
    const embed = new D.MessageEmbed()
-         .setTitle(generateEmbedTitle(userData, button, menu))
-         .setDescription(generateEmbedContent(userData, button, menu));
+      .setTitle(generateEmbedTitle(userData, button, menu))
+      .setDescription(generateEmbedContent(userData, button, menu));
 
    if (image)
       embed.setImage(image);
@@ -163,8 +163,8 @@ function generateEmbedContent(userData, button, menu) {
 
 //-------------------------CONTENT-------------------------
 function getCharacterInfo(profile) {
-   return `**ID**: ${profile.ownerId}\n` +
-          `**Name**: ${profile.ownerName}\n` +
+   return `**Name**: ${profile.ownerName}\n` +
+          `**Id**: ${profile.ownerId}\n` +
           `**Action Points**: ${profile.actionPoints?.current}`;
 }
 

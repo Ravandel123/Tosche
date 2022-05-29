@@ -76,22 +76,27 @@ module.exports.PersonGrammar = PersonGrammar;
 
 // OK---------------------------------------------------------------------------------------------------------------
 class ButtonData {
-   constructor(id, label, emoji) {
+   constructor(id, label, emoji, style = `PRIMARY`) {
       this._id = id;
       this._label = label;
       this._emoji = emoji;
+      this._style = style;
    }
-   
-    get id() {
+
+   get id() {
       return this._id;
    }
 
-    get label() {
+   get label() {
       return this._label;
    }
 
-    get emoji() {
+   get emoji() {
       return this._emoji;
+   }
+   
+   get style() {
+      return this._style;
    }
 }
 
