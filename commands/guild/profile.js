@@ -48,9 +48,9 @@ module.exports = {
 //-------------------------CONST-------------------------
 const MAX_ITEMS_ON_PAGE = 3;
 
-const MAIN_BUTTON1 = 'character';
-const MAIN_BUTTON2 = 'inventory';
-const MAIN_BUTTON3 = 'records';
+const MAIN_BUTTON1 = C.ButtonData('character', 'Character');
+const MAIN_BUTTON2 = C.ButtonData('inventory', 'Inventory');
+const MAIN_BUTTON3 = C.ButtonData('records', 'Records');
 
 const MENU1_ITEM_1 = 'info';
 const MENU1_ITEM_2 = 'currencies';
@@ -74,9 +74,9 @@ function generateComponents(currentButton, currentMenu, index) {
 }
 
 function generateMainButtons() {
-   const characterButton = C.dcCreateButton(MAIN_BUTTON1, C.strCapitalizeFirstLetter(MAIN_BUTTON1), 'SUCCESS');
-   const inventoryButton = C.dcCreateButton(MAIN_BUTTON2, C.strCapitalizeFirstLetter(MAIN_BUTTON2), 'SUCCESS');
-   const recordsButton = C.dcCreateButton(MAIN_BUTTON3, C.strCapitalizeFirstLetter(MAIN_BUTTON3), 'SUCCESS');
+   const characterButton = C.dcCreateButton(MAIN_BUTTON1.id, MAIN_BUTTON1.label, 'SUCCESS');
+   const inventoryButton = C.dcCreateButton(MAIN_BUTTON2.id, MAIN_BUTTON2.label, 'SUCCESS');
+   const recordsButton = C.dcCreateButton(MAIN_BUTTON3.id, MAIN_BUTTON3.label, 'SUCCESS');
 
    return C.dcCreateRow([characterButton, inventoryButton, recordsButton]);
 }
@@ -105,10 +105,10 @@ function generatePaginationButtons(index) {
    return C.dcCreateRow([backButton, forwardButton]);
 }
 
-function generateMenu(button) {
+function generateMenu(buttonId) {
    const menuArray = [];
 
-   if (C.strCompare(button, MAIN_BUTTON1)) {
+   if (C.strCompare(buttonId, MAIN_BUTTON1.id)) {
       menuArray.push({ label: C.strCapitalizeFirstLetter(MENU1_ITEM_1), value: MENU1_ITEM_1, emoji: '📋' });
       menuArray.push({ label: C.strCapitalizeFirstLetter(MENU1_ITEM_2), value: MENU1_ITEM_2, emoji: '💰' });
    }

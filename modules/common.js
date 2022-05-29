@@ -74,6 +74,29 @@ class PersonGrammar {
 
 module.exports.PersonGrammar = PersonGrammar;
 
+// OK---------------------------------------------------------------------------------------------------------------
+class ButtonData {
+   constructor(id, label, emoji) {
+      this._id = id;
+      this._label = label;
+      this._emoji = emoji;
+   }
+   
+    get id() {
+      return this._id;
+   }
+
+    get label() {
+      return this._label;
+   }
+
+    get emoji() {
+      return this._emoji;
+   }
+}
+
+module.exports.ButtonData = ButtonData;
+
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
