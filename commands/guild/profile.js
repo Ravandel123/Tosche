@@ -129,6 +129,7 @@ function generateMessageEmbed(userData, button, menu) {
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(userData, button, menu))
       .setDescription(generateEmbedContent(userData, button, menu))
+      .setThumbnail(image)
       .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg' });
 
    if (image)
@@ -141,10 +142,10 @@ function generateEmbedTitle(userData, button, menu) {
    const ln = '---------------';
    switch (menu) {
       case MENU1_ITEM_1.value:
-         return ln + 'Profile' + ln;
+         return ln + ' Profile ' + ln;
 
       case MENU1_ITEM_2.value:
-         return ln + 'Currencies' + ln;
+         return ln + ' Currencies ' + ln;
    }
 }
 
