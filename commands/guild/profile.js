@@ -147,7 +147,7 @@ function generatePaginationButtons(index) {
 function generateMenu(button) {
    const menuArray = [];
 
-   if (C.strCompare(button, MAIN_BUTTON1) {
+   if (C.strCompare(button, MAIN_BUTTON1)) {
       menuArray.push({ label: C.strCapitalizeFirstLetter(MENU1_ITEM_1), value: MENU1_ITEM_1, emoji: '📋' });
       menuArray.push({ label: C.strCapitalizeFirstLetter(MENU1_ITEM_2), value: MENU1_ITEM_2, emoji: '💰' });
    }
