@@ -17,10 +17,10 @@ module.exports = {
          let profile = await CG.getMessageAuthorProfile(message);
          
          if (C.strCompare(args[1], 'picture')) {
-            if (!isImage(args[2]) && isValidHttpUrl(args[2]))
+            if (C.chackIfImageUrl(args[2]) && C.checkIfValidHttpUrl(args[2]))
                profile.picture = args[2];
             else
-               C.dcRespondToMsg(message, `${args[2]} is not a valid image!`);
+               C.dcRespondToMsg(message, `${args[2]} is not a valid image url!`);
          }
 
          await profile.save();

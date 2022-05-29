@@ -787,6 +787,28 @@ function checkIfIntInRange(value, min, max, convertToNumberFirst = true) {
 
 module.exports.checkIfIntInRange = checkIfIntInRange;
 
+// OK---------------------------------------------------------------------------------------------------------------
+function chackIfImageUrl(url) {
+   return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+}
+
+module.exports.chackIfImageUrl = chackIfImageUrl;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function checkIfValidHttpUrl(string) {
+   let url;
+
+   try {
+      url = new URL(string);
+   } catch (_) {
+      return false;  
+   }
+
+   return url.protocol === "http:" || url.protocol === "https:";
+}
+
+module.exports.checkIfValidHttpUrl = checkIfValidHttpUrl;
+
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
