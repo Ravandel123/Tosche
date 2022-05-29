@@ -22,7 +22,7 @@ module.exports = {
 
       const embedMessage = await message.channel.send({
          embeds: generateMessageEmbed(userData, currentMenu),
-         components: generateMenu(currentMenu, currentButton, index)
+         components: generateMenu(currentButton, currentMenu, index)
       });
 
       const collector = embedMessage.createMessageComponentCollector();
