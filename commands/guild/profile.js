@@ -59,7 +59,7 @@ const MENU1_ITEM_2 = 'currencies';
 function generateMessageEmbed(userData, menuItem, message) {
    return [new D.MessageEmbed()
       .setTitle(generateEmbedTitle(userData, menuItem))
-      .setImage(message.author.avatar)
+      .setImage('https://i.pinimg.com/564x/9c/b5/95/9cb5951d1dbb4a386850914d7e771667.jpg')
       .setDescription(generateEmbedContent(userData, menuItem))];
 }
 
