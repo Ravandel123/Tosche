@@ -60,34 +60,6 @@ function generatePageMovementRow(chapter, page) {
    const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY', page == BWD[chapter].pages.length - 1);
    const chapterMenu = C.dcCreateSelectMenu('chapterId', 'Change chapter', generateChapterArray());
    const pageMenu = C.dcCreateSelectMenu('pageId', 'Jump to a page', generatePageArray(chapter));
-   // const randomButton = new D.MessageButton()
-      // .setCustomId('randomId')
-      // .setEmoji('🎲')
-      // .setStyle('DANGER');
-
-   // const backButton = new D.MessageButton()
-      // .setCustomId('backId')
-      // .setLabel('Previous')
-      // .setEmoji('⬅️')
-      // .setStyle('PRIMARY')
-      // .setDisabled(page == 0);
-
-   // const forwardButton = new D.MessageButton()
-      // .setCustomId('forwardId')
-      // .setLabel('Next')
-      // .setEmoji('➡️')
-      // .setStyle('PRIMARY')
-      // .setDisabled(page == BWD[chapter].pages.length - 1);
-
-   // const chapterMenu = [new D.MessageSelectMenu()
-      // .setCustomId('chapterId')
-      // .setPlaceholder(`Change chapter`)
-      // .addOptions(generateChapterArray())];
-
-   // const pageMenu = [new D.MessageSelectMenu()
-      // .setCustomId('pageId')
-      // .setPlaceholder(`Jump to a page`)
-      // .addOptions(generatePageArray(chapter))];
 
    return [C.dcCreateRow([backButton, randomButton, forwardButton]), C.dcCreateRow(chapterMenu), C.dcCreateRow(pageMenu)];
 }
