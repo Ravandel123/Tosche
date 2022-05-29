@@ -1188,10 +1188,10 @@ module.exports.dcCreateButton = dcCreateButton;
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCreateSelectMenu(id, placeholderText, options) {
    if (checkIfExists(id) && checkIfString(placeholderText) && checkIfExists(options))
-      return [new D.MessageSelectMenu()
+      return new D.MessageSelectMenu()
          .setCustomId(id)
          .setPlaceholder(placeholderText)
-         .addOptions(options)];
+         .addOptions(options);
 }
 
 module.exports.dcCreateSelectMenu = dcCreateSelectMenu;

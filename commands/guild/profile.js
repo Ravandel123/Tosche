@@ -51,7 +51,7 @@ const MAIN_BUTTON1 = 'character';
 const MAIN_BUTTON2 = 'inventory';
 const MAIN_BUTTON3 = 'records';
 
-const MENU1_ITEM_1 = 'main';
+const MENU1_ITEM_1 = 'info';
 const MENU1_ITEM_2 = 'currencies';
 
 
