@@ -36,7 +36,9 @@ module.exports = {
             if (i.customId === 'menu')
                currentMenu = i.values[0];
          } else if (i.isButton()) {
+            i.deferUpdate();
             currentButton = i.customId;
+            return;
          }
 
          await i.update({ embeds: generateMessageEmbed(userData, currentButton, currentMenu), components: generateComponents(currentButton, currentMenu, index) });
