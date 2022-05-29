@@ -8,41 +8,46 @@ module.exports = {
    usage: '[user]',
    example: '',
    async execute(message, args) {
-      let userData = {};
-      let currentButton = MAIN_BUTTON1.id;
-      let currentMenu = MENU1_ITEM_1.value;
-      let index = 0;
-
       try {
-         userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
-      } catch(error) {
-         C.dcRespondToMsg(message, error);
-         return;
+         let userData = {};
+         let currentButton = MAIN_BUTTON1.id;
+         let currentMenu = MENU1_ITEM_1.value;
+         let index = 0;
+
+         // try {
+            userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
+         // } catch(error) {
+            // C.dcRespondToMsg(message, error);
+            // return;
+         // }
+
+         const embedMessage = await message.channel.send({
+            embeds: generateMessageEmbed(userData, currentButton, currentMenu),
+            components: generateComponents(currentButton, currentMenu, index)
+         });
+
+         const collector = embedMessage.createMessageComponentCollector();
+         collector.on('collect', async i => {
+            if (i.user.id != message.author.id) {
+               await i.reply({ content: `Only the person who ran the command can do that!`, ephemeral: true });
+               return;
+            }
+
+            if (i.isSelectMenu()) {
+               if (i.customId === 'menu')
+                  currentMenu = i.values[0];
+            } else if (i.isButton()) {
+               i.deferUpdate();
+               currentButton = i.customId;
+               return;
+            }
+
+            await i.update({ embeds: generateMessageEmbed(userData, currentButton, currentMenu), components: generateComponents(currentButton, currentMenu, index) });
+         });
+      } catch (e) {
+         console.log(e);
+         C.dcRespondToMsg(message, `An error occured while showing this profile!`);
       }
-
-      const embedMessage = await message.channel.send({
-         embeds: generateMessageEmbed(userData, currentButton, currentMenu),
-         components: generateComponents(currentButton, currentMenu, index)
-      });
-
-      const collector = embedMessage.createMessageComponentCollector();
-      collector.on('collect', async i => {
-         if (i.user.id != message.author.id) {
-            await i.reply({ content: `Only the person who ran the command can do that!`, ephemeral: true });
-            return;
-         }
-
-         if (i.isSelectMenu()) {
-            if (i.customId === 'menu')
-               currentMenu = i.values[0];
-         } else if (i.isButton()) {
-            i.deferUpdate();
-            currentButton = i.customId;
-            return;
-         }
-
-         await i.update({ embeds: generateMessageEmbed(userData, currentButton, currentMenu), components: generateComponents(currentButton, currentMenu, index) });
-      });
    },
 }
 
