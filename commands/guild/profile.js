@@ -104,10 +104,10 @@ function generateMenu(currentButton, currentMenu, index) {
    const menuItems = [];
 
    if (hasPagination(currentMenu))
-      menuItems.push(C.dcCreateRow(generatePaginationButtons, index));
+      menuItems.push(generatePaginationButtons, index);
 
-   menuItems.push(C.dcCreateRow(generateMainButtons()));
-   menuItems.push(C.dcCreateRow(generateMenu(currentButton)));
+   menuItems.push(generateMainButtons());
+   // menuItems.push(C.dcCreateRow(generateMenu(currentButton)));
 
    return menuItems;
 }
