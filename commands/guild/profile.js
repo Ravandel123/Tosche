@@ -138,12 +138,13 @@ function generateMessageEmbed(userData, button, menu) {
 }
 
 function generateEmbedTitle(userData, button, menu) {
+   const ln = '---------------';
    switch (menu) {
       case MENU1_ITEM_1.value:
-         return `-----Profile-----`;
+         return ln + 'Profile' + ln;
 
       case MENU1_ITEM_2.value:
-         return `-----Currencies-----`;
+         return ln + 'Currencies' + ln;
    }
 }
 
