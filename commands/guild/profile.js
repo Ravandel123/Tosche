@@ -48,9 +48,9 @@ module.exports = {
 //-------------------------CONST-------------------------
 const MAX_ITEMS_ON_PAGE = 3;
 
-const MAIN_BUTTON1 = C.ButtonData('character', 'Character');
-const MAIN_BUTTON2 = C.ButtonData('inventory', 'Inventory');
-const MAIN_BUTTON3 = C.ButtonData('records', 'Records');
+const MAIN_BUTTON1 = new C.ButtonData('character', 'Character');
+const MAIN_BUTTON2 = new C.ButtonData('inventory', 'Inventory');
+const MAIN_BUTTON3 = new C.ButtonData('records', 'Records');
 
 const MENU1_ITEM_1 = 'info';
 const MENU1_ITEM_2 = 'currencies';
