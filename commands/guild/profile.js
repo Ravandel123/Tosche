@@ -121,24 +121,14 @@ function generateMenu(button) {
 function generateMessageEmbed(userData, button, menu) {
    const image = generateEmbedImage(menu);
 
-   let xd = new D.MessageEmbed()
+   const embed = new D.MessageEmbed()
          .setTitle(generateEmbedTitle(userData, button, menu))
          .setDescription(generateEmbedContent(userData, button, menu));
 
    if (image)
-      xd.setImage(image);
+      embed.setImage(image);
 
-   return [xd];
-   // if (image) {
-      // return [new D.MessageEmbed()
-         // .setTitle(generateEmbedTitle(userData, button, menu))
-         // .setImage(image)
-         // .setDescription(generateEmbedContent(userData, button, menu))];
-   // } else {
-      // return [new D.MessageEmbed()
-         // .setTitle(generateEmbedTitle(userData, button, menu))
-         // .setDescription(generateEmbedContent(userData, button, menu))];
-   // }
+   return [embed];
 }
 
 function generateEmbedTitle(userData, button, menu) {
