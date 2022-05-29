@@ -67,7 +67,7 @@ function generateMenu(index, data, currentMenu) {
    const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'PRIMARY');
    backButton.setDisabled(index == 0);
 
-   const backButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY');
+   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY');
    backButton.setDisabled(index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
    // new D.MessageButton()
       // .setCustomId('back')
