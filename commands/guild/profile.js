@@ -21,7 +21,7 @@ module.exports = {
       }
 
       const embedMessage = await message.channel.send({
-         embeds: generateMessageEmbed(userData, currentMenu),
+         embeds: generateMessageEmbed(userData, currentMenu, message),
          components: generateComponents(currentButton, currentMenu, index)
       });
 
@@ -39,7 +39,7 @@ module.exports = {
             currentButton = i.customId;
          }
 
-         await i.update({ embeds: generateMessageEmbed(userData, currentMenu), components: generateComponents(currentButton, currentMenu, index) });
+         await i.update({ embeds: generateMessageEmbed(userData, currentMenu, message), components: generateComponents(currentButton, currentMenu, index) });
       });
    },
 }
@@ -56,9 +56,10 @@ const MENU1_ITEM_2 = 'currencies';
 
 
 //-------------------------EMBED-------------------------
-function generateMessageEmbed(userData, menuItem) {
+function generateMessageEmbed(userData, menuItem, message) {
    return [new D.MessageEmbed()
       .setTitle(generateEmbedTitle(userData, menuItem))
+      .setImage(message.author.avatar)
       .setDescription(generateEmbedContent(userData, menuItem))];
 }
 
