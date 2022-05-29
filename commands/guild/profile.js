@@ -9,7 +9,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
       let userData = {};
-      let currentButton = MAIN_BUTTON1;
+      let currentButton = MAIN_BUTTON1.id;
       let currentMenu = MENU1_ITEM_1;
       let index = 0;
 
