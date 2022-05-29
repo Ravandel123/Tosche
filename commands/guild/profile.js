@@ -57,9 +57,9 @@ const MAIN_BUTTON3 = new C.ButtonData('records', 'Records', '', 'SUCCESS');
 const MENU1_ITEM_1 = new C.SelectOptionData('info', 'Info', '📋');
 const MENU1_ITEM_2 = new C.SelectOptionData('currencies', 'Currencies', '💰');
 
-const MENU2_ITEM_1 = 'invFishes';
+const MENU2_ITEM_1 = new C.SelectOptionData('invFishes', 'Fishes', '🐟');
 
-const MENU3_ITEM_1 = 'recFishes';
+const MENU3_ITEM_1 = new C.SelectOptionData('recFishing', 'Fishing', '🐟');
 
 
 //-------------------------MENU-------------------------
@@ -84,7 +84,10 @@ function generateMainButtons() {
 }
 
 function hasPagination(menuName) {
-   const menusWithPages = ['recordsFishing'];
+   const menusWithPages = [
+      MENU2_ITEM_1.value,
+      MENU3_ITEM_1.value
+   ];
 
    return C.strCheckIfAnyMatch(menuName, menusWithPages);
 }
@@ -125,7 +128,8 @@ function generateMessageEmbed(userData, button, menu) {
 
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(userData, button, menu))
-      .setDescription(generateEmbedContent(userData, button, menu));
+      .setDescription(generateEmbedContent(userData, button, menu))
+      .setAuthor({ name: userData.profile.ownerName });
 
    if (image)
       embed.setImage(image);
