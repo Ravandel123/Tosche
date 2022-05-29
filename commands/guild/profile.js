@@ -8,20 +8,20 @@ module.exports = {
    usage: '[user]',
    example: '',
    async execute(message, args) {
-      let user = {};
+      let userData = {};
       let currentMenu = 'main';
       let currentButton = 'profile';
       let index = 0;
 
       try {
-         user.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
+         userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
       } catch(error) {
          C.dcRespondToMsg(message, error);
          return;
       }
 
       const embedMessage = await message.channel.send({
-         embeds: generateMessageEmbed(user.profile, currentMenu),
+         embeds: generateMessageEmbed(userData, currentMenu),
          components: generateMenu(currentMenu, currentButton, index)
       });
 
@@ -39,7 +39,7 @@ module.exports = {
             currentButton = i.customId;
          }
 
-         await i.update({ embeds: generateMessageEmbed(user, currentMenu), components: generateMenu(currentButton, currentMenu, index) });
+         await i.update({ embeds: generateMessageEmbed(userData, currentMenu), components: generateMenu(currentButton, currentMenu, index) });
       });
    },
 }
@@ -56,36 +56,36 @@ const MENU1_ITEM_2 = 'currencies';
 
 
 //-------------------------EMBED-------------------------
-function generateMessageEmbed(profile, menuItem) {
+function generateMessageEmbed(userData, menuItem) {
    return [new D.MessageEmbed()
-      .setTitle(generateEmbedTitle(profile, menuItem))
-      .setDescription(generateEmbedContent(profile, menuItem))];
+      .setTitle(generateEmbedTitle(userData, menuItem))
+      .setDescription(generateEmbedContent(userData, menuItem))];
 }
 
-function generateEmbedTitle(user, menuItem) {
+function generateEmbedTitle(userData, menuItem) {
    switch (menuItem) {
       case MENU1_ITEM_1:
-         return `Profile of ${C.strBold(user.profile.ownerTag)}`;
+         return `Profile of ${C.strBold(userData.profile?.ownerTag)}`;
 
       case MENU1_ITEM_2:
-         return `Currencies of ${C.strBold(user.profile.ownerName)}`;
+         return `Currencies of ${C.strBold(userData.profile?.ownerName)}`;
    }
 }
 
-function generateEmbedContent(user, menuItem) {
+function generateEmbedContent(userData, menuItem) {
    switch (menuItem) {
       case MENU1_ITEM_1:
-         return getMainProfileInfo(user.profile);
+         return getMainProfileInfo(userData.profile);
 
       case MENU1_ITEM_2:
-         return getCurrenciesInfo(user.profile);
+         return getCurrenciesInfo(userData.profile);
    }
 }
 
 function getMainProfileInfo(profile) {
    return `**ID**: ${profile.ownerId}\n` +
           `**Name**: ${profile.ownerName}\n` +
-          `**Action Points**: ${profile.actionPoints.current}`;
+          `**Action Points**: ${profile.actionPoints?.current}`;
 }
 
 function getCurrenciesInfo(profile) {
