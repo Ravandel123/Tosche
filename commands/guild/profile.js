@@ -125,15 +125,18 @@ function generateMenu(buttonId) {
 //-------------------------EMBED-------------------------
 function generateMessageEmbed(userData, button, menu) {
    const image = generateEmbedImage(menu);
+   const thumbnailImage = generateThumbnailImage(userData, menu);
 
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(userData, button, menu))
       .setDescription(generateEmbedContent(userData, button, menu))
-      .setThumbnail('https://cdn.discordapp.com/avatars/392728479696814092/530371dde0cb53ffd195227d8c513621.webp')
       .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg' });
 
    if (image)
       embed.setImage(image);
+
+   if (thumbnailImage)
+      embed.setThumbnail(thumbnailImage);
 
    return [embed];
 }
@@ -153,6 +156,16 @@ function generateEmbedImage(menu) {
    switch (menu) {
       case MENU1_ITEM_1.value:
          return 'https://i.imgur.com/iSpEc6r.png';
+
+      default:
+         return '';
+   }
+}
+
+function generateThumbnailImage(userData, menu) {
+   switch (menu) {
+      case MENU1_ITEM_1.value:
+         return userData.profile.picture;
 
       default:
          return '';
