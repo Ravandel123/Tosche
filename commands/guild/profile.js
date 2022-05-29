@@ -9,8 +9,8 @@ module.exports = {
    example: '',
    async execute(message, args) {
       let userData = {};
-      let currentMenu = 'main';
-      let currentButton = 'profile';
+      let currentButton = MAIN_BUTTON1;
+      let currentMenu = MENU1_ITEM_1;
       let index = 0;
 
       try {
