@@ -21,7 +21,7 @@ module.exports = {
       }
 
       const embedMessage = await message.channel.send({
-         embeds: generateMessageEmbed(userData, currentMenu, message),
+         embeds: generateMessageEmbed(userData, currentButton, currentMenu),
          components: generateComponents(currentButton, currentMenu, index)
       });
 
@@ -39,10 +39,11 @@ module.exports = {
             currentButton = i.customId;
          }
 
-         await i.update({ embeds: generateMessageEmbed(userData, currentMenu, message), components: generateComponents(currentButton, currentMenu, index) });
+         await i.update({ embeds: generateMessageEmbed(userData, currentButton, currentMenu), components: generateComponents(currentButton, currentMenu, index) });
       });
    },
 }
+
 
 //-------------------------CONST-------------------------
 const MAX_ITEMS_ON_PAGE = 3;
@@ -54,51 +55,6 @@ const MAIN_BUTTON3 = 'records';
 const MENU1_ITEM_1 = 'info';
 const MENU1_ITEM_2 = 'currencies';
 
-
-//-------------------------EMBED-------------------------
-function generateMessageEmbed(userData, menuItem, message) {
-   return [new D.MessageEmbed()
-      .setTitle(generateEmbedTitle(userData, menuItem))
-      .setImage('https://i.imgur.com/iSpEc6r.png')
-      .setDescription(generateEmbedContent(userData, menuItem))];
-}
-
-function generateEmbedTitle(userData, menuItem) {
-   switch (menuItem) {
-      case MENU1_ITEM_1:
-         return `Profile of ${C.strBold(userData.profile?.ownerTag)}`;
-
-      case MENU1_ITEM_2:
-         return `Currencies of ${C.strBold(userData.profile?.ownerName)}`;
-   }
-}
-
-function generateEmbedContent(userData, menuItem) {
-   switch (menuItem) {
-      case MENU1_ITEM_1:
-         return getMainProfileInfo(userData.profile);
-
-      case MENU1_ITEM_2:
-         return getCurrenciesInfo(userData.profile);
-   }
-}
-
-function getMainProfileInfo(profile) {
-   return `**ID**: ${profile.ownerId}\n` +
-          `**Name**: ${profile.ownerName}\n` +
-          `**Action Points**: ${profile.actionPoints?.current}`;
-}
-
-function getCurrenciesInfo(profile) {
-   const currencies = profile.currencies;
-
-   return `**Amber Drops:** ${currencies.amberDrops}\n` +
-          `**Pearl Flakes:** ${currencies.pearlFlakes}\n` +
-          `**Obsidian Chips:** ${currencies.obsidianChips}\n` +
-          `**Silver Coin:** ${currencies.silverCoins}\n` +
-          `**Gold Coins:** ${currencies.goldCoins}\n` +
-          `**Deltrada Coins:** ${currencies.deltradaCoins}`;
-}
 
 //-------------------------MENU-------------------------
 function generateComponents(currentButton, currentMenu, index) {
@@ -154,4 +110,50 @@ function generateMenu(button) {
    }
 
    return C.dcCreateSelectMenu('menu', 'Select the information to display', menuArray);
+}
+
+
+//-------------------------EMBED-------------------------
+function generateMessageEmbed(userData, button, menu) {
+   return new D.MessageEmbed()
+      .setTitle(generateEmbedTitle(userData, button, menu))
+      .setImage('https://i.imgur.com/iSpEc6r.png')
+      .setDescription(generateEmbedContent(userData, button, menu));
+}
+
+function generateEmbedTitle(userData, button, menu) {
+   switch (menu) {
+      case MENU1_ITEM_1:
+         return `Profile of ${C.strBold(userData.profile?.ownerTag)}`;
+
+      case MENU1_ITEM_2:
+         return `Currencies of ${C.strBold(userData.profile?.ownerName)}`;
+   }
+}
+
+function generateEmbedContent(userData, button, menu) {
+   switch (menu) {
+      case MENU1_ITEM_1:
+         return getMainProfileInfo(userData.profile);
+
+      case MENU1_ITEM_2:
+         return getCurrenciesInfo(userData.profile);
+   }
+}
+
+function getMainProfileInfo(profile) {
+   return `**ID**: ${profile.ownerId}\n` +
+          `**Name**: ${profile.ownerName}\n` +
+          `**Action Points**: ${profile.actionPoints?.current}`;
+}
+
+function getCurrenciesInfo(profile) {
+   const currencies = profile.currencies;
+
+   return `**Amber Drops:** ${currencies.amberDrops}\n` +
+          `**Pearl Flakes:** ${currencies.pearlFlakes}\n` +
+          `**Obsidian Chips:** ${currencies.obsidianChips}\n` +
+          `**Silver Coin:** ${currencies.silverCoins}\n` +
+          `**Gold Coins:** ${currencies.goldCoins}\n` +
+          `**Deltrada Coins:** ${currencies.deltradaCoins}`;
 }
