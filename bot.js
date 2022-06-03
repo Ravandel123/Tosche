@@ -747,7 +747,7 @@ client.on('messageCreate', message => {
 
       case 'dx':
          client.channels.cache.find(channel => channel.name === arguments[1]).send(message.content.slice(Config.prefix.length + command.length + arguments[1].length + 1))
-      
+         console.log("XD")
          break
 
       // case 'jaildagos':
