@@ -750,12 +750,6 @@ client.on('messageCreate', message => {
       
          break
 
-      case 'xxx':
-         message.channel.send(`${message.author.displayAvatarURL({ dynamic: true })}`)
-         // console.log(arguments[1])
-      break
-      
-      
       // case 'jaildagos':
 
       // var rolePrisoner = message.guild.roles.cache.find(r => r.name === 'Prisoner')
