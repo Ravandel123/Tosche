@@ -800,27 +800,27 @@ client.on('messageCreate', message => {
 
       break
 
-     //------------------------------------------------------------------
-     case 'unjaildagos':
+     // ------------------------------------------------------------------
+     // case 'unjaildagos':
 
-      var rolePrisoner = message.guild.roles.cache.find(r => r.name === 'Prisoner')
-      var roleComrade = message.guild.roles.cache.find(r => r.name === 'Comrade')
-      var dagos = message.guild.members.cache.get('762466250189307966')
-      var guest = message.guild.members.cache.get('554696495190769692')
-      var senderID = message.author.id
+      // var rolePrisoner = message.guild.roles.cache.find(r => r.name === 'Prisoner')
+      // var roleComrade = message.guild.roles.cache.find(r => r.name === 'Comrade')
+      // var dagos = message.guild.members.cache.get('762466250189307966')
+      // var guest = message.guild.members.cache.get('554696495190769692')
+      // var senderID = message.author.id
 
-      if (senderID == '380485376759824385' || senderID == '392728479696814092' || senderID == '553959824577134593')
-      {
-         dagos.roles.add(roleComrade).catch(console.error)
-         dagos.roles.remove(rolePrisoner).catch(console.error)
+      // if (senderID == '380485376759824385' || senderID == '392728479696814092' || senderID == '553959824577134593')
+      // {
+         // dagos.roles.add(roleComrade).catch(console.error)
+         // dagos.roles.remove(rolePrisoner).catch(console.error)
 
-         let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
-         channel.send(`Enough of your rotting here, get some fresh air before the next visit ${dagos}!`)
-      }
-      else
-         message.channel.send('https://i.imgur.com/oS67pzi.png')
+         // let channel = message.guild.channels.cache.find(channel => channel.name == 'prison')
+         // channel.send(`Enough of your rotting here, get some fresh air before the next visit ${dagos}!`)
+      // }
+      // else
+         // message.channel.send('https://i.imgur.com/oS67pzi.png')
 
-      break
+      // break
 
      //------------------------------------------------------------------
      case 'unjailcatz':
