@@ -28,6 +28,10 @@ module.exports = {
                return;
             }
 
+            console.log('*********************outside below');
+            console.log(userData.fishing);
+            console.log('*********************outside above');
+
             if (i.isButton()) {
                currentButton = i.customId;
                currentMenu = getDefaultMenuForButton(currentButton);
@@ -37,7 +41,7 @@ module.exports = {
                   currentMenu = i.values[0];
             }
 
-            await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index), components: generateComponents(currentButton, currentMenu, index) });
+            await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message), components: generateComponents(currentButton, currentMenu, index) });
          });
       } catch (e) {
          console.log(e);
@@ -142,13 +146,13 @@ function generateMenu(buttonId) {
 
 
 //-------------------------EMBED-------------------------
-function generateMessageEmbed(button, menu, userData, index) {
+async function generateMessageEmbed(button, menu, userData, index, message) {
    const image = generateEmbedImage(menu);
    const thumbnailImage = generateThumbnailImage(userData, menu);
 
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(menu, userData))
-      .setDescription(generateEmbedContent(menu, userData, index))
+      .setDescription(generateEmbedContent(menu, userData, index, message))
       .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg' });
 
    if (image)
@@ -198,7 +202,7 @@ function generateEmbedTitle(menu, userData) {
    }
 }
 
-function generateEmbedContent(menu, userData, index) {
+async function generateEmbedContent(menu, userData, index, message) {
    switch (menu) {
       case MENU1_ITEM_1.value:
          return getCharacterInfo(userData.profile);
@@ -210,7 +214,12 @@ function generateEmbedContent(menu, userData, index) {
          return getCharacterInfo(userData.profile);
 
       case MENU3_ITEM_1.value:
-         return getCurrenciesInfo(userData.profile);
+         userData.fishing = await CG.getMessageAuthorFishingDoc(message);
+         console.log('*********************inside below');
+         console.log(userData.fishing);
+         console.log('*********************inside above');
+         return getCharacterInfo(userData.profile);
+         // return getFishingRecordsInfo(userData, index);
    }
 }
 
@@ -230,4 +239,27 @@ function getCurrenciesInfo(profile) {
           `**Silver Coin:** ${currencies.silverCoins}\n` +
           `**Gold Coins:** ${currencies.goldCoins}\n` +
           `**Deltrada Coins:** ${currencies.deltradaCoins}`;
+}
+
+function getFishingRecordsInfo(fishingRecords, index) {
+   
+   
+   // let result = ``;
+   // const possibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
+   // const maxIndex = content.length <= possibleMaxIndex ? content.length : possibleMaxIndex;
+   
+   // for (let i = startingIndex; i < maxIndex; i++) {
+      // result += `**${content[i].fishId}** 🐟 \n` +
+                // `🥇 ${content[i].place1Id}: ${content[i].place1Weight} kg (${C.calcKgToImperial(content[i].place1Weight)})\n`;
+
+      // if (content[i].place2Weight > 0)
+         // result += `🥈 ${content[i].place2Id}: ${content[i].place2Weight} kg (${C.calcKgToImperial(content[i].place2Weight)})\n`;
+
+      // if (content[i].place3Weight > 0)
+         // result += `🥉 ${content[i].place3Id}: ${content[i].place3Weight} kg (${C.calcKgToImperial(content[i].place3Weight)})\n`;
+
+      // result += `-----\n`;
+   // }
+
+   // return result;
 }
