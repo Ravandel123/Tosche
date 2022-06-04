@@ -575,14 +575,45 @@ function strAddArticle(string, makeBold = false) {
    if (!checkIfString(string))
       return;
 
+   const exceptionsWithA = [
+      'eulogy',
+      'one',
+      'unicorn', 'union', 'united', 'used', 'user'
+   ];
+
+   const exceptionsWithAn = [
+      'honor', 'honorable', 'honour', 'honourable', 'heir', 'hourglass',
+      'university'
+   ];
+
+   const exceptionsWithNone = [
+      'advice', 'art',
+      'baseball', 'biology', 'butter',
+      'coffee', 'computer science', 'currency',
+      'electricity',
+      'furniture',
+      'gas',
+      'happiness', 'history', 'hockey',
+      'information',
+      'love', 'luggage',
+      'mathematics', 'money', 'music',
+      'news',
+      'power',
+      'rice',
+      'scenery', 'sugar',
+      'tennis', 'travel',
+      'volleyball',
+      'water', 'work'
+   ];
+
    let result = '';
    const firstLetter = strGetFirstChar(string);
 
-   if (strCheckIfAnyMatch(string, AC.arrayExceptionsWithA)) {
+   if (strCheckIfAnyMatch(string, exceptionsWithA)) {
       result = 'a ';
-   } else if (strCheckIfAnyMatch(string, AC.arrayExceptionsWithAn)) {
+   } else if (strCheckIfAnyMatch(string, exceptionsWithAn)) {
       result = 'an ';
-   } else if (strCheckIfAnyMatch(string, AC.arrayExceptionsWithNone)) {
+   } else if (strCheckIfAnyMatch(string, exceptionsWithNone)) {
       result = '';
    } else if (strCheckIfAnyMatch(string, AC.vowels)) {
       result = 'an ';
@@ -624,7 +655,7 @@ function strGetPronoun(string, version = 1) {
       return;
 
    const stringLowered = strToLowerCase(string);
-   let result = arr2DGetItemColumnValue(AC.arrayPronouns, stringLowered, version, 0);
+   let result = arr2DGetItemColumnValue(AC.pronouns, stringLowered, version, 0);
 
    if (!result)
       result = strAddEndingApostrophe(string);
@@ -1043,11 +1074,12 @@ function dcReplyToMsg(message, msgContent) {
 module.exports.dcReplyToMsg = dcReplyToMsg;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function dcRespondFromArray(message, array) {
+function dcRespondFromArray(message, array, msgType = 'channel') {
    if (!checkIfArray(array))
       return;
 
-   dcRespondToMsg(message, arrGetRandom(array));
+   dcSendMsg(message, arrGetRandom(array), msgType);
+   // dcRespondToMsg(message, arrGetRandom(array));
 }
 
 module.exports.dcRespondFromArray = dcRespondFromArray;

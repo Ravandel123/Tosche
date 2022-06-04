@@ -1,7 +1,5 @@
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
-const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
-
 const arrayCharactersIrl = ['VVooly', 'Dinly', 'Lanaar', 'Me', 'Ravandel', 'Catz', 'You', 'Nachtkinda'];
 const arrayCharactersSpecial = ['Everybody', 'Nobody'];
 const arrayCharactersBwd = [
@@ -23,24 +21,10 @@ const arrayBannedWords = [
    'e621.net', 'furaffinity.net', 'weasyl.com'
 ];
 
-const arrayAdditionalFunnyWords = ['lol', 'yes-yes', 'lmao'];
+const arrayAdditionalFunnyWords = ['lol', 'yes-yes', 'lmao', 'xD'];
 
 
 const arrayDnDAlignments = ['Lawful Good', 'Lawful Neutral', 'Lawful Evil', 'Neutral Good', 'True Neutral', 'Neutral Evil', 'Chaotic Evil', 'Chaotic Neutral', 'Chaotic Good'];
-
-
-const arrayAccuracy = [
-   '',
-   'almost',
-   'below',
-   'definitely',
-   'exactly',
-   'less than',
-   'more than',
-   'over',
-   'precisely',
-   'probably'
-];
 
 
 const arrayCurrenciesIrl = ['bucks', '$', '€', '£'];
@@ -58,36 +42,19 @@ const arrayBodyShapes = [
 ];
 
 //-----------------------------------------------------------Speech parts----------------------------------------------------------
-//Articles
-const arrayExceptionsWithA = [
-   'eulogy',
-   'one',
-   'unicorn', 'union', 'united', 'used', 'user'
-];
+const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
 
-const arrayExceptionsWithAn = [
-   'honor', 'honorable', 'honour', 'honourable', 'heir', 'hourglass',
-   'university'
-];
-
-const arrayExceptionsWithNone = [
-   'advice', 'art',
-   'baseball', 'biology', 'butter',
-   'coffee', 'computer science', 'currency',
-   'electricity',
-   'furniture',
-   'gas',
-   'happiness', 'history', 'hockey',
-   'information',
-   'love', 'luggage',
-   'mathematics', 'money', 'music',
-   'news',
-   'power',
-   'rice',
-   'scenery', 'sugar',
-   'tennis', 'travel',
-   'volleyball',
-   'water', 'work'
+const termsAccuracy = [
+   '',
+   'almost',
+   'below',
+   'definitely',
+   'exactly',
+   'less than',
+   'more than',
+   'over',
+   'precisely',
+   'probably'
 ];
 
 //Adjectives
@@ -133,7 +100,7 @@ const nounsAcceptedInsulting = [
 ];
 
 //Other
-const arrayPronouns = [
+const pronouns = [
    [`my`, `my`, `mine`],
    [`i`, `my`, `mine`],
    [`me`, `my`, `mine`],
@@ -150,20 +117,17 @@ const arrayPronouns = [
 
 //-----------------------------------------------------------Exports----------------------------------------------------------
 module.exports = {
-   vowels,
    arrayCharactersIrlOnly,
    arrayCharactersAll,
    arrayBannedWords,
    arrayAdditionalFunnyWords,
    arrayDnDAlignments,
-   arrayAccuracy,
+   termsAccuracy,
    arrayCurrenciesAll,
    arrayBodyShapes,
 
-   arrayExceptionsWithA,
-   arrayExceptionsWithAn,
-   arrayExceptionsWithNone,
+   vowels,
    adjectivesAcceptedInsulting,
    nounsAcceptedInsulting,
-   arrayPronouns,
+   pronouns,
 };

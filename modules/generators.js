@@ -38,7 +38,7 @@ module.exports.genPersonalInsult = genPersonalInsult;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function genAccuracy(capitalize = false) {
-   const result = C.arrGetRandom(AC.arrayAccuracy) + ' ';
+   const result = C.arrGetRandom(AC.termsAccuracy) + ' ';
 
    return capitalize ? C.strCapitalizeFirstLetter(result) : result;
 }
@@ -46,8 +46,9 @@ function genAccuracy(capitalize = false) {
 module.exports.genAccuracy = genAccuracy;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function genFunnyEnding(endingChar = '.') {
-   return (C.chance(25) ? ', ' + C.arrGetRandom(AC.arrayAdditionalFunnyWords) : '') + endingChar;
+function genFunnyEnding(endingChar = '.', chanceForEnding = 25) {
+   if (C.checkIfNumber(chanceForEnding))
+      return (C.chance(chanceForEnding) ? ', ' + C.arrGetRandom(AC.arrayAdditionalFunnyWords) : '') + endingChar;
 }
 
 module.exports.genFunnyEnding = genFunnyEnding;

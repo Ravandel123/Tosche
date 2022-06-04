@@ -57,6 +57,52 @@ module.exports.resIssueSingle = resIssueSingle;
 
 
 //----------------------------------------------------------- COMMANDS ----------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
+function resDefaultData() {
+   const opinions = [
+      `I am skeptic about that`,
+      `certainly`,
+      `doubtfully`,
+      `indeed`,
+      `surely`,
+      `undoubtedly`
+   ];
+   
+   const speaking = [
+      `sound`, `speak`,
+      `talk`
+   ];
+
+   const activities = [
+      `fighting with the Ermehn`, `fun`,
+      `good food`,
+      `swimming`,
+   ];
+
+   const userAdjectives = [
+      `crazy`,
+      `insane`,
+      `nuts`
+   ];
+
+
+   // const r = C.arrGetRandom;
+   const arrayResult = [
+      `${C.arrGetRandom(opinions)}`,
+      `If you keep saying things like that, I will go ${C.arrGetRandom(activities)}`,
+      `You ${C.arrGetRandom(speaking)} like someone who doesn't like ${C.arrGetRandom(activities)}`,
+      `You ${C.arrGetRandom(speaking)} like someone who is ${C.arrGetRandom(userAdjectives)}`,
+   ];
+
+   return arrayResult;
+}
+
+function resDefault() 
+   return C.strCapitalizeFirstLetter(C.arrGetRandom(resDefaultData())) + G.genFunnyEnding();
+}
+
+module.exports.resDefault = resDefault;
+
 // OK---------------------------------------------------------------------------------------------------------------
 function resAmount(maxMultiplier = 8, additionalSymbol = '') {
    const maxNumber = G.genRandomMultiplier(maxMultiplier, 75) + 1;

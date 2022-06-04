@@ -107,6 +107,13 @@ function defaultBehavior(message) {
    if (C.strCheckIfContains(msgContent, 'clovis'))
       message.react('😢');
 
-   if (C.strCheckIfContains(msgContent, 'tosch'))
-      C.dcRespondToMsg(message, C.arrGetRandom(R.resYou()));
+   if (C.strCheckIfContains(msgContent, 'tosch')) {
+      // C.dcRespondToMsg(message, C.arrGetRandom(R.resYou()));
+      C.dcRespondFromArray(message, R.resYou());
+      return;
+   }
+
+   if (C.chance(75)) {
+      C.dcReplyToMsg(message, R.resDefault());
+   }
 }
