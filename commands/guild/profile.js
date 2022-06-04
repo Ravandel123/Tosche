@@ -15,9 +15,10 @@ module.exports = {
          let index = 0;
 
          userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
-
+let ebd = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
          const embedMessage = await message.channel.send({
-            embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message),
+            // embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message),
+            embeds: ebd,
             components: generateComponents(currentButton, currentMenu, index)
          });
 
@@ -163,7 +164,7 @@ async function generateMessageEmbed(button, menu, userData, index, message) {
    if (thumbnailImage)
       embed.setThumbnail(thumbnailImage);
 
-   return [embed];
+   return Promise.resolve([embed]);
 }
 
 function generateEmbedImage(menu) {
