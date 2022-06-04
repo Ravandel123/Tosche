@@ -97,7 +97,7 @@ function resDefaultData() {
    return arrayResult;
 }
 
-function resDefault() 
+function resDefault() {
    return C.strCapitalizeFirstLetter(C.arrGetRandom(resDefaultData())) + G.genFunnyEnding();
 }
 
