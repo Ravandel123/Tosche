@@ -1,3 +1,30 @@
+const bannedWords = [
+   'cunt',
+   'dick',
+   'faggot', 'fuck',
+   'goddammit', 'goddamnit',
+   'kurva', 'kurwa',
+   'niga', 'nigga', 'nigger',
+   '0laffson', 'titusW',
+   'e621.net', 'furaffinity.net', 'weasyl.com'
+];
+
+const noToscheCommentChannels = [
+   'aviary',
+   'canid', 'cell-of-aki',
+   'deltrada-guide', 'deltrada-law',
+   'ermehn',
+   'felis',
+   'general',
+   'knowledge-center',
+   'lutren',
+   'polcan',
+   'resources', 'rules',
+   'secret-chamber', 'secret-code-of-conduct', 'spire-of-deltrada',
+   'tamian', 'todo-tosche',
+   'vulpin'
+];
+
 const currencies = [
    { name: `amber drops`,      nameDB: `amberDrops`,      alias1: `amberdrops`,      alias2: `ad` },
    { name: `pearl flake`,      nameDB: `pearlFlakes`,     alias1: `pearlflakes`,     alias2: `pf` },
@@ -10,5 +37,8 @@ const currencies = [
 //----------------------------------------------------------- Exports ----------------------------------------------------------
 
 module.exports = {
+   bannedWords,
+   noToscheCommentChannels,
+
    currencies
 };

@@ -1,8 +1,9 @@
-const C = require("../modules/common.js");
+const C = require('../modules/common.js');
 const G = require('../modules/generators.js');
 const R = require('../modules/responses.js');
-const AC = require("../modules/arraysCommon.js");
-const CC = require("../modules/commonCommands.js");
+const AC = require('../modules/arraysCommon.js');
+const AG = require('../modules/arraysGuild.js');
+const CC = require('../modules/commonCommands.js');
 const { Collection } = require('discord.js');
 const {
    prefix,
@@ -107,8 +108,10 @@ function defaultBehavior(message) {
    if (C.strCheckIfContains(msgContent, 'clovis'))
       message.react('😢');
 
+   if (C.strCheckIfAnyMatch(message.channel.name, AG.noToscheCommentChannels))
+      return;
+
    if (C.strCheckIfContains(msgContent, 'tosch')) {
-      // C.dcRespondToMsg(message, C.arrGetRandom(R.resYou()));
       C.dcRespondFromArray(message, R.resYou());
       return;
    }

@@ -10,17 +10,6 @@ const arrayCharactersIrlOnly = arrayCharactersIrl.concat(arrayCharactersSpecial)
 const arrayCharactersAll = arrayCharactersIrl.concat(arrayCharactersSpecial, arrayCharactersBwd);
 
 
-const arrayBannedWords = [
-   'cunt',
-   'dick',
-   'faggot', 'fuck',
-   'goddammit', 'goddamnit',
-   'kurva', 'kurwa',
-   'niga', 'nigga', 'nigger',
-   '0laffson', 'titusW',
-   'e621.net', 'furaffinity.net', 'weasyl.com'
-];
-
 const arrayAdditionalFunnyWords = ['lol', 'yes-yes', 'lmao', 'xD'];
 
 
@@ -119,7 +108,6 @@ const pronouns = [
 module.exports = {
    arrayCharactersIrlOnly,
    arrayCharactersAll,
-   arrayBannedWords,
    arrayAdditionalFunnyWords,
    arrayDnDAlignments,
    termsAccuracy,

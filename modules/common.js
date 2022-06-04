@@ -1079,7 +1079,6 @@ function dcRespondFromArray(message, array, msgType = 'channel') {
       return;
 
    dcSendMsg(message, arrGetRandom(array), msgType);
-   // dcRespondToMsg(message, arrGetRandom(array));
 }
 
 module.exports.dcRespondFromArray = dcRespondFromArray;
@@ -1275,8 +1274,7 @@ module.exports.dcCreateRow = dcCreateRow;
 function dcCreateButton(id, label, emoji, style = `PRIMARY`, isDisabled = false) {
    const availableStyles = [`PRIMARY`, `SECONDARY`, `SUCCESS`, `DANGER`, `LINK`];
 
-   if (checkIfExists(id) && checkIfAnyMatch(style, availableStyles))
-   {
+   if (checkIfExists(id) && checkIfAnyMatch(style, availableStyles)) {
       const button = new D.MessageButton()
          .setCustomId(id)
          .setStyle(style)
