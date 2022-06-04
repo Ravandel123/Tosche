@@ -150,9 +150,11 @@ async function generateMessageEmbed(button, menu, userData, index, message) {
    const image = generateEmbedImage(menu);
    const thumbnailImage = generateThumbnailImage(userData, menu);
 
+   const embedContent = await generateEmbedContent(menu, userData, index, message);
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(menu, userData))
-      .setDescription(generateEmbedContent(menu, userData, index, message))
+      .setDescription(embedContent)
+      // .setDescription(generateEmbedContent(menu, userData, index, message))
       .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg' });
 
    if (image)
