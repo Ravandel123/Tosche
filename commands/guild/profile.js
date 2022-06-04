@@ -41,8 +41,9 @@ let ebd = await generateMessageEmbed(currentButton, currentMenu, userData, index
                if (i.customId === 'menu')
                   currentMenu = i.values[0];
             }
-
-            await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message), components: generateComponents(currentButton, currentMenu, index) });
+let ebd = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
+await i.update({ embeds: ebd, components: generateComponents(currentButton, currentMenu, index) });
+            // await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message), components: generateComponents(currentButton, currentMenu, index) });
          });
       } catch (e) {
          console.log(e);
