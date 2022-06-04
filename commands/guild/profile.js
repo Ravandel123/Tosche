@@ -10,15 +10,17 @@ module.exports = {
    async execute(message, args) {
       try {
          let userData = {};
+         let embedContent;
          let currentButton = MAIN_BUTTON1.id;
          let currentMenu = MENU1_ITEM_1.value;
          let index = 0;
 
          userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
-let ebd = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
+         embedContent = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
+
          const embedMessage = await message.channel.send({
             // embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message),
-            embeds: ebd,
+            embeds: embedContent,
             components: generateComponents(currentButton, currentMenu, index)
          });
 
@@ -41,8 +43,9 @@ let ebd = await generateMessageEmbed(currentButton, currentMenu, userData, index
                if (i.customId === 'menu')
                   currentMenu = i.values[0];
             }
-let ebd = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
-await i.update({ embeds: ebd, components: generateComponents(currentButton, currentMenu, index) });
+
+            embedContent = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
+            await i.update({ embeds: embedContent, components: generateComponents(currentButton, currentMenu, index) });
             // await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message), components: generateComponents(currentButton, currentMenu, index) });
          });
       } catch (e) {
@@ -207,24 +210,32 @@ function generateEmbedTitle(menu, userData) {
 }
 
 async function generateEmbedContent(menu, userData, index, message) {
+   let result;
+
    switch (menu) {
       case MENU1_ITEM_1.value:
-         return Promise.resolve(getCharacterInfo(userData.profile));
+         result = getCharacterInfo(userData.profile);
+         break;
 
       case MENU1_ITEM_2.value:
-         return getCurrenciesInfo(userData.profile);
+         result = getCurrenciesInfo(userData.profile);
+         break;
 
       case MENU2_ITEM_1.value:
-         return getCharacterInfo(userData.profile);
+         result = getCharacterInfo(userData.profile);
+         break;
 
       case MENU3_ITEM_1.value:
-         userData.fishing = await CG.getMessageAuthorFishingDoc(message);
+         if (!userData.fishing)
+            userData.fishing = await CG.getMessageAuthorFishingDoc(message);
          console.log('*********************inside below');
          console.log(userData.fishing);
          console.log('*********************inside above');
-         return Promise.resolve(getCharacterInfo(userData.profile));
+         result = getCharacterInfo(userData.profile);
          // return getFishingRecordsInfo(userData, index);
    }
+
+   return Promise.resolve(result);
 }
 
 //-------------------------CONTENT-------------------------
