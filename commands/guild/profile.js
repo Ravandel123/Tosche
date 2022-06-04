@@ -17,7 +17,7 @@ module.exports = {
          userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
 
          const embedMessage = await message.channel.send({
-            embeds: generateMessageEmbed(currentButton, currentMenu, userData),
+            embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message),
             components: generateComponents(currentButton, currentMenu, index)
          });
 
@@ -207,7 +207,7 @@ function generateEmbedTitle(menu, userData) {
 async function generateEmbedContent(menu, userData, index, message) {
    switch (menu) {
       case MENU1_ITEM_1.value:
-         return getCharacterInfo(userData.profile);
+         return Promise.resolve(getCharacterInfo(userData.profile));
 
       case MENU1_ITEM_2.value:
          return getCurrenciesInfo(userData.profile);
@@ -220,7 +220,7 @@ async function generateEmbedContent(menu, userData, index, message) {
          console.log('*********************inside below');
          console.log(userData.fishing);
          console.log('*********************inside above');
-         return getCharacterInfo(userData.profile);
+         return Promise.resolve(getCharacterInfo(userData.profile));
          // return getFishingRecordsInfo(userData, index);
    }
 }
