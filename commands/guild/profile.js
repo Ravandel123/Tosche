@@ -14,15 +14,10 @@ module.exports = {
          let currentMenu = MENU1_ITEM_1.value;
          let index = 0;
 
-         // try {
-            userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
-         // } catch(error) {
-            // C.dcRespondToMsg(message, error);
-            // return;
-         // }
+         userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
 
          const embedMessage = await message.channel.send({
-            embeds: generateMessageEmbed(userData, currentButton, currentMenu),
+            embeds: generateMessageEmbed(currentButton, currentMenu, userData),
             components: generateComponents(currentButton, currentMenu, index)
          });
 
@@ -33,16 +28,16 @@ module.exports = {
                return;
             }
 
-            if (i.isSelectMenu()) {
+            if (i.isButton()) {
+               currentButton = i.customId;
+               currentMenu = getDefaultMenuForButton(currentButton);
+               index = 0;
+            } else if (i.isSelectMenu()) {
                if (i.customId === 'menu')
                   currentMenu = i.values[0];
-            } else if (i.isButton()) {
-               i.deferUpdate();
-               currentButton = i.customId;
-               return;
             }
 
-            await i.update({ embeds: generateMessageEmbed(userData, currentButton, currentMenu), components: generateComponents(currentButton, currentMenu, index) });
+            await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index), components: generateComponents(currentButton, currentMenu, index) });
          });
       } catch (e) {
          console.log(e);
@@ -68,14 +63,14 @@ const MENU3_ITEM_1 = new C.SelectOptionData('recFishing', 'Fishing', '🐟');
 
 
 //-------------------------MENU-------------------------
-function generateComponents(currentButton, currentMenu, index) {
+function generateComponents(button, menu, index) {
    const menuItems = [];
 
-   if (hasPagination(currentMenu))
+   if (hasPagination(menu))
       menuItems.push(generatePaginationButtons, index);
 
    menuItems.push(generateMainButtons());
-   menuItems.push(generateMenu(currentButton));
+   menuItems.push(generateMenu(button));
 
    return menuItems;
 }
@@ -86,6 +81,17 @@ function generateMainButtons() {
    const recordsButton = C.dcCreateButton(MAIN_BUTTON3.id, MAIN_BUTTON3.label, '', MAIN_BUTTON3.style);
 
    return C.dcCreateRow([characterButton, inventoryButton, recordsButton]);
+}
+
+function getDefaultMenuForButton(buttonId) {
+   switch (buttonId) {
+      case MAIN_BUTTON1.id:
+         return MENU1_ITEM_1.value;
+      case MAIN_BUTTON2.id:
+         return MENU2_ITEM_1.value;
+      case MAIN_BUTTON3.id:
+         return MENU3_ITEM_1.value;
+   }
 }
 
 function hasPagination(menuName) {
@@ -118,9 +124,17 @@ function generatePaginationButtons(index) {
 function generateMenu(buttonId) {
    const menuArray = [];
 
-   if (C.strCompare(buttonId, MAIN_BUTTON1.id)) {
-      menuArray.push({ label: MENU1_ITEM_1.label, value: MENU1_ITEM_1.value, emoji: MENU1_ITEM_1.emoji });
-      menuArray.push({ label: MENU1_ITEM_2.label, value: MENU1_ITEM_2.value, emoji: MENU1_ITEM_2.emoji });
+   switch (buttonId) {
+      case MAIN_BUTTON1.id:
+         menuArray.push({ label: MENU1_ITEM_1.label, value: MENU1_ITEM_1.value, emoji: MENU1_ITEM_1.emoji });
+         menuArray.push({ label: MENU1_ITEM_2.label, value: MENU1_ITEM_2.value, emoji: MENU1_ITEM_2.emoji });
+         break;
+      case MAIN_BUTTON2.id:
+         menuArray.push({ label: MENU2_ITEM_1.label, value: MENU2_ITEM_1.value, emoji: MENU2_ITEM_1.emoji });
+         break;
+      case MAIN_BUTTON3.id:
+         menuArray.push({ label: MENU3_ITEM_1.label, value: MENU3_ITEM_1.value, emoji: MENU3_ITEM_1.emoji });
+         break;
    }
 
    return C.dcCreateRow(C.dcCreateSelectMenu('menu', 'Select the information to display', menuArray));
@@ -128,13 +142,13 @@ function generateMenu(buttonId) {
 
 
 //-------------------------EMBED-------------------------
-function generateMessageEmbed(userData, button, menu) {
+function generateMessageEmbed(button, menu, userData, index) {
    const image = generateEmbedImage(menu);
    const thumbnailImage = generateThumbnailImage(userData, menu);
 
    const embed = new D.MessageEmbed()
-      .setTitle(generateEmbedTitle(userData, button, menu))
-      .setDescription(generateEmbedContent(userData, button, menu))
+      .setTitle(generateEmbedTitle(menu, userData))
+      .setDescription(generateEmbedContent(menu, userData, index))
       .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg' });
 
    if (image)
@@ -144,17 +158,6 @@ function generateMessageEmbed(userData, button, menu) {
       embed.setThumbnail(thumbnailImage);
 
    return [embed];
-}
-
-function generateEmbedTitle(userData, button, menu) {
-   const ln = '---------------';
-   switch (menu) {
-      case MENU1_ITEM_1.value:
-         return ln + ' Profile ' + ln;
-
-      case MENU1_ITEM_2.value:
-         return ln + ' Currencies ' + ln;
-   }
 }
 
 function generateEmbedImage(menu) {
@@ -177,12 +180,36 @@ function generateThumbnailImage(userData, menu) {
    }
 }
 
-function generateEmbedContent(userData, button, menu) {
+function generateEmbedTitle(menu, userData) {
+   const ln = '---------------';
+
+   switch (menu) {
+      case MENU1_ITEM_1.value:
+         return ln + ' Profile ' + ln;
+
+      case MENU1_ITEM_2.value:
+         return ln + ' Currencies ' + ln;
+
+      case MENU2_ITEM_1.value:
+         return ln + ' Fishes ' + ln;
+
+      case MENU3_ITEM_1.value:
+         return ln + ' Fishing records ' + ln;
+   }
+}
+
+function generateEmbedContent(menu, userData, index) {
    switch (menu) {
       case MENU1_ITEM_1.value:
          return getCharacterInfo(userData.profile);
 
       case MENU1_ITEM_2.value:
+         return getCurrenciesInfo(userData.profile);
+
+      case MENU2_ITEM_1.value:
+         return getCharacterInfo(userData.profile);
+
+      case MENU3_ITEM_1.value:
          return getCurrenciesInfo(userData.profile);
    }
 }
