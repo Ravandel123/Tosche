@@ -86,12 +86,16 @@ function resDefaultData() {
    ];
 
 
-   // const r = C.arrGetRandom;
+   const r = C.arrGetRandom;
    const arrayResult = [
-      `${C.arrGetRandom(opinions)}`,
-      `If you keep saying things like that, I will go ${C.arrGetRandom(activities)}`,
-      `You ${C.arrGetRandom(speaking)} like someone who doesn't like ${C.arrGetRandom(activities)}`,
-      `You ${C.arrGetRandom(speaking)} like someone who is ${C.arrGetRandom(userAdjectives)}`
+      `${r(opinions)}`,
+      `If you keep saying things like that, I will go ${r(userAdjectives)}`,
+      `You ${r(speaking)} like someone who doesn't like ${r(activities)}`,
+      `You ${r(speaking)} like someone who is ${r(userAdjectives)}`
+      // `${C.arrGetRandom(opinions)}`,
+      // `If you keep saying things like that, I will go ${C.arrGetRandom(userAdjectives)}`,
+      // `You ${C.arrGetRandom(speaking)} like someone who doesn't like ${C.arrGetRandom(activities)}`,
+      // `You ${C.arrGetRandom(speaking)} like someone who is ${C.arrGetRandom(userAdjectives)}`
    ];
 
    return arrayResult;
