@@ -59,6 +59,8 @@ module.exports.resIssueSingle = resIssueSingle;
 //----------------------------------------------------------- COMMANDS ----------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------
 function resDefaultData() {
+   const r = C.arrGetRandom;
+
    const opinions = [
       `I am skeptic about that`,
       `certainly`,
@@ -85,17 +87,11 @@ function resDefaultData() {
       `nuts`
    ];
 
-
-   const r = C.arrGetRandom;
    const arrayResult = [
       `${r(opinions)}`,
       `If you keep saying things like that, I will go ${r(userAdjectives)}`,
       `You ${r(speaking)} like someone who doesn't like ${r(activities)}`,
       `You ${r(speaking)} like someone who is ${r(userAdjectives)}`
-      // `${C.arrGetRandom(opinions)}`,
-      // `If you keep saying things like that, I will go ${C.arrGetRandom(userAdjectives)}`,
-      // `You ${C.arrGetRandom(speaking)} like someone who doesn't like ${C.arrGetRandom(activities)}`,
-      // `You ${C.arrGetRandom(speaking)} like someone who is ${C.arrGetRandom(userAdjectives)}`
    ];
 
    return arrayResult;
