@@ -31,10 +31,6 @@ module.exports = {
                return;
             }
 
-            console.log('*********************outside below');
-            console.log(userData.fishing);
-            console.log('*********************outside above');
-
             if (i.isButton()) {
                currentButton = i.customId;
                currentMenu = getDefaultMenuForButton(currentButton);
@@ -226,11 +222,11 @@ async function generateEmbedContent(menu, userData, index, message) {
          break;
 
       case MENU3_ITEM_1.value:
-         if (!userData.fishing)
+         if (!userData.fishing) {
             userData.fishing = await CG.getMessageAuthorFishingDoc(message);
-         console.log('*********************inside below');
-         console.log(userData.fishing);
-         console.log('*********************inside above');
+            console.log("Wczytalo sie");
+         }
+
          result = getCharacterInfo(userData.profile);
          // return getFishingRecordsInfo(userData, index);
    }
