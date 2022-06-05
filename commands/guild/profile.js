@@ -86,7 +86,7 @@ function generateComponents(button, menu, index) {
    const menuItems = [];
 
    if (hasPagination(menu))
-      menuItems.push(generatePaginationButtons, index);
+      menuItems.push(generatePaginationButtons(index));
 
    menuItems.push(generateMainButtons());
    menuItems.push(generateMenu(button));
@@ -244,11 +244,10 @@ function getFishingRecordsInfo(fishes, startingIndex) {
    let result = ``;
    const possibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
    const maxIndex = fishes.length <= possibleMaxIndex ? fishes.length : possibleMaxIndex;
-   
+
    for (let i = startingIndex; i < maxIndex; i++) {
-      result += `${i}. **${FIS.getFishNameId(fishes[i].fishId)}**\n` +
-                `${C.getFullKgToImperial(fishes[i].weight)}\n` +
-                `-----\n`;
+      result += `${i}. **${FIS.getFishNameById(fishes[i].id)}**\n` +
+                `${C.getFullKgToImperial(fishes[i].weight)}\n`;
    }
 
    return result;

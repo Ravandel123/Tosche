@@ -51,7 +51,7 @@ function translateData(leaderboards, message) {
 
    //Fish
    for (item of result.fish) {
-      item.fishId = FIS.getFishNameId(item.fishId);
+      item.fishId = FIS.getFishNameById(item.fishId);
       item.place1Id = guildMembers.find(e => e.id == item.place1Id)?.displayName ?? `A long-forgotten user`;
       item.place2Id = guildMembers.find(e => e.id == item.place2Id)?.displayName ?? `A long-forgotten user`;
       item.place3Id = guildMembers.find(e => e.id == item.place3Id)?.displayName ?? `A long-forgotten user`;
