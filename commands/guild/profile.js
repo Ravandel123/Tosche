@@ -16,11 +16,11 @@ module.exports = {
          let index = 0;
 
          userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
-         embedContent = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
+         // embedContent = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
 
          const embedMessage = await message.channel.send({
-            // embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message),
-            embeds: embedContent,
+            embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message),
+            // embeds: embedContent,
             components: generateComponents(currentButton, currentMenu, index)
          });
 
@@ -40,9 +40,11 @@ module.exports = {
                   currentMenu = i.values[0];
             }
 
-            embedContent = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
-            await i.update({ embeds: embedContent, components: generateComponents(currentButton, currentMenu, index) });
-            // await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message), components: generateComponents(currentButton, currentMenu, index) });
+            await loadData(userData, currentMenu);
+
+            // embedContent = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
+            // await i.update({ embeds: embedContent, components: generateComponents(currentButton, currentMenu, index) });
+            await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message), components: generateComponents(currentButton, currentMenu, index) });
          });
       } catch (e) {
          console.log(e);
@@ -66,6 +68,18 @@ const MENU2_ITEM_1 = new C.SelectOptionData('invFishes', 'Fishes', '🐟');
 
 const MENU3_ITEM_1 = new C.SelectOptionData('recFishing', 'Fishing', '🐟');
 
+//-------------------------DATA-------------------------
+async function loadData(userData, menu) {
+   switch (menu) {
+      case MENU2_ITEM_1.value:
+      case MENU3_ITEM_1.value:
+         if (!userData.fishing) {
+            userData.fishing = await CG.getMessageAuthorFishingDoc(message);
+            console.log("Wczytalo sie");
+         }
+         break;
+   }
+}
 
 //-------------------------MENU-------------------------
 function generateComponents(button, menu, index) {
@@ -147,15 +161,15 @@ function generateMenu(buttonId) {
 
 
 //-------------------------EMBED-------------------------
-async function generateMessageEmbed(button, menu, userData, index, message) {
+function generateMessageEmbed(button, menu, userData, index, message) {
    const image = generateEmbedImage(menu);
    const thumbnailImage = generateThumbnailImage(userData, menu);
 
-   const embedContent = await generateEmbedContent(menu, userData, index, message);
+   // const embedContent = await generateEmbedContent(menu, userData, index, message);
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(menu, userData))
-      .setDescription(embedContent)
-      // .setDescription(generateEmbedContent(menu, userData, index, message))
+      // .setDescription(embedContent)
+      .setDescription(generateEmbedContent(menu, userData, index, message))
       .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg' });
 
    if (image)
@@ -205,33 +219,20 @@ function generateEmbedTitle(menu, userData) {
    }
 }
 
-async function generateEmbedContent(menu, userData, index, message) {
-   let result;
-
+function generateEmbedContent(menu, userData, index, message) {
    switch (menu) {
       case MENU1_ITEM_1.value:
-         result = getCharacterInfo(userData.profile);
-         break;
+         return getCharacterInfo(userData.profile);
 
       case MENU1_ITEM_2.value:
-         result = getCurrenciesInfo(userData.profile);
-         break;
+         return getCurrenciesInfo(userData.profile);
 
       case MENU2_ITEM_1.value:
-         result = getCharacterInfo(userData.profile);
-         break;
+         return getCharacterInfo(userData.profile);
 
       case MENU3_ITEM_1.value:
-         if (!userData.fishing) {
-            userData.fishing = await CG.getMessageAuthorFishingDoc(message);
-            console.log("Wczytalo sie");
-         }
-
-         result = getCharacterInfo(userData.profile);
-         // return getFishingRecordsInfo(userData, index);
+         return getCharacterInfo(userData.profile);
    }
-
-   return Promise.resolve(result);
 }
 
 //-------------------------CONTENT-------------------------
