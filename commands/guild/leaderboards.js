@@ -115,10 +115,10 @@ function getFishingContent(content, startingIndex) {
                 `🥇 ${content[i].place1Id}: ${C.getFullKgToImperial(content[i].place1Weight)})\n`;
 
       if (content[i].place2Weight > 0)
-         result += `🥈 ${content[i].place2Id}: ${C.getFullKgToImperial(content[i].place2Weight})\n`;
+         result += `🥈 ${content[i].place2Id}: ${C.getFullKgToImperial(content[i].place2Weight)})\n`;
 
       if (content[i].place3Weight > 0)
-         result += `🥉 ${content[i].place3Id}: ${C.getFullKgToImperial(content[i].place3Weight})\n`;
+         result += `🥉 ${content[i].place3Id}: ${C.getFullKgToImperial(content[i].place3Weight)})\n`;
 
       result += `-----\n`;
    }
