@@ -50,6 +50,7 @@ module.exports = {
 
          collector.on('end', async i => {
             embedMessage.edit({ content: `The profile browser has been closed.`, components: [] });
+            embedMessage.suppressEmbeds(true);
          });
       } catch (e) {
          console.log(e);
