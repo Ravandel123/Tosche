@@ -55,8 +55,9 @@ module.exports = {
 }
 
 
-//-------------------------CONST-------------------------
-const MAX_ITEMS_ON_PAGE = 3;
+//-------------------------VARIABLES-------------------------
+let currentDataLength = 0;
+const MAX_ITEMS_ON_PAGE = 5;
 
 const MAIN_BUTTON1 = new C.ButtonData('character', 'Character', '', 'SUCCESS');
 const MAIN_BUTTON2 = new C.ButtonData('inventory', 'Inventory', '', 'SUCCESS');
@@ -118,16 +119,13 @@ function hasPagination(menuName) {
       MENU2_ITEM_1.value,
       MENU3_ITEM_1.value
    ];
-console.log('weszlo');
-console.log(menuName);
-console.log(menusWithPages);
-console.log(C.strCheckIfAnyMatch(menuName, menusWithPages));
+
    return C.strCheckIfAnyMatch(menuName, menusWithPages);
 }
 
 function generatePaginationButtons(index) {
    const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'PRIMARY', index == 0);
-   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY', true);
+   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY', index + MAX_ITEMS_ON_PAGE >= currentDataLength);
 
    return C.dcCreateRow([backButton, forwardButton]);
 }
@@ -244,6 +242,8 @@ function getCurrenciesInfo(profile) {
 }
 
 function getFishingRecordsInfo(fishes, startingIndex) {
+   currentDataLength = fishes.length;
+
    let result = ``;
    const possibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
    const maxIndex = fishes.length <= possibleMaxIndex ? fishes.length : possibleMaxIndex;

@@ -112,13 +112,13 @@ function getFishingContent(content, startingIndex) {
    
    for (let i = startingIndex; i < maxIndex; i++) {
       result += `**${content[i].fishId}** 🐟 \n` +
-                `🥇 ${content[i].place1Id}: ${content[i].place1Weight} kg (${C.calcKgToImperial(content[i].place1Weight)})\n`;
+                `🥇 ${content[i].place1Id}: ${C.getFullKgToImperial(content[i].place1Weight)})\n`;
 
       if (content[i].place2Weight > 0)
-         result += `🥈 ${content[i].place2Id}: ${content[i].place2Weight} kg (${C.calcKgToImperial(content[i].place2Weight)})\n`;
+         result += `🥈 ${content[i].place2Id}: ${C.getFullKgToImperial(content[i].place2Weight})\n`;
 
       if (content[i].place3Weight > 0)
-         result += `🥉 ${content[i].place3Id}: ${content[i].place3Weight} kg (${C.calcKgToImperial(content[i].place3Weight)})\n`;
+         result += `🥉 ${content[i].place3Id}: ${C.getFullKgToImperial(content[i].place3Weight})\n`;
 
       result += `-----\n`;
    }
