@@ -210,27 +210,27 @@ function generateEmbedTitle(menu, userData) {
 function generateEmbedContent(menu, userData, index) {
    switch (menu) {
       case MENU1_ITEM_1.value:
-         return getCharacterInfo(userData.profile);
+         return getInfoCharacter(userData.profile);
 
       case MENU1_ITEM_2.value:
-         return getCurrenciesInfo(userData.profile);
+         return getInfoCurrencies(userData.profile);
 
       case MENU2_ITEM_1.value:
-         return getFishingRecordsInfo(userData.fishing.fish, index);
+         return getInventoryFishes(userData.fishing.fish, index);
 
       case MENU3_ITEM_1.value:
-         return getCharacterInfo(userData.profile, index);
+         return getRecordsFishing(userData.fishing.records, index);
    }
 }
 
 //-------------------------CONTENT-------------------------
-function getCharacterInfo(profile) {
+function getInfoCharacter(profile) {
    return `**Tag**: ${profile.ownerTag}\n` +
           `**Id**: ${profile.ownerId}\n` +
           `**Action Points**: ${profile.actionPoints?.current}`;
 }
 
-function getCurrenciesInfo(profile) {
+function getInfoCurrencies(profile) {
    const currencies = profile.currencies;
 
    return `**Amber Drops:** ${currencies.amberDrops}\n` +
@@ -241,16 +241,31 @@ function getCurrenciesInfo(profile) {
           `**Deltrada Coins:** ${currencies.deltradaCoins}`;
 }
 
-function getFishingRecordsInfo(fishes, startingIndex) {
+function getInventoryFishes(fishes, startingIndex) {
    currentDataLength = fishes.length;
 
    let result = ``;
    const possibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
-   const maxIndex = fishes.length <= possibleMaxIndex ? fishes.length : possibleMaxIndex;
+   const maxIndex = currentDataLength <= possibleMaxIndex ? currentDataLength : possibleMaxIndex;
 
    for (let i = startingIndex; i < maxIndex; i++) {
       result += `**${i}. ${FIS.getFishNameById(fishes[i].id)}**\n` +
                 `${C.getFullKgToImperial(fishes[i].weight)}\n\n`;
+   }
+
+   return result;
+}
+
+function getRecordsFishing(fishingRecords, startingIndex) {
+   currentDataLength = fishingRecords.length;
+
+   let result = ``;
+   const possibleMaxIndex = startingIndex + MAX_ITEMS_ON_PAGE;
+   const maxIndex = currentDataLength <= possibleMaxIndex ? currentDataLength : possibleMaxIndex;
+
+   for (let i = startingIndex; i < maxIndex; i++) {
+      result += `**${i}. ${FIS.getFishNameById(fishingRecords[i].id)}**\n` +
+                `${C.getFullKgToImperial(fishingRecords[i].weight)}\n\n`;
    }
 
    return result;
