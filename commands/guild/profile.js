@@ -40,7 +40,7 @@ module.exports = {
                   currentMenu = i.values[0];
             }
 
-            await loadData(userData, currentMenu);
+            await loadData(userData, currentMenu, message);
 
             // embedContent = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
             // await i.update({ embeds: embedContent, components: generateComponents(currentButton, currentMenu, index) });
@@ -69,7 +69,7 @@ const MENU2_ITEM_1 = new C.SelectOptionData('invFishes', 'Fishes', '🐟');
 const MENU3_ITEM_1 = new C.SelectOptionData('recFishing', 'Fishing', '🐟');
 
 //-------------------------DATA-------------------------
-async function loadData(userData, menu) {
+async function loadData(userData, menu, message) {
    switch (menu) {
       case MENU2_ITEM_1.value:
       case MENU3_ITEM_1.value:
