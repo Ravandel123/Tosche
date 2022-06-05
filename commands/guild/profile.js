@@ -246,7 +246,7 @@ function getFishingRecordsInfo(fishes, startingIndex) {
    const maxIndex = fishes.length <= possibleMaxIndex ? fishes.length : possibleMaxIndex;
    
    for (let i = startingIndex; i < maxIndex; i++) {
-      result += `${i}. **${FIS.getFishNameId(fishes[i].fishId}**\n` +
+      result += `${i}. **${FIS.getFishNameId(fishes[i].fishId)}**\n` +
                 `${C.getFullKgToImperial(fishes[i].weight)}\n` +
                 `-----\n`;
    }
