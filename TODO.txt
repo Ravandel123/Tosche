@@ -37,8 +37,6 @@ function dcSendMsgToChannel2(message, channelName, msgContent)
 
 16. Dodaj uaktualnianie nazwy w profilu
 
-17. Timout w kazdym collectorze
-
 -----FINISHED COMMANDS-----
 --Normal--
 %
