@@ -22,7 +22,7 @@ module.exports = {
             components: generateComponents(currentButton, currentMenu, index)
          });
 
-         const collector = embedMessage.createMessageComponentCollector();
+         const collector = embedMessage.createMessageComponentCollector({ time: 1800 });
          collector.on('collect', async i => {
             if (i.user.id != message.author.id) {
                await i.reply({ content: `Only the person who ran the command can do that!`, ephemeral: true });
@@ -46,6 +46,10 @@ module.exports = {
             await loadData(userData, currentMenu, message);
 
             await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index), components: generateComponents(currentButton, currentMenu, index) });
+         });
+
+         collector.on('end', async i => {
+            embedMessage.edit({ content: `The profile browser has been closed.`, components: [] });
          });
       } catch (e) {
          console.log(e);
