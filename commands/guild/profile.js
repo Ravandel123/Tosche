@@ -10,17 +10,14 @@ module.exports = {
    async execute(message, args) {
       try {
          let userData = {};
-         // let embedContent;
          let currentButton = MAIN_BUTTON1.id;
          let currentMenu = MENU1_ITEM_1.value;
          let index = 0;
 
          userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
-         // embedContent = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
 
          const embedMessage = await message.channel.send({
             embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message),
-            // embeds: embedContent,
             components: generateComponents(currentButton, currentMenu, index)
          });
 
@@ -42,8 +39,6 @@ module.exports = {
 
             await loadData(userData, currentMenu, message);
 
-            // embedContent = await generateMessageEmbed(currentButton, currentMenu, userData, index, message);
-            // await i.update({ embeds: embedContent, components: generateComponents(currentButton, currentMenu, index) });
             await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message), components: generateComponents(currentButton, currentMenu, index) });
          });
       } catch (e) {
@@ -75,7 +70,6 @@ async function loadData(userData, menu, message) {
       case MENU3_ITEM_1.value:
          if (!userData.fishing) {
             userData.fishing = await CG.getMessageAuthorFishingDoc(message);
-            console.log("Wczytalo sie");
          }
          break;
    }
@@ -165,10 +159,8 @@ function generateMessageEmbed(button, menu, userData, index, message) {
    const image = generateEmbedImage(menu);
    const thumbnailImage = generateThumbnailImage(userData, menu);
 
-   // const embedContent = await generateEmbedContent(menu, userData, index, message);
    const embed = new D.MessageEmbed()
       .setTitle(generateEmbedTitle(menu, userData))
-      // .setDescription(embedContent)
       .setDescription(generateEmbedContent(menu, userData, index, message))
       .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg' });
 
