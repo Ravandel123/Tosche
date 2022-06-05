@@ -540,7 +540,7 @@ function strCheckIfAnyMatch(string, array, ignoreCase = true) {
    if (!checkIfString(string) || !checkIfArray(array))
       return;
 
-   return ignoreCase ? checkIfAnyMatch(strToLowerCase(string), array) : checkIfAnyMatch(string, array);
+   return ignoreCase ? checkIfAnyMatch(strToLowerCase(string), strToLowerCase(array)) : checkIfAnyMatch(string, array);
 }
 
 module.exports.strCheckIfAnyMatch = strCheckIfAnyMatch;
