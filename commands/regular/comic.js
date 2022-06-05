@@ -16,7 +16,7 @@ module.exports = {
          components: generatePageMovementRow(chapter, page)
       });
 
-      const collector = embedMessage.createMessageComponentCollector({ time: 1800000 });
+      const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
       collector.on('collect', async i => {
          if (i.isButton()) {
             switch(i.customId) {
@@ -47,6 +47,7 @@ module.exports = {
 
       collector.on('end', async i => {
          embedMessage.edit({ content: `The comic browser has been closed.`, components: [] });
+         embedMessage.suppressEmbeds(true);
       });
    },
 }

@@ -22,7 +22,7 @@ module.exports = {
             components: generateComponents(currentButton, currentMenu, index)
          });
 
-         const collector = embedMessage.createMessageComponentCollector({ time: 1800 });
+         const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
          collector.on('collect', async i => {
             if (i.user.id != message.author.id) {
                await i.reply({ content: `Only the person who ran the command can do that!`, ephemeral: true });

@@ -30,7 +30,7 @@ module.exports = {
          components: generateMenu(index, leaderboards, 'fish')
       });
 
-      const collector = embedMessage.createMessageComponentCollector({ time: 1800 });
+      const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
       collector.on('collect', async i => {
          if (i.isSelectMenu()) {
             currentMenu = i.values[0];
@@ -44,6 +44,7 @@ module.exports = {
 
       collector.on('end', async i => {
          embedMessage.edit({ content: `The leaderboard browser has been closed.`, components: [] });
+         embedMessage.suppressEmbeds(true);
       });
    },
 }
