@@ -10,7 +10,7 @@ module.exports = {
    async execute(message, args) {
       try {
          let userData = {};
-         let embedContent;
+         // let embedContent;
          let currentButton = MAIN_BUTTON1.id;
          let currentMenu = MENU1_ITEM_1.value;
          let index = 0;
@@ -178,7 +178,7 @@ function generateMessageEmbed(button, menu, userData, index, message) {
    if (thumbnailImage)
       embed.setThumbnail(thumbnailImage);
 
-   return Promise.resolve([embed]);
+   return [embed];
 }
 
 function generateEmbedImage(menu) {
