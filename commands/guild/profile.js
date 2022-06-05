@@ -76,7 +76,7 @@ async function loadData(userData, menu, message) {
       case MENU2_ITEM_1.value:
       case MENU3_ITEM_1.value:
          if (!userData.fishing) {
-            userData.fishing = await CG.getFishingDocById(message, userData.ownerId);
+            userData.fishing = await CG.getFishingDocById(message, userData.profile.ownerId);
          }
          break;
    }
