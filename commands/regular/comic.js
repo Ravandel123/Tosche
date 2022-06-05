@@ -44,6 +44,10 @@ module.exports = {
 
          await i.update({ embeds: generatePageEmbed(chapter, page), components: generatePageMovementRow(chapter, page) });
       });
+
+      collector.on('end', async i => {
+         embedMessage.edit({ content: `The comic browser has been closed.`, components: [] });
+      });
    },
 }
 
