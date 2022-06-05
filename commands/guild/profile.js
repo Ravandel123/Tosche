@@ -118,7 +118,10 @@ function hasPagination(menuName) {
       MENU2_ITEM_1.value,
       MENU3_ITEM_1.value
    ];
-
+console.log('weszlo');
+console.log(menuName);
+console.log(menusWithPages);
+console.log(C.strCheckIfAnyMatch(menuName, menusWithPages));
    return C.strCheckIfAnyMatch(menuName, menusWithPages);
 }
 
@@ -246,8 +249,8 @@ function getFishingRecordsInfo(fishes, startingIndex) {
    const maxIndex = fishes.length <= possibleMaxIndex ? fishes.length : possibleMaxIndex;
 
    for (let i = startingIndex; i < maxIndex; i++) {
-      result += `${i}. **${FIS.getFishNameById(fishes[i].id)}**\n` +
-                `${C.getFullKgToImperial(fishes[i].weight)}\n`;
+      result += `**${i}. ${FIS.getFishNameById(fishes[i].id)}**\n` +
+                `${C.getFullKgToImperial(fishes[i].weight)}\n\n`;
    }
 
    return result;
