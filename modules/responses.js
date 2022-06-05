@@ -83,15 +83,19 @@ function resDefaultData() {
 
    const userAdjectives = [
       `crazy`,
+      `fun`,
       `insane`,
+      `lazy`,
       `nuts`
    ];
 
    const arrayResult = [
       `${r(opinions)}`,
-      `If you keep saying things like that, I will go ${r(userAdjectives)}`,
-      `You ${r(speaking)} like someone who doesn't like ${r(activities)}`,
-      `You ${r(speaking)} like someone who is ${r(userAdjectives)}`
+      // `If you keep saying things like that, I will becoem ${r(AC.adjAfflictionsVirtues)}`,
+      // `You ${r(speaking)} like someone who doesn't like ${r(activities)}`,
+      `You ${r(speaking)} like someone ${r(AC.adjAfflictionsVirtues)}`,
+      `That information just made me ${r(AC.baseAdverbsList)} ${r(AC.adjAfflictionsVirtues)}`,
+      `That information just made me ${r(AC.adjAfflictionsVirtues)}`
    ];
 
    return arrayResult;
@@ -107,7 +111,7 @@ module.exports.resDefault = resDefault;
 function resAmount(maxMultiplier = 8, additionalSymbol = '') {
    const maxNumber = G.genRandomMultiplier(maxMultiplier, 75) + 1;
    const amountPart = C.rnd(maxNumber) + additionalSymbol;
-   const defaultEnding = G.genAccuracy(false) + ' ' + amountPart;
+   const defaultEnding = G.genAccuracy(false) + amountPart;
 
    const arrayResult = [
       `${amountPart}`,

@@ -70,6 +70,57 @@ const adjectivesAcceptedInsulting = [
    'wild'
 ];
 
+const adjAfflictions = [
+   'aberrant', 'abusive', 'aggressive', 'alcoholic', 'anxious', 
+   'barbaric', 'brainwashed', 
+   'cannibalistic', 'crazy',
+   'degenerate', 'delusional', 'depressive', 'destructive', 'deviant', 'dumb',
+   'fearful', 'feral', 'frocious', 'foolish', 'furious', 'furry',
+   'heartless', 'hopeless',
+   'idiotic', 'imbecilic', 'inane', 'insane', 'irrational',
+   'lazy', 
+   'maniacal', 'masochistic', 'mindless', 'murderous', 'mutantic',
+   'narcissistic',
+   'paranoid', 'pathethic', 'pathologic', 'perverse', 'primitive', 'psychopathic',
+   'racist', 'rapturous', 'ravenous',
+   'sadistic', 'selfish', 'stupid'
+];
+
+const adjVirtues = [
+   'courageous',
+   'focused',
+   'powerful',
+   'stalwart',
+   'vigorous'
+];
+
+const adjAfflictionsVirtues = adjAfflictions.concat(adjVirtues);
+
+//Adverbs
+const baseAdverbsList = [
+   'Absentmindedly', 'Absolutely', 'Abstractedly', 'Abundantly', 'Adoringly', 'Aggressively', 'Attractively', 'Awkwardly',
+   'Beautifully', 'Briskly', 'Brutally',
+   'Cannibalistically', 'Carefully', 'Cautiously', 'Cheerfully', 'Cheerily', 'Competitively', 'Completely', 'Conservatively', 'Contritely', 'Copiously', 'Correctly', 'Cosmically',
+   'Deadly',
+   'Eagerly', 'Effectively', 'Effortlessly', 'Entirely', 'Excellently', 'Exceptionally', 'Excessively', 'Extravagantly', 'Extremely',
+   'Famously', 'Fantastically', 'Faultlessly', 'Feebly', 'Foolishly', 'Frantically', 'Furiously',
+   'Gently', 'Gingerly', 'Girlishly', 'Gorgeously', 'Gracefully', 'Graciously', 'Grimly', 'Guardedly',
+   'Half-heartedly', 'Happily', 'Heartlessly', 'Hungrily',
+   'Idiotically', 'Idly', 'Inattentively',
+   'Lazily', 'Lifelessly', 'Loyally',
+   'Magnificently', 'Maniacally', 'Masochistically', 'Mega', 'Mindlessly', 'Mutantically',
+   'Narcissistically', 'Nimbly',
+   'Overly',
+   'Perfectly', 'Pathetically', 'Pleasantly', 'Plentifully', 'Practically', 'Primitively', 'Profusely', 'Properly', 'Purely',
+   'Quietly', 'Questioningly', 'Quite', 'Quizzically', 
+   'Ravenously', 'Really', 'Recklessly', 'Remorsefully', 'Rightly', 'Ruefully', 'Ruthlessly',
+   'Sadistically', 'Savagely ', 'Silently', 'Slightly', 'Sloppily', 'Splendidly', 'Stupidly', 'Stylishly', 'Superbly', 'Sunnily', 'Super',
+   'Terribly', 'Thirstily', 'Totally',
+   'Ultra', 'Unabashedly', 'Unevenly', 'Urgently', 'Utterly',
+   'Very', 'Viciously',
+   'Warily', 'Weakly', 'Well', 'Wishfully', 'Witlessly', 'Wholly', 'Worriedly'
+];
+
 //Nouns
 const nounsAcceptedInsulting = [
    'abomination',
@@ -115,7 +166,11 @@ module.exports = {
    arrayBodyShapes,
 
    vowels,
+   adjAfflictions,
+   adjVirtues,
+   adjAfflictionsVirtues,
    adjectivesAcceptedInsulting,
+   baseAdverbsList,
    nounsAcceptedInsulting,
    pronouns,
 };

@@ -16,7 +16,7 @@ module.exports = {
          components: generatePageMovementRow(chapter, page)
       });
 
-      const collector = embedMessage.createMessageComponentCollector();
+      const collector = embedMessage.createMessageComponentCollector({ time: 1000 });
       collector.on('collect', async i => {
          if (i.isButton()) {
             switch(i.customId) {
