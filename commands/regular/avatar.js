@@ -7,7 +7,7 @@ module.exports = {
    usage: '[mention]',
    example: `<@!392728479696814092>`,
    execute(message, args) {
-      const who = CC.getMemberByNameOrMention(message, args[1] ?? message.author.id);
+      const who = args[1] ? CC.getMemberByNameOrMention(message, args[1]) : message.author;
       if (who)
          C.dcRespondToMsg(message, who.displayAvatarURL());
    },
