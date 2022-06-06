@@ -37,6 +37,8 @@ function dcSendMsgToChannel2(message, channelName, msgContent)
 
 16. Dodaj uaktualnianie nazwy w profilu
 
+17. Do komendy 'why' dodaj z adamsow because its fun
+
 -----FINISHED COMMANDS-----
 --Normal--
 %

@@ -79,11 +79,11 @@ const adjAfflictions = [
    'heartless', 'hopeless',
    'idiotic', 'imbecilic', 'inane', 'insane', 'irrational',
    'lazy', 
-   'maniacal', 'masochistic', 'mindless', 'murderous', 'mutantic',
+   'maniacal', 'mindless', 'murderous', 'mutantic',
    'narcissistic',
    'paranoid', 'pathethic', 'pathologic', 'perverse', 'primitive', 'psychopathic',
    'racist', 'rapturous', 'ravenous',
-   'sadistic', 'selfish', 'stupid'
+   'selfish', 'stupid'
 ];
 
 const adjVirtues = [
@@ -108,13 +108,13 @@ const baseAdverbsList = [
    'Half-heartedly', 'Happily', 'Heartlessly', 'Hungrily',
    'Idiotically', 'Idly', 'Inattentively',
    'Lazily', 'Lifelessly', 'Loyally',
-   'Magnificently', 'Maniacally', 'Masochistically', 'Mega', 'Mindlessly', 'Mutantically',
+   'Magnificently', 'Maniacally', 'Mega', 'Mindlessly', 'Mutantically',
    'Narcissistically', 'Nimbly',
    'Overly',
    'Perfectly', 'Pathetically', 'Pleasantly', 'Plentifully', 'Practically', 'Primitively', 'Profusely', 'Properly', 'Purely',
    'Quietly', 'Questioningly', 'Quite', 'Quizzically', 
    'Ravenously', 'Really', 'Recklessly', 'Remorsefully', 'Rightly', 'Ruefully', 'Ruthlessly',
-   'Sadistically', 'Savagely ', 'Silently', 'Slightly', 'Sloppily', 'Splendidly', 'Stupidly', 'Stylishly', 'Superbly', 'Sunnily', 'Super',
+   'Savagely ', 'Silently', 'Slightly', 'Sloppily', 'Splendidly', 'Stupidly', 'Stylishly', 'Superbly', 'Sunnily', 'Super',
    'Terribly', 'Thirstily', 'Totally',
    'Ultra', 'Unabashedly', 'Unevenly', 'Urgently', 'Utterly',
    'Very', 'Viciously',

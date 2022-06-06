@@ -41,26 +41,26 @@ module.exports.getProfileById = getProfileById;
 
 // OK---------------------------------------------------------------------------------------------------------------
 async function getMemberProfile(message, nameOrMention) {
-   let foundID = C.getMemberIdByNameOrMention(message, nameOrMention);
+   let found = C.getMemberIdByNameOrMention(message, nameOrMention);
 
-   if (C.dcCheckIfCollection(foundID)) {
-      const membersAmount = foundID.size;
+   if (C.dcCheckIfCollection(found)) {
+      const membersAmount = found.size;
 
       if (membersAmount == 0) {
          return Promise.reject(`No users found!`);
       } else if (membersAmount > 1) {
          let msg = `Found more than 1 user!\nUsers found: `;
-         const memberNames = foundID.map(e => e.displayName);
+         const memberNames = found.map(e => e.displayName);
 
          memberNames.forEach(e => msg += `${e}; `);
 
          return Promise.reject(msg);
       } else {
-         foundID = foundID.at(0).id;
+         found = found.at(0).id;
       }
    }
 
-   return Promise.resolve(getProfileById(message, foundID));
+   return Promise.resolve(getProfileById(message, found));
 }
 
 module.exports.getMemberProfile = getMemberProfile;
