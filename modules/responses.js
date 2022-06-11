@@ -74,35 +74,20 @@ function resDefaultData() {
       `sound`, `speak`,
       `talk`
    ];
-
-   const activities = [
-      `fighting with the Ermehn`, `fun`,
-      `good food`,
-      `swimming`,
-   ];
-
-   const userAdjectives = [
-      `crazy`,
-      `fun`,
-      `insane`,
-      `lazy`,
-      `nuts`
-   ];
-
+   
    const arrayResult = [
       `${r(opinions)}`,
-      // `If you keep saying things like that, I will becoem ${r(AC.adjAfflictionsVirtues)}`,
-      // `You ${r(speaking)} like someone who doesn't like ${r(activities)}`,
       `You ${r(speaking)} like someone ${r(AC.adjAfflictionsVirtues)}`,
       `That information just made me ${r(AC.baseAdverbsList)} ${r(AC.adjAfflictionsVirtues)}`,
-      `That information just made me ${r(AC.adjAfflictionsVirtues)}`
+      `That information just made me ${r(AC.adjAfflictionsVirtues)}`,
+      `*${r(AC.adjAfflictions)} Tosche noises*`
    ];
 
    return arrayResult;
 }
 
 function resDefault() {
-   return C.strCapitalizeFirstLetter(C.arrGetRandom(resDefaultData())) + G.genFunnyEnding();
+   return C.strCapitalizeFirstLetter(C.arrGetRandom(resDefaultData()));
 }
 
 module.exports.resDefault = resDefault;

@@ -48,7 +48,7 @@ const termsAccuracy = [
 
 //Adjectives
 const adjectivesAcceptedInsulting = [
-   'abrrant', 'abominable', 'absurd', 'abusive', 'adorable', 'aggressive','alcoholic', 'amateur', 'amusing',
+   'aberrant', 'abominable', 'absurd', 'abusive', 'adorable', 'aggressive','alcoholic', 'amateur', 'amusing',
    'barbaric', 'bioluminescent', 'bizzare', 'brutal',
    'cave-dwelling', 'crazy', 'creepy', 'cute',
    'delusional', 'domesticated', 'drooly', 'drunken',

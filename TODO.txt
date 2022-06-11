@@ -43,6 +43,7 @@ function dcSendMsgToChannel2(message, channelName, msgContent)
 --Normal--
 %
 amount
+avatar
 chance
 cmtoimperial
 comic
