@@ -16,10 +16,11 @@ module.exports = {
       try {
          let profile = await CG.getMessageAuthorProfile(message);
 
-         if (C.strCompare(args[1], 'picture'))
+         if (C.strCompare(args[1], 'picture')) {
             profile.picture = '';
-
-         await profile.save();
+            await profile.save();
+            C.dcRespondToMsg(message, `Your profile picture has been reseted.`);
+         }
       } catch (e) {
          C.dcRespondToMsg(message, e);
       }
