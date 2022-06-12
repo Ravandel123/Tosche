@@ -45,6 +45,7 @@ function dcSendMsgToChannel2(message, channelName, msgContent)
 amount
 avatar
 bmi
+bmiforheight
 chance
 cmtoimperial
 comic
