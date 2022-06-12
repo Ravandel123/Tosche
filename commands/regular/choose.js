@@ -1,4 +1,4 @@
-const commons = require('../../modules/common.js');
+const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
 const { prefix } = require('../../config.json');
 
@@ -9,14 +9,14 @@ module.exports = {
    example: 'Tosche is awesome|Tosche is amazing|Tosche is great',
    execute(message, args)
    {
-      const requiredArgs = ['choices separated by |']
+      const requiredArgs = ['choices separated by |'];
 
       if (!CC.checkArgsAmount(message, args, requiredArgs))
-         return
+         return;
 
-      const clearedChoices = message.content.slice(prefix.length + args[0].length - 1)
-      const choices = clearedChoices.split('|')
+      const clearedChoices = message.content.slice(prefix.length + args[0].length - 1);
+      const choices = clearedChoices.split('|');
 
-      commons.dcRespondFromArray(message, choices)
+      C.dcRespondFromArray(message, choices);
    },
 }
