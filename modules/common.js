@@ -1030,7 +1030,7 @@ function dcSendMsgToChannel(channel, msgContent) {
    if (!finalMsg)
       return;
    console.log(finalMsg);
-   runFunctionOnAll(finalMsg, e => channel.send(e));
+   runFunctionOnAll(finalMsg, e => if (e) ? channel.send(e));
 }
 
 module.exports.dcSendMsgToChannel = dcSendMsgToChannel;
