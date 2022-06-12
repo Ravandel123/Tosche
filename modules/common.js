@@ -1029,7 +1029,7 @@ function dcSendMsgToChannel(channel, msgContent) {
    const finalMsg = getFixedMessageContent(msgContent);
    if (!finalMsg)
       return;
-
+   console.log(finalMsg);
    runFunctionOnAll(finalMsg, e => channel.send(e));
 }
 
