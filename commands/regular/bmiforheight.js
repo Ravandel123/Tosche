@@ -23,7 +23,7 @@ module.exports = {
          const minWeight = C.calcBMIWeight(args[1], currentBMI.minBMI);
          const maxWeight = C.calcBMIWeight(args[1], currentBMI.maxBMI);
 
-         msg = msg + `${currentBMI.name}: ${minWeight} kg - ${maxWeight} kg\n`;
+         msg = msg + `${currentBMI.name}: ${minWeight} kg - ${maxWeight} kg (${C.calcKgToImperial(minWeight)} - ${C.calcKgToImperial(maxWeight)})\n`;
       }
 
       C.dcRespondToMsg(message, msg);

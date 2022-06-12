@@ -20,6 +20,6 @@ module.exports = {
       let possibleBodyShapes = C.arrGetAllByFunction(AC.arrayBodyShapes, (e) => bmi >= e.minBMI && bmi <= e.maxBMI);
       possibleBodyShapes = possibleBodyShapes.map(e => e.name).join(' or ');
 
-      C.dcRespondToMsg(message, `BMI: ${bmi} (${possibleBodyShapes})`);
+      C.dcRespondToMsg(message, `Your BMI: ${bmi} (${possibleBodyShapes})`);
    },
 }
