@@ -98,27 +98,27 @@ const adjAfflictionsVirtues = adjAfflictions.concat(adjVirtues);
 
 //Adverbs
 const baseAdverbsList = [
-   'Absentmindedly', 'Absolutely', 'Abstractedly', 'Abundantly', 'Adoringly', 'Aggressively', 'Attractively', 'Awkwardly',
-   'Beautifully', 'Briskly', 'Brutally',
-   'Cannibalistically', 'Carefully', 'Cautiously', 'Cheerfully', 'Cheerily', 'Competitively', 'Completely', 'Conservatively', 'Contritely', 'Copiously', 'Correctly', 'Cosmically',
-   'Deadly',
-   'Eagerly', 'Effectively', 'Effortlessly', 'Entirely', 'Excellently', 'Exceptionally', 'Excessively', 'Extravagantly', 'Extremely',
-   'Famously', 'Fantastically', 'Faultlessly', 'Feebly', 'Foolishly', 'Frantically', 'Furiously',
-   'Gently', 'Gingerly', 'Girlishly', 'Gorgeously', 'Gracefully', 'Graciously', 'Grimly', 'Guardedly',
-   'Half-heartedly', 'Happily', 'Heartlessly', 'Hungrily',
-   'Idiotically', 'Idly', 'Inattentively',
-   'Lazily', 'Lifelessly', 'Loyally',
-   'Magnificently', 'Maniacally', 'Mega', 'Mindlessly', 'Mutantically',
-   'Narcissistically', 'Nimbly',
-   'Overly',
-   'Perfectly', 'Pathetically', 'Pleasantly', 'Plentifully', 'Practically', 'Primitively', 'Profusely', 'Properly', 'Purely',
-   'Quietly', 'Questioningly', 'Quite', 'Quizzically', 
-   'Ravenously', 'Really', 'Recklessly', 'Remorsefully', 'Rightly', 'Ruefully', 'Ruthlessly',
-   'Savagely ', 'Silently', 'Slightly', 'Sloppily', 'Splendidly', 'Stupidly', 'Stylishly', 'Superbly', 'Sunnily', 'Super',
-   'Terribly', 'Thirstily', 'Totally',
-   'Ultra', 'Unabashedly', 'Unevenly', 'Urgently', 'Utterly',
-   'Very', 'Viciously',
-   'Warily', 'Weakly', 'Well', 'Wishfully', 'Witlessly', 'Wholly', 'Worriedly'
+   'absentmindedly', 'absolutely', 'abstractedly', 'abundantly', 'adoringly', 'aggressively', 'attractively', 'awkwardly',
+   'beautifully', 'briskly', 'brutally',
+   'cannibalistically', 'carefully', 'cautiously', 'cheerfully', 'cheerily', 'competitively', 'completely', 'conservatively', 'contritely', 'copiously', 'correctly', 'cosmically',
+   'deadly',
+   'eagerly', 'effectively', 'effortlessly', 'entirely', 'excellently', 'exceptionally', 'excessively', 'extravagantly', 'extremely',
+   'famously', 'fantastically', 'faultlessly', 'feebly', 'foolishly', 'frantically', 'furiously',
+   'gently', 'gingerly', 'girlishly', 'gorgeously', 'gracefully', 'graciously', 'grimly', 'guardedly',
+   'half-heartedly', 'happily', 'heartlessly', 'hungrily',
+   'idiotically', 'idly', 'inattentively',
+   'lazily', 'lifelessly', 'loyally',
+   'magnificently', 'maniacally', 'mega', 'mindlessly', 'mutantically',
+   'narcissistically', 'nimbly',
+   'overly',
+   'perfectly', 'pathetically', 'pleasantly', 'plentifully', 'practically', 'primitively', 'profusely', 'properly', 'purely',
+   'quietly', 'questioningly', 'quite', 'quizzically', 
+   'ravenously', 'really', 'recklessly', 'remorsefully', 'rightly', 'ruefully', 'ruthlessly',
+   'savagely ', 'silently', 'slightly', 'sloppily', 'splendidly', 'stupidly', 'stylishly', 'superbly', 'sunnily', 'super',
+   'terribly', 'thirstily', 'totally',
+   'ultra', 'unabashedly', 'unevenly', 'urgently', 'utterly',
+   'very', 'viciously',
+   'warily', 'weakly', 'well', 'wishfully', 'witlessly', 'wholly', 'worriedly'
 ];
 
 //Nouns

@@ -116,7 +116,7 @@ function defaultBehavior(message) {
       return;
    }
 
-   if (C.chance(52)) {
+   if (C.chance(2)) {
       C.dcRespondToMsg(message, R.resDefault());
    }
 }
