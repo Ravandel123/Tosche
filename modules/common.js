@@ -1009,10 +1009,10 @@ function dcSendMsg(message, msgContent, msgType = 'channel') {
          dcSendMsgToChannel(message.channel, finalMsg);
          break;
       case 'dm':
-         runFunctionOnAll(finalMsg, e => message.author.send(e));
+         runFunctionOnAll(finalMsg, e => { if (e) message.author.send(e) });
          break;
       case 'reply':
-         runFunctionOnAll(finalMsg, e => message.reply(e));
+         runFunctionOnAll(finalMsg, e => { if (e) message.reply(e) });
          break;
       default:
          break;
@@ -1029,29 +1029,11 @@ function dcSendMsgToChannel(channel, msgContent) {
    const finalMsg = getFixedMessageContent(msgContent);
    if (!finalMsg)
       return;
-   console.log(finalMsg);
+
    runFunctionOnAll(finalMsg, e => { if (e) channel.send(e) });
 }
 
 module.exports.dcSendMsgToChannel = dcSendMsgToChannel;
-
-// OK---------------------------------------------------------------------------------------------------------------
-function dcSendMsgToChannel2(message, channelName, msgContent) {
-   if (!dcCheckIfMessage(message) || !checkIfExists(channelName) || !checkIfExists(msgContent))
-      return;
-
-   const channel = dcGetChannelByName(message.guild, channelName);
-   if (!checkIfExists(channelName))
-      return;
-
-   const finalMsg = getFixedMessageContent(msgContent);
-   if (!finalMsg)
-      return;
-
-   runFunctionOnAll(finalMsg, e => channel.send(e));
-}
-
-module.exports.dcSendMsgToChannel2 = dcSendMsgToChannel2;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcRespondToMsg(message, msgContent) {

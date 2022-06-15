@@ -24,8 +24,7 @@ function strAddArticle(string)
 
 10. Dopracuje usage zeby obslugiwalo rozne warianty: '[join]\nOR [duel] [user]'
 
-11. Po co to jest?
-function dcSendMsgToChannel2(message, channelName, msgContent)
+11. Do komendy 'why' dodaj z adamsow because its fun
 
 12. Dorob przypominajke na CRONIE
 
@@ -37,7 +36,7 @@ function dcSendMsgToChannel2(message, channelName, msgContent)
 
 16. Dodaj uaktualnianie nazwy w profilu
 
-17. Do komendy 'why' dodaj z adamsow because its fun
+
 
 -----FINISHED COMMANDS-----
 --Normal--
@@ -47,6 +46,7 @@ avatar
 bmi
 bmiforheight
 chance
+choose
 cmtoimperial
 comic
 commands

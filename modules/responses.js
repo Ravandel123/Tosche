@@ -80,7 +80,7 @@ function resDefaultData() {
       `You ${r(speaking)} like someone ${r(AC.adjAfflictionsVirtues)}`,
       `That information just made me ${r(AC.baseAdverbsList)} ${r(AC.adjAfflictionsVirtues)}`,
       `That information just made me ${r(AC.adjAfflictionsVirtues)}`,
-      `*${r(AC.adjAfflictions)} Tosche noises*`
+      `*${C.strCapitalizeFirstLetter(r(AC.adjAfflictions))} Tosche noises*`
    ];
 
    return arrayResult;
