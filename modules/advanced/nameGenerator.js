@@ -20,7 +20,7 @@ const arrayM1 = [
       'Cain', 'Calh', 'Crim',
       'Dalt', 'Don', 'Dorn', 'Drall', 'Drax',
       'Ferg', 'Feyn', 'Fiur', 'Floyd',
-      'Gem', 'Gird', 'Grok', 'Grum', 'Gue', 'Gus',
+      'Gem', 'Gird', 'Greg', 'Grok', 'Grum', 'Gue', 'Gus',
       'Hexx',
       'Jed', 'Jin',
       'Kahn', 'Kalt', 'Kardd', 'Karg', 'Karth', 'Kel', 'Kraith', 'Krys',
@@ -401,7 +401,7 @@ function generateRandomName(gender, syllablesAmount) {
 module.exports.generateRandomName = generateRandomName;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function createRandomName(gender, syllable, syllablePosition, syllablesAmount) {
+function createRandomName(syllable, gender, syllablePosition, syllablesAmount) {
    if (!C.checkIfString(syllable) || !C.checkIfIntInRange(syllablePosition, 1, MAX_SYLLABLES_AMOUNT))
       return;
 

@@ -9,21 +9,22 @@ module.exports = {
    usage: '[gender] [amount of syllables in generated names (max 4)] [amount of generated names (max 100)]',
    example: 'male 2 10',
    execute(message, args) {
-      if (args[1] == 'count')
+      if (args[1] == 'count') {
          C.dcRespondToMsg(message, `Total amount of (assumedly different) names that could be generated: ${NAMEGEN.totalNamesCount()}`);
-
-      const gender = args[1] ?? C.arrGetRandom(['m', 'f']);
-      const syllablesAmount = args[2] ?? C.rndBetween(1, 4);
-      const namesAmount = args[3] ?? 1;
-
-      if (!C.strCheckIfAnyMatch(gender, NAMEGEN.arrGenderAliases) && !C.strCompare(gender, 'count')) {
-         C.dcRespondFromArray(message, R.resIssue(`**${gender}** isn't a proper gender name or alias`));
          return;
       }
 
+      const gender = args[1] ?? C.arrGetRandom(['m', 'f']);
+      if (!C.strCheckIfAnyMatch(gender, NAMEGEN.arrGenderAliases) && !C.strCompare(gender, 'count')) {
+         C.dcRespondFromArray(message, R.resIssue(`**${gender}** isn't a proper gender name/alias`));
+         return;
+      }
+
+      const syllablesAmount = args[2] ?? C.rndBetween(1, 4);
       if (!CC.checkIfArgIsNaturalNumberInScope(message, syllablesAmount, 1, 4))
          return;
 
+      const namesAmount = args[3] ?? 1;
       if (!CC.checkIfArgIsNaturalNumberInScope(message, namesAmount, 1, 100))
          return;
 
