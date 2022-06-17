@@ -6,19 +6,18 @@ module.exports = {
    description: 'Converts degrees Fahrenheit to degrees Celsius.',
    usage: '[temperature in °F] [number of decimal places in the result]',
    example: '50',
-   execute(message, args)
-   {
+   execute(message, args) {
       const requiredArgs = ['temperature in °F'];
 
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      let temperatureInC;
-      const temperatureInF = args[1];
-      let decimalPlaces = args[2];
-
       if (!CC.checkIfArgIsNumber(message, temperatureInF))
          return;
+
+      const temperatureInF = args[1];
+      let decimalPlaces = args[2];
+      let temperatureInC;
 
       if (!C.checkIfNaturalNumberInScope(decimalPlaces, 0, 100))
          decimalPlaces = 2;

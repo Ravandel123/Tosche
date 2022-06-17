@@ -1,12 +1,13 @@
 const C = require("./../common.js");
 
 
-//----------------------------------------------------------- Constants ----------------------------------------------------------
-const C_MaximumSyllablesAmount = 4;
-
-//----------------------------------------------------------- Arrays ----------------------------------------------------------
-
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+//----------------------------------------------------------- Constants ----------------------------------------------------------
+const MAX_SYLLABLES_AMOUNT = 4;
+const arrMaleAliases = ['m', 'male', 'man'];
+const arrFemaleAliases = ['f', 'female', 'woman'];
+
+//----------------------------------------------------------- Syllables Arrays ----------------------------------------------------------
 
 //Male
 
@@ -370,82 +371,71 @@ const arraysMale = [arrayM1, arrayM2, arrayM3, arrayM4];
 const arraysFemale = [arrayF1, arrayF2, arrayF3, arrayF4];
 
 
-//----------------------------------------------------------- Private Functions ----------------------------------------------------------
+//----------------------------------------------------------- FUNCTIONS ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function totalNamesCount() {
+   const namesMCount = (arrayM1[0].length) + ((arrayM2[0].length) * (arrayM2[1].length)) + ((arrayM3[0].length) * (arrayM3[1].length) * (arrayM3[2].length)) + ((arrayM4[0].length) * (arrayM4[1].length) * (arrayM4[2].length) * (arrayM4[3].length));
+   const namesFCount = (arrayF1[0].length) + ((arrayF2[0].length) * (arrayF2[1].length)) + ((arrayF3[0].length) * (arrayF3[1].length) * (arrayF3[2].length)) + ((arrayF4[0].length) * (arrayF4[1].length) * (arrayF4[2].length) * (arrayF4[3].length));
 
-function ReturnValidatedGender(A_gender)
-{
-   let gender = C.strToLowerCase(A_gender)
-
-   if (gender == 'm' || gender == 'male')
-      gender = 'male'
-   else if (gender == 'f' || gender == 'female')
-      gender = 'female'
-   else
-      gender = C.chance(50) ? 'male' : 'female'
-
-   return gender
+   return namesMCount + namesFCount;
 }
 
-function ReturnSyllablesArray(A_gender, A_syllablesAmount)
-{
-   let syllablesArray = []
-   let gender = ReturnValidatedGender(A_gender)
-   const syllablesAmount = C.checkIfIntInRange(A_syllablesAmount, 1, 4) ? A_syllablesAmount : C.rndBetween(1, 4);
+module.exports.totalNamesCount = totalNamesCount;
 
-   if (C.strCompare(gender, 'male'))
-      syllablesArray = arraysMale[syllablesAmount - 1]
-   else
-      syllablesArray = arraysFemale[syllablesAmount - 1]
+// OK---------------------------------------------------------------------------------------------------------------
+function generateRandomName(gender, syllablesAmount) {
+   const syllablesArray = returnSyllablesArray(gender, syllablesAmount);
+   if (!syllablesArray)
+      return;
 
-   return syllablesArray
-}
-
-//----------------------------------------------------------- Public Functions ----------------------------------------------------------
-
-function TotalNamesCount()
-{
-   let namesMCount = (arrayM1[0].length) + ((arrayM2[0].length) * (arrayM2[1].length)) + ((arrayM3[0].length) * (arrayM3[1].length) * (arrayM3[2].length)) + ((arrayM4[0].length) * (arrayM4[1].length) * (arrayM4[2].length) * (arrayM4[3].length))
-   let namesFCount = (arrayF1[0].length) + ((arrayF2[0].length) * (arrayF2[1].length)) + ((arrayF3[0].length) * (arrayF3[1].length) * (arrayF3[2].length)) + ((arrayF4[0].length) * (arrayF4[1].length) * (arrayF4[2].length) * (arrayF4[3].length))
-
-   return namesMCount + namesFCount
-}
-
-function GenerateRandomName(A_gender, A_syllablesAmount)
-{
-   let name = ''
-   let syllablesAmount = A_syllablesAmount ? A_syllablesAmount : C.rndNo0(4)
-   let syllablesArray = ReturnSyllablesArray(A_gender, syllablesAmount)
+   let name = '';
 
    for (let i = 0; i < syllablesArray.length; i++)
-      name = name + C.arrGetRandom(syllablesArray[i])
+      name = name + C.arrGetRandom(syllablesArray[i]);
 
-   return name
+   return name;
 }
 
-function CreateRandomName(A_gender, A_syllable, A_syllablePosition, A_syllablesAmount) {
-   let name = ''
-   let syllable = !A_syllable ? 'Tosch' : C.convertToString(A_syllable)
-   let syllablePosition = C.checkIfIntInRange(A_syllablePosition, 1, 4) ? A_syllablePosition : C.rndBetween(1, 4);
-   let syllablesAmount = C.checkIfIntInRange(A_syllablesAmount, syllablePosition, 4) ? A_syllablesAmount : C.rndBetween(syllablePosition, 4);
+module.exports.generateRandomName = generateRandomName;
 
-   let syllablesArray = ReturnSyllablesArray(A_gender, syllablesAmount)
+// OK---------------------------------------------------------------------------------------------------------------
+function createRandomName(gender, syllable, syllablePosition, syllablesAmount) {
+   if (!C.checkIfString(syllable) || !C.checkIfIntInRange(syllablePosition, 1, MAX_SYLLABLES_AMOUNT))
+      return;
+
+   const syllablesArray = returnSyllablesArray(gender, syllablesAmount);
+   if (!syllablesArray)
+      return;
+
+   let name = '';
 
    for (let i = 0; i < syllablesArray.length; i++) {
       if (i == syllablePosition - 1)
-         name = name + syllable
+         name = name + syllable;
       else
-         name = name + C.arrGetRandom(syllablesArray[i])
+         name = name + C.arrGetRandom(syllablesArray[i]);
    }
 
-   name = C.strToLowerCase(name)
-   name = C.strCapitalizeFirstLetter(name)
+   // name = C.strToLowerCase(name);
+   // name = C.strCapitalizeFirstLetter(name);
 
-   return name
+   return name;
 }
 
+module.exports.createRandomName = createRandomName;
 
-//----------------------------------------------------------- Exports ----------------------------------------------------------
 
-module.exports.TotalNamesCount = TotalNamesCount
-module.exports.GenerateRandomName = GenerateRandomName
-module.exports.CreateRandomName = CreateRandomName
+//----------------------------------------------------------- INTERNALS ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function returnSyllablesArray(gender, syllablesAmount) {
+   if (!C.checkIfIntInRange(syllablesAmount, 1, MAX_SYLLABLES_AMOUNT))
+      return;
+
+   if (C.strCheckIfAnyMatch(gender, arrMaleAliases))
+      return arraysMale[syllablesAmount - 1];
+   else if (C.strCheckIfAnyMatch(gender, arrFemaleAliases))
+      return arraysFemale[syllablesAmount - 1];
+}
+
+//---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

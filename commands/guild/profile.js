@@ -30,7 +30,6 @@ module.exports = {
             }
 
             if (i.isButton()) {
-               
                if (i.customId == 'back' || i.customId == 'forward') {
                   index = i.customId == 'back' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
                } else {

@@ -2513,7 +2513,7 @@ client.on('messageCreate', message => {
   {
     const nameGen = require("./modules/advanced/nameGenerator.js")
 
-    return nameGen.GenerateRandomName(sex, RndNo0(4))
+    return nameGen.generateRandomName(sex, RndNo0(4))
   }
   
   function RPRandomRace()

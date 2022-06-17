@@ -22,7 +22,7 @@ function strAddArticle(string)
 
 9. Dodaj do common mergearrays moze sie przydac
 
-10. Dopracuje usage zeby obslugiwalo rozne warianty: '[join]\nOR [duel] [user]'
+10. Dopracuje usage zeby obslugiwalo rozne warianty na przyklad przy pomocy arraya: '[join]\nOR [duel] [user]'
 
 11. Do komendy 'why' dodaj z adamsow because its fun
 
@@ -52,11 +52,15 @@ comic
 commands
 cost
 dndalign
+hate
+is
 kgtoimperial
 love
 percent
+who
+you
 
 --Guild--
 profile
-profileof
 givecurrency
+prisonbreak
