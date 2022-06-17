@@ -73,7 +73,7 @@ const arrayM2 = [
       'ah', 'al', 'an', 'art',
       'bac', 'bal', 'bar', 'ben', 'berg', 'bert', 'bin', 'bion', 'boz', 'bu', 'bus', 'by',
       'ce', 'chin', 'chus', 'cian', 'co', 'com', 'comb', 'con', 'cus', 'cy',
-      'dal', 'dalf', 'dan', 'dar', 'dek', 'den', 'der', 'din', 'dit', 'do', 'dor', 'doth', 'dox', 'dreth', 'dro', 'dross', 'dun', 'dush', 'dut', 'dwin', 'dyr'
+      'dal', 'dalf', 'dan', 'dar', 'dek', 'den', 'der', 'din', 'dit', 'do', 'dor', 'doth', 'dox', 'dreth', 'dro', 'dross', 'dun', 'dush', 'dut', 'dwin', 'dyr',
       'fax', 'fir', 'fner', 'fred', 'fric', 'fus',
       'gal', 'gar', 'gas', 'gash', 'gem', 'ger', 'gham', 'gil', 'go', 'gor', 'gos', 'got', 'grim', 'guk', 'gus',
       'ham', 'hel', 'hias', 'hild',
