@@ -1,11 +1,13 @@
 const C = require("./../common.js");
 
-
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 //----------------------------------------------------------- Constants ----------------------------------------------------------
 const MAX_SYLLABLES_AMOUNT = 4;
 const arrMaleAliases = ['m', 'male', 'man'];
 const arrFemaleAliases = ['f', 'female', 'woman'];
+
+const arrGenderAliases = arrMaleAliases.concat(arrFemaleAliases);
+module.exports.arrGenderAliases = arrGenderAliases;
 
 //----------------------------------------------------------- Syllables Arrays ----------------------------------------------------------
 
@@ -129,7 +131,7 @@ const arrayM3 = [
       'gna',
       'hin', 'ho',
       'ja', 'jan',
-      'ka', 'ken', 'ki',
+      'ka', 'ken', 'ki', 'kun',
       'la', 'le', 'les', 'li', 'lis', 'lix',
       'ma', 'me', 'mo',
       'na', 'nat', 'ne', 'ni', 'nis', 'no',
@@ -155,7 +157,7 @@ const arrayM3 = [
       'on', 'os',
       'ram', 'rar', 'rard', 're', 'ri', 'rian', 'rim', 'rio', 'ris', 'rith', 'ro', 'rogg', 'rug',
       'sar', 'sel', 'shan', 'shar', 'shi', 'shnar', 'son', 'sos',
-      'tar', 'te', 'til', 'tin', 'tis', 'tius', 'tos', 'trius',
+      'taj', 'tar', 'te', 'til', 'tin', 'tis', 'tius', 'tos', 'trius',
       'us',
       'vain', 'vald', 'vich',
       'won',
@@ -415,9 +417,6 @@ function createRandomName(gender, syllable, syllablePosition, syllablesAmount) {
       else
          name = name + C.arrGetRandom(syllablesArray[i]);
    }
-
-   // name = C.strToLowerCase(name);
-   // name = C.strCapitalizeFirstLetter(name);
 
    return name;
 }
