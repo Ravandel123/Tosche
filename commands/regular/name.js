@@ -9,7 +9,7 @@ module.exports = {
    usage: '[gender] [amount of syllables in generated names (max 4)] [amount of generated names (max 100)]',
    example: 'male 2 10',
    execute(message, args) {
-      if (args[1] == 'count') {
+      if (args[1] == 'count')
          C.dcRespondToMsg(message, `Total amount of (assumedly different) names that could be generated: ${NAMEGEN.totalNamesCount()}`);
 
       const gender = args[1] ?? C.arrGetRandom(['m', 'f']);
