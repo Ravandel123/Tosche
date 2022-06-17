@@ -1,5 +1,6 @@
 const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
+const R = require('../../modules/responses.js');
 const NAMEGEN = require('../../modules/advanced/nameGenerator.js');
 
 module.exports = {
