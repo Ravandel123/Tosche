@@ -24,7 +24,7 @@ module.exports = {
 
       const syllablesAmount = args[4] ?? C.rndBetween(positionIndex, 4);
       if (!CC.checkIfArgIsNaturalNumberInScope(message, syllablesAmount, positionIndex, 4))
-         console.log('syllablesAmount = ' + syllablesAmount);
+         return;
 
       const namesAmount = args[5] ?? 1;
       if (!CC.checkIfArgIsNaturalNumberInScope(message, namesAmount, 1, 100))
