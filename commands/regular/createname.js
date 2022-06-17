@@ -22,12 +22,9 @@ module.exports = {
       if (!CC.checkIfArgIsNaturalNumberInScope(message, positionIndex, 1, 4))
          return;
 
-      console.log('positionIndex = ' + positionIndex);
       const syllablesAmount = args[4] ?? C.rndBetween(positionIndex, 4);
-      if (!CC.checkIfArgIsNaturalNumberInScope(message, syllablesAmount, positionIndex, 4)) {
+      if (!CC.checkIfArgIsNaturalNumberInScope(message, syllablesAmount, positionIndex, 4))
          console.log('syllablesAmount = ' + syllablesAmount);
-         return;
-      }
 
       const namesAmount = args[5] ?? 1;
       if (!CC.checkIfArgIsNaturalNumberInScope(message, namesAmount, 1, 100))

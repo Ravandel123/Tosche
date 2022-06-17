@@ -350,7 +350,7 @@ function rndBetween(min, max, decimalPlaces = 0) {
    if (!checkIfNumber(min) || !checkIfNumber(max))
       return;
 
-   const result = min + Math.random() * (max - min);
+   const result = +min + Math.random() * (+max - +min);
    return roundNumber(result, decimalPlaces);
 }
 

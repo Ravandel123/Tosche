@@ -1,5 +1,4 @@
 const C = require('./common.js');
-const AC = require('./arraysCommon.js');
 const AG = require('./arraysGuild.js');
 const R = require('./responses.js');
 
