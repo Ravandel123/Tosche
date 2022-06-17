@@ -19,11 +19,10 @@ module.exports = {
       }
 
       const positionIndex = args[3] ?? C.rndBetween(1, 4);
-      if (!CC.checkIfArgIsNaturalNumberInScope(message, positionIndex, 1, 4)) {
-         console.log('positionIndex = ' + positionIndex);
+      if (!CC.checkIfArgIsNaturalNumberInScope(message, positionIndex, 1, 4))
          return;
-      }
 
+      console.log('positionIndex = ' + positionIndex);
       const syllablesAmount = args[4] ?? C.rndBetween(positionIndex, 4);
       if (!CC.checkIfArgIsNaturalNumberInScope(message, syllablesAmount, positionIndex, 4)) {
          console.log('syllablesAmount = ' + syllablesAmount);
