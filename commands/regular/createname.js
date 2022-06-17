@@ -14,17 +14,21 @@ module.exports = {
 
       const gender = args[2] ?? C.arrGetRandom(['m', 'f']);
       if (!C.strCheckIfAnyMatch(gender, NAMEGEN.arrGenderAliases)) {
-         C.dcRespondFromArray(message, R.resIssue(`**${gender}** isn't a proper gender name/alias`));
+         C.dcRespondFromArray(message, R.resIssue(`**${gender}** isn't a proper gender name or gender alias`));
          return;
       }
 
       const positionIndex = args[3] ?? C.rndBetween(1, 4);
-      if (!CC.checkIfArgIsNaturalNumberInScope(message, positionIndex, 1, 4))
+      if (!CC.checkIfArgIsNaturalNumberInScope(message, positionIndex, 1, 4)) {
+         console.log('positionIndex = ' + positionIndex);
          return;
+      }
 
       const syllablesAmount = args[4] ?? C.rndBetween(positionIndex, 4);
-      if (!CC.checkIfArgIsNaturalNumberInScope(message, syllablesAmount, positionIndex, 4))
+      if (!CC.checkIfArgIsNaturalNumberInScope(message, syllablesAmount, positionIndex, 4)) {
+         console.log('syllablesAmount = ' + syllablesAmount);
          return;
+      }
 
       const namesAmount = args[5] ?? 1;
       if (!CC.checkIfArgIsNaturalNumberInScope(message, namesAmount, 1, 100))
