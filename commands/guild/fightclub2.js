@@ -21,9 +21,12 @@ module.exports = {
 
             message.client.data.arena.fightInProgress = true;
             try {
-               let msg, user1, user2;
-               let user1.profile = await CG.getMessageAuthorProfile(message);
-               let user2.profile = await CG.getMemberProfile(message, args[2]);
+               let msg;
+               let user1 = {};
+               let user2 = {};
+
+               user1.profile = await CG.getMessageAuthorProfile(message);
+               user2.profile = await CG.getMemberProfile(message, args[2]);
                await duel(message, user1, user2);
             } catch(error) {
                C.dcRespondToMsg(message, error);
