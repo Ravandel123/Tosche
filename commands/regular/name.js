@@ -22,5 +22,6 @@ module.exports = {
       }
 
       C.dcRespondToMsg(message, response);
+      message.channel.send({ content: `Only the person who ran the command can do that!`, ephemeral: true });
    },
 }
