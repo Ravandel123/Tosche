@@ -9,7 +9,7 @@ module.exports = {
    execute(message, args) {
       let response = '';
 
-      if (gender == 'count') {
+      if (args[1] == 'count') {
          response = 'Total amount of (assumedly different) names that could be generated: ' + NAMEGEN.totalNamesCount();
       } else {
          let namesAmount = C.checkIfIntInRange(args[3], 1, 100) ? args[3] : 1;
