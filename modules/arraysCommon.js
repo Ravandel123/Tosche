@@ -18,7 +18,7 @@ const arrayDnDAlignments = ['Lawful Good', 'Lawful Neutral', 'Lawful Evil', 'Neu
 
 const arrayCurrenciesIrl = ['bucks', '$', '€', '£'];
 const arrayCurrenciesFantasy = ['copper', 'silver', 'gold'];
-const arrayCurrenciesBwd = ['obsidian chips', 'pearl flakes', 'amber drops', 'ermehn heads', 'ermehn slaves'];
+const arrayCurrenciesBwd = ['obsidian chips', 'pearl flakes', 'amber drops', 'ermehn slaves'];
 const arrayCurrenciesAll = arrayCurrenciesIrl.concat(arrayCurrenciesFantasy, arrayCurrenciesBwd);
 
 const arrayBodyShapes = [

@@ -6,14 +6,14 @@ const DB = require('../../modules/db.js');
 module.exports = {
    name: 'fightclub2',
    description: 'Used to access Fight Club.',
-   usage: '[join]\nOR [duel] [user]',
+   usage: '[join]\nOR [sparring/duel] [user]',
    example: '',
    async execute(message, args) {
       const requiredArgs = [`action (i.e. duel)`];
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      if (C.strCompare(args[1], 'duel')) {
+      if (C.strCompare(args[1], 'sparring')) {
          if (!message.client.data.arena.fightInProgress) {
             const requiredDuelArgs = [`action (i.e. duel)`, `user name`];
             if (!CC.checkArgsAmount(message, args, requiredDuelArgs))
@@ -42,21 +42,25 @@ module.exports = {
 }
 
 async function duel(message, user1, user2) {
-   const user1Name = user1.ownerName;
-   const user2Name = user2.ownerName;
-   const user1Attributes = user1.fightClub.attributes;
-   const user2Attributes = user2.fightClub.attributes;
-
    if (C.strCompare(user1.ownerId, user2.ownerId)) {
       C.dcRespondToMsg(message, `You can't fight with yourself!`);
+      return;
+   }
+
+   const user1Name = user1.ownerName;
+   const user2Name = user2.ownerName;
+   const user1Attributes = user1.attributes;
+   const user2Attributes = user2.attributes;
+
+   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club-2');
+   if (!fightClubChannel) {
+      C.dcRespondToMsg(message, `There is no place to fight!`);
       return;
    }
 
    let msg, roll1, roll2, dmg, agressor, defender, winner;
    let hp1 = user1.ownerId == '392728479696814092' ? 1000000 : 100; //user1Attributes.hp;
    let hp2 = user2.ownerId == '392728479696814092' ? 1000000 : 100; //user2Attributes.hp;
-   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fightclub');
-
    msg = `---------------------------------------------------------------------------------------------\n` + 
          `Get ready for the next fight! **${user1Name}** has challenged **${user2Name}** for a duel!`;
 

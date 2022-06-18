@@ -9,21 +9,50 @@ const gProfileSchema = new MG.Schema({
    actionPoints: {
       current: { type: Number, default: 0 },
       totalEarned: { type: Number, default: 0 },
-      },
-   attributes: {
-      strength: { type: Number, default: 1 },
-      toughness: { type: Number, default: 1 },
-      stamina: { type: Number, default: 1 },
-      agility: { type: Number, default: 1 },
-      dexterity: { type: Number, default: 1 },
-      perception: { type: Number, default: 1 },
-      intelligence: { type: Number, default: 1 },
-      willpower: { type: Number, default: 1 },
-      charisma: { type: Number, default: 1 },
-      luck: { type: Number, default: 1 },
    },
-   fightClub: {
-      fame: { type: Number, default: 0 },
+   resources: {
+      hp: { type: Number, default: 1 },
+      insanity: { type: Number, default: 0 },
+      fate: { type: Number, default: 0 },
+      fortune: { type: Number, default: 0 },
+      resilience: { type: Number, default: 0 },
+      resolve: { type: Number, default: 0 },
+   },
+   attributes: {
+      strength: { type: Number, default: 10 },
+      toughness: { type: Number, default: 10 },
+      stamina: { type: Number, default: 10 },
+      agility: { type: Number, default: 10 },
+      dexterity: { type: Number, default: 10 },
+      perception: { type: Number, default: 10 },
+      intelligence: { type: Number, default: 10 },
+      willpower: { type: Number, default: 10 },
+      charisma: { type: Number, default: 10 },
+      luck: { type: Number, default: 10 },
+   },
+   skills: {
+      cooking : { 
+         current: { type: Number, default: 1 },
+         progress: { type: Number, default: 0 },
+      },
+      fishing: { 
+         current: { type: Number, default: 1 },
+         progress: { type: Number, default: 0 },
+      },
+   },
+   weaponSkills: {
+      melee: { 
+         current: { type: Number, default: 1 },
+         progress: { type: Number, default: 0 },
+      },
+      ranged: { 
+         current: { type: Number, default: 1 },
+         progress: { type: Number, default: 0 },
+      },
+      unarmed: { 
+         current: { type: Number, default: 1 },
+         progress: { type: Number, default: 0 },
+      },
    },
    currencies: {
       amberDrops: Number,
@@ -36,6 +65,14 @@ const gProfileSchema = new MG.Schema({
 });
 
 const profile = MG.model('gProfile', gProfileSchema);
+
+//---------------------------------------------------------------------------------------------------------------
+const gFightClubSchema = new MG.Schema({
+   ownerId: String,
+   fame: { type: String, default: 0 }
+});
+
+const fightClub = MG.model('gFighClub', gFightClubSchema);
 
 //---------------------------------------------------------------------------------------------------------------
 const gFishingSchema = new MG.Schema({
@@ -74,9 +111,11 @@ const gRecordSchema = new MG.Schema({
 });
 
 const record = MG.model('gRecord', gRecordSchema);
+
 //---------------------------------------------------------------------------------------------------------------
 module.exports = {
    profile,
+   fightClub,
    fishing,
    record
 };

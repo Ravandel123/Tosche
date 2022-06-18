@@ -41,8 +41,8 @@ module.exports = {
 async function duel(message, user1, user2) {
    const user1Name = user1.ownerName;
    const user2Name = user2.ownerName;
-   const user1Attributes = user1.fightClub.attributes;
-   const user2Attributes = user2.fightClub.attributes;
+   const user1Attributes = user1.attributes;
+   const user2Attributes = user2.attributes;
 
    if (C.strCompare(user1.ownerId, user2.ownerId)) {
       C.dcRespondToMsg(message, `You can't fight with yourself!`);

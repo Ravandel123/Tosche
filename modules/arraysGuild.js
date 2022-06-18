@@ -4,7 +4,7 @@ const bannedWords = [
    'faggot', 'fuck',
    'goddammit', 'goddamnit',
    'kurva', 'kurwa',
-   'niga', 'nigga', 'nigger',
+   'nigga', 'nigger',
    '0laffson', 'titusW',
    'e621.net', 'furaffinity.net', 'weasyl.com'
 ];
