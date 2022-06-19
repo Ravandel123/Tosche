@@ -95,7 +95,7 @@ function resDefault() {
    const arrayResult = [
       `${r(opinions)}`,
       `${C.strCapitalizeFirstLetter(r(ASP.termsNoDoubt))}`,
-      `${r(gifs}`,
+      `${r(gifs)}`,
       `You ${r(speaking)} like someone ${affilction}.`,
       `That information just made me ${affilction}.`,
       `*${C.strCapitalizeFirstLetter(r(ASP.adjAfflictions))} Tosche noises.*`
@@ -397,7 +397,8 @@ function resRate(subject) {
          `${who} suck${additionalS}.`,
          `Better than ${r(AC.charactersBadGuys)}.`,
          `${r(AC.charactersBadGuys)} was better.`,
-         `Over 9000!`
+         `Over 9000!`,
+         `https://tenor.com/view/caroline-cameron-sportsnet-awful-absolutely-awful-horrible-gif-18101478`
       ];
 
       result = r(arrayResult);
