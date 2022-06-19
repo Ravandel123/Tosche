@@ -372,10 +372,10 @@ function resRate(subject) {
       result = `${r(arrayResult)} ${C.rnd(13)}/10.`;
    } else {
       const arrayResult = [
-         `I think we need a negative scale for ${$who}.`,
-         `Why do you want to rate ${$who} at all?`,
+         `I think we need a negative scale for ${who}.`,
+         `Why do you want to rate ${who} at all?`,
          //`${$who} ${$auxiliaryVerb} ${C.chance(50) ? r(ASP.termsExtremelyGood)}!`,
-         `${$who} ${$auxiliaryVerb} ${r(C.chance(50) ? ASP.termsExtremelyGood : ASP.termsExtremelyBad)}!`,
+         `${who} ${$auxiliaryVerb} ${r(C.chance(50) ? ASP.termsExtremelyGood : ASP.termsExtremelyBad)}!`,
          `Why do you even want to rate ${reflexivePronoun}?`,
          `${who} suck${additionalS}`,
          `Better than ${r(AC.charactersBadGuys)}.`,

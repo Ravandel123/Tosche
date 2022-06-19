@@ -1,18 +1,13 @@
-1. Remove 'array' from all names of arraysCommon, unnecessary
+1. Dodaj klase fish (potrzebne do checkIfFish czy cos)
 
-2. Ogarnij funkcje z common
-function WrongArgsArray(wrongValue, articleName, argName)
-
-ktora sie zmienila na z responses
-function resWrongArgs(wrongValue, articleName, argName)
+2. Dodaj uaktualnianie nazwy w profilu
 
 3. Do poprawki, zrobic linijke z pytajnikiem jedna i obudowac message.reply w cos sensownego
 function checkIfArgIsNumber(message, argument)
 
 4. Dodaj loggera jak np. sie nie uda operacja dodania roli w dcAddRoleToMember
 
-5. Dodaj ze szuka w tablicy i sprawdza a nie nawalone switchy tyle
-function strAddArticle(string)
+5. Zmien responsy zeby zwracaly od razu 1 rzecz
 
 6. Zmien argumenty na arraye gdzie ma byc overload
 
@@ -31,9 +26,3 @@ function strAddArticle(string)
 13. Dodaj responses do checkIfArgIsNaturalNumberInScope
 
 14. Zmien nazwy na generate?
-
-15. Dodaj klase fish (potrzebne do checkIfFish czy cos)
-
-16. Dodaj uaktualnianie nazwy w profilu
-
-17. Zmien responsy zeby zwracaly od razu 1 rzecz
