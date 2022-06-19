@@ -24,7 +24,7 @@ module.exports.genRandomMultiplier = genRandomMultiplier;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function genPerson() {
-   return C.chance(75) ? C.arrGetRandom(AC.arrayCharactersIrlOnly) : C.arrGetRandom(AC.arrayCharactersAll);
+   return C.chance(75) ? C.arrGetRandom(AC.charactersIrlOnly) : C.arrGetRandom(AC.charactersAll);
 }
 
 module.exports.genPerson = genPerson;
@@ -49,7 +49,7 @@ module.exports.genAccuracy = genAccuracy;
 // OK---------------------------------------------------------------------------------------------------------------
 function genFunnyEnding(endingChar = '.', chanceForEnding = 25) {
    if (C.checkIfNumber(chanceForEnding))
-      return (C.chance(chanceForEnding) ? ', ' + C.arrGetRandom(AC.arrayAdditionalFunnyWords) : '') + endingChar;
+      return (C.chance(chanceForEnding) ? ', ' + C.arrGetRandom(AC.additionalFunnyWords) : '') + endingChar;
 }
 
 module.exports.genFunnyEnding = genFunnyEnding;

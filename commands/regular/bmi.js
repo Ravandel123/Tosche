@@ -17,7 +17,7 @@ module.exports = {
          return;
 
       const bmi = C.calcBMI(args[1], args[2]);
-      let possibleBodyShapes = C.arrGetAllByFunction(AC.arrayBodyShapes, (e) => bmi >= e.minBMI && bmi <= e.maxBMI);
+      let possibleBodyShapes = C.arrGetAllByFunction(AC.bodyShapes, (e) => bmi >= e.minBMI && bmi <= e.maxBMI);
       possibleBodyShapes = possibleBodyShapes.map(e => e.name).join(' or ');
 
       C.dcRespondToMsg(message, `Your BMI: ${bmi} (${possibleBodyShapes})`);

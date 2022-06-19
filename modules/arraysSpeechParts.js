@@ -125,6 +125,17 @@ const termsAccuracy = [
    'probably'
 ];
 
+const termsExtremelyGood = [
+   'amazing',
+   'incredible',
+   'out of scale',
+   'out of this world'
+];
+
+const termsExtremelyBad = [
+   'trash',
+   'utter garbage'
+];
 
 
 //-----------------------------------------------------------EXPORTS----------------------------------------------------------
@@ -137,5 +148,7 @@ module.exports = {
    baseAdverbsList,
    nounsAcceptedInsulting,
    pronouns,
-   termsAccuracy
+   termsAccuracy,
+   termsExtremelyGood,
+   termsExtremelyBad
 };

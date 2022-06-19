@@ -1,27 +1,35 @@
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
-const arrayCharactersIrl = ['VVooly', 'Dinly', 'Lanaar', 'Me', 'Ravandel', 'Catz', 'You', 'Nachtkind'];
-const arrayCharactersSpecial = ['Everybody', 'Nobody'];
-const arrayCharactersBwd = [
+const charactersIrl = ['VVooly', 'Dinly', 'Lanaar', 'Me', 'Ravandel', 'Catz', 'You', 'Nachtkind'];
+const charactersSpecial = ['Everybody', 'Nobody'];
+const charactersBwd = [
    'Asha', 'Ashtor', 'Beck', 'Bevan', 'Cain', 'Clovis', 'Crim', 'Dakkan', 'Eira', 'Hardin', 'Janik', 'Kenosh',
    'Mitra', 'Quinlan', 'Rathik', 'Rhosyn', 'Rook', 'Sigrid', 'Theo', 'Tosch', 'Tosche', 'Yurk'
 ];
-const arrayCharactersIrlOnly = arrayCharactersIrl.concat(arrayCharactersSpecial);
-const arrayCharactersAll = arrayCharactersIrl.concat(arrayCharactersSpecial, arrayCharactersBwd);
+const charactersBadGuys = [
+   'Clovis',
+   'Darth Vader',
+   'Hannibal Lecter',
+   'Saruman', 'Sauron',
+   'Tosch', 'Tosche',
+   'Voldemort'
+];
+const charactersIrlOnly = charactersIrl.concat(charactersSpecial);
+const charactersAll = charactersIrl.concat(charactersSpecial, charactersBwd, charactersBadGuys);
 
 
-const arrayAdditionalFunnyWords = ['lol', 'yes-yes', 'lmao', 'xD'];
+const additionalFunnyWords = ['lol', 'yes-yes', 'lmao', 'xD'];
 
 
-const arrayDnDAlignments = ['Lawful Good', 'Lawful Neutral', 'Lawful Evil', 'Neutral Good', 'True Neutral', 'Neutral Evil', 'Chaotic Evil', 'Chaotic Neutral', 'Chaotic Good'];
+const dndAlignments = ['Lawful Good', 'Lawful Neutral', 'Lawful Evil', 'Neutral Good', 'True Neutral', 'Neutral Evil', 'Chaotic Evil', 'Chaotic Neutral', 'Chaotic Good'];
 
 
-const arrayCurrenciesIrl = ['bucks', '$', '€', '£'];
-const arrayCurrenciesFantasy = ['copper', 'silver', 'gold'];
-const arrayCurrenciesBwd = ['obsidian chips', 'pearl flakes', 'amber drops', 'ermehn slaves'];
-const arrayCurrenciesAll = arrayCurrenciesIrl.concat(arrayCurrenciesFantasy, arrayCurrenciesBwd);
+const currenciesIrl = ['bucks', '$', '€', '£'];
+const currenciesFantasy = ['copper', 'silver', 'gold'];
+const currenciesBwd = ['obsidian chips', 'pearl flakes', 'amber drops', 'ermehn slaves'];
+const currenciesAll = currenciesIrl.concat(currenciesFantasy, currenciesBwd);
 
-const arrayBodyShapes = [
+const bodyShapes = [
   {name: 'gaunt', chance: 5, minBMI: 14.5, maxBMI: 16.99},
   {name: 'underweight', chance: 12, minBMI: 17, maxBMI: 18.49},
   {name: 'normal', chance: 60, minBMI: 18.5, maxBMI: 24.99},
@@ -33,10 +41,11 @@ const arrayBodyShapes = [
 
 //-----------------------------------------------------------Exports----------------------------------------------------------
 module.exports = {
-   arrayCharactersIrlOnly,
-   arrayCharactersAll,
-   arrayAdditionalFunnyWords,
-   arrayDnDAlignments,
-   arrayCurrenciesAll,
-   arrayBodyShapes
+   charactersBadGuys,
+   charactersIrlOnly,
+   charactersAll,
+   additionalFunnyWords,
+   dndAlignments,
+   currenciesAll,
+   bodyShapes
 };

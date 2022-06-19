@@ -36,31 +36,4 @@ function strAddArticle(string)
 
 16. Dodaj uaktualnianie nazwy w profilu
 
-
-
------FINISHED COMMANDS-----
---Normal--
-%
-amount
-avatar
-bmi
-bmiforheight
-chance
-choose
-cmtoimperial
-comic
-commands
-cost
-dndalign
-hate
-is
-kgtoimperial
-love
-percent
-who
-you
-
---Guild--
-profile
-givecurrency
-prisonbreak
+17. Zmien responsy zeby zwracaly od razu 1 rzecz

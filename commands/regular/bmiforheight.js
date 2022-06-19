@@ -18,8 +18,8 @@ module.exports = {
 
       let msg = '';
 
-      for (let i = 0; i < AC.arrayBodyShapes.length; i++) {
-         const currentBMI = AC.arrayBodyShapes[i];
+      for (let i = 0; i < AC.bodyShapes.length; i++) {
+         const currentBMI = AC.bodyShapes[i];
          const minWeight = C.calcBMIWeight(args[1], currentBMI.minBMI);
          const maxWeight = C.calcBMIWeight(args[1], currentBMI.maxBMI);
 
