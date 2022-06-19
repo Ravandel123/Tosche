@@ -359,31 +359,29 @@ function resRate(subject) {
    const additionalS = who == 'you' ? '' : 's';
    let result;
 
-   if(C.chance(50)) {
+   if(C.chance(5)) {
       const arrayResult = [
          ``,
-         `Hmm... I'd rate ${who} `,
-         `I'd give ${who} `,
-         `Definitely `,
-         `Definitely `,
-         `I'd say `
+         `Hmm... I'd rate ${who}`,
+         `I'd give ${who}`,
+         `Definitely`,
+         `Definitely`,
+         `I'd say`
       ];
 
       const rating = C.chance(50) ? C.rnd(13) : C.rndNo0(100);
       const maxRating = C.chance(50) ? 10 : C.rndNo0(100);
       const minus = C.chance(50) ? '' : '-';
-      // result = `${r(arrayResult)} ${C.rnd(13)}/10.`;
+
       result = `${r(arrayResult)} ${minus}${rating}/${maxRating}.`;
    } else {
       const arrayResult = [
-         `I think we need a negative scale for ${who}.`,
-         `Why do you want to rate ${who} at all?`,
-         //`${$who} ${$auxiliaryVerb} ${C.chance(50) ? r(ASP.termsExtremelyGood)}!`,
+         // `I think we need a negative scale for ${who}.`,
          `${who} ${auxiliaryVerb} ${r(C.chance(50) ? ASP.termsExtremelyGood : ASP.termsExtremelyBad)}!`,
-         `Why do you even want to rate ${reflexivePronoun}?`,
-         `${who} suck${additionalS}`,
-         `Better than ${r(AC.charactersBadGuys)}.`,
-         `${r(AC.charactersBadGuys)} was better.`,
+         // `Why do you even want to rate ${reflexivePronoun}?`,
+         // `${who} suck${additionalS}.`,
+         // `Better than ${r(AC.charactersBadGuys)}.`,
+         // `${r(AC.charactersBadGuys)} was better.`,
          `Over 9000!`
       ];
 
