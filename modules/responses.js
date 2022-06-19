@@ -94,7 +94,7 @@ function resDefault() {
 
    const arrayResult = [
       `${r(opinions)}`,
-      `${C.strCapitalizeFirstLetter(r(ASP.termsNoDoubt))}`,
+      `${C.strCapitalizeFirstLetter(r(ASP.termsNoDoubt))}.`,
       `${r(gifs)}`,
       `You ${r(speaking)} like someone ${affilction}.`,
       `That information just made me ${affilction}.`,
