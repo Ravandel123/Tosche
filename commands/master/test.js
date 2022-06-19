@@ -4,6 +4,7 @@ const CG = require('../../modules/commonGuild.js');
 const CC = require('../../modules/commonCommands.js');
 const AG = require('../../modules/arraysGuild.js');
 const G = require('../../modules/common.js');
+const R = require('../../modules/responses.js');
 const DB = require('../../modules/db.js');
 const SG = require('../../modules/schematicsGuild.js');
 
