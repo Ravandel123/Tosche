@@ -1,5 +1,6 @@
 const C = require('./common.js');
 const AC = require('./arraysCommon.js');
+const ASP = require('./arraysSpeechParts.js');
 const G = require('./generators.js');
 
 
@@ -77,10 +78,10 @@ function resDefaultData() {
    
    const arrayResult = [
       `${r(opinions)}`,
-      `You ${r(speaking)} like someone ${r(AC.adjAfflictionsVirtues)}`,
-      `That information just made me ${r(AC.baseAdverbsList)} ${r(AC.adjAfflictionsVirtues)}`,
-      `That information just made me ${r(AC.adjAfflictionsVirtues)}`,
-      `*${C.strCapitalizeFirstLetter(r(AC.adjAfflictions))} Tosche noises*`
+      `You ${r(speaking)} like someone ${r(ASP.adjAfflictionsVirtues)}`,
+      `That information just made me ${r(ASP.baseAdverbsList)} ${r(ASP.adjAfflictionsVirtues)}`,
+      `That information just made me ${r(ASP.adjAfflictionsVirtues)}`,
+      `*${C.strCapitalizeFirstLetter(r(ASP.adjAfflictions))} Tosche noises*`
    ];
 
    return arrayResult;

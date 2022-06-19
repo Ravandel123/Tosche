@@ -1,3 +1,4 @@
+const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
 const AG = require('./arraysGuild.js');
 const R = require('./responses.js');
@@ -42,7 +43,7 @@ function dcValidateForBannedWords(message) {
 
    const messageContent = C.strToLowerCase(message.content);
    const messageText = C.strRemoveAllSpecialChars(messageContent);
-   if (C.strCheckIfContainsAny([messageContent, messageText], AG.bannedWords)) {
+   if (C.strCheckIfContainsAny([messageContent, messageText], SETTINGS.bannedWords)) {
       C.dcRespondToMsg(message, `Oops, it looks like you said a forbidden word ${message.author}!`);
       message.delete();
       return false;

@@ -1,0 +1,141 @@
+const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
+
+
+
+//-----------------------------------------------------------ADJECTIVES----------------------------------------------------------
+const adjectivesAcceptedInsulting = [
+   'aberrant', 'abominable', 'absurd', 'abusive', 'adorable', 'aggressive','alcoholic', 'amateur', 'amusing',
+   'barbaric', 'bioluminescent', 'bizzare', 'brutal',
+   'cave-dwelling', 'crazy', 'creepy', 'cute',
+   'delusional', 'domesticated', 'drooly', 'drunken',
+   'extraterrestrial',
+   'feral', 'ferocious', 'funny', 'furry',
+   'gargantuan', 'gross',
+   'hideous', 'hilarious', 'hungry',
+   'inane', 'innocent', 'interesting', 'insane', 'irrational',
+   'lazy', 'lobotomized',
+   'mad', 'magical', 'maniacal', 'meaningless', 'monstrous','mutantic',
+   'naive', 'narcissistic', 'nasty',
+   'programmed', 'provocative',
+   'ridiculous',
+   'silly', 'starving',
+   'useful',
+   'tamed',
+   'untamed', 'useless',
+   'valuable', 'verdant', 'vile', 'violent',
+   'wild'
+];
+
+const adjAfflictions = [
+   'aberrant', 'abusive', 'aggressive', 'alcoholic', 'anxious', 
+   'barbaric', 'brainwashed', 
+   'cannibalistic', 'crazy',
+   'degenerate', 'delusional', 'depressive', 'destructive', 'deviant', 'dumb',
+   'fearful', 'feral', 'frocious', 'foolish', 'furious', 'furry',
+   'heartless', 'hopeless',
+   'idiotic', 'imbecilic', 'inane', 'insane', 'irrational',
+   'lazy', 
+   'maniacal', 'mindless', 'murderous', 'mutantic',
+   'narcissistic',
+   'paranoid', 'pathethic', 'pathologic', 'perverse', 'primitive', 'psychopathic',
+   'racist', 'rapturous', 'ravenous',
+   'selfish', 'stupid'
+];
+
+const adjVirtues = [
+   'courageous',
+   'focused',
+   'powerful',
+   'stalwart',
+   'vigorous'
+];
+
+const adjAfflictionsVirtues = adjAfflictions.concat(adjVirtues);
+
+
+//-----------------------------------------------------------ADVERBS----------------------------------------------------------
+const baseAdverbsList = [
+   'absentmindedly', 'absolutely', 'abstractedly', 'abundantly', 'adoringly', 'aggressively', 'attractively', 'awkwardly',
+   'beautifully', 'briskly', 'brutally',
+   'cannibalistically', 'carefully', 'cautiously', 'cheerfully', 'cheerily', 'competitively', 'completely', 'conservatively', 'contritely', 'copiously', 'correctly', 'cosmically',
+   'deadly',
+   'eagerly', 'effectively', 'effortlessly', 'entirely', 'excellently', 'exceptionally', 'excessively', 'extravagantly', 'extremely',
+   'famously', 'fantastically', 'faultlessly', 'feebly', 'foolishly', 'frantically', 'furiously',
+   'gently', 'gingerly', 'girlishly', 'gorgeously', 'gracefully', 'graciously', 'grimly', 'guardedly',
+   'half-heartedly', 'happily', 'heartlessly', 'hungrily',
+   'idiotically', 'idly', 'inattentively',
+   'lazily', 'lifelessly', 'loyally',
+   'magnificently', 'maniacally', 'mega', 'mindlessly', 'mutantically',
+   'narcissistically', 'nimbly',
+   'overly',
+   'perfectly', 'pathetically', 'pleasantly', 'plentifully', 'practically', 'primitively', 'profusely', 'properly', 'purely',
+   'quietly', 'questioningly', 'quite', 'quizzically', 
+   'ravenously', 'really', 'recklessly', 'remorsefully', 'rightly', 'ruefully', 'ruthlessly',
+   'savagely ', 'silently', 'slightly', 'sloppily', 'splendidly', 'stupidly', 'stylishly', 'superbly', 'sunnily', 'super',
+   'terribly', 'thirstily', 'totally',
+   'ultra', 'unabashedly', 'unevenly', 'urgently', 'utterly',
+   'very', 'viciously',
+   'warily', 'weakly', 'well', 'wishfully', 'witlessly', 'wholly', 'worriedly'
+];
+
+//-----------------------------------------------------------NOUNS----------------------------------------------------------
+const nounsAcceptedInsulting = [
+   'abomination',
+   'bastard',
+   'causal', 'clown',
+   'dork', 'dummy',
+   'fanatic', 'freak', 'furry',
+   'greenpaw',
+   'lunatic',
+   'madman', 'maniac', 'monster', 'mutant',
+   'nerd', 'newbie', 'noob', 'nutjob',
+   'peasant', 'psycho', 'psychopath',
+   'savage', 'sicko', 'slave', 'sociopath',
+   'troglodyte', 'troll',
+   'wacko', 'weirdo',
+   'zombie'
+];
+
+const pronouns = [
+   [`my`, `my`, `mine`],
+   [`i`, `my`, `mine`],
+   [`me`, `my`, `mine`],
+   [`you`, `your`, `yours`],
+   [`he`, `his`, `his`],
+   [`she`, `her`, `hers`],
+   [`it`, `its`, `its`],
+   [`we`, `our`, `ours`],
+   [`they`, `their`, `theirs`],
+   [`nobody`, `no one's`, `no one's`],
+   [`everybody`, `everyone's`, `everyone's`]
+];
+
+
+//-----------------------------------------------------------OTHER TERMS----------------------------------------------------------
+const termsAccuracy = [
+   '',
+   'almost',
+   'below',
+   'definitely',
+   'exactly',
+   'less than',
+   'more than',
+   'over',
+   'precisely',
+   'probably'
+];
+
+
+
+//-----------------------------------------------------------EXPORTS----------------------------------------------------------
+module.exports = {
+   vowels,
+   adjAfflictions,
+   adjVirtues,
+   adjAfflictionsVirtues,
+   adjectivesAcceptedInsulting,
+   baseAdverbsList,
+   nounsAcceptedInsulting,
+   pronouns,
+   termsAccuracy
+};

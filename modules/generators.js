@@ -1,5 +1,6 @@
 const C = require('./common.js');
 const AC = require('./arraysCommon.js');
+const ASP = require('./arraysSpeechParts.js');
 
 //----------------------------------------------------------- GENERATION ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
@@ -30,15 +31,15 @@ module.exports.genPerson = genPerson;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function genPersonalInsult() {
-   const adjective = C.chance(75) ? C.arrGetRandom(AC.adjectivesAcceptedInsulting) + ' ' : '';
-   return `${adjective}${C.arrGetRandom(AC.nounsAcceptedInsulting)}`;
+   const adjective = C.chance(75) ? C.arrGetRandom(ASP.adjectivesAcceptedInsulting) + ' ' : '';
+   return `${adjective}${C.arrGetRandom(ASP.nounsAcceptedInsulting)}`;
 }
 
 module.exports.genPersonalInsult = genPersonalInsult;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function genAccuracy(capitalize = false) {
-   const result = C.arrGetRandom(AC.termsAccuracy) + ' ';
+   const result = C.arrGetRandom(ASP.termsAccuracy) + ' ';
 
    return capitalize ? C.strCapitalizeFirstLetter(result) : result;
 }

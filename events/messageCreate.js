@@ -1,3 +1,4 @@
+const SETTINGS = require('../modules/serverSettings.js');
 const C = require('../modules/common.js');
 const G = require('../modules/generators.js');
 const R = require('../modules/responses.js');
@@ -108,7 +109,7 @@ function defaultBehavior(message) {
    if (C.strCheckIfContains(msgContent, 'clovis'))
       message.react('😢');
 
-   if (C.strCheckIfAnyMatch(message.channel.name, AG.noToscheCommentChannels))
+   if (C.strCheckIfAnyMatch(message.channel.name, SETTINGS.noToscheCommentsChannels))
       return;
 
    if (C.strCheckIfContains(msgContent, 'tosch')) {
