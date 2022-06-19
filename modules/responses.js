@@ -62,15 +62,29 @@ module.exports.resIssueSingle = resIssueSingle;
 
 //----------------------------------------------------------- COMMANDS ----------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------
-function resDefaultData() {
+function resDefault() {
+   const affilction = C.chance(50) ? `${r(ASP.baseAdverbsList)} ${r(ASP.adjAfflictionsVirtues)}` : `${r(ASP.adjAfflictionsVirtues)}`;
 
    const opinions = [
-      `I am skeptic about that`,
-      `certainly`,
-      `doubtfully`,
-      `indeed`,
-      `surely`,
-      `undoubtedly`
+      `I am skeptic about that.`,
+      `I can't agree with that.`,
+      `It does not make sense.`,
+      `What?`,
+      `Woot?`,
+      `Are you serious?`,
+      `Indeed.`
+   ];
+   
+   const gifs = [
+   `https://tenor.com/view/xd-fani-gif-24750348`,
+   `https://tenor.com/view/jerry-seinfeld-i-like-the-way-you-think-gif-14890068`,
+   `https://tenor.com/view/pirates-of-the-caribbean-captain-jack-sparrow-not-making-sense-doesnt-make-any-sense-johnny-depp-gif-16635067`,
+   `https://tenor.com/view/i-knew-it-words-of-wisdom-youre-so-wise-the-shining-jack-nicholson-gif-14741551`,
+   `https://tenor.com/view/everybody-just-calm-down-supt-joe-donovan-hudson-and-rex-everyone-take-it-easy-settle-down-guys-gif-24465700`,
+   `https://tenor.com/view/gandalf-yes-very-good-gif-19209604`,
+   `https://tenor.com/view/keep-telling-yourself-that-darling-captain-jack-sparrow-johnny-depp-gif-10233026`,
+   `https://tenor.com/view/indeed-tealc-stargate-gif-4496552`,
+   `https://tenor.com/view/no-nope-smh-kanye-west-gif-4246025`
    ];
 
    const speaking = [
@@ -80,17 +94,14 @@ function resDefaultData() {
 
    const arrayResult = [
       `${r(opinions)}`,
-      `You ${r(speaking)} like someone ${r(ASP.adjAfflictionsVirtues)}`,
-      `That information just made me ${r(ASP.baseAdverbsList)} ${r(ASP.adjAfflictionsVirtues)}`,
-      `That information just made me ${r(ASP.adjAfflictionsVirtues)}`,
-      `*${C.strCapitalizeFirstLetter(r(ASP.adjAfflictions))} Tosche noises*`
+      `${C.strCapitalizeFirstLetter(r(ASP.termsNoDoubt))}`,
+      `${r(gifs}`,
+      `You ${r(speaking)} like someone ${affilction}.`,
+      `That information just made me ${affilction}.`,
+      `*${C.strCapitalizeFirstLetter(r(ASP.adjAfflictions))} Tosche noises.*`
    ];
 
-   return arrayResult;
-}
-
-function resDefault() {
-   return C.strCapitalizeFirstLetter(C.arrGetRandom(resDefaultData()));
+   return r(arrayResult);
 }
 
 module.exports.resDefault = resDefault;
@@ -115,7 +126,7 @@ module.exports.resAmount = resAmount;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function resChance() {
-   const number = C.chance(50) ? C.rnd(100) : C.rnd(200);
+   const number = C.chance(90) ? C.rnd(100) : C.rndBetween(100, 200);
 
    let arrayResult = [
       `${number}`,
@@ -236,6 +247,8 @@ module.exports.resHate = resHate;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function resIs() {
+   let result;
+
    if (C.chance(5)) {
       let arrayResultSpecialNormal = [
          `I think the answer is obvious`,
@@ -252,7 +265,7 @@ function resIs() {
       arrayResultSpecialNormal = G.addFunnyEndingToAll(arrayResultSpecialNormal);
       arrayResultSpecialQuestion = G.addFunnyEndingToAll(arrayResultSpecialQuestion, '?');
 
-      return arrayResultSpecialNormal.concat(arrayResultSpecialQuestion);
+      result = r(arrayResultSpecialNormal.concat(arrayResultSpecialQuestion));
    } else {
       const arrayResult = [
          `Absolutely`, `Absolutely not`,
@@ -269,11 +282,15 @@ function resIs() {
          `Yeah`, `Nah`,
          `Yes`, `No`,
          `Yup`, `Nope`,
-         `Partially`, `A bit`, `Slightly`, `Somehow`, `Possibly`, `Perhaps`, `Maybe`, `It could be`, `Almost`
+         `Partially`, `A bit`, `Slightly`, `Somehow`, `Possibly`, `Perhaps`, `Maybe`, `It could be`, `Almost`,
+         `https://tenor.com/view/isildur-isilduryes-lotr-gif-17969733`,
+         `https://tenor.com/view/no-nope-no-way-noo-absolutely-not-gif-20244171`
       ];
 
-      return G.addFunnyEndingToAll(arrayResult);
+      result = r(G.addFunnyEndingToAll(arrayResult));
    }
+
+   return result;
 }
 
 module.exports.resIs = resIs;
@@ -355,13 +372,13 @@ function resRate(subject) {
    const additionalS = who == 'you' ? '' : 's';
    let result;
 
-   if(C.chance(90)) {
+   if (C.chance(90)) {
       const arrayResult = [
          ``,
          `Hmm... I'd rate ${who}`,
          `I'd give ${who}`,
-         `Definitely`,
-         `Definitely`,
+         `${r(ASP.termsNoDoubt)}`,
+         `I think it's gonna be`,
          `I'd say`
       ];
 

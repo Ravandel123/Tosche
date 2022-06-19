@@ -1,6 +1,6 @@
+//A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+
 const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
-
-
 
 //-----------------------------------------------------------ADJECTIVES----------------------------------------------------------
 const adjectivesAcceptedInsulting = [
@@ -137,7 +137,21 @@ const termsExtremelyBad = [
    'utter garbage'
 ];
 
+const termsNoDoubt = [
+   'absolutely', 'assuredly',
+   'beyond a doubt', 'beyond any doubt', 'beyond a question',
+   'certainly', 'clearly',
+   'definitely',
+   'for sure', 
+   'incontrovertibly', 'indubitably', 'irrefutably',
+   'plainly',
+   'surely',
+   'truly',
+   'undeniably', 'undisputedly', 'unequivocally', 'unmistakably', 'unquestionably',
+   'without a doubt'
+];
 
+   
 //-----------------------------------------------------------EXPORTS----------------------------------------------------------
 module.exports = {
    vowels,
@@ -148,7 +162,9 @@ module.exports = {
    baseAdverbsList,
    nounsAcceptedInsulting,
    pronouns,
+
    termsAccuracy,
    termsExtremelyGood,
-   termsExtremelyBad
+   termsExtremelyBad,
+   termsNoDoubt
 };

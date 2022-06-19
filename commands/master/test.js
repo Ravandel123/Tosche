@@ -13,8 +13,9 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
+      C.dcRespondToMsg(message, R.resDefault());
 
-   await CG.modifyActionPointsForAll(args[1]);
+   // await CG.modifyActionPointsForAll(args[1]);
 
    // let fishingProfile;
 
