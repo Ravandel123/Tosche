@@ -7,6 +7,6 @@ module.exports = {
    usage: '',
    example: 'Deltrada',
    execute(message, args) {
-      // C.dcRespondFromArray(message, R.resRate(args[1]));
+      C.dcRespondFromArray(message, R.resRate(args[1]));
    },
 }
