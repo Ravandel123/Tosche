@@ -1840,51 +1840,7 @@ client.on('messageCreate', message => {
           message.channel.send(ReturnRandom(responseList2))
       }
       break;
-      
-    //----------------------------------------------------------------------------------------------------------------------------
-    //----------rate------------------------------------------------------------
-    //----------------------------------------------------------------------------------------------------------------------------
-    // case 'rate':
-      // var firstPartArray = ['', 'Hmm. I\'d rate that ', 'I\'d give that ', 'I\'d say '];
-      // var personifiedFirstPartArray = ['', 'Hmm. I\'d rate you ', 'I\'d give you a ', 'I\'d say '];
 
-      // var specialArray = [
-      // 'I think we need a negative scale for that.',
-      // 'That is completely out of scale!',
-      // 'Better than ' + ReturnRandom(dictatorsPeopleList) + '.',
-      // ReturnRandom(dictatorsPeopleList) + ' was better.',
-      // 'Amazing!',
-      // 'Incredible!',
-      // 'Why you even wanna rate that?',
-      // 'Utter garbage.',
-      // 'Over 9000!'
-      // ];
-
-      // var personifiedSpecialArray = [
-      // 'I think we need a negative scale to rate you.',
-      // 'You are completely out of scale!',
-      // 'Better than ' + ReturnRandom(dictatorsPeopleList) + '.',
-      // ReturnRandom(dictatorsPeopleList) + ' was better than you.',
-      // 'You are amazing!',
-      // 'You are incredible!',
-      // 'Why you even wanna rate yourself?',
-      // 'You suck lol.',
-      // 'You suck.',
-      // 'Over 9000!'
-      // ];
-
-      // if (arguments[1] == 'me' || arguments[1] == null)
-      // {
-        // firstPartArray = personifiedFirstPartArray;
-        // specialArray = personifiedSpecialArray;
-      // }
-
-      // if(chance(15))
-        // message.channel.send(ReturnRandom(specialArray))
-      // else
-        // message.channel.send(ReturnRandom(firstPartArray) + Math.floor(Math.random() * 14) + '/10.')
-      // break;
-      
     //------------------------------------------------------------------------------------------------------------------------------
     //----------resolve-----------------------------------------------------------
     //------------------------------------------------------------------------------------------------------------------------------
