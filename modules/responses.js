@@ -403,6 +403,9 @@ function resRate(subject) {
 
       result = r(arrayResult);
    }
+   
+   if (!result.startsWith('http'))
+      result = C.strCapitalizeFirstLetter(result);
 
    return C.strCapitalizeFirstLetter(result);
 }
