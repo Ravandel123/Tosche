@@ -113,7 +113,7 @@ function defaultBehavior(message) {
       return;
 
    if (C.strCheckIfContains(msgContent, 'tosch')) {
-      C.dcRespondFromArray(message, R.resYou());
+      C.dcRespondToMsg(message, R.resYou());
       return;
    }
 

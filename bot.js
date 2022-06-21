@@ -552,7 +552,6 @@ client.on('messageCreate', message => {
   'Survival is a tenuous proposition in this sprawling tomb.',
   'More blood soaks the soil, feeding the evil therein.',
   'Another life wasted in the pursuit of glory and gold.',
-  'This is no place for the weak, or the foolhardy.',
   'This is no place for the weak, or foolhardy.',
   'More dust, more ashes, more disappointment.'
   ]

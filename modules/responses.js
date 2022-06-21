@@ -1,10 +1,46 @@
 const C = require('./common.js');
 const AC = require('./arraysCommon.js');
-const ASP = require('./arraysSpeechParts.js');
+const AS = require('./arraysSpeech.js');
 const G = require('./generators.js');
 
 
-const r = C.arrGetRandom;
+const RND = C.arrGetRandom;
+
+//----------------------------------------------------------- COMMON DATA ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+const arrayUniversalResponses = [
+   `Excuse me?!`,
+   `I know.`,
+   `I know, right?`,
+   `No point in stating the obvious.`,
+   `So I have been told.`,
+   `Stop it please!`,
+   `True, I couldn't agree more.`,
+   `You too.`,
+   `Mhm, for sure.`,
+   `You're welcome.`,
+   `As the prophecy foretold.`,
+   `Like in my dream.`,
+   `I'm fully convinced you never graduated kindergarden.`,
+   `Because of what you said, now I want to burn down an Ermehn village.`
+];
+
+function universalResponses() {
+   let arrayResult = [
+      `I agree, in ${C.rnd(110)}%.`,
+      `No, ${RND(['you', 'u'])}`,
+      `Well, ${C.rnd(12)} out 10 people agree!`,
+      `${C.strCapitalizeFirstLetter(RND(AS.termsNoDoubt))}.`,
+      `And now I need to cut off your ${RND(['tongue', 'ears', 'fingers', 'toes', 'tail'])}.`,
+   ];
+
+   arrayResult = arrayResult.concat(arrayUniversalResponses);
+
+   return arrayResult;
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 //----------------------------------------------------------- COMMON ----------------------------------------------------------
@@ -63,12 +99,12 @@ module.exports.resIssueSingle = resIssueSingle;
 //----------------------------------------------------------- COMMANDS ----------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------
 function resDefault() {
-   const affilction = C.chance(50) ? `${r(ASP.baseAdverbsList)} ${r(ASP.adjAfflictionsVirtues)}` : `${r(ASP.adjAfflictionsVirtues)}`;
+   const affilction = C.chance(50) ? `${RND(AS.baseAdverbsList)} ${RND(AS.adjAfflictionsVirtues)}` : `${RND(AS.adjAfflictionsVirtues)}`;
 
    const opinions = [
       `I am skeptic about that.`,
       `I can't agree with that.`,
-      `It does not make sense.`,
+      `This doesn't make any sense.`,
       `What?`,
       `Woot?`,
       `Are you serious?`,
@@ -93,15 +129,15 @@ function resDefault() {
    ];
 
    const arrayResult = [
-      `${r(opinions)}`,
-      `${C.strCapitalizeFirstLetter(r(ASP.termsNoDoubt))}.`,
-      `${r(gifs)}`,
-      `You ${r(speaking)} like someone ${affilction}.`,
+      `${RND(opinions)}`,
+      `${RND(gifs)}`,
+      `You ${RND(speaking)} like someone ${affilction}.`,
       `That information just made me ${affilction}.`,
-      `*${C.strCapitalizeFirstLetter(r(ASP.adjAfflictions))} Tosche noises.*`
+      `*${C.strCapitalizeFirstLetter(RND(AS.adjAfflictions))} Tosche noises.*`,
+      `${RND(universalResponses())}`
    ];
 
-   return r(arrayResult);
+   return RND(arrayResult);
 }
 
 module.exports.resDefault = resDefault;
@@ -265,7 +301,7 @@ function resIs() {
       arrayResultSpecialNormal = G.addFunnyEndingToAll(arrayResultSpecialNormal);
       arrayResultSpecialQuestion = G.addFunnyEndingToAll(arrayResultSpecialQuestion, '?');
 
-      result = r(arrayResultSpecialNormal.concat(arrayResultSpecialQuestion));
+      result = RND(arrayResultSpecialNormal.concat(arrayResultSpecialQuestion));
    } else {
       const arrayResult = [
          `Absolutely`, `Absolutely not`,
@@ -287,7 +323,9 @@ function resIs() {
          `https://tenor.com/view/no-nope-no-way-noo-absolutely-not-gif-20244171`
       ];
 
-      result = r(G.addFunnyEndingToAll(arrayResult));
+      result = RND(arrayResult);
+      if (!result.startsWith('http'))
+         result = result + G.genFunnyEnding();
    }
 
    return result;
@@ -377,7 +415,7 @@ function resRate(subject) {
          ``,
          `Hmm... I'd rate ${who}`,
          `I'd give ${who}`,
-         `${r(ASP.termsNoDoubt)}`,
+         `${RND(AS.termsNoDoubt)}`,
          `I think it's gonna be`,
          `I'd say`
       ];
@@ -386,24 +424,24 @@ function resRate(subject) {
       const maxRating = C.chance(90) ? 10 : C.rndNo0(100);
       const minus = C.chance(90) ? '' : '-';
 
-      result = `${r(arrayResult)} ${minus}${rating}/${maxRating}.`;
+      result = `${RND(arrayResult)} ${minus}${rating}/${maxRating}.`;
    } else {
       const arrayResult = [
          `I think we need a negative scale for ${who}.`,
          `I don't want to rate ${who}.`,
          `No way I'm gonna rate that!`,
-         `${who} ${auxiliaryVerb} ${r(C.chance(50) ? ASP.termsExtremelyGood : ASP.termsExtremelyBad)}!`,
+         `${who} ${auxiliaryVerb} ${RND(C.chance(50) ? AS.termsExtremelyGood : AS.termsExtremelyBad)}!`,
          `Why do you even want to rate ${reflexivePronoun}?`,
          `${who} suck${additionalS}.`,
-         `Better than ${r(AC.charactersBadGuys)}.`,
-         `${r(AC.charactersBadGuys)} was better.`,
+         `Better than ${RND(AC.charactersBadGuys)}.`,
+         `${RND(AC.charactersBadGuys)} was better.`,
          `Over 9000!`,
          `https://tenor.com/view/caroline-cameron-sportsnet-awful-absolutely-awful-horrible-gif-18101478`
       ];
 
-      result = r(arrayResult);
+      result = RND(arrayResult);
    }
-   
+
    if (!result.startsWith('http'))
       result = C.strCapitalizeFirstLetter(result);
 
@@ -421,7 +459,7 @@ module.exports.resWho = resWho;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function resYou() {
-   const arrayResult = [
+   let arrayResult = [
       `After hearing what you just said, I realized that honest people still do exists!`,
       `Are you a spy? Who sent you?`,
       `Are you hitting on me?`,
@@ -431,7 +469,6 @@ function resYou() {
       `Compliment accepted.`,
       `Do you really think I care about your opinion, lol?`,
       `Enough of that!`,
-      `Excuse me?!`,
       `Finally, I found someone who agrees with my parents.`,
       `Flattery won't get you anywhere, fella. Scram!`,
       `Give me a quill and I'll give you my autograph.`,
@@ -440,11 +477,8 @@ function resYou() {
       `I'm glad I made your day brighter.`,
       `I'm sorry, but you can't afford it.`,
       `I'm warning you, I'm too hot for you to handle.`,
-      `I agree, 100%!`,
       `I can see that honesty is still the best policy.`,
       `I get that a lot!`,
-      `I know.`,
-      `I know, right?`,
       `I know. Wish I could say the same about you.`,
       `I love you too!`,
       `I love your honesty and sincerity.`,
@@ -457,12 +491,9 @@ function resYou() {
       `It must be the meds kicking in.`,
       `It must be the tapeworm.`,
       `Just today? What about yesterday?`,
-      `Look who's talking lol.`,
+      `Look who's talking, lol.`,
       `Much obliged!`,
-      `No point in stating the obvious.`,
       `No takebacks, okay!`,
-      `No, u.`,
-      `No, you.`,
       `Not since the accident.`,
       `Not this again... take a number and wait in line.`,
       `Oh, I wish you'd experience it as well.`,
@@ -474,17 +505,13 @@ function resYou() {
       `Peace be with you!`,
       `Shucks, my fluffy neck!`,
       `Shut up baby.`,
-      `So I have been told.`,
       `Sorry, you must have mistaken me for someone else.`,
       `Stop it before I fall in love with you.`,
-      `Stop it please!`,
       `Thanks, but I prefer to be noticed for my intellectual capacity.`,
       `Thanks, fan!`,
       `Thanks, I sacrificed many lives for it.`,
       `Thanks, I woke up like this.`,
       `Thank you, so please vote for me in the next elections.`,
-      `True, I couldn't agree more.`,
-      `Well, 11 out 10 people agree!`,
       `Well, hanging around the right people really changes you.`,
       `Well, that makes two of us!`,
       `What do you need?`,
@@ -497,14 +524,12 @@ function resYou() {
       `Yeah, the genie finally granted my wish.`,
       `You'll get there, eventually.`,
       `You're not the first one to tell me that today.`,
-      `You're welcome.`,
       `You know what? I like you.`,
       `You must be looking at a mirror.`,
-      `You too.`,
-      `Mhm, for sure.`,
-      `And now I need cut off your tongue.`,
       `I am gonna kill you with all my floof.`,
-      `Because of what you said I now want to burn down another Ermehn village`,
+      `I think it's time to pour cement into your eyes.`,
+      `Soon, I will drink from your skull.`,
+      `I'm gonna harvest your toes for that.`,
       `https://i.imgur.com/cTk5o3Y.png`,
       `https://i.imgur.com/gVyMLhT.png`,
       `https://i.imgur.com/b9A9qcU.png`,
@@ -522,7 +547,9 @@ function resYou() {
       `https://tenor.com/view/woman-be-silent-be-silent-tealc-woman-be-silent-stargate-woman-be-silent-sg1woman-be-silent-gif-16017603`
    ];
 
-   return arrayResult;
+   arrayResult = arrayResult.concat(universalResponses());
+
+   return RND(arrayResult);
 }
 
 module.exports.resYou = resYou;

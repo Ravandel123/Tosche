@@ -1,6 +1,5 @@
 const D = require('discord.js');
-const AC = require('./arraysCommon.js');
-const ASP = require('./arraysSpeechParts.js');
+const AS = require('./arraysSpeech.js');
 
 const MAX_MSG_LENGTH = 2000;
 const PREFIX_LENGTH = 2;
@@ -617,7 +616,7 @@ function strAddArticle(string, makeBold = false) {
       result = 'an ';
    } else if (strCheckIfAnyMatch(string, exceptionsWithNone)) {
       result = '';
-   } else if (strCheckIfAnyMatch(string, ASP.vowels)) {
+   } else if (strCheckIfAnyMatch(string, AS.vowels)) {
       result = 'an ';
    } else {
       result = 'a ';
@@ -657,7 +656,7 @@ function strGetPronoun(string, version = 1) {
       return;
 
    const stringLowered = strToLowerCase(string);
-   let result = arr2DGetItemColumnValue(ASP.pronouns, stringLowered, version, 0);
+   let result = arr2DGetItemColumnValue(AS.pronouns, stringLowered, version, 0);
 
    if (!result)
       result = strAddEndingApostrophe(string);

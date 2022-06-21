@@ -18,7 +18,7 @@ const charactersIrlOnly = charactersIrl.concat(charactersSpecial);
 const charactersAll = charactersIrl.concat(charactersSpecial, charactersBwd, charactersBadGuys);
 
 
-const additionalFunnyWords = ['lol', 'yes-yes', 'lmao', 'xD'];
+const additionalFunnyWords = ['lol', 'yes-yes', 'lmao'];
 
 
 const dndAlignments = ['Lawful Good', 'Lawful Neutral', 'Lawful Evil', 'Neutral Good', 'True Neutral', 'Neutral Evil', 'Chaotic Evil', 'Chaotic Neutral', 'Chaotic Good'];

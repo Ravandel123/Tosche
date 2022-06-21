@@ -7,6 +7,6 @@ module.exports = {
    usage: '',
    example: 'are an awesome general, Tosche',
    execute(message, args) {
-      C.dcRespondFromArray(message, R.resYou());
+      C.dcRespondToMsg(message, R.resYou());
    },
 }
