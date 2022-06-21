@@ -31,7 +31,8 @@ function universalResponses() {
       `No, ${RND(['you', 'u'])}`,
       `Well, ${C.rnd(12)} out 10 people agree!`,
       `${C.strCapitalizeFirstLetter(RND(AS.termsNoDoubt))}.`,
-      `And now I need to cut off your ${RND(['tongue', 'ears', 'fingers', 'toes', 'tail'])}.`,
+      `*Tosche pulls out his ${RND(['sword', 'axe', 'gun', 'rocket launcher', 'crossbow', 'minigun', 'shotgun'])}.*`, //weapons here
+      `And now I need to cut off your ${RND(['tongue', 'ears', 'fingers', 'toes', 'tail'])}.`
    ];
 
    arrayResult = arrayResult.concat(arrayUniversalResponses);
