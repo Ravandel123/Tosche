@@ -13,8 +13,8 @@ module.exports = {
       try {
          const responseMsg = await C.dcSendMsgToChannelAndGetItsRef(message, msgContent);
          for (let i = 0; i < 3; i++) {
-            await C.sleep(0.5);
-            msgContent += msgContent + '.';
+            await C.sleep(1);
+            msgContent += '.';
             responseMsg.edit(msgContent);
          }
          await C.sleep(0.5);
