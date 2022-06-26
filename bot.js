@@ -1840,33 +1840,6 @@ client.on('messageCreate', message => {
       }
       break;
 
-    // ------------------------------------------------------------------------------------------------------------------------------
-    // ----------resolve-----------------------------------------------------------
-    // ------------------------------------------------------------------------------------------------------------------------------
-    // case 'resolve':
-      // var result;
-      // var quoteList = ddQuotesAfflictionList;
-      // who = RecognizeWho(arguments[1], message, command)
-
-      // if(chance(20))
-        // if(chance(25))
-        // {
-          // result = ReturnRandom(specialVirtuesList);
-          // quoteList = ddQuotesVirtuesList;
-        // }
-        // else
-          // result = ReturnRandom(specialAfflictionsList);
-      // else if (chance(25))
-      // {
-        // result = ReturnRandom(virtuesList);
-        // quoteList = ddQuotesVirtuesList;
-      // }
-      // else
-        // result = ReturnRandom(afflictionsList);
-
-      // message.channel.send(who + '\'s resolve is tested...\n' + who + ' is **' + result + '**\n\n' + ChangeToBold('"' + ReturnRandom(quoteList) + '"'))
-      // break;
-      
     //---------------------------------------------------------------------------------------------------------------------------
     //----------roll-----------------------------------------------------------
     //---------------------------------------------------------------------------------------------------------------------------

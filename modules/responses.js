@@ -212,12 +212,14 @@ function resDndalign(who) {
    if (!who)
       return;
 
+   const alignment = RND(AC.dndAlignments);
    const arrayResult = [
-      `${who} is ${C.arrGetRandom(AC.dndAlignments)}`,
-      `It seems like ${who} is ${C.arrGetRandom(AC.dndAlignments)}`
+      `${who} is ${alignment}.`,
+      `It seems like ${who} is ${alignment}.`,
+      `${C.strCapitalizeFirstLetter(RND(AS.termsNoDoubt))} ${alignment}.`
    ];
 
-   return G.addFunnyEndingToAll(arrayResult);
+   return G.addFunnyEnding(RND(arrayResult));
 }
 
 module.exports.resDndalign = resDndalign;
