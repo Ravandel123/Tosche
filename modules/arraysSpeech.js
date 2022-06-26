@@ -49,7 +49,7 @@ const adjVirtues = [
    'powerful',
    'relentless',
    'stalwart',
-   'undying'
+   'undying',
    'vigorous'
 ];
 
