@@ -212,7 +212,7 @@ function resDndalign(who) {
    if (!who)
       return;
 
-   const alignment = RND(AC.dndAlignments);
+   const alignment = `**${RND(AC.dndAlignments)}**`;
    const arrayResult = [
       `${who} is ${alignment}.`,
       `It seems like ${who} is ${alignment}.`,
@@ -456,7 +456,7 @@ function resResolve(who) {
       return;
 
    const result = C.chance(75) ? `${RND(AS.adjAfflictions)} <:Stress:554734700279627792>` : `${RND(AS.adjVirtues)} <:Virtue:554734699935694848>`;
-   return `${who} is **${result}**`;
+   return `${who} is **${C.strCapitalizeFirstLetter(result)}**`;
 }
 
 module.exports.resResolve = resResolve;
