@@ -428,8 +428,16 @@ function strToLowerCase(value) {
 module.exports.strToLowerCase = strToLowerCase;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function strCapitalizeFirstLetter(value) {
-   return convertByFunction(value, (e) => checkIfString(e) ? e.charAt(0).toUpperCase() + e.slice(1) : e);
+function strCapitalizeFirstLetter(value, extraCheck = true) {
+   return convertByFunction(value, (e) => {
+      if (!checkIfString(e))
+         return e;
+
+      if (extraCheck && e.startsWith('http'))
+         return e;
+
+      return e.charAt(0).toUpperCase() + e.slice(1)
+   });
 }
 
 module.exports.strCapitalizeFirstLetter = strCapitalizeFirstLetter;
@@ -1036,6 +1044,24 @@ function dcSendMsgToChannel(channel, msgContent) {
 module.exports.dcSendMsgToChannel = dcSendMsgToChannel;
 
 // OK---------------------------------------------------------------------------------------------------------------
+async function dcSendMsgToChannelAndGetItsRef(msgOrChannel, msgContent) {
+   if (!checkIfExists(msgContent))
+      return Promise.reject(`You cannot send an empty message!`);
+
+   if (convertToString(msgContent).length > MAX_MSG_LENGTH)
+      return Promise.reject(`The message is too long! It can't be longer than ${MAX_MSG_LENGTH} characters!`);
+
+   const channel = dcGetChannel(msgOrChannel);
+   if (!channel)
+      return Promise.reject(`Wrong input data!`);
+
+   const msgReference = await channel?.send(msgContent);
+   return Promise.resolve(msgReference);
+}
+
+module.exports.dcSendMsgToChannelAndGetItsRef = dcSendMsgToChannelAndGetItsRef;
+
+// OK---------------------------------------------------------------------------------------------------------------
 function dcRespondToMsg(message, msgContent) {
    dcSendMsg(message, msgContent, 'channel');
 }
@@ -1077,12 +1103,10 @@ function dcGetRoleByName(element, roleName) {
 
    const searchFunction = e => e.name == roleName;
 
-   if (dcCheckIfMember(element))
+   if (dcCheckIfMember(element) || dcCheckIfGuildMessage(element))
       return element.guild.roles.cache.find(searchFunction);
    else if (dcCheckIfGuild(element))
       return element.roles.cache.find(searchFunction);
-   else if (dcCheckIfGuildMessage(element))
-      return element.guild.roles.cache.find(searchFunction);
 }
 
 module.exports.dcGetRoleByName = dcGetRoleByName;
@@ -1196,6 +1220,16 @@ module.exports.dcGetMemberIDFromMention = dcGetMemberIDFromMention;
 
 
 //-------------------------------------------------------Channels-------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function dcGetChannel(element) {
+   if (dcCheckIfMessage(element))
+      return element.channel;
+   else if (dcCheckIfChannel(element))
+      return element;
+}
+
+module.exports.dcGetChannel = dcGetChannel;
+
 // OK---------------------------------------------------------------------------------------------------------------
 function dcGetChannelByName(element, channelName) {
    if (!checkIfExists(channelName))

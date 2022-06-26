@@ -266,7 +266,7 @@ client.on('messageCreate', message => {
   //-----People------------------------------------------------------------------------------------------------------------------------------------------------------
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  var serverPeopleList = ['VVooly', 'Dagos', 'Dinly', 'Me', 'Ravandel', 'Catz', 'You']
+  var serverPeopleList = ['VVooly', 'Nachtkind', 'Dinly', 'Me', 'Ravandel', 'Catz', 'You']
   
   var dictatorsPeopleList = [
   'Asha', 'Ashtor', 'Beck', 'Bevan', 'Cain', 'Clovis', 'Crim', 'Dakkan', 'Eira', 'Hardin', 'Janik', 'Kenosh',
@@ -1840,32 +1840,32 @@ client.on('messageCreate', message => {
       }
       break;
 
-    //------------------------------------------------------------------------------------------------------------------------------
-    //----------resolve-----------------------------------------------------------
-    //------------------------------------------------------------------------------------------------------------------------------
-    case 'resolve':
-      var result;
-      var quoteList = ddQuotesAfflictionList;
-      who = RecognizeWho(arguments[1], message, command)
+    // ------------------------------------------------------------------------------------------------------------------------------
+    // ----------resolve-----------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------------------------------
+    // case 'resolve':
+      // var result;
+      // var quoteList = ddQuotesAfflictionList;
+      // who = RecognizeWho(arguments[1], message, command)
 
-      if(chance(20))
-        if(chance(25))
-        {
-          result = ReturnRandom(specialVirtuesList);
-          quoteList = ddQuotesVirtuesList;
-        }
-        else
-          result = ReturnRandom(specialAfflictionsList);
-      else if (chance(25))
-      {
-        result = ReturnRandom(virtuesList);
-        quoteList = ddQuotesVirtuesList;
-      }
-      else
-        result = ReturnRandom(afflictionsList);
+      // if(chance(20))
+        // if(chance(25))
+        // {
+          // result = ReturnRandom(specialVirtuesList);
+          // quoteList = ddQuotesVirtuesList;
+        // }
+        // else
+          // result = ReturnRandom(specialAfflictionsList);
+      // else if (chance(25))
+      // {
+        // result = ReturnRandom(virtuesList);
+        // quoteList = ddQuotesVirtuesList;
+      // }
+      // else
+        // result = ReturnRandom(afflictionsList);
 
-      message.channel.send(who + '\'s resolve is tested...\n' + who + ' is **' + result + '**\n\n' + ChangeToBold('"' + ReturnRandom(quoteList) + '"'))
-      break;
+      // message.channel.send(who + '\'s resolve is tested...\n' + who + ' is **' + result + '**\n\n' + ChangeToBold('"' + ReturnRandom(quoteList) + '"'))
+      // break;
       
     //---------------------------------------------------------------------------------------------------------------------------
     //----------roll-----------------------------------------------------------

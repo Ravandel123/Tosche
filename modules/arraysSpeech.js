@@ -43,10 +43,13 @@ const adjAfflictions = [
 ];
 
 const adjVirtues = [
-   'courageous',
-   'focused',
+   'clever', 'courageous',
+   'fearsome', 'focused',
+   'mighty',
    'powerful',
+   'relentless',
    'stalwart',
+   'undying'
    'vigorous'
 ];
 

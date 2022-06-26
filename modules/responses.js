@@ -443,13 +443,21 @@ function resRate(subject) {
       result = RND(arrayResult);
    }
 
-   if (!result.startsWith('http'))
-      result = C.strCapitalizeFirstLetter(result);
-
    return C.strCapitalizeFirstLetter(result);
 }
 
 module.exports.resRate = resRate;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function resResolve(who) {
+   if (!who)
+      return;
+
+   const result = C.chance(75) ? `${RND(AS.adjAfflictions)} <:Stress:554734700279627792>` : `${RND(AS.adjVirtues)} <:Virtue:554734699935694848>`;
+   return `${who} is **${result}**`;
+}
+
+module.exports.resResolve = resResolve;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function resWho() {
