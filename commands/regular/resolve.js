@@ -17,7 +17,7 @@ module.exports = {
             msgContent += '.';
             responseMsg.edit(msgContent);
          }
-         await C.sleep(0.5);
+         await C.sleep(1.5);
       } catch (e) {
          C.dcRespondToMsg(message, e);
       }
