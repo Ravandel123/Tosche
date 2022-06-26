@@ -22,6 +22,6 @@ module.exports = {
          C.dcRespondToMsg(message, e);
       }
 
-      C.dcRespondToMsg(message, R.resResolve(who);
+      C.dcRespondToMsg(message, R.resResolve(who));
    },
 }
