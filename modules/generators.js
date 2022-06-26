@@ -64,7 +64,7 @@ function addFunnyEnding(sentence) {
    if (!C.checkIfString(sentence))
       return;
 
-   return C.chance(25) ? `${sentence.slice(0, -1)}, ${C.arrGetRandom(AC.additionalFunnyWords)} ${sentence.slice(sentence.length - 1)}` : sentence;
+   return C.chance(25) ? `${sentence.slice(0, -1)}, ${C.arrGetRandom(AC.additionalFunnyWords)}${sentence.slice(sentence.length - 1)}` : sentence;
 }
 
 module.exports.addFunnyEnding = addFunnyEnding;
