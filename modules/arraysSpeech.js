@@ -31,7 +31,7 @@ const adjAfflictions = [
    'barbaric', 'brainwashed', 
    'cannibalistic', 'crazy',
    'degenerate', 'delusional', 'depressive', 'destructive', 'deviant', 'dumb',
-   'fearful', 'feral', 'frocious', 'foolish', 'furious', 'furry',
+   'fearful', 'feral', 'ferocious', 'foolish', 'furious', 'furry',
    'heartless', 'hopeless',
    'idiotic', 'imbecilic', 'inane', 'insane', 'irrational',
    'lazy', 
