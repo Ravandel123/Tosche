@@ -12,16 +12,16 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
+      const temperatureInF = args[1];
       if (!CC.checkIfArgIsNumber(message, temperatureInF))
          return;
 
-      const temperatureInF = args[1];
       let decimalPlaces = args[2];
-      let temperatureInC;
-
       if (!C.checkIfNaturalNumberInScope(decimalPlaces, 0, 100))
          decimalPlaces = 2;
 
+      
+      let temperatureInC;
       temperatureInC = C.calcFahrenheitToCelsius(temperatureInF);
       temperatureInC = C.calcFixMaxDecimal(temperatureInC, decimalPlaces);
 
