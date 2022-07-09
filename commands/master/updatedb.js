@@ -146,7 +146,7 @@ function updateGuildProfiles(guildProfiles) {
       totalEarned: 0,
    };
 
-   let resources: {
+   let resources = {
       hp: 10,
       insanity: 0,
       fate: 0,
