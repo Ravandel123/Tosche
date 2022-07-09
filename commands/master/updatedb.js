@@ -153,7 +153,7 @@ async function updateGuildProfiles(guildProfiles) {
       fortune: 0,
       resilience: 0,
       resolve: 0,
-   },
+   };
 
    await guildProfiles.updateMany({}, {$set : {
       actionPoints,
