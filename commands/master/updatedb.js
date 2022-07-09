@@ -18,7 +18,7 @@ module.exports = {
       else
          profile = await CG.getMessageAuthorProfile(message);
 
-      updateGuildProfiles(guildProfiles);
+      await updateGuildProfiles(guildProfiles);
 
       // if (args[1] == 'add') {
          //---------------OK---------------
@@ -140,7 +140,7 @@ module.exports = {
    },
 }
 
-function updateGuildProfiles(guildProfiles) {
+async function updateGuildProfiles(guildProfiles) {
    let actionPoints = {
       current: 0,
       totalEarned: 0,
