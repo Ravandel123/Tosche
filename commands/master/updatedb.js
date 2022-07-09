@@ -178,7 +178,7 @@ async function updateGuildProfiles(guildProfiles) {
       },
    };
 
-   let weaponSkills: = {
+   let weaponSkills = {
       melee: {
          current: 1,
          progress: 0,
