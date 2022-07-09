@@ -4,7 +4,7 @@ const DB = require('../../modules/db.js');
 const SG = require('../../modules/schematicsGuild.js');
 
 module.exports = {
-   name: 'db',
+   name: 'updatedb',
    description: 'Updates db.',
    usage: '',
    example: '',
@@ -155,9 +155,54 @@ async function updateGuildProfiles(guildProfiles) {
       resolve: 0,
    };
 
-console.log("cisnie");
-   await guildProfiles.updateMany({}, {$set : {
-      actionPoints,
-      resources
-      }});
+   let attributes = {
+      strength: 10,
+      toughness: 10,
+      agility: 10,
+      dexterity: 10,
+      perception: 10,
+      intelligence: 10,
+      willpower: 10,
+      charisma: 10,
+      luck: 10,
+   };
+
+   let skills = {
+      cooking : {
+         current: 1,
+         progress: 0,
+      },
+      fishing: {
+         current: 1,
+         progress: 0,
+      },
+   };
+
+   let weaponSkills: = {
+      melee: {
+         current: 1,
+         progress: 0,
+      },
+      ranged: {
+         current: 1,
+         progress: 0,
+      },
+      unarmed: {
+         current: 1,
+         progress: 0,
+      },
+   };
+
+   await guildProfiles.updateMany(
+      {},
+      {
+         $set : {
+            actionPoints,
+            resources,
+            attributes,
+            skills,
+            weaponSkills
+         }
+      }
+   );
 }
