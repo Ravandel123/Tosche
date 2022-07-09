@@ -148,6 +148,8 @@ async function updateGuildProfiles(guildProfiles) {
 
    let resources = {
       hp: 20,
+      stamina: 0,
+      stress: 0,
       insanity: 0,
       fate: 0,
       fortune: 0,
