@@ -18,8 +18,9 @@ module.exports = {
       else
          profile = await CG.getMessageAuthorProfile(message);
 
+      updateGuildProfiles(guildProfiles);
 
-      if (args[1] == 'add') {
+      // if (args[1] == 'add') {
          //---------------OK---------------
          // let actionPoints = {
             // current: 48,
@@ -84,7 +85,7 @@ module.exports = {
          // const res = await guildProfiles.updateMany({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Amber Drops' } } }, { $set: { 'currencies.$.name' : 'Amber XD' } })
          // const res = await guildProfiles.updateMany({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Amber Drops' } } }, { $set: { 'currencies.$.amount' : 123 } })
 
-      } else if (args[1] == 'remove') {
+      // } else if (args[1] == 'remove') {
          //---------------OK---------------
          // const res = await guildProfiles.updateMany({$unset : { actionPoints : ""} }); //REMOVE ACTION POINTS
          
@@ -128,11 +129,34 @@ module.exports = {
          // console.log(res.n)
          // console.log(res.nModified)
          // console.log(res)
-      } else if (args[1] == 'change') {
+      // } else if (args[1] == 'change') {
          // records.updateMany({}, { $rename: { fish.ownerId: 'place1Id' } }, { multi: true }, function(err, blocks) {
           // if(err) { throw err; }
           // console.log('done!');
          // });
-      }
+         
+         
+      // }
    },
+}
+
+function updateGuildProfiles(guildProfiles) {
+   let actionPoints = {
+      current: 0,
+      totalEarned: 0,
+   };
+
+   let resources: {
+      hp: 10,
+      insanity: 0,
+      fate: 0,
+      fortune: 0,
+      resilience: 0,
+      resolve: 0,
+   },
+
+   await guildProfiles.updateMany({}, {$set : {
+      actionPoints,
+      resources
+      }});
 }

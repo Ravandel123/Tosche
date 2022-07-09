@@ -2,6 +2,7 @@ const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
 const CG = require('../../modules/commonGuild.js');
 const DB = require('../../modules/db.js');
+const CBT = require('../../modules/advanced/combat.js');
 
 module.exports = {
    name: 'fightclub2',
