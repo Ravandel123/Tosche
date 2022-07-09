@@ -63,7 +63,7 @@ async function sparring(message, user1, user2) {
 
 
 
-
+//take stamine into account
 
       // C.dcSendMsgToChannel(fightClubChannel, msg);
 
