@@ -21,7 +21,6 @@ module.exports = {
 
             message.client.data.arena.fightInProgress = true;
             try {
-               let msg;
                const user1 = await CG.getMessageAuthorProfile(message);
                const user2 = await CG.getMemberProfile(message, args[2]);
                await duel(message, user1, user2);

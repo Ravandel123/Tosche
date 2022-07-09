@@ -12,6 +12,8 @@ const gProfileSchema = new MG.Schema({
    },
    resources: {
       hp: { type: Number, default: 1 },
+      stamina: { type: Number, default: 1 },
+      stress: { type: Number, default: 0 },
       insanity: { type: Number, default: 0 },
       fate: { type: Number, default: 0 },
       fortune: { type: Number, default: 0 },
@@ -21,7 +23,6 @@ const gProfileSchema = new MG.Schema({
    attributes: {
       strength: { type: Number, default: 10 },
       toughness: { type: Number, default: 10 },
-      stamina: { type: Number, default: 10 },
       agility: { type: Number, default: 10 },
       dexterity: { type: Number, default: 10 },
       perception: { type: Number, default: 10 },
