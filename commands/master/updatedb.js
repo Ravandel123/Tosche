@@ -147,7 +147,7 @@ async function updateGuildProfiles(guildProfiles) {
    };
 
    let resources = {
-      hp: 10,
+      hp: 20,
       insanity: 0,
       fate: 0,
       fortune: 0,
