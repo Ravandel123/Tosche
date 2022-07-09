@@ -155,6 +155,7 @@ async function updateGuildProfiles(guildProfiles) {
       resolve: 0,
    };
 
+console.log("cisnie");
    await guildProfiles.updateMany({}, {$set : {
       actionPoints,
       resources
