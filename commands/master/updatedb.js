@@ -170,7 +170,7 @@ module.exports = {
 
 async function defaultUpdate(message, id) {
    let profile = await CG.getProfileById(message, id);
-   profile.actionpoints.current += 1;
+   profile.actionPoints.current += 1;
    await profile.save();
    // console.log(`${id} updated!!!`);
    return Promise.resolve(`${id} updated!!!`);
