@@ -23,7 +23,7 @@ module.exports = {
       let members = C.dcGetAllMembers(message);
 
       for (const member of members) {
-         defaultUpdate(member[1].id);
+         defaultUpdate(message, member[1].id);
       }
 
 
@@ -162,7 +162,7 @@ module.exports = {
    },
 }
 
-async function defaultUpdate(id) {
+async function defaultUpdate(message, id) {
    let profile = await CG.getProfileById(message, id);
    profile.actionpoints += 1;
    await profile.save();
