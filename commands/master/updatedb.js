@@ -23,7 +23,7 @@ module.exports = {
       let members = C.dcGetAllMembers(message);
 
       for (const member of members) {
-         console.log(`ID : ${member[1].id}`);
+         defaultUpdate(member[1].id);
       }
 
 
@@ -162,6 +162,17 @@ module.exports = {
    },
 }
 
+async function defaultUpdate(id) {
+   let profile = await CG.getProfileById(message, id);
+   profile.actionpoints += 1;
+   await profile.save();
+   console.log(`${id} updated!!!`);
+}
+
+
+
+
+
 async function updateGuildProfiles(guildProfiles) {
    let actionPoints = {
       current: 0,
@@ -170,6 +181,7 @@ async function updateGuildProfiles(guildProfiles) {
 
    let resources = {
       hp: 20,
+      hunger: 0,
       stamina: 0,
       stress: 0,
       insanity: 0,
