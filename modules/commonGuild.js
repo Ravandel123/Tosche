@@ -99,6 +99,16 @@ function createNewGuildProfileFromID(message, id) {
 
 module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
 
+// OK---------------------------------------------------------------------------------------------------------------
+function getSkillWeapon(user, weaponSkillName) {
+   if (!checkIfProfile(user) || !C.strCheckIfAnyMatch(weaponSkillName, AG.weaponTypes))
+      return;
+
+   return user.weaponSkills.melee.current + user.weaponSkills[weaponSkillName].current;
+}
+
+module.exports.getSkillWeapon = getSkillWeapon;
+
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

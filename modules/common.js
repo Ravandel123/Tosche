@@ -729,6 +729,16 @@ function checkIfExists(itemToCheck) {
 module.exports.checkIfExists = checkIfExists;
 
 // OK---------------------------------------------------------------------------------------------------------------
+function checkIfNumberIsPositive(value) {
+   if (value === 0)
+      return value.toLocaleString()[0] !== "-";
+
+   return value > 0;
+}
+
+module.exports.checkIfNumberIsPositive = checkIfNumberIsPositive;
+
+// OK---------------------------------------------------------------------------------------------------------------
 function checkAllByFunction(objectToCheck, checkFunction) {
    if (!checkIfExists(objectToCheck) || !checkIfFunction(checkFunction))
       return;

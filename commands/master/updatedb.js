@@ -18,7 +18,31 @@ module.exports = {
       else
          profile = await CG.getMessageAuthorProfile(message);
 
-      await updateGuildProfiles(guildProfiles);
+
+
+      let members = C.dcGetAllMembers(message);
+      console.log(members);
+
+      for (const member of members) {
+         console.log(member);
+         console.log(`ID : ${member.id}`);
+      }
+
+
+
+
+
+
+
+
+
+      // await updateGuildProfiles(guildProfiles);
+
+
+
+
+
+
 
       // if (args[1] == 'add') {
          //---------------OK---------------

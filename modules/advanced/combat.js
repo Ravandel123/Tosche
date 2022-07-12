@@ -1,18 +1,9 @@
-const C = require("./../common.js");
+const C = require('./../common.js');
+const AG = require('./../arraysGuild.js');
+const CG = require('./../commonGuild.js');
 
 //----------------------------------------------------------- ARRAYS -----------------------------------------------------------
-const arrHitLocations = [
-   ['head', 14],
-   ['torso', 42],
-   ['primary arm', 10],
-   ['primary hand', 9],
-   ['secondary arm', 6],
-   ['secondary hand', 5],
-   ['right thigh', 4],
-   ['right foot', 3],
-   ['left thigh', 4],
-   ['left foot', 3]
-]
+const arrayHitLocations = C.arrGetPopulatedFrom2D(AG.bodyLocations);
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -21,10 +12,52 @@ const arrHitLocations = [
 //----------------------------------------------------------- MAIN -----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function rollAttack() {
-   let roll1 = C.rndNo0();
-   let roll2 = C.rndNo0();
+   let result = {};
+   result.roll = rndNo0(100);
+   result.isCrit = isCritical(result.roll);
 
-   const isCrit = roll1 == roll2;
+   return result;
+}
+
+// OK---------------------------------------------------------------------------------------------------------------
+function isCritical(value) {
+   return value == 100 || value % 10 == Math.floor(value / 10);
+}
+
+// OK---------------------------------------------------------------------------------------------------------------
+function getSL(skill, roll) {
+   const difference = (skill - roll) / 10;
+   return difference > 0 ? Math.floor(difference) : Math.ceil(difference);
+}
+
+function combat(user1, user2) {
+   const u1Roll = rollAttack();
+   const u2Roll = rollAttack();
+
+   const u1WS = CG.getSkillWeapon(user1, 'unarmed'); //change to get from currently equipped weapon
+   const u2WS = CG.getSkillWeapon(user2, 'unarmed'); //change to get from currently equipped weapon
+
+   const u1SL = getSL(u1WS, u1Roll);
+   const u2SL = getSL(u2WS, u2Roll);
+
+   let attackSucceeded;
+   if (u1SL === 0 && u2SL === 0) {
+      const u1PositiveZero = C.checkIfNumberIsPositive(u1SL);
+      const u2PositiveZero = C.checkIfNumberIsPositive(u2SL);
+
+      attackSucceeded = u1PositiveZero != u2PositiveZero ? u1PositiveZero : u1WS != u2WS ? u1WS > u2WS : false;
+   } else if (u1SL == u2SL) {
+      attackSucceeded = u1WS != u2WS ? u1WS > u2WS : false;
+   } else {
+      attackSucceeded = u1SL > u2SL;
+   }
+
+   let result = {};
+   result.SL = attackSucceeded ? u1SL - u2SL : u2SL - u1SL;
+
+   return result;
+}
+
 
 
 
@@ -82,9 +115,8 @@ function rollAttack() {
    // }
 
    // message.channel.send(msg)
-}
+// }
 
-module.exports.rollAttack = rollAttack;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
