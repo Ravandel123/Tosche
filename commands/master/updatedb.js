@@ -31,7 +31,8 @@ module.exports = {
       await C.sleep(2);
 
       for (const member of members) {
-         await defaultUpdate(message, member[1].id);
+         let xd = await defaultUpdate(message, member[1].id);
+         console.log(`Other: ${xd}`);
       }
 
 
@@ -40,7 +41,7 @@ module.exports = {
 
 
 
-      await updateGuildProfiles(guildProfiles);
+      // await updateGuildProfiles(guildProfiles);
 
 
 
