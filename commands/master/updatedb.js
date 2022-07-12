@@ -21,11 +21,9 @@ module.exports = {
 
 
       let members = C.dcGetAllMembers(message);
-      console.log(members);
 
       for (const member of members) {
-         console.log(member);
-         console.log(`ID : ${member.id}`);
+         console.log(`ID : ${member[1].id}`);
       }
 
 
