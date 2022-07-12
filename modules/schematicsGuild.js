@@ -13,6 +13,7 @@ const gProfileSchema = new MG.Schema({
    resources: {
       hp: { type: Number, default: 1 },
       hunger:  { type: Number, default: 0 },
+      satisfaction: { type: Number, default: 0 },
       stamina: { type: Number, default: 1 },
       stress: { type: Number, default: 0 },
       insanity: { type: Number, default: 0 },
