@@ -40,13 +40,16 @@ function getSL(skill, roll) {
 function combat(user1, user2) {
    const u1Roll = rollAttack();
    const u2Roll = rollAttack();
-
+                                                                                                         console.log(`u1Roll: ${u1Roll}`);
+                                                                                                         console.log(`u2Roll: ${u2Roll}`);
    const u1WS = CG.getSkillWeapon(user1, 'unarmed'); //change to get from currently equipped weapon
    const u2WS = CG.getSkillWeapon(user2, 'unarmed'); //change to get from currently equipped weapon
-
+                                                                                                         console.log(`u1WS: ${u1WS}`);
+                                                                                                         console.log(`u2WS: ${u2WS}`);
    const u1SL = getSL(u1WS, u1Roll);
    const u2SL = getSL(u2WS, u2Roll);
-
+                                                                                                         console.log(`u1SL: ${u1SL}`);
+                                                                                                         console.log(`u2SL: ${u2SL}`);
    let result = {};
    if (u1SL === 0 && u2SL === 0) {
       const u1PositiveZero = C.checkIfNumberIsPositive(u1SL);
