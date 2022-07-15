@@ -41,7 +41,7 @@ module.exports = {
 
 
 
-      // await updateGuildProfiles(guildProfiles);
+      await updateGuildProfiles(guildProfiles);
 
 
 
@@ -188,7 +188,7 @@ async function updateGuildProfiles(guildProfiles) {
    };
 
    let resources = {
-      hp: 20,
+      hp: 10,
       hunger: 0,
       satisfaction: 0,
       stamina: 0,

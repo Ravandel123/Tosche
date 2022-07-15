@@ -39,6 +39,8 @@ module.exports = {
    },
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
 async function sparring(message, user1, user2) {
    if (C.strCompare(user1.ownerId, user2.ownerId)) {
       C.dcRespondToMsg(message, `You can't fight with yourself!`);
@@ -81,7 +83,7 @@ async function sparring(message, user1, user2) {
          damage = CBT.calculateDamage(attackResult.SL, attacker, defender);
          defender.resources.hp -= damage;
       }
-console.log(`damage: ${damage}`);
+
       msg = getCombatMsg(user1, user2, attacker, defender, damage);
       C.dcSendMsgToChannel(fightClubChannel, msg);
 
@@ -89,7 +91,7 @@ console.log(`damage: ${damage}`);
       defender = attacker;
       attacker = tmp;
 
-      await C.sleep(2);
+      await C.sleep(1);
    } while (attacker.resources.hp > 0 && defender.resources.hp > 0);
 
    const winner = user1.resources.hp > user2.resources.hp ? user1 : user2;
@@ -97,6 +99,7 @@ console.log(`damage: ${damage}`);
    C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
 }
 
+// OK---------------------------------------------------------------------------------------------------------------
 function getCombatMsg(user1, user2, attacker, defender, damage) {
    const hitLocation = CBT.getHitLocation();
    const moveName = C.arrGetRandom(arrayMoves);
