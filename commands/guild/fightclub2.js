@@ -62,26 +62,38 @@ async function sparring(message, user1, user2) {
    await C.sleep(3);
 
    //roll initiative //take stamina into account
-   let attacker = user1;
-   let defender = user2;
+   let attacker;
+   let defender;
+
+   if (C.chance(50)) {
+      attacker = user1;
+      defender = user2;
+   } else {
+      attacker = user2;
+      defender = user1;
+   }
 
    do {
       const attackResult = CBT.combat(attacker, defender);
       let damage = -1;
-                                                                                                         console.log(`SL: ${attackResult.SL}`); await C.sleep(2);
 
       if (attackResult.attackSucceeded) {
          damage = CBT.calculateDamage(attackResult.SL, attacker, defender);
          defender.resources.hp -= damage;
       }
-
+console.log(`damage: ${damage}`);
       msg = getCombatMsg(user1, user2, attacker, defender, damage);
       C.dcSendMsgToChannel(fightClubChannel, msg);
+
+      const tmp = defender;
+      defender = attacker;
+      attacker = tmp;
+
       await C.sleep(2);
    } while (attacker.resources.hp > 0 && defender.resources.hp > 0);
 
    const winner = user1.resources.hp > user2.resources.hp ? user1 : user2;
-   C.dcSendMsgToChannel(fightClubChannel, `**${winner}** has won!`);
+   C.dcSendMsgToChannel(fightClubChannel, `**${winner.ownerName}** has won!`);
    C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
 }
 

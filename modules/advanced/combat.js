@@ -40,8 +40,8 @@ function getSL(skill, roll) {
 function combat(user1, user2) {
    const u1Roll = rollAttack();
    const u2Roll = rollAttack();
-                                                                                                         console.log(`u1Roll: ${u1Roll}`);
-                                                                                                         console.log(`u2Roll: ${u2Roll}`);
+                                                                                                         console.log(`u1Roll: ${u1Roll.roll}`);
+                                                                                                         console.log(`u2Roll: ${u2Roll.roll}`);
    const u1WS = CG.getSkillWeapon(user1, 'unarmed'); //change to get from currently equipped weapon
    const u2WS = CG.getSkillWeapon(user2, 'unarmed'); //change to get from currently equipped weapon
                                                                                                          console.log(`u1WS: ${u1WS}`);
