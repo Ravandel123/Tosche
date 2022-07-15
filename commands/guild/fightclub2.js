@@ -74,7 +74,7 @@ async function sparring(message, user1, user2) {
          defender.resources.hp -= damage;
       }
 
-      msg = getCombatMsg(user1, user2, agressor, defender, damage);
+      msg = getCombatMsg(user1, user2, attacker, defender, damage);
       C.dcSendMsgToChannel(fightClubChannel, msg);
    } while (attacker.resources.hp > 0 && defender.resources.hp > 0);
 
@@ -83,7 +83,7 @@ async function sparring(message, user1, user2) {
    C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
 }
 
-function getCombatMsg(user1, user2, agressor, defender, damage) {
+function getCombatMsg(user1, user2, attacker, defender, damage) {
    const hitLocation = CBT.getHitLocation();
    const moveName = C.arrGetRandom(arrayMoves);
    let msg;
@@ -91,12 +91,12 @@ function getCombatMsg(user1, user2, agressor, defender, damage) {
 
 
    if (damage > 0) {
-      msg = `**${agressor.ownerName}** ${C.strGetPastTense(moveName)} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation} for ${damage} damage!\n`;
+      msg = `**${attacker.ownerName}** ${C.strGetPastTense(moveName)} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation} for ${damage} damage!\n`;
       showHP = true;
    } else if (damage == 0) {
-      msg = `**${agressor.ownerName}** ${C.strGetPastTense(moveName)} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation} but caused no damage!\n`;
+      msg = `**${attacker.ownerName}** ${C.strGetPastTense(moveName)} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation} but caused no damage!\n`;
    } else {
-      msg = `**${agressor.ownerName}** tried to ${moveName} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation}, but missed!\n`;
+      msg = `**${attacker.ownerName}** tried to ${moveName} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation}, but missed!\n`;
    }
 
    if (showHP)
