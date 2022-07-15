@@ -12,6 +12,6 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      C.dcRespondToMsg(message, `The word '${args[1]}' has ${C.strGetSyllablesAmount(args[1]) syllable(s).`);
+      C.dcRespondToMsg(message, `The word '${args[1]}' has ${C.strGetSyllablesAmount(args[1])} syllable(s).`);
    },
 }

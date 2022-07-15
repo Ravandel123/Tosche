@@ -12,6 +12,6 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      C.dcRespondToMsg(message, `${args[1]} -> ${C.strGetPastTense(args[1]).`);
+      C.dcRespondToMsg(message, `${args[1]} -> ${C.strGetPastTense(args[1])}.`);
    },
 }
