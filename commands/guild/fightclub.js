@@ -2,59 +2,59 @@ const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
 const CG = require('../../modules/commonGuild.js');
 const DB = require('../../modules/db.js');
+const CBT = require('../../modules/advanced/combat.js');
 
 module.exports = {
    name: 'fightclub',
    description: 'Used to access Fight Club.',
-   usage: '[join]\nOR [duel] [user]',
+   usage: '[sparring] [user]',
    example: '',
    async execute(message, args) {
-      const requiredArgs = [`action (i.e. duel)`];
+      const requiredArgs = [`action (sparring)`, `user name`];
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      if (C.strCompare(args[1], 'duel')) {
-         if (!message.client.data.fightClub.fightInProgress) {
-            const requiredDuelArgs = [`action (i.e. duel)`, `user name`];
-            if (!CC.checkArgsAmount(message, args, requiredDuelArgs))
-               return;
+      if (!message.client.data.fightClub.fightInProgress) {
+         message.client.data.fightClub.fightInProgress = true;
 
-            message.client.data.fightClub.fightInProgress = true;
+         if (C.strCompare(args[1], 'sparring')) {
             try {
-               const user1 = await CG.getMessageAuthorProfile(message);
-               const user2 = await CG.getMemberProfile(message, args[2]);
-               await duel(message, user1, user2);
+               let user1 = {};
+               let user2 = {};
+
+               user1.profile = await CG.getMessageAuthorProfile(message);
+               user2.profile = await CG.getMemberProfile(message, args[2]);
+               await sparring(message, user1.profile, user2.profile);
             } catch(error) {
                C.dcRespondToMsg(message, error);
             }
+
             message.client.data.fightClub.fightInProgress = false;
          } else {
-            C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
+            C.dcRespondToMsg(message, `There is no fight club action called ${args[1]}.`);
          }
       } else {
-         C.dcRespondToMsg(message, `There is no fight club action called ${args[1]}.`);
+         C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
       }
    },
 }
 
-async function duel(message, user1, user2) {
-   const user1Name = user1.ownerName;
-   const user2Name = user2.ownerName;
-   const user1Attributes = user1.attributes;
-   const user2Attributes = user2.attributes;
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+async function sparring(message, user1, user2) {
    if (C.strCompare(user1.ownerId, user2.ownerId)) {
       C.dcRespondToMsg(message, `You can't fight with yourself!`);
       return;
    }
 
-   let msg, roll1, roll2, dmg, agressor, defender, winner;
-   let hp1 = user1.ownerId == '392728479696814092' ? 1000000 : 100; //user1Attributes.hp;
-   let hp2 = user2.ownerId == '392728479696814092' ? 1000000 : 100; //user2Attributes.hp;
-   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fightclub');
+   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club');
+   if (!fightClubChannel) {
+      C.dcRespondToMsg(message, `There is no place to fight!`);
+      return;
+   }
 
    msg = `---------------------------------------------------------------------------------------------\n` + 
-         `Get ready for the next fight! **${user1Name}** has challenged **${user2Name}** for a duel!`;
+         `Get ready for the next fight! **${user1.ownerName}** has challenged **${user2.ownerName}** for a sparring!`;
 
    C.dcSendMsgToChannel(fightClubChannel, msg);
    await C.sleep(0.5);
@@ -63,53 +63,73 @@ async function duel(message, user1, user2) {
    C.dcSendMsgToChannel(fightClubChannel, `-----------------------------------------------------------`);
    await C.sleep(3);
 
+   //roll initiative //take stamina into account
+   let attacker;
+   let defender;
+
+   if (C.chance(50)) {
+      attacker = user1;
+      defender = user2;
+   } else {
+      attacker = user2;
+      defender = user1;
+   }
+
    do {
-      roll1 = C.rndNo0(100);
-      roll2 = C.rndNo0(100);
+      const attackResult = CBT.combat(attacker, defender);
+      let damage = -1;
 
-      if (roll1 == roll2)
-         continue;
-
-      dmg = C.rndNo0(20);
-
-      if (roll1 > roll2) {
-         hp2 -= dmg;
-         agressor = user1Name;
-         defender = user2Name;
-      } else {
-         hp1 -= dmg;
-         agressor = user2Name;
-         defender = user1Name;
+      if (attackResult.attackSucceeded) {
+         damage = CBT.calculateDamage(attackResult.SL, attacker, defender);
+         defender.resources.hp -= damage;
       }
 
-      msg = `**${agressor}** ${C.arrGetRandom(arrayMoves)} **${C.strAddEndingApostrophe(defender)}** ${C.arrGetRandom(arrayPlacesToHit)} for ${dmg} damage!\n` +
-            `**${C.strAddEndingApostrophe(user1Name)}** HP: ${hp1}\n` +
-            `**${C.strAddEndingApostrophe(user2Name)}** HP: ${hp2}\n` +
-            `-----------------------------------------------------------`;
-
+      msg = getCombatMsg(user1, user2, attacker, defender, damage);
       C.dcSendMsgToChannel(fightClubChannel, msg);
-      await C.sleep(2);
-   } while (hp1 > 0 && hp2 > 0);
 
-   winner = hp1 > hp2 ? user1Name : user2Name;
-   C.dcSendMsgToChannel(fightClubChannel, `**${winner}** has won!`);
+      const tmp = defender;
+      defender = attacker;
+      attacker = tmp;
+
+      await C.sleep(1.5);
+   } while (attacker.resources.hp > 0 && defender.resources.hp > 0);
+
+   const winner = user1.resources.hp > user2.resources.hp ? user1 : user2;
+   C.dcSendMsgToChannel(fightClubChannel, `**${winner.ownerName}** has won!`);
    C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
+}
+
+// OK---------------------------------------------------------------------------------------------------------------
+function getCombatMsg(user1, user2, attacker, defender, damage) {
+   const hitLocation = CBT.getHitLocation();
+   const moveName = C.arrGetRandom(arrayMoves);
+   let msg;
+   let showHP = false;
+
+
+   if (damage > 0) {
+      msg = `**${attacker.ownerName}** ${C.strGetPastTense(moveName)} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation} for ${damage} damage!\n`;
+      showHP = true;
+   } else if (damage == 0) {
+      msg = `**${attacker.ownerName}** ${C.strGetPastTense(moveName)} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation} but caused no damage!\n`;
+   } else {
+      msg = `**${attacker.ownerName}** tried to ${moveName} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation}, but missed!\n`;
+   }
+
+   if (showHP)
+      msg += `**${C.strAddEndingApostrophe(user1.ownerName)}** HP: ${user1.resources.hp}\n` +
+             `**${C.strAddEndingApostrophe(user2.ownerName)}** HP: ${user2.resources.hp}\n`;
+
+   msg +=`-----------------------------------------------------------`;
+
+   return msg;
 }
 
 const arrayMoves = [
    'hit',
-   'kicked',
-   'punched',
-   'smashed'
-];
-
-const arrayPlacesToHit = [
-   'arm',
-   'chest',
-   'guts',
-   'head',
-   'knee',
-   'leg'
+   'kick',
+   'punch',
+   'smash'
 ];
 
 const arrayStartGif = [
