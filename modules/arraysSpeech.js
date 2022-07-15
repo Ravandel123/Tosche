@@ -170,6 +170,7 @@ const verbsIrregular = [
    ['go', 'went', 'gone', 'going'],
    ['hit', 'hit', 'hit', 'hitting'],
    ['occur', 'occurred', 'occurred', 'occurring'],
+   ['patrol', 'patrolled', 'patrolled', 'patrolling'],
    ['prefer', 'preferred', 'preferred', 'preferring'],
    ['quit', 'quit', 'quit', 'quitting'],
    ['refer', 'referred', 'referred', 'referring'],
