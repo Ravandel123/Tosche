@@ -366,7 +366,7 @@ function getToughnessBonus(user) {
       return Math.floor(user.attributes.toughness / 10);
 }
 
-module.exports.getStrengthBonus = getStrengthBonus;
+module.exports.getToughnessBonus = getToughnessBonus;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

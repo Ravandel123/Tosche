@@ -77,6 +77,7 @@ async function sparring(message, user1, user2) {
 
       msg = getCombatMsg(user1, user2, attacker, defender, damage);
       C.dcSendMsgToChannel(fightClubChannel, msg);
+      await C.sleep(2);
    } while (attacker.resources.hp > 0 && defender.resources.hp > 0);
 
    const winner = user1.resources.hp > user2.resources.hp ? user1 : user2;
