@@ -700,7 +700,7 @@ function strGetPastTense(verb) {
       }
    }
 
-   return pastTenseVerb;
+   return strToLowerCase(pastTenseVerb);
 }
 
 module.exports.strGetPastTense = strGetPastTense;
