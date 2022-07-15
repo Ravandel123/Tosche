@@ -663,7 +663,7 @@ function strGetPastTense(verb) {
    if (!checkIfString(verb))
       return;
 
-   const irregularVerb = arr2DGetItemColumnValue(AS.verbsIrregular, verb, 1, 0);
+   const irregularVerb = arr2DGetItemColumnValue(AS.verbsIrregular, strToLowerCase(verb), 1, 0);
    if (irregularVerb)
       return irregularVerb;
 
