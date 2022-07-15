@@ -69,7 +69,7 @@ module.exports.combat = combat;
 // OK---------------------------------------------------------------------------------------------------------------
 function calculateDamage(SL, attacker, defender) {
    const finalDmg = SL + CG.getStrengthBonus(attacker) - CG.getToughnessBonus(defender); //add armor bonus, weapon bonus etc
-   return finalDmg < 0 : 0 : finalDmg;
+   return finalDmg < 0 ? 0 : finalDmg;
 }
 
 module.exports.calculateDamage = calculateDamage;
