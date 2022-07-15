@@ -66,6 +66,7 @@ async function sparring(message, user1, user2) {
    let defender = user2;
 
    do {
+                                                                                                         console.log('petla');
       const attackResult = CBT.combat(attacker, defender);
       let damage = -1;
 
@@ -77,7 +78,7 @@ async function sparring(message, user1, user2) {
       msg = getCombatMsg(user1, user2, attacker, defender, damage);
       C.dcSendMsgToChannel(fightClubChannel, msg);
    } while (attacker.resources.hp > 0 && defender.resources.hp > 0);
-
+                                                                                                         console.log('po petli');
    const winner = user1.resources.hp > user2.resources.hp ? user1 : user2;
    C.dcSendMsgToChannel(fightClubChannel, `**${winner}** has won!`);
    C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
