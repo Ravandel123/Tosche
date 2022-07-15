@@ -46,8 +46,8 @@ function combat(user1, user2) {
    const u2WS = CG.getSkillWeapon(user2, 'unarmed'); //change to get from currently equipped weapon
                                                                                                          console.log(`u1WS: ${u1WS}`);
                                                                                                          console.log(`u2WS: ${u2WS}`);
-   const u1SL = getSL(u1WS, u1Roll);
-   const u2SL = getSL(u2WS, u2Roll);
+   const u1SL = getSL(u1WS, u1Roll.roll);
+   const u2SL = getSL(u2WS, u2Roll.roll);
                                                                                                          console.log(`u1SL: ${u1SL}`);
                                                                                                          console.log(`u2SL: ${u2SL}`);
    let result = {};
