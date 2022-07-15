@@ -6,6 +6,7 @@ const CBT = require('../../modules/advanced/combat.js');
 
 module.exports = {
    name: 'fightclub',
+   aliases: ['fc'],
    description: 'Used to access Fight Club.',
    usage: '[sparring] [user]',
    example: '',
