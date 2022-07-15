@@ -4,7 +4,7 @@ const bodyLocations = [
    ['torso', 42],
    ['primary arm', 17],
    ['secondary arm', 13],
-   ['right leg', 7]
+   ['right leg', 7],
    ['left leg', 7]
 ];
 
