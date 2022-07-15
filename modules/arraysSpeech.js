@@ -1,9 +1,45 @@
+//https://simple.wiktionary.org/wiki/hit
+//https://www.lexico.com/grammar/verb-tenses-adding-ed-and-ing
+//https://www.gallaudet.edu/tutorial-and-instructional-programs/english-center/grammar-and-vocabulary/verbs/irregular-verb-list/
+
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
+//-----------------------------------------------------------GENERAL----------------------------------------------------------
 const vowels = ['a', 'e', 'i', 'o', 'u', 'y'];
 
+const exceptionsWithA = [
+   'eulogy',
+   'one',
+   'unicorn', 'union', 'united', 'used', 'user'
+];
+
+const exceptionsWithAn = [
+   'honor', 'honorable', 'honour', 'honourable', 'heir', 'hourglass',
+   'university'
+];
+
+const exceptionsWithNone = [
+   'advice', 'art',
+   'baseball', 'biology', 'butter',
+   'coffee', 'computer science', 'currency',
+   'electricity',
+   'furniture',
+   'gas',
+   'happiness', 'history', 'hockey',
+   'information',
+   'love', 'luggage',
+   'mathematics', 'money', 'music',
+   'news',
+   'power',
+   'rice',
+   'scenery', 'sugar',
+   'tennis', 'travel',
+   'volleyball',
+   'water', 'work'
+];
+
 //-----------------------------------------------------------ADJECTIVES----------------------------------------------------------
-const adjectivesAcceptedInsulting = [
+const adjAcceptedInsulting = [
    'aberrant', 'abominable', 'absurd', 'abusive', 'adorable', 'aggressive','alcoholic', 'amateur', 'amusing',
    'barbaric', 'bioluminescent', 'bizzare', 'brutal',
    'cave-dwelling', 'crazy', 'creepy', 'cute',
@@ -57,7 +93,7 @@ const adjAfflictionsVirtues = adjAfflictions.concat(adjVirtues);
 
 
 //-----------------------------------------------------------ADVERBS----------------------------------------------------------
-const baseAdverbsList = [
+const advBase = [
    'absentmindedly', 'absolutely', 'abstractedly', 'abundantly', 'adoringly', 'aggressively', 'attractively', 'awkwardly',
    'beautifully', 'briskly', 'brutally',
    'cannibalistically', 'carefully', 'cautiously', 'cheerfully', 'cheerily', 'competitively', 'completely', 'conservatively', 'contritely', 'copiously', 'correctly', 'cosmically',
@@ -113,6 +149,34 @@ const pronouns = [
    [`everybody`, `everyone's`, `everyone's`]
 ];
 
+//-----------------------------------------------------------VERBS----------------------------------------------------------
+const verbsIrregular = [
+   ['acquit', 'acquitted', 'acquitted', 'acquitting'],
+   ['admit', 'admitted', 'admitted', 'admitting'],
+   ['arise', 'arose', 'arisen', 'arising'],
+   ['awake', 'awoke', 'awoken', 'awaking'],
+   ['be', 'was|were', 'been', 'being'],
+   ['begin', 'began', 'begun', 'beginning'],
+   ['bleed', 'bled', 'bled', 'bleeding'],
+   ['buy', 'bought', 'bought', 'buying'],
+   ['commit', 'committed', 'committed', 'committing'],
+   ['control', 'controlled', 'controlled', 'controlling'],
+   ['cost', 'cost', 'cost', 'costing'],
+   ['deter', 'deterred', 'deterred', 'deterring'],
+   ['eat', 'ate', 'eaten', 'eating'],
+   ['excel', 'excelled', 'excelled', 'excelling'],
+   ['feel', 'felt', 'felt', 'feeling'],
+   ['fly', 'flew', 'flown', 'flying'],
+   ['go', 'went', 'gone', 'going'],
+   ['hit', 'hit', 'hit', 'hitting'],
+   ['occur', 'occurred', 'occurred', 'occurring'],
+   ['prefer', 'preferred', 'preferred', 'preferring'],
+   ['quit', 'quit', 'quit', 'quitting'],
+   ['refer', 'referred', 'referred', 'referring'],
+   ['submit', 'submitted', 'submitted', 'submitting'],
+   ['transfer', 'transferred', 'transferred', 'transferring'],
+   ['up', 'upped', 'upped', 'upping']
+];
 
 //-----------------------------------------------------------OTHER TERMS----------------------------------------------------------
 const termsAccuracy = [
@@ -158,13 +222,21 @@ const termsNoDoubt = [
 //-----------------------------------------------------------EXPORTS----------------------------------------------------------
 module.exports = {
    vowels,
+   exceptionsWithA,
+   exceptionsWithAn,
+   exceptionsWithNone,
+
    adjAfflictions,
    adjVirtues,
    adjAfflictionsVirtues,
-   adjectivesAcceptedInsulting,
-   baseAdverbsList,
+   adjAcceptedInsulting,
+
+   advBase,
+
    nounsAcceptedInsulting,
    pronouns,
+
+   verbsIrregular,
 
    termsAccuracy,
    termsExtremelyGood,

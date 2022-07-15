@@ -14,7 +14,7 @@ const client = new Client({
 const gBotOwner = '392728479696814092';
 const GUriString = process.env.MONGODB_URI;
 const gData = {
-   arena : {
+   fightClub : {
       fightInProgress: false
     },
 }
@@ -385,7 +385,7 @@ client.on('messageCreate', message => {
   //-----Adverbs-----------------------------------------------------------------------------------------------------------------------------------------------------
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  var baseAdverbsList = [
+  var advBase = [
   'Absentmindedly', 'Absolutely', 'Abstractedly', 'Abundantly', 'Adoringly', 'Aggressively', 'Attractively', 'Awkwardly',
   'Beautifully', 'Briskly', 'Brutally',
   'Cannibalistically', 'Carefully', 'Cautiously', 'Cheerfully', 'Cheerily', 'Competitively', 'Completely', 'Conservatively', 'Contritely', 'Copiously', 'Correctly', 'Cosmically',
@@ -1823,7 +1823,7 @@ client.on('messageCreate', message => {
       'Lol, no one cares anyway.',
       'And you made ' + ReturnRandom(peopleAllList) + ' cry' + additionalLol + '.',
       Rnd(100) + ' ' + GenerateRandomAnimal() + ' died because of that' + additionalLol + '.',
-      'That information just made me ' + ReturnRandom(baseAdverbsList) + ' ' + ReturnRandom(adjectivesAfflictionsVirtuesList) + additionalLol + '.',
+      'That information just made me ' + ReturnRandom(advBase) + ' ' + ReturnRandom(adjectivesAfflictionsVirtuesList) + additionalLol + '.',
       'That information just made me ' + ReturnRandom(adjectivesAfflictionsVirtuesList) + additionalLol + '.',
       'You need to visit ' + GenerateRandomPlace() + ' in order to get better' + additionalLol + '.',
       'That problem looks ' + GenerateRandomSize() + additionalLol + '.'
@@ -2931,22 +2931,22 @@ client.on('messageCreate', message => {
   
   function GenerateRandomPlace()
   {
-    return 'the ' + GenerateRandomString4(baseAdverbsList, adjectivesAllList, placeMainList, adjectivesEndingAllSingle);
+    return 'the ' + GenerateRandomString4(advBase, adjectivesAllList, placeMainList, adjectivesEndingAllSingle);
   }
   
   function GenerateRandomAnimal()
   {
-    return GenerateRandomString4(baseAdverbsList, adjectivesAllList, animalsStandardList, adjectivesEndingAllSingle);
+    return GenerateRandomString4(advBase, adjectivesAllList, animalsStandardList, adjectivesEndingAllSingle);
   }
   
   function GenerateRandomRace()
   {
-    return GenerateRandomString3Prefix(baseAdverbsList, adjectivesAllList, racesList);
+    return GenerateRandomString3Prefix(advBase, adjectivesAllList, racesList);
   }
   
   function GenerateRandomWeapon()
   {
-    return GenerateRandomString4(baseAdverbsList, adjectivesStandardList, itemsWeaponsList, adjectivesEndingAllSingle);
+    return GenerateRandomString4(advBase, adjectivesStandardList, itemsWeaponsList, adjectivesEndingAllSingle);
   }
   
   function GenerateRandomItem()

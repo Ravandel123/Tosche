@@ -421,6 +421,16 @@ function strGetLastChar(string) {
 module.exports.strGetLastChar = strGetLastChar;
 
 // OK---------------------------------------------------------------------------------------------------------------
+function strGetCharAt(string, index) {
+   if (!checkIfString(string) || (index < 0 ? Math.abs(index) : index + 1) > string.length)
+      return;
+
+   return index >= 0 ? string.charAt(index) : string.charAt(string.length + index);
+}
+
+module.exports.strGetCharAt = strGetCharAt;
+
+// OK---------------------------------------------------------------------------------------------------------------
 function strToLowerCase(value) {
    return convertByFunction(value, (e) => checkIfString(e) ? e.toLowerCase() : e);
 }
@@ -442,6 +452,30 @@ function strCapitalizeFirstLetter(value, extraCheck = true) {
 
 module.exports.strCapitalizeFirstLetter = strCapitalizeFirstLetter;
 
+// OK---------------------------------------------------------------------------------------------------------------
+function strGetSyllablesAmount(wordToCheck) {
+   if (!checkIfString(wordToCheck))
+      return;
+
+   let word = wordToCheck.toLowerCase();
+   let additionalSyllables = 0;
+
+   if (word.length > 3) {
+      if (word.substring(0,4) == 'some') {
+         word = word.replace('some', '');
+         additionalSyllables++;
+      }
+   }
+
+   word = word.replace(/(?:[^laeiouy]|ed|[^laeiouy]e)$/, '');
+   word = word.replace(/^y/, '');
+
+   let syl = word.match(/[aeiouy]{1,2}/g);
+   if (syl)
+      return syl.length + additionalSyllables;
+}
+
+module.exports.strGetSyllablesAmount = strGetSyllablesAmount;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function strDecapitalizeFirstLetter(value) {
@@ -553,6 +587,15 @@ function strCheckIfAnyMatch(string, array, ignoreCase = true) {
 
 module.exports.strCheckIfAnyMatch = strCheckIfAnyMatch;
 
+
+// OK---------------------------------------------------------------------------------------------------------------
+function strCheckIfVowel(letter) {
+   if (!checkIfString(letter))
+      return;
+
+   return strCheckIfAnyMatch(letter, AS.vowels);
+}
+
 // OK---------------------------------------------------------------------------------------------------------------
 function strRemoveBetween(string, startIndex, endIndex) {
    if (!checkIfString(string) || !checkIfNaturalNumber(startIndex) || !checkIfNaturalNumber(endIndex))
@@ -584,45 +627,14 @@ function strAddArticle(string, makeBold = false) {
    if (!checkIfString(string))
       return;
 
-   const exceptionsWithA = [
-      'eulogy',
-      'one',
-      'unicorn', 'union', 'united', 'used', 'user'
-   ];
-
-   const exceptionsWithAn = [
-      'honor', 'honorable', 'honour', 'honourable', 'heir', 'hourglass',
-      'university'
-   ];
-
-   const exceptionsWithNone = [
-      'advice', 'art',
-      'baseball', 'biology', 'butter',
-      'coffee', 'computer science', 'currency',
-      'electricity',
-      'furniture',
-      'gas',
-      'happiness', 'history', 'hockey',
-      'information',
-      'love', 'luggage',
-      'mathematics', 'money', 'music',
-      'news',
-      'power',
-      'rice',
-      'scenery', 'sugar',
-      'tennis', 'travel',
-      'volleyball',
-      'water', 'work'
-   ];
-
    let result = '';
    const firstLetter = strGetFirstChar(string);
 
-   if (strCheckIfAnyMatch(string, exceptionsWithA)) {
+   if (strCheckIfAnyMatch(string, AS.exceptionsWithA)) {
       result = 'a ';
-   } else if (strCheckIfAnyMatch(string, exceptionsWithAn)) {
+   } else if (strCheckIfAnyMatch(string, AS.exceptionsWithAn)) {
       result = 'an ';
-   } else if (strCheckIfAnyMatch(string, exceptionsWithNone)) {
+   } else if (strCheckIfAnyMatch(string, AS.exceptionsWithNone)) {
       result = '';
    } else if (strCheckIfAnyMatch(string, AS.vowels)) {
       result = 'an ';
@@ -645,6 +657,53 @@ function strAddEndingApostrophe(string) {
    return string + ending;
 }
 module.exports.strAddEndingApostrophe = strAddEndingApostrophe;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function strGetPastTense(verb) {
+   if (!checkIfString(verb))
+      return;
+
+   const irregularVerb = arr2DGetItemColumnValue(AS.verbsIrregular, verb, 1, 0);
+   if (irregularVerb)
+      return irregularVerb;
+
+   if (verb.length < 3)
+      return verb + 'ed';
+
+   const syllablesAmount = strGetSyllablesAmount(verb);
+   const lastChar1 = strGetLastChar(verb);
+   const lastChar2 = strGetCharAt(verb, -2);
+   const lastChar3 = strGetCharAt(verb, -3);
+   const lastChar1Vowel = strCheckIfVowel(lastChar1);
+   const lastChar2Vowel = strCheckIfVowel(lastChar2);
+   const lastChar3Vowel = strCheckIfVowel(lastChar3);
+
+   let pastTenseVerb;
+
+   if (syllablesAmount == 1 && !lastChar1Vowel && lastChar2Vowel && !lastChar3Vowel && !['w', 'x', 'y'].includes(lastChar1)) {
+      pastTenseVerb = verb + lastChar1 + 'ed';
+   } else if (lastChar1 == 'y' && !lastChar2Vowel) {
+      pastTenseVerb = verb.slice(0, -1) + 'ied';
+   } else {
+      switch(strToLowerCase(lastChar1)) {
+         case 'c':
+            pastTenseVerb = verb + 'ked';
+            break;
+
+         case 'e':
+            pastTenseVerb = verb + 'd';
+            break;
+
+         default:
+            pastTenseVerb = verb + 'ed';
+            break;
+      }
+   }
+
+   return pastTenseVerb;
+}
+
+module.exports.strGetPastTense = strGetPastTense;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function strGetBasicPronoun(string) {

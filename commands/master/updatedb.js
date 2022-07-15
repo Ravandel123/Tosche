@@ -20,20 +20,20 @@ module.exports = {
 
 
 
-      let members = C.dcGetAllMembers(message);
+      // let members = C.dcGetAllMembers(message);
 
-      for (const member of members) {
-         defaultUpdate(message, member[1].id).then((value) => {
-            console.log(value)
-         });
-      }
+      // for (const member of members) {
+         // defaultUpdate(message, member[1].id).then((value) => {
+            // console.log(value)
+         // });
+      // }
 
-      await C.sleep(2);
+      // await C.sleep(2);
 
-      for (const member of members) {
-         let xd = await defaultUpdate(message, member[1].id);
-         console.log(`Other: ${xd}`);
-      }
+      // for (const member of members) {
+         // let xd = await defaultUpdate(message, member[1].id);
+         // console.log(`Other: ${xd}`);
+      // }
 
 
 

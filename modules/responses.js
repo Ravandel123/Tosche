@@ -100,7 +100,7 @@ module.exports.resIssueSingle = resIssueSingle;
 //----------------------------------------------------------- COMMANDS ----------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------
 function resDefault() {
-   const affilction = C.chance(50) ? `${RND(AS.baseAdverbsList)} ${RND(AS.adjAfflictionsVirtues)}` : `${RND(AS.adjAfflictionsVirtues)}`;
+   const affilction = C.chance(50) ? `${RND(AS.advBase)} ${RND(AS.adjAfflictionsVirtues)}` : `${RND(AS.adjAfflictionsVirtues)}`;
 
    const opinions = [
       `I am skeptic about that.`,

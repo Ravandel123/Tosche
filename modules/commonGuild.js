@@ -3,115 +3,6 @@ const AG = require('./arraysGuild.js');
 const SG = require('./schematicsGuild.js');
 const DB = require('./db.js');
 
-//----------------------------------------------------------- PROFILE ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function checkIfProfile(value) {
-   return value instanceof SG.profile;
-}
-
-// OK---------------------------------------------------------------------------------------------------------------
-async function getMessageAuthorProfile(message) {
-   return Promise.resolve(getProfileById(message, message.author.id));
-}
-
-module.exports.getMessageAuthorProfile = getMessageAuthorProfile;
-
-// OK---------------------------------------------------------------------------------------------------------------
-async function getProfileById(message, id) {
-   if (!C.dcCheckIfMessage(message) || !id)
-      return Promise.reject(`Wrong input argument!`);
-
-   let profileDoc = await DB.findOne(SG.profile, { ownerId: id });
-   if (!profileDoc) {
-      profileDoc = createNewGuildProfileFromID(message, id);
-      if (!profileDoc)
-         return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);
-
-      try {
-         await profileDoc.save();
-      } catch(error) {
-         return Promise.reject(error);
-      }
-   }
-
-   return Promise.resolve(profileDoc);
-}
-
-module.exports.getProfileById = getProfileById;
-
-// OK---------------------------------------------------------------------------------------------------------------
-async function getMemberProfile(message, nameOrMention) {
-   let found = C.getMemberIdByNameOrMention(message, nameOrMention);
-
-   if (C.dcCheckIfCollection(found)) {
-      const membersAmount = found.size;
-
-      if (membersAmount == 0) {
-         return Promise.reject(`No users found!`);
-      } else if (membersAmount > 1) {
-         let msg = `Found more than 1 user!\nUsers found: `;
-         const memberNames = found.map(e => e.displayName);
-
-         memberNames.forEach(e => msg += `${e}; `);
-
-         return Promise.reject(msg);
-      } else {
-         found = found.at(0).id;
-      }
-   }
-
-   return Promise.resolve(getProfileById(message, found));
-}
-
-module.exports.getMemberProfile = getMemberProfile;
-
-// OK---------------------------------------------------------------------------------------------------------------
-function createNewGuildProfile(member) {
-   if (!C.dcCheckIfMember(member))
-      return;
-
-   //Main
-   const profileDoc = new SG.profile({
-      ownerId: member.id,
-      ownerTag: member?.user.tag,
-      ownerName: member.displayName,
-   });
-
-   profileDoc.currencies = {
-      amberDrops : C.rndNo0(10),
-      pearlFlakes : C.rndNo0(10),
-      obsidianChips : C.rndNo0(10),
-      silverCoins : C.rndNo0(10),
-      goldCoins : C.rndNo0(10),
-      deltradaCoins : C.rndNo0(100),
-   }
-
-   return profileDoc;
-}
-
-module.exports.createNewGuildProfile = createNewGuildProfile;
-
-// OK---------------------------------------------------------------------------------------------------------------
-function createNewGuildProfileFromID(message, id) {
-   const member = C.dcGetMemberByID(message, id);
-   return createNewGuildProfile(member);
-}
-
-module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
-
-// OK---------------------------------------------------------------------------------------------------------------
-function getSkillWeapon(user, weaponSkillName) {
-   if (!checkIfProfile(user) || !C.strCheckIfAnyMatch(weaponSkillName, AG.weaponTypes))
-      return;
-
-   return user.weaponSkills.melee.current + user.weaponSkills[weaponSkillName].current;
-}
-
-module.exports.getSkillWeapon = getSkillWeapon;
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 //----------------------------------------------------------- ACTION POINTS ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
@@ -150,19 +41,6 @@ function transferCurrency(message, source, target, amount, currency) {
 }
 
 module.exports.transferCurrency = transferCurrency;
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-//----------------------------------------------------------- RECORD ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-async function getRecordDoc() {
-   const recordDoc = await DB.findOne(SG.record, {}) ?? new SG.record({});
-   return Promise.resolve(recordDoc);
-}
-
-module.exports.getRecordDoc = getRecordDoc;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -355,6 +233,154 @@ function moveFishingRecordDown(records, placeNumber) {
       records.place2Weight = records.place1Weight;
    }
 }
+
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- PROFILE ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function checkIfProfile(value) {
+   return value instanceof SG.profile;
+}
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function getMessageAuthorProfile(message) {
+   return Promise.resolve(getProfileById(message, message.author.id));
+}
+
+module.exports.getMessageAuthorProfile = getMessageAuthorProfile;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function getProfileById(message, id) {
+   if (!C.dcCheckIfMessage(message) || !id)
+      return Promise.reject(`Wrong input argument!`);
+
+   let profileDoc = await DB.findOne(SG.profile, { ownerId: id });
+   if (!profileDoc) {
+      profileDoc = createNewGuildProfileFromID(message, id);
+      if (!profileDoc)
+         return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);
+
+      try {
+         await profileDoc.save();
+      } catch(error) {
+         return Promise.reject(error);
+      }
+   }
+
+   return Promise.resolve(profileDoc);
+}
+
+module.exports.getProfileById = getProfileById;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function getMemberProfile(message, nameOrMention) {
+   let found = C.getMemberIdByNameOrMention(message, nameOrMention);
+
+   if (C.dcCheckIfCollection(found)) {
+      const membersAmount = found.size;
+
+      if (membersAmount == 0) {
+         return Promise.reject(`No users found!`);
+      } else if (membersAmount > 1) {
+         let msg = `Found more than 1 user!\nUsers found: `;
+         const memberNames = found.map(e => e.displayName);
+
+         memberNames.forEach(e => msg += `${e}; `);
+
+         return Promise.reject(msg);
+      } else {
+         found = found.at(0).id;
+      }
+   }
+
+   return Promise.resolve(getProfileById(message, found));
+}
+
+module.exports.getMemberProfile = getMemberProfile;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function createNewGuildProfile(member) {
+   if (!C.dcCheckIfMember(member))
+      return;
+
+   //Main
+   const profileDoc = new SG.profile({
+      ownerId: member.id,
+      ownerTag: member?.user.tag,
+      ownerName: member.displayName,
+   });
+
+   profileDoc.currencies = {
+      amberDrops : C.rndNo0(10),
+      pearlFlakes : C.rndNo0(10),
+      obsidianChips : C.rndNo0(10),
+      silverCoins : C.rndNo0(10),
+      goldCoins : C.rndNo0(10),
+      deltradaCoins : C.rndNo0(100),
+   }
+
+   return profileDoc;
+}
+
+module.exports.createNewGuildProfile = createNewGuildProfile;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function createNewGuildProfileFromID(message, id) {
+   const member = C.dcGetMemberByID(message, id);
+   return createNewGuildProfile(member);
+}
+
+module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
+
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- RECORDS ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+async function getRecordDoc() {
+   const recordDoc = await DB.findOne(SG.record, {}) ?? new SG.record({});
+   return Promise.resolve(recordDoc);
+}
+
+module.exports.getRecordDoc = getRecordDoc;
+
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- SKILLS ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function getStrengthBonus(user) {
+   if (checkIfProfile(user))
+      return Math.floor(user.attributes.strength / 10);
+}
+
+module.exports.getStrengthBonus = getStrengthBonus;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function getToughnessBonus(user) {
+   if (checkIfProfile(user))
+      return Math.floor(user.attributes.toughness / 10);
+}
+
+module.exports.getStrengthBonus = getStrengthBonus;
+
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------- WEAPON SKILLS ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function getSkillWeapon(user, weaponSkillName) {
+   if (!checkIfProfile(user) || !C.strCheckIfAnyMatch(weaponSkillName, AG.weaponTypes))
+      return;
+
+   return user.weaponSkills.melee.current + user.weaponSkills[weaponSkillName].current;
+}
+
+module.exports.getSkillWeapon = getSkillWeapon;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

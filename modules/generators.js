@@ -31,7 +31,7 @@ module.exports.genPerson = genPerson;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function genPersonalInsult() {
-   const adjective = C.chance(75) ? C.arrGetRandom(AS.adjectivesAcceptedInsulting) + ' ' : '';
+   const adjective = C.chance(75) ? C.arrGetRandom(AS.adjAcceptedInsulting) + ' ' : '';
    return `${adjective}${C.arrGetRandom(AS.nounsAcceptedInsulting)}`;
 }
 

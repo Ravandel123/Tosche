@@ -9,8 +9,8 @@ module.exports = {
    usage: '[amount]',
    example: '',
    async execute(message, args) {
-      if (!message.client.data.arena.fightInProgress) {
-         message.client.data.arena.fightInProgress = true;
+      if (!message.client.data.fightClub.fightInProgress) {
+         message.client.data.fightClub.fightInProgress = true;
          try {
             let msg;
             const user1 = await CG.getMemberProfile(message, args[1]);
@@ -18,7 +18,7 @@ module.exports = {
          } catch(error) {
             C.dcRespondToMsg(message, error);
          }
-         message.client.data.arena.fightInProgress = false;
+         message.client.data.fightClub.fightInProgress = false;
       } else {
          C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
       }

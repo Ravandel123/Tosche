@@ -24,12 +24,19 @@ function isCritical(value) {
    return value == 100 || value % 10 == Math.floor(value / 10);
 }
 
+function getHitLocation() {
+   return C.arrGetRandom(arrayHitLocations);
+}
+
+module.exports.getHitLocation = getHitLocation;
+
 // OK---------------------------------------------------------------------------------------------------------------
 function getSL(skill, roll) {
    const difference = (skill - roll) / 10;
    return difference > 0 ? Math.floor(difference) : Math.ceil(difference);
 }
 
+// OK---------------------------------------------------------------------------------------------------------------
 function combat(user1, user2) {
    const u1Roll = rollAttack();
    const u2Roll = rollAttack();
@@ -40,29 +47,35 @@ function combat(user1, user2) {
    const u1SL = getSL(u1WS, u1Roll);
    const u2SL = getSL(u2WS, u2Roll);
 
-   let attackSucceeded;
+   let result = {};
    if (u1SL === 0 && u2SL === 0) {
       const u1PositiveZero = C.checkIfNumberIsPositive(u1SL);
       const u2PositiveZero = C.checkIfNumberIsPositive(u2SL);
 
-      attackSucceeded = u1PositiveZero != u2PositiveZero ? u1PositiveZero : u1WS != u2WS ? u1WS > u2WS : false;
+      result.attackSucceeded = u1PositiveZero != u2PositiveZero ? u1PositiveZero : u1WS != u2WS ? u1WS > u2WS : false;
    } else if (u1SL == u2SL) {
-      attackSucceeded = u1WS != u2WS ? u1WS > u2WS : false;
+      result.attackSucceeded = u1WS != u2WS ? u1WS > u2WS : false;
    } else {
-      attackSucceeded = u1SL > u2SL;
+      result.attackSucceeded = u1SL > u2SL;
    }
 
-   let result = {};
-   result.SL = attackSucceeded ? u1SL - u2SL : u2SL - u1SL;
+   result.SL = result.attackSucceeded ? u1SL - u2SL : u2SL - u1SL;
 
    return result;
 }
 
+module.exports.combat = combat;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function calculateDamage(SL, attacker, defender) {
+   const finalDmg = SL + CG.getStrengthBonus(attacker) - CG.getToughnessBonus(defender); //add armor bonus, weapon bonus etc
+   return finalDmg < 0 : 0 : finalDmg;
+}
+
+module.exports.calculateDamage = calculateDamage;
 
 
 
-
-   //wygrywa ten kto ma wiecej WS jak jest ten sam SL
 
 
 

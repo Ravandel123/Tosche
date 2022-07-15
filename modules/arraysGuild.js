@@ -2,14 +2,10 @@
 const bodyLocations = [
    ['head', 14],
    ['torso', 42],
-   ['primary arm', 9],
-   ['primary hand', 8],
-   ['secondary arm', 7],
-   ['secondary hand', 6],
-   ['right thigh', 4],
-   ['right foot', 3],
-   ['left thigh', 4],
-   ['left foot', 3]
+   ['primary arm', 17],
+   ['secondary arm', 13],
+   ['right leg', 7]
+   ['left leg', 7]
 ];
 
 const currencies = [

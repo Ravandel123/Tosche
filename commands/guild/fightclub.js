@@ -14,12 +14,12 @@ module.exports = {
          return;
 
       if (C.strCompare(args[1], 'duel')) {
-         if (!message.client.data.arena.fightInProgress) {
+         if (!message.client.data.fightClub.fightInProgress) {
             const requiredDuelArgs = [`action (i.e. duel)`, `user name`];
             if (!CC.checkArgsAmount(message, args, requiredDuelArgs))
                return;
 
-            message.client.data.arena.fightInProgress = true;
+            message.client.data.fightClub.fightInProgress = true;
             try {
                const user1 = await CG.getMessageAuthorProfile(message);
                const user2 = await CG.getMemberProfile(message, args[2]);
@@ -27,7 +27,7 @@ module.exports = {
             } catch(error) {
                C.dcRespondToMsg(message, error);
             }
-            message.client.data.arena.fightInProgress = false;
+            message.client.data.fightClub.fightInProgress = false;
          } else {
             C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
          }

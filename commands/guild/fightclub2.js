@@ -14,8 +14,8 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      if (!message.client.data.arena.fightInProgress) {
-         message.client.data.arena.fightInProgress = true;
+      if (!message.client.data.fightClub.fightInProgress) {
+         message.client.data.fightClub.fightInProgress = true;
 
          if (C.strCompare(args[1], 'sparring')) {
             try {
@@ -29,7 +29,7 @@ module.exports = {
                C.dcRespondToMsg(message, error);
             }
 
-            message.client.data.arena.fightInProgress = false;
+            message.client.data.fightClub.fightInProgress = false;
          } else {
             C.dcRespondToMsg(message, `There is no fight club action called ${args[1]}.`);
          }
@@ -52,7 +52,7 @@ async function sparring(message, user1, user2) {
    }
 
    msg = `---------------------------------------------------------------------------------------------\n` + 
-         `Get ready for the next fight! **${user1.ownerName}** has challenged **${user2.ownerName}** for a duel!`;
+         `Get ready for the next fight! **${user1.ownerName}** has challenged **${user2.ownerName}** for a sparring!`;
 
    C.dcSendMsgToChannel(fightClubChannel, msg);
    await C.sleep(0.5);
@@ -61,81 +61,59 @@ async function sparring(message, user1, user2) {
    C.dcSendMsgToChannel(fightClubChannel, `-----------------------------------------------------------`);
    await C.sleep(3);
 
+   //roll initiative //take stamina into account
+   let attacker = user1;
+   let defender = user2;
 
+   do {
+      const attackResult = CBT.combat(attacker, defender);
+      let damage = -1;
 
-//take stamine into account
+      if (attackResult.attackSucceeded) {
+         damage = CBT.calculateDamage(attackResult.SL, attacker, defender);
+         defender.resources.hp -= damage;
+      }
 
-      // C.dcSendMsgToChannel(fightClubChannel, msg);
+      msg = getCombatMsg(user1, user2, agressor, defender, damage);
+      C.dcSendMsgToChannel(fightClubChannel, msg);
+   } while (attacker.resources.hp > 0 && defender.resources.hp > 0);
 
-
-   // msg = `**${agressor}** ${C.arrGetRandom(arrayMoves)} **${C.strAddEndingApostrophe(defender)}** ${C.arrGetRandom(arrayPlacesToHit)} for ${dmg} damage!\n` +
-         // `**${C.strAddEndingApostrophe(user1Name)}** HP: ${hp1}\n` +
-         // `**${C.strAddEndingApostrophe(user2Name)}** HP: ${hp2}\n` +
-         // `-----------------------------------------------------------`;
-
-   // winner = hp1 > hp2 ? user1Name : user2Name;
-   // C.dcSendMsgToChannel(fightClubChannel, `**${winner}** has won!`);
-   // C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
+   const winner = user1.resources.hp > user2.resources.hp ? user1 : user2;
+   C.dcSendMsgToChannel(fightClubChannel, `**${winner}** has won!`);
+   C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
 }
 
-
-   // const user1Name = user1.ownerName;
-   // const user2Name = user2.ownerName;
-   // const user1Attributes = user1.attributes;
-   // const user2Attributes = user2.attributes;
-
-
-
-   // let msg, roll1, roll2, dmg, agressor, defender, winner;
-   // let hp1 = user1.ownerId == '392728479696814092' ? 1000000 : 100; //user1Attributes.hp;
-   // let hp2 = user2.ownerId == '392728479696814092' ? 1000000 : 100; //user2Attributes.hp;
+function getCombatMsg(user1, user2, agressor, defender, damage) {
+   const hitLocation = CBT.getHitLocation();
+   const moveName = C.arrGetRandom(arrayMoves);
+   let msg;
+   let showHP = false;
 
 
-   // do {
-      // roll1 = C.rndNo0(100);
-      // roll2 = C.rndNo0(100);
+   if (damage > 0) {
+      msg = `**${agressor.ownerName}** ${C.strGetPastTense(moveName)} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation} for ${damage} damage!\n`;
+      showHP = true;
+   } else if (damage == 0) {
+      msg = `**${agressor.ownerName}** ${C.strGetPastTense(moveName)} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation} but caused no damage!\n`;
+   } else {
+      msg = `**${agressor.ownerName}** tried to ${moveName} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation}, but missed!\n`;
+   }
 
-      // if (roll1 == roll2)
-         // continue;
+   if (showHP)
+      msg += `**${C.strAddEndingApostrophe(user1.ownerName)}** HP: ${user1.resources.hp}\n` +
+             `**${C.strAddEndingApostrophe(user2.ownerName)}** HP: ${user2.resources.hp}\n`;
 
-      // dmg = C.rndNo0(20);
+   msg +=`-----------------------------------------------------------`;
 
-      // if (roll1 > roll2) {
-         // hp2 -= dmg;
-         // agressor = user1Name;
-         // defender = user2Name;
-      // } else {
-         // hp1 -= dmg;
-         // agressor = user2Name;
-         // defender = user1Name;
-      // }
+   return msg;
+}
 
-
-
-      // C.dcSendMsgToChannel(fightClubChannel, msg);
-      // await C.sleep(2);
-   // } while (hp1 > 0 && hp2 > 0);
-
-   // winner = hp1 > hp2 ? user1Name : user2Name;
-   // C.dcSendMsgToChannel(fightClubChannel, `**${winner}** has won!`);
-   // C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
-// }
-
-// const arrayMoves = [
-   // 'hit',
-   // 'kicked',
-   // 'punched',
-   // 'smashed'
-// ];
-
-// const arrayPlacesToHit = [
-   // 'arm',
-   // 'chest',
-   // 'guts',
-   // 'head',
-   // 'knee',
-   // 'leg'
-// ];
+const arrayMoves = [
+   'hit',
+   'kick',
+   'punch',
+   'smash'
+];
 
 const arrayStartGif = [
    `https://tenor.com/view/hot-shots-charlie-sheen-pumped-up-gif-12092168`,
