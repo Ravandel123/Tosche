@@ -24,7 +24,7 @@ module.exports = {
 
                user1.profile = await CG.getMessageAuthorProfile(message);
                user2.profile = await CG.getMemberProfile(message, args[2]);
-               await sparring(message, user1, user2);
+               await sparring(message, user1.profile, user2.profile);
             } catch(error) {
                C.dcRespondToMsg(message, error);
             }
