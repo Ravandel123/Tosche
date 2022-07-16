@@ -29,11 +29,11 @@ module.exports = {
             } catch(error) {
                C.dcRespondToMsg(message, error);
             }
-
-            message.client.data.fightClub.fightInProgress = false;
          } else {
             C.dcRespondToMsg(message, `There is no fight club action called ${args[1]}.`);
          }
+
+      message.client.data.fightClub.fightInProgress = false;
       } else {
          C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
       }

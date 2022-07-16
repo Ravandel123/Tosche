@@ -11,8 +11,7 @@ module.exports = {
    usage: '[user mention] [name of the currency] [amount]',
    example: [
                `<@!392728479696814092> silvercoins 5`,
-               `<@!392728479696814092> sc 5`,
-               `<@!392728479696814092> amberdrops 5`
+               `<@!392728479696814092> sc 5`
             ],
    // example: `<@!392728479696814092>` + ' silvercoins 5',
    // otherexample: `<@!392728479696814092>` + ' sc 5',
