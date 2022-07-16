@@ -187,15 +187,13 @@ async function defaultUpdate(message, id) {
 
 
 async function updateGuildProfiles(guildProfiles) {
-   let skills = {
-      swimming: {
-         current: 1,
-         progress: 0,
-      }
+   let swimming: {
+      current: 1,
+      progress: 0,
    };
 
 
-   await guildProfiles.updateMany({ownerId: '392728479696814092', "skills.swimming" : {$exists : false}}, {$set : {skills.swimming}});
+   await guildProfiles.updateMany({ownerId: '392728479696814092', "skills.swimming" : {$exists : false}}, {$set : {swimming}});
    // await guildProfiles.updateMany({$unset : { fame : "" } })
 
 
