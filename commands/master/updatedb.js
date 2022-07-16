@@ -115,7 +115,7 @@ module.exports = {
          // profile.currencies.push({ name: 'Gold Coins', amount: 15 })
          // await profile.save()
 
-         //const res = await guildProfiles.findOne({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Gold Coins', amount : { $gt : 10, $lte: 12 } } } })
+         // const res = await guildProfiles.findOne({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Gold Coins', amount : { $gt : 10, $lte: 12 } } } })
          // const res = await guildProfiles.updateMany({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Amber Drops' } } }, { $set: { 'currencies.$.name' : 'Amber XD' } })
          // const res = await guildProfiles.updateMany({ ownerName : 'Ravandel' , currencies : { $elemMatch : { name : 'Amber Drops' } } }, { $set: { 'currencies.$.amount' : 123 } })
 
@@ -195,7 +195,7 @@ async function updateGuildProfiles(guildProfiles) {
    };
 
 
-   await guildProfiles.updateMany({ownerId: '392728479696814092', skills.swimming : {$exists : false}}, {$set : {skills}});
+   await guildProfiles.updateMany({ownerId: '392728479696814092', "skills.swimming" : {$exists : false}}, {$set : {skills.swimming}});
    // await guildProfiles.updateMany({$unset : { fame : "" } })
 
 

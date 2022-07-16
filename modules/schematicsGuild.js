@@ -42,6 +42,10 @@ const gProfileSchema = new MG.Schema({
          current: { type: Number, default: 1 },
          progress: { type: Number, default: 0 },
       },
+      swimming: {
+         current: { type: Number, default: 1 },
+         progress: { type: Number, default: 0 },
+      },
    },
    weaponSkills: {
       melee: {
