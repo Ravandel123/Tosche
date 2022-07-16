@@ -9,29 +9,28 @@ module.exports = {
    execute(message, args) {
       let numberOfRolls;
       let typeOfDice;
-
-      var rollsIndividuals = '[';
-      var rollsTotalAmount = 0;
+      let rollsIndividual = '[';
+      let rollsTotal = 0;
 
       if (!args[1]) {
          numberOfRolls = 1;
          typeOfDice = 6;
       } else {
-         const rollData = args[1].split('d');
+         const rollData = C.strToLowerCase(args[1]).split('d');
          numberOfRolls = C.checkIfNaturalNumber(rollData[0]) ? rollData[0] : 1;
          typeOfDice = C.checkIfNaturalNumber(rollData[1]) ? rollData[1] : 6;
       }
 
       for (let i = 0; i < numberOfRolls; i++) {
          rollValue = C.rndNo0(typeOfDice);
-         rollsIndividuals = rollsIndividuals + rollValue;
+         rollsIndividual = rollsIndividual + rollValue;
 
          if (i != numberOfRolls - 1)
-            rollsIndividuals = rollsIndividuals + ', ';
+            rollsIndividual = rollsIndividual + ', ';
 
-         rollsTotalAmount = rollsTotalAmount + rollValue;
+         rollsTotal = rollsTotal + rollValue;
       }
 
-      C.dcRespondToMsg(message, `Result: ${rollsIndividuals}] Total amount: ${rollsTotalAmount}`);
+      C.dcRespondToMsg(message, `Result: ${rollsIndividual}] Total amount: ${rollsTotal}`);
    },
 }

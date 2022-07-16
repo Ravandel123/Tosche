@@ -1388,58 +1388,6 @@ client.on('messageCreate', message => {
       }
       break;
 
-    // ---------------------------------------------------------------------------------------------------------------------------
-    // ----------roll-----------------------------------------------------------
-    // ---------------------------------------------------------------------------------------------------------------------------
-    // case 'roll':
-      // var rollItems;
-      // var numberOfRolls;
-      // var typeOfDice;
-      // var rollsIndividuals = '[';
-      // var rollsTotalAmount = 0;
-
-      // if(arguments[1] == null)
-      // {
-        // numberOfRolls = 1;
-        // typeOfDice = 6;
-      // }
-      // else
-      // {
-        // rollItems = arguments[1].split('d');
-        // numberOfRolls = rollItems[0];
-        // typeOfDice = rollItems[1];
-      // }
-
-      // if(numberOfRolls == null || numberOfRolls == 0)
-        // numberOfRolls = 1;
-
-      // if(typeOfDice == null || typeOfDice == 0)
-        // typeOfDice = 6;
-
-      // if(typeOfDice == 'a')
-      // {
-        // armellDiceAmount = RollArmelloDices(numberOfRolls);
-
-        // message.channel.send('Result: [Rot: ' + armellDiceAmount[0] + ', Sword: ' + armellDiceAmount[1] + ', Sun: ' + armellDiceAmount[2] + ', Moon: ' + armellDiceAmount[3] + ', Shield: ' + armellDiceAmount[4] + ', Wyld: ' + armellDiceAmount[5] + ']')
-        // break;
-      // }
-      // else
-      // {
-        // for (i = 0; i < numberOfRolls; i++)
-        // {
-          // rollValue = RndNo0(typeOfDice);
-          // rollsIndividuals = rollsIndividuals + rollValue;
-
-          // if(i != numberOfRolls - 1)
-            // rollsIndividuals = rollsIndividuals + ',';
-
-          // rollsTotalAmount = rollsTotalAmount + rollValue;
-        // }
-      // }
-      
-      // message.channel.send('Result: ' + rollsIndividuals + '] Total amount: ' + rollsTotalAmount)
-      // break;
-      
     //----------------------------------------------------------------------------------------------------------------------------
     //----------size--------------------------------------------------------------------------------------------------------------
     //----------------------------------------------------------------------------------------------------------------------------
