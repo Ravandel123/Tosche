@@ -102,8 +102,8 @@ async function sparring(message, user1, user2) {
 
 // OK---------------------------------------------------------------------------------------------------------------
 function getCombatMsg(user1, user2, attacker, defender, damage) {
-   const hitLocation = CBT.getHitLocation();
    const moveName = C.arrGetRandom(arrayMoves);
+   const hitLocation = getMoreInterestingHitLocationName(CBT.getHitLocation());
    let msg;
    let showHP = false;
 
@@ -126,11 +126,34 @@ function getCombatMsg(user1, user2, attacker, defender, damage) {
    return msg;
 }
 
+// OK---------------------------------------------------------------------------------------------------------------
+function getMoreInterestingHitLocationName(bodyPart) {
+   switch (bodyPart) {
+      case 'head':
+         return C.arrGetRandom(['head', 'face', 'jaw', 'nose', 'snout', 'temple']);
+
+      case 'torso':
+         return C.arrGetRandom(['chest', 'guts', 'stomach', 'ribs', 'abdomen']);
+
+      case 'primary arm':
+      case 'secondary arm':
+         return C.arrGetRandom(['hand', 'arm', 'elbow', 'forearm', 'wrist']);
+
+      case 'right leg':
+      case 'left leg':
+         return C.arrGetRandom(['foot', 'shin', 'knee', 'thigh', 'hip', 'ankle', 'calf']);
+   }
+}
+
+
 const arrayMoves = [
+   'bash', 'boot',
    'hit',
    'kick',
-   'punch',
-   'smash'
+   'pound', 'pummel', 'punch',
+   'slap', 'smack', 'smash', 'strike',
+   'thump',
+   'whack'
 ];
 
 const arrayStartGif = [
@@ -143,6 +166,15 @@ const arrayStartGif = [
    `https://giphy.com/gifs/SkyTV-fight-me-abu-4WFEIrm9czxm8YclzW`,
    `https://giphy.com/gifs/mrparadise-roc-nation-mr-paradise-l44QoyDmxjK3jfH8c`,
    `https://giphy.com/gifs/yandel-roc-nation-3og0IJt3WawCxO8wCc`,
+   `https://tenor.com/view/tekken7-tekken-dragunov-roast-roasted-gif-9144136`,
+   `https://tenor.com/view/mortal-kombat-bring-it-ninja-gif-14796040`,
+   `https://tenor.com/view/impressive-nice-take-this-kung-fu-furious-gif-11744617`,
+   `https://tenor.com/view/ip-man-bow-thank-you-gif-25480985`,
+   `https://tenor.com/view/spongebob-squarepants-fight-me-ready-to-fight-lets-fight-fight-gif-16248214`.
+   `https://tenor.com/view/street-streetfighter-ryu-gif-5217654`,
+   `https://tenor.com/view/mortal-kombat-mortal-kombat9-mortal-kombat2011-sub-zero-gif-21185320`,
+   `https://tenor.com/view/thank-you-very-much-gif-20078420`,
+   `https://media4.giphy.com/media/zY4kzuQh16OPu/giphy.gif?cid=ecf05e477ecu43j731mmt15row4vycy3wdcyse2iixs69kc9&rid=giphy.gif&ct=g`,
    `https://tenor.com/view/morpheus-matrix-fight-matrix-the-matrix-come-gif-22614532`
 ];
 
@@ -155,7 +187,13 @@ const arrayFinalGif = [
    `https://tenor.com/view/hit-in-the-face-vi-arcane-smack-beat-up-gif-23854308`,
    `https://giphy.com/gifs/VVSFILMS-fight-mma-kick-YhHSjXadL2eOc3T2Ww`,
    `https://giphy.com/gifs/case-knockout-joshua-ou5FtFV6fwdk4`,
+   `https://tenor.com/view/ip-man-scott-adkins-ip-man4-gif-18324465`,
    `https://tenor.com/view/kick-ongbak-tonyjaa-stunt-fire-gif-7588037`,
    `https://media3.giphy.com/media/1JRyNx67X4IhYN94nb/giphy360p.mp4?cid=ecf05e47yn3ihfuhwa824hrpe3mu3zyhe9qu8e8tlxfia5wi&rid=giphy360p.mp4&ct=v`,
-   `https://tenor.com/view/scottadkins-boyka-kick-gif-5443958`
+   `https://tenor.com/view/scottadkins-boyka-kick-gif-5443958`,
+   `https://tenor.com/view/karate-female-gif-18452002`,
+   `https://tenor.com/view/adriano-celentano-adrian-la-volpe-kick-gif-15732060`,
+   `https://tenor.com/view/yubi-furry-fursuit-knock-out-punch-gif-25027965`,
+   `https://tenor.com/view/morgan-morgan-charrière-mma-fight-win-gif-14756789`,
+   `https://tenor.com/view/adriano-celentano-adrian-la-volpe-kick-gif-15505088`
 ];

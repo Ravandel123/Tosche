@@ -1,6 +1,7 @@
 //https://simple.wiktionary.org/wiki/hit
 //https://www.lexico.com/grammar/verb-tenses-adding-ed-and-ing
 //https://www.gallaudet.edu/tutorial-and-instructional-programs/english-center/grammar-and-vocabulary/verbs/irregular-verb-list/
+//https://pl.bab.la/koniugacja/angielski/smite
 
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
@@ -174,7 +175,9 @@ const verbsIrregular = [
    ['prefer', 'preferred', 'preferred', 'preferring'],
    ['quit', 'quit', 'quit', 'quitting'],
    ['refer', 'referred', 'referred', 'referring'],
-   ['submit', 'submitted', 'submitted', 'submitting'],
+   ['smite', 'smote', 'smitten', 'smitting'],
+   ['strike', 'struck', 'struck|stricken', 'striking'],
+   ['submit', 'submitted', 'submitted', 'submiting'],
    ['transfer', 'transferred', 'transferred', 'transferring'],
    ['up', 'upped', 'upped', 'upping']
 ];
