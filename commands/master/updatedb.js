@@ -187,72 +187,88 @@ async function defaultUpdate(message, id) {
 
 
 async function updateGuildProfiles(guildProfiles) {
-   let actionPoints = {
-      current: 0,
-      totalEarned: 0,
-   };
-
-   let resources = {
-      hp: 10,
-      hunger: 0,
-      satisfaction: 0,
-      stamina: 0,
-      stress: 0,
-      insanity: 0,
-      fate: 0,
-      fortune: 0,
-      resilience: 0,
-      resolve: 0,
-   };
-
-   let attributes = {
-      strength: 10,
-      toughness: 10,
-      agility: 10,
-      dexterity: 10,
-      perception: 10,
-      intelligence: 10,
-      willpower: 10,
-      charisma: 10,
-      luck: 10,
-   };
-
    let skills = {
-      cooking : {
+      swimming: {
          current: 1,
          progress: 0,
-      },
-      fishing: {
-         current: 1,
-         progress: 0,
-      },
-   };
-
-   let weaponSkills = {
-      melee: {
-         current: 1,
-         progress: 0,
-      },
-      ranged: {
-         current: 1,
-         progress: 0,
-      },
-      unarmed: {
-         current: 1,
-         progress: 0,
-      },
-   };
-
-   await guildProfiles.updateMany(
-      {},
-      {
-         $set : {
-            actionPoints,
-            resources,
-            attributes,
-            skills,
-            weaponSkills
-         }
       }
-   );
+   };
+
+
+   await guildProfiles.updateMany({ownerId: '392728479696814092', skills : {$exists : false}}, {$set : {skills}});
+   // await guildProfiles.updateMany({$unset : { fame : "" } })
+
+
+
+
+
+//----------------------------------------------------------------------------------------------------------------------
+   // let actionPoints = {
+      // current: 0,
+      // totalEarned: 0,
+   // };
+
+   // let resources = {
+      // hp: 10,
+      // hunger: 0,
+      // satisfaction: 0,
+      // stamina: 0,
+      // stress: 0,
+      // insanity: 0,
+      // fate: 0,
+      // fortune: 0,
+      // resilience: 0,
+      // resolve: 0,
+   // };
+
+   // let attributes = {
+      // strength: 10,
+      // toughness: 10,
+      // agility: 10,
+      // dexterity: 10,
+      // perception: 10,
+      // intelligence: 10,
+      // willpower: 10,
+      // charisma: 10,
+      // luck: 10,
+   // };
+
+   // let skills = {
+      // cooking : {
+         // current: 1,
+         // progress: 0,
+      // },
+      // fishing: {
+         // current: 1,
+         // progress: 0,
+      // },
+   // };
+
+   // let weaponSkills = {
+      // melee: {
+         // current: 1,
+         // progress: 0,
+      // },
+      // ranged: {
+         // current: 1,
+         // progress: 0,
+      // },
+      // unarmed: {
+         // current: 1,
+         // progress: 0,
+      // },
+   // };
+
+   // await guildProfiles.updateMany(
+      // {},
+      // {
+         // $set : {
+            // actionPoints,
+            // resources,
+            // attributes,
+            // skills,
+            // weaponSkills
+         // }
+      // }
+   // );
 }
