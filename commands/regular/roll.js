@@ -23,7 +23,7 @@ module.exports = {
       }
 
       for (let i = 0; i < numberOfRolls; i++) {
-         rollValue = RndNo0(typeOfDice);
+         rollValue = C.rndNo0(typeOfDice);
          rollsIndividuals = rollsIndividuals + rollValue;
 
          if (i != numberOfRolls - 1)
