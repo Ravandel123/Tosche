@@ -192,9 +192,8 @@ async function updateGuildProfiles(guildProfiles) {
       progress: 0,
    };
 
-
-   await guildProfiles.updateMany({ownerId: '392728479696814092', "skills.swimming" : {$exists : false}}, {$set : {"skills.swimming" : swimming}});
-   // await guildProfiles.updateMany({$unset : { fame : "" } })
+   // await guildProfiles.updateMany({ownerId: '466378653216014359', "skills.swimming" : {$exists : false}}, {$set : {"skills.swimming" : swimming}}); //ADD SKILL
+   await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$unset : {fightClub : ""}});
 
 
 
