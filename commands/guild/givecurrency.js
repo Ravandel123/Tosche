@@ -9,8 +9,12 @@ module.exports = {
    description: 'Gives a certain amount of the specified currency to another user. ' +
    'You must either enter the currency name without spaces or use an alias using the first letters of the currency.',
    usage: '[user mention] [name of the currency] [amount]',
-   example: `<@!392728479696814092>` + ' silvercoins 5',
-   otherexample: `<@!392728479696814092>` + ' sc 5',
+   example: [
+               `<@!392728479696814092> silvercoins 5`,
+               `<@!392728479696814092> sc 5`
+            ],
+   // example: `<@!392728479696814092>` + ' silvercoins 5',
+   // otherexample: `<@!392728479696814092>` + ' sc 5',
    async execute(message, args) {
       const requiredArgs = ['user name', 'name of the currency', 'amount'];
       if (!CC.checkArgsAmount(message, args, requiredArgs))

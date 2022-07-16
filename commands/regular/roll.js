@@ -1,5 +1,4 @@
 const C = require('../../modules/common.js');
-const R = require('../../modules/responses.js');
 
 module.exports = {
    name: 'roll',

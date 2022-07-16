@@ -121,6 +121,7 @@ function resDefault() {
    `https://tenor.com/view/gandalf-yes-very-good-gif-19209604`,
    `https://tenor.com/view/keep-telling-yourself-that-darling-captain-jack-sparrow-johnny-depp-gif-10233026`,
    `https://tenor.com/view/indeed-tealc-stargate-gif-4496552`,
+   `https://tenor.com/view/cheems-bonk-doge-celestev69-gif-24399197`,
    `https://tenor.com/view/no-nope-smh-kanye-west-gif-4246025`
    ];
 

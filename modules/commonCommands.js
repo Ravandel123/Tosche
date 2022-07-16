@@ -23,12 +23,20 @@ async function showCommands(commands, message, commandName, prefix, groupName) {
 
       data = `**Name:** ${command.name}\n`;
 
-      if (command.aliases) data += `**Aliases:** ${command.aliases.join(', ')}\n`;
-      if (command.cooldown) data += `**Cooldown:** ${command.cooldown}\n`;
-      if (command.description) data += `**Description:** ${command.description}\n`;
-      if (command.usage) data += `**Usage:** ${prefix}${command.name} ${command.usage}\n`;
-      if (command.example) data += `**Example 1:** ${prefix}${command.name} ${command.example}\n`;
-      if (command.otherexample) data += `**Example 2:** ${prefix}${command.name} ${command.otherexample}\n`;
+      if (command.aliases)
+         data += `**Aliases:** ${command.aliases.join(', ')}\n`;
+      if (command.cooldown)
+         data += `**Cooldown:** ${command.cooldown}\n`;
+      if (command.description)
+         data += `**Description:** ${command.description}\n`;
+      if (command.usage)
+         data += `**Usage:** ${prefix}${command.name} ${command.usage}`;
+      // if (command.example)
+         // data += `**Example 1:** ${prefix}${command.name} ${command.example}\n`;
+      // if (command.otherexample)
+         // data += `**Example 2:** ${prefix}${command.name} ${command.otherexample}\n`;
+      if (command.example)
+         data += C.checkIfArray(command.example) ? command.example.join(`\n**Example:** ${prefix}${command.name} `) : `\n**Example: ** ${prefix}${command.name} ${command.example}\n`;
 
       C.dcRespondToMsg(message, data);
    }
