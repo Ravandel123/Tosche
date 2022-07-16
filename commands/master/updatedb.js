@@ -187,7 +187,7 @@ async function defaultUpdate(message, id) {
 
 
 async function updateGuildProfiles(guildProfiles) {
-   let swimming: {
+   let swimming = {
       current: 1,
       progress: 0,
    };
