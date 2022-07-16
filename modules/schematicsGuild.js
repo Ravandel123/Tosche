@@ -6,6 +6,7 @@ const gProfileSchema = new MG.Schema({
    ownerTag: String,
    ownerName: String,
    picture: String,
+   fightClub : { type: Number, default: 0 },
    actionPoints: {
       current: { type: Number, default: 0 },
       totalEarned: { type: Number, default: 0 },
