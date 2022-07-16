@@ -13,16 +13,16 @@ function checkIfArgIsNumber(message, argument)
 
 7. Dodaj zamiast disgusting wybieranie z tablicy w function resIs() w responses
 
-8. Zablokuje bledne createname np. 3 sylabowe imie z sylaba na 4 miejscu zamiast generowac cos losowego
+8. Zmien nazwy na generate?
 
 9. Dodaj do common mergearrays moze sie przydac
 
-10. Dopracuje usage zeby obslugiwalo rozne warianty na przyklad przy pomocy arraya: '[join]\nOR [duel] [user]'
+10. Dodaj responses do checkIfArgIsNaturalNumberInScope
 
 11. Do komendy 'why' dodaj z adamsow because its fun
 
 12. Dorob przypominajke na CRONIE
 
-13. Dodaj responses do checkIfArgIsNaturalNumberInScope
 
-14. Zmien nazwy na generate?
+
+
