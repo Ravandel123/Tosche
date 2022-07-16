@@ -9,7 +9,7 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
-      if (args[1] == hourly) {
+      if (args[1] == 'hourly') {
          CG.hourlyUpdate();
          return;
       }

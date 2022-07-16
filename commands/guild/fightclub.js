@@ -9,7 +9,7 @@ module.exports = {
    aliases: ['fc'],
    description: 'Used to access Fight Club.',
    usage: '[sparring] [user]',
-   example: '',
+   example: 'sparring Ravandel',
    async execute(message, args) {
       const requiredArgs = [`action (sparring)`, `user name`];
       if (!CC.checkArgsAmount(message, args, requiredArgs))
