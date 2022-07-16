@@ -195,7 +195,7 @@ async function updateGuildProfiles(guildProfiles) {
    };
 
 
-   await guildProfiles.updateMany({ownerId: '392728479696814092', skills : {$exists : false}}, {$set : {skills}});
+   await guildProfiles.updateMany({ownerId: '392728479696814092', skills.swimming : {$exists : false}}, {$set : {skills}});
    // await guildProfiles.updateMany({$unset : { fame : "" } })
 
 
