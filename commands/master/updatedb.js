@@ -9,6 +9,11 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
+      if (args[1] == hourly) {
+         CG.hourlyUpdate();
+         return;
+      }
+
       let guildProfiles = await SG.profile;
       let records = await SG.record;
       let profile;
