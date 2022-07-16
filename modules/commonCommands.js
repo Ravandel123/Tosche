@@ -31,10 +31,6 @@ async function showCommands(commands, message, commandName, prefix, groupName) {
          data += `**Description:** ${command.description}\n`;
       if (command.usage)
          data += `**Usage:** ${prefix}${command.name} ${command.usage}\n`;
-      // if (command.example)
-         // data += `**Example 1:** ${prefix}${command.name} ${command.example}\n`;
-      // if (command.otherexample)
-         // data += `**Example 2:** ${prefix}${command.name} ${command.otherexample}\n`;
       if (command.example) {
          const exampleTemplate = `**Example:** ${prefix}${command.name} `;
          data += exampleTemplate + C.checkIfArray(command.example) ? command.example.join(`\n${exampleTemplate}`) : `${command.example}\n`;
