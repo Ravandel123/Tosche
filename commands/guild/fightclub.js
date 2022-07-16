@@ -170,7 +170,7 @@ const arrayStartGif = [
    `https://tenor.com/view/mortal-kombat-bring-it-ninja-gif-14796040`,
    `https://tenor.com/view/impressive-nice-take-this-kung-fu-furious-gif-11744617`,
    `https://tenor.com/view/ip-man-bow-thank-you-gif-25480985`,
-   `https://tenor.com/view/spongebob-squarepants-fight-me-ready-to-fight-lets-fight-fight-gif-16248214`.
+   `https://tenor.com/view/spongebob-squarepants-fight-me-ready-to-fight-lets-fight-fight-gif-16248214`,
    `https://tenor.com/view/street-streetfighter-ryu-gif-5217654`,
    `https://tenor.com/view/mortal-kombat-mortal-kombat9-mortal-kombat2011-sub-zero-gif-21185320`,
    `https://tenor.com/view/thank-you-very-much-gif-20078420`,
