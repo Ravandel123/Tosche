@@ -278,8 +278,8 @@ async function profilesHourlyUpdate(guild, id) {
 
 //----------------------------------------------------------- PROFILE ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-async function getMessageAuthorProfile(element) {
-   return Promise.resolve(getProfileById(element, message.author.id));
+async function getMessageAuthorProfile(message) {
+   return Promise.resolve(getProfileById(message, message.author.id));
 }
 
 module.exports.getMessageAuthorProfile = getMessageAuthorProfile;

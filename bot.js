@@ -614,7 +614,7 @@ client.on('messageCreate', message => {
 
   var placeMainList = [
   'Abbey', 'Altar', 'Amphitheater', 'Arena',
-  'Basement', 'Barrens',
+  'Basement', 'Barren',
   'Cartel', 'Cave', 'Citadel', 'City', 'Chamber', 'Cliffs', 'Colosseum', 'Cornfield',
   'Den', 'Desert', 'Dojo', 'Dungeon',
   'Encampment',
