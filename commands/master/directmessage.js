@@ -1,7 +1,8 @@
 const C = require('../../modules/common.js');
 
 module.exports = {
-   name: 'dm',
+   name: 'directmessage',
+   aliases: ['dm'],
    description: 'Sends DM to someone.',
    usage: '[user ID] [message content]',
    example: '554696495190769692 Welcome to Deltrada',

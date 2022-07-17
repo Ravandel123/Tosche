@@ -735,14 +735,6 @@ client.on('messageCreate', message => {
 
   switch (command) 
   {
-      case 'xd':
-      
-         //message.channel.send(`${message.author.id} <@!${message.author.id}>`)
-         //client.users.cache.get(gBotOwner).send(`${message.author} has arrived!`)
-         //client.users.cache.get(arguments[1]).send(arguments[2])
-         client.users.cache.get(arguments[1]).send(message.content.slice(Config.prefix.length + command.length + arguments[1].length + 1))
-
-         break
 
       case 'dx':
          client.channels.cache.find(channel => channel.name === arguments[1]).send(message.content.slice(Config.prefix.length + command.length + arguments[1].length + 1))

@@ -971,6 +971,73 @@ module.exports.roundNumber = roundNumber;
 //https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/understanding/roles.md
 //https://discordjs.guide/additional-info/changes-in-v12.html#collection
 
+//-------------------------------------------------------Channels-------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function dcGetChannel(element) {
+   if (dcCheckIfMessage(element))
+      return element.channel;
+   else if (dcCheckIfChannel(element))
+      return element;
+}
+
+module.exports.dcGetChannel = dcGetChannel;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function dcGetChannelByName(element, channelName) {
+   if (!checkIfExists(channelName))
+      return;
+
+   const searchFunction = e => e.name === channelName;
+
+   if (dcCheckIfGuild(element))
+      return element.channels.cache.find(searchFunction);
+   else if (dcCheckIfGuildMessage(element))
+      return element.guild.channels.cache.find(searchFunction);
+}
+
+module.exports.dcGetChannelByName = dcGetChannelByName;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function dcGetChannelByID(message, channelID) {
+   if (!checkIfMessage(message) || !checkIfExists(channelID))
+      return;
+
+   return message.client?.channels?.cache.find(e => e.id === channelID);
+}
+
+module.exports.dcGetChannelByID = dcGetChannelByID;
+
+// OK---------------------------------------------------------------------------------------------------------------
+async function dcGetCreateOrUnarchiveThread(channel, threadName, member) {
+   if (!dcCheckIfGuildChannel(channel) || dcCheckIfThread(channel) || !checkIfExists(threadName) || !dcCheckIfMember(member))
+      return Promise.reject(`Wrong input data!`);
+
+   await channel.threads.fetchArchived(); //Needed for loading archived threads to cache
+   let thread = channel.threads.cache.find(t => t.name === threadName);
+
+   if (!thread) {
+      thread = await channel.threads.create({
+         name: threadName,
+         autoArchiveDuration: 60,
+         reason: '',
+      });
+   } else {
+      if (thread.archived)
+         await thread.setArchived(false);
+
+      if (thread.joinable)
+         await thread.join();
+   }
+
+   await thread.members.add(member.id);
+
+   return Promise.resolve(thread);
+}
+
+module.exports.dcGetCreateOrUnarchiveThread = dcGetCreateOrUnarchiveThread;
+
+// ---------------------------------------------------------------------------------------------------------------
+
 //-------------------------------------------------------Checkers-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCheckIfCollection(value) {
@@ -1139,6 +1206,9 @@ module.exports.dcRespondToMsg = dcRespondToMsg;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcSendDM(message, userID, msgContent) {
+   if (!msgContent)
+      return;
+
    const user = dcGetUserByID(message, userID);
    if (user)
       user.send(msgContent);
@@ -1307,65 +1377,6 @@ function dcGetMemberIDFromMention(mention) {
 module.exports.dcGetMemberIDFromMention = dcGetMemberIDFromMention;
 
 // ---------------------------------------------------------------------------------------------------------------
-
-
-//-------------------------------------------------------Channels-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function dcGetChannel(element) {
-   if (dcCheckIfMessage(element))
-      return element.channel;
-   else if (dcCheckIfChannel(element))
-      return element;
-}
-
-module.exports.dcGetChannel = dcGetChannel;
-
-// OK---------------------------------------------------------------------------------------------------------------
-function dcGetChannelByName(element, channelName) {
-   if (!checkIfExists(channelName))
-      return;
-
-   const searchFunction = e => e.name === channelName;
-
-   if (dcCheckIfGuild(element))
-      return element.channels.cache.find(searchFunction);
-   else if (dcCheckIfGuildMessage(element))
-      return element.guild.channels.cache.find(searchFunction);
-}
-
-module.exports.dcGetChannelByName = dcGetChannelByName;
-
-// OK---------------------------------------------------------------------------------------------------------------
-async function dcGetCreateOrUnarchiveThread(channel, threadName, member) {
-   if (!dcCheckIfGuildChannel(channel) || dcCheckIfThread(channel) || !checkIfExists(threadName) || !dcCheckIfMember(member))
-      return Promise.reject(`Wrong input data!`);
-
-   await channel.threads.fetchArchived(); //Needed for loading archived threads to cache
-   let thread = channel.threads.cache.find(t => t.name === threadName);
-
-   if (!thread) {
-      thread = await channel.threads.create({
-         name: threadName,
-         autoArchiveDuration: 60,
-         reason: '',
-      });
-   } else {
-      if (thread.archived)
-         await thread.setArchived(false);
-
-      if (thread.joinable)
-         await thread.join();
-   }
-
-   await thread.members.add(member.id);
-
-   return Promise.resolve(thread);
-}
-
-module.exports.dcGetCreateOrUnarchiveThread = dcGetCreateOrUnarchiveThread;
-
-// ---------------------------------------------------------------------------------------------------------------
-
 
 //-------------------------------------------------------Interactions-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
