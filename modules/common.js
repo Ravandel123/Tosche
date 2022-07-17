@@ -1138,6 +1138,15 @@ function dcRespondToMsg(message, msgContent) {
 module.exports.dcRespondToMsg = dcRespondToMsg;
 
 // OK---------------------------------------------------------------------------------------------------------------
+function dcSendDM(message, userID, msgContent) {
+   const user = dcGetUserByID(message, userID);
+   if (user)
+      user.send(msgContent);
+}
+
+module.exports.dcSendDM = dcSendDM;
+
+// OK---------------------------------------------------------------------------------------------------------------
 function dcSendDMToAuthor(message, msgContent) {
    dcSendMsg(message, msgContent, 'dm');
 }
@@ -1210,6 +1219,18 @@ module.exports.dcCheckIfMemberHasRole = dcCheckIfMemberHasRole;
 
 // ---------------------------------------------------------------------------------------------------------------
 
+//-------------------------------------------------------Users-------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function dcGetUserByID(message, ) {
+   if (!dcCheckIfMessage(message) || !userID)
+      return;
+
+   return message.client?.users?.cache?.get(userID);
+}
+
+module.exports.dcGetUserByID = dcGetUserByID;
+
+// ---------------------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------Members-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------

@@ -3,7 +3,7 @@ const C = require('../../modules/common.js');
 module.exports = {
    name: 'clear',
    aliases: ['clean'],
-   description: 'Deletes specific amount of messages from the current channel',
+   description: 'Deletes specific amount of messages from the current channel.',
    usage: '[amount]',
    example: '7',
    execute(message, args) {
@@ -22,13 +22,3 @@ module.exports = {
       C.deleteMessages(message, amount);
    },
 }
-
-// function deleteMessages(message, amount) {
-   // if (dcCheckIfMessage(message) || !C.checkIfIntInRange(amount, 0, 99)
-      // return;
-
-   // message.channel.bulkDelete(++correctAmount, true)
-      // .catch(error => {
-         // message.reply(`An error occured while deleting messages! ${error}`);
-      // });
-// }
