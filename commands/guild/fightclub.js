@@ -2,7 +2,7 @@ const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
 const CG = require('../../modules/commonGuild.js');
 const DB = require('../../modules/db.js');
-const CBT = require('../../modules/advanced/combat.js');
+const CM = require('../../modules/commonMechanics.js');
 
 module.exports = {
    name: 'fightclub',
@@ -80,11 +80,11 @@ async function sparring(message, user1, user2) {
    }
 
    do {
-      const attackResult = CBT.combat(attacker, defender);
+      const attackResult = CM.combat(attacker, defender);
       let damage = -1;
 
       if (attackResult.wasSuccessful) {
-         damage = CBT.calculateDamage(attackResult.SL, attacker, defender);
+         damage = CM.calculateDamage(attackResult.SL, attacker, defender);
          defender.resources.hp -= damage;
       }
 
@@ -106,7 +106,7 @@ async function sparring(message, user1, user2) {
 // OK---------------------------------------------------------------------------------------------------------------
 function getCombatMsg(user1, user2, attacker, defender, damage) {
    const moveName = C.arrGetRandom(arrayMoves);
-   const hitLocation = getMoreInterestingHitLocationName(CBT.getHitLocation());
+   const hitLocation = getMoreInterestingHitLocationName(CM.getHitLocation());
    let msg;
    let showHP = false;
 
