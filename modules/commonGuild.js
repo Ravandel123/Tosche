@@ -284,9 +284,9 @@ async function checkMemberAvailability(profile) {
 module.exports.checkMemberAvailability = checkMemberAvailability;
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function defaultHourlyUpdate(message, id) {
+async function profilesHourlyUpdate(guild, id) {
    try {
-      let profile = await getProfileById(message, id);
+      let profile = await getProfileById(guild, id);
       regenerateHourlyHp(profile);
       await profile.save();
    } catch {
@@ -295,16 +295,16 @@ async function defaultHourlyUpdate(message, id) {
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function hourlyUpdate(client) {
+async function mainHourlyUpdate(client) {
    modifyActionPointsForAll(1);
 
    const deltrada = client.guilds.cache.get(SETTINGS.deltradaId);
    const members = C.dcGetAllMembers(deltrada);
    for (const member of members)
-      defaultHourlyUpdate(message, member[1].id);
+      profilesHourlyUpdate(deltrada, member[1].id);
 }
 
-module.exports.hourlyUpdate = hourlyUpdate;
+module.exports.mainhourlyUpdate = mainhourlyUpdate;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -317,20 +317,20 @@ function checkIfProfile(value) {
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function getMessageAuthorProfile(message) {
-   return Promise.resolve(getProfileById(message, message.author.id));
+async function getMessageAuthorProfile(element) {
+   return Promise.resolve(getProfileById(element, message.author.id));
 }
 
 module.exports.getMessageAuthorProfile = getMessageAuthorProfile;
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function getProfileById(message, id) {
-   if (!C.dcCheckIfMessage(message) || !id)
+async function getProfileById(element, id) {
+   if (!C.dcCheckIfMessage(element) && !C.dcCheckIfGuild(element) || !id)
       return Promise.reject(`Wrong input argument!`);
 
    let profileDoc = await DB.findOne(SG.profile, { ownerId: id });
    if (!profileDoc) {
-      profileDoc = createNewGuildProfileFromID(message, id);
+      profileDoc = createNewGuildProfileFromID(element, id);
       if (!profileDoc)
          return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);
 
@@ -399,8 +399,8 @@ function createNewGuildProfile(member) {
 module.exports.createNewGuildProfile = createNewGuildProfile;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function createNewGuildProfileFromID(message, id) {
-   const member = C.dcGetMemberByID(message, id);
+function createNewGuildProfileFromID(element, id) {
+   const member = C.dcGetMemberByID(element, id);
    return createNewGuildProfile(member);
 }
 
