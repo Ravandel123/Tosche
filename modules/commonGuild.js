@@ -1,15 +1,9 @@
 const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
+const CM = require('./commonMechanics.js');
 const AG = require('./arraysGuild.js');
 const SG = require('./schematicsGuild.js');
 const DB = require('./db.js');
-
-//----------------------------------------------------------- CONSTANTS ----------------------------------------------------------
-const HP_PER_T = 10;
-const HP_PER_S = 5;
-const HP_PER_WP = 5;
-
-
 
 
 //----------------------------------------------------------- ACTION POINTS ----------------------------------------------------------
@@ -19,34 +13,6 @@ async function modifyActionPointsForAll(amount) {
 }
 
 module.exports.modifyActionPointsForAll = modifyActionPointsForAll;
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-//----------------------------------------------------------- ATTRIBUTES ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function getStrengthBonus(profile) {
-   if (checkIfProfile(profile))
-      return Math.floor(profile.attributes.strength / 10);
-}
-
-module.exports.getStrengthBonus = getStrengthBonus;
-
-// OK---------------------------------------------------------------------------------------------------------------
-function getToughnessBonus(profile) {
-   if (checkIfProfile(profile))
-      return Math.floor(profile.attributes.toughness / 10);
-}
-
-module.exports.getToughnessBonus = getToughnessBonus;
-
-function getWillpowerBonus(profile) {
-   if (checkIfProfile(profile))
-      return Math.floor(profile.attributes.willpower / 10);
-}
-
-module.exports.getWillpowerBonus = getWillpowerBonus;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,7 +28,7 @@ module.exports.getCurrencyObject = getCurrencyObject;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function transferCurrency(message, source, target, amount, currency) {
-   if (!checkIfProfile(source) || !checkIfProfile(target) || !C.checkIfNaturalNumber(amount) || !C.checkIfAnyByFunction(AG.currencies, e => C.strCompare(e.nameDB, currency.nameDB)))
+   if (!C.checkIfProfile(source) || !C.checkIfProfile(target) || !C.checkIfNaturalNumber(amount) || !C.checkIfAnyByFunction(AG.currencies, e => C.strCompare(e.nameDB, currency.nameDB)))
       return;
 
    if (source.currencies[currency.nameDB] < amount) {
@@ -284,17 +250,6 @@ async function checkMemberAvailability(profile) {
 module.exports.checkMemberAvailability = checkMemberAvailability;
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function profilesHourlyUpdate(guild, id) {
-   try {
-      let profile = await getProfileById(guild, id);
-      regenerateHourlyHp(profile);
-      await profile.save();
-   } catch {
-      console.log(`Error while doing hourly update for user with ID: ${id}`);
-   }
-}
-
-// OK---------------------------------------------------------------------------------------------------------------
 async function mainHourlyUpdate(client) {
    modifyActionPointsForAll(1);
 
@@ -306,16 +261,22 @@ async function mainHourlyUpdate(client) {
 
 module.exports.mainHourlyUpdate = mainHourlyUpdate;
 
+// OK---------------------------------------------------------------------------------------------------------------
+async function profilesHourlyUpdate(guild, id) {
+   try {
+      let profile = await getProfileById(guild, id);
+      CM.regenerateHourlyHp(profile);
+      await profile.save();
+   } catch {
+      console.log(`Error while doing hourly update for user with ID: ${id}`);
+   }
+}
+
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 //----------------------------------------------------------- PROFILE ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function checkIfProfile(value) {
-   return value instanceof SG.profile;
-}
-
 // OK---------------------------------------------------------------------------------------------------------------
 async function getMessageAuthorProfile(element) {
    return Promise.resolve(getProfileById(element, message.author.id));
@@ -418,58 +379,6 @@ async function getRecordDoc() {
 }
 
 module.exports.getRecordDoc = getRecordDoc;
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-//----------------------------------------------------------- RESOURCES ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function getMaxHp(profile) {
-   if (!checkIfProfile(profile))
-      return;
-
-   return getStrengthBonus(profile) * HP_PER_S + getWillpowerBonus(profile) * HP_PER_WP + getToughnessBonus(profile) * HP_PER_T;
-}
-
-module.exports.getMaxHp = getMaxHp;
-
-// OK---------------------------------------------------------------------------------------------------------------
-function regenerateHourlyHp(profile) {
-   if (!checkIfProfile(profile))
-      return;
-
-   const maxHp = getMaxHp(profile);
-   const currentHp = profile.resources.hp;
-   const hourlyHpRegen = getToughnessBonus(profile) * 2;
-
-   profile.resources.hp = currentHp + hourlyHpRegen < maxHp ? currentHp + hourlyHpRegen : maxHp;
-}
-
-module.exports.getMaxHp = getMaxHp;
-
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-//----------------------------------------------------------- SKILLS ----------------------------------------------------------
-
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-//----------------------------------------------------------- WEAPON SKILLS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
-function getSkillWeapon(user, weaponSkillName) {
-   if (!checkIfProfile(user) || !C.strCheckIfAnyMatch(weaponSkillName, AG.weaponTypes))
-      return;
-
-   return user.weaponSkills.melee.current + user.weaponSkills[weaponSkillName].current;
-}
-
-module.exports.getSkillWeapon = getSkillWeapon;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

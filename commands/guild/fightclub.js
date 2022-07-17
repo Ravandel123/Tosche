@@ -83,7 +83,7 @@ async function sparring(message, user1, user2) {
       const attackResult = CBT.combat(attacker, defender);
       let damage = -1;
 
-      if (attackResult.attackSucceeded) {
+      if (attackResult.wasSuccessful) {
          damage = CBT.calculateDamage(attackResult.SL, attacker, defender);
          defender.resources.hp -= damage;
       }

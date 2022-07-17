@@ -11,19 +11,20 @@ const arrayHitLocations = C.arrGetPopulatedFrom2D(AG.bodyLocations);
 
 //----------------------------------------------------------- MAIN -----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-function rollAttack() {
+function rollDice() {
    let result = {};
    result.roll = C.rndNo0(100);
-   result.isCrit = isCritical(result.roll);
+   result.isDouble = isDouble(result.roll);
 
    return result;
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
-function isCritical(value) {
+function isDouble(value) {
    return value == 100 || value % 10 == Math.floor(value / 10);
 }
 
+// OK---------------------------------------------------------------------------------------------------------------
 function getHitLocation() {
    return C.arrGetRandom(arrayHitLocations);
 }
@@ -52,14 +53,14 @@ function combat(user1, user2) {
       const u1PositiveZero = C.checkIfNumberIsPositive(u1SL);
       const u2PositiveZero = C.checkIfNumberIsPositive(u2SL);
 
-      result.attackSucceeded = u1PositiveZero != u2PositiveZero ? u1PositiveZero : u1WS != u2WS ? u1WS > u2WS : false;
+      result.wasSuccessful = u1PositiveZero != u2PositiveZero ? u1PositiveZero : u1WS != u2WS ? u1WS > u2WS : false;
    } else if (u1SL == u2SL) {
-      result.attackSucceeded = u1WS != u2WS ? u1WS > u2WS : false;
+      result.wasSuccessful = u1WS != u2WS ? u1WS > u2WS : false;
    } else {
-      result.attackSucceeded = u1SL > u2SL;
+      result.wasSuccessful = u1SL > u2SL;
    }
 
-   result.SL = result.attackSucceeded ? u1SL - u2SL : u2SL - u1SL;
+   result.SL = result.wasSuccessful ? u1SL - u2SL : u2SL - u1SL;
 
    return result;
 }
