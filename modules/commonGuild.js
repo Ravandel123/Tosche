@@ -284,7 +284,7 @@ async function checkMemberAvailability(profile) {
 module.exports.checkMemberAvailability = checkMemberAvailability;
 
 // OK---------------------------------------------------------------------------------------------------------------
-async defaultHourlyUpdate(message, id) {
+async function defaultHourlyUpdate(message, id) {
    try {
       let profile = await getProfileById(message, id);
       regenerateHourlyHp(profile);
