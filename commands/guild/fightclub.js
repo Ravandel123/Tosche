@@ -131,18 +131,18 @@ function getCombatMsg(user1, user2, attacker, defender, damage) {
 function getMoreInterestingHitLocationName(bodyPart) {
    switch (bodyPart) {
       case 'head':
-         return C.arrGetRandom(['head', 'face', 'jaw', 'nose', 'snout', 'temple']);
+         return C.arrGetRandom(['head', 'face', 'jaw', 'nose', 'snout']);
 
       case 'torso':
-         return C.arrGetRandom(['chest', 'guts', 'sdie', 'ribs']);
+         return C.arrGetRandom(['chest', 'guts', 'side', 'ribs']);
 
       case 'primary arm':
       case 'secondary arm':
-         return C.arrGetRandom(['hand', 'arm', 'elbow', 'forearm', 'wrist']);
+         return C.arrGetRandom(['hand', 'arm', 'elbow', 'wrist']);
 
       case 'right leg':
       case 'left leg':
-         return C.arrGetRandom(['foot', 'shin', 'knee', 'thigh', 'hip', 'ankle', 'calf']);
+         return C.arrGetRandom(['foot', 'shin', 'knee', 'hip', 'ankle']);
    }
 }
 
