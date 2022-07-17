@@ -284,11 +284,24 @@ async function checkMemberAvailability(profile) {
 module.exports.checkMemberAvailability = checkMemberAvailability;
 
 // OK---------------------------------------------------------------------------------------------------------------
+async defaultHourlyUpdate(message, id) {
+   try {
+      let profile = await getProfileById(message, id);
+      regenerateHourlyHp(profile);
+      await profile.save();
+   } catch {
+      console.log(`Error while doing hourly update for user with ID: ${id}`);
+   }
+}
+
+// OK---------------------------------------------------------------------------------------------------------------
 async function hourlyUpdate(client) {
    modifyActionPointsForAll(1);
 
    const deltrada = client.guilds.cache.get(SETTINGS.deltradaId);
-   console.log(deltrada);
+   const members = C.dcGetAllMembers(deltrada);
+   for (const member of members) {
+      defaultHourlyUpdate(message, member[1].id);
 }
 
 module.exports.hourlyUpdate = hourlyUpdate;
@@ -411,6 +424,7 @@ module.exports.getRecordDoc = getRecordDoc;
 
 
 //----------------------------------------------------------- RESOURCES ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
 function getMaxHp(profile) {
    if (!checkIfProfile(profile))
       return;
@@ -419,6 +433,21 @@ function getMaxHp(profile) {
 }
 
 module.exports.getMaxHp = getMaxHp;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function regenerateHourlyHp(profile) {
+   if (!checkIfProfile(profile))
+      return;
+
+   const maxHp = getMaxHp(profile);
+   const currentHp = profile.resources.hp;
+   const hourlyHpRegen = getToughnessBonus(profile) * 2;
+
+   profile.resources.hp = currentHp + hourlyHpRegen < maxHp ? currentHp + hourlyHpRegen : maxHp;
+}
+
+module.exports.getMaxHp = getMaxHp;
+
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
