@@ -1,3 +1,4 @@
+const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
 const AG = require('./arraysGuild.js');
 const SG = require('./schematicsGuild.js');
@@ -283,8 +284,11 @@ async function checkMemberAvailability(profile) {
 module.exports.checkMemberAvailability = checkMemberAvailability;
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function hourlyUpdate() {
+async function hourlyUpdate(client) {
    modifyActionPointsForAll(1);
+
+   const deltrada = client.guilds.cache.get(SETTINGS.deltradaId);
+   console.log(deltrada);
 }
 
 module.exports.hourlyUpdate = hourlyUpdate;

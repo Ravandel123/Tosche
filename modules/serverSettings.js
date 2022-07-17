@@ -1,3 +1,5 @@
+const deltradaId = '553933942193913856';
+
 const bannedWords = [
    'cunt',
    'dick',
@@ -31,6 +33,8 @@ const noToscheCommentsChannels = [
 
 //----------------------------------------------------------- Exports ----------------------------------------------------------
 module.exports = {
+   deltradaId,
+
    bannedWords,
    noToscheCommentsChannels
 };
