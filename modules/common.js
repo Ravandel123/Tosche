@@ -999,7 +999,7 @@ module.exports.dcGetChannelByName = dcGetChannelByName;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcGetChannelByID(message, channelID) {
-   if (!checkIfMessage(message) || !checkIfExists(channelID))
+   if (!dcCheckIfMessage(message) || !checkIfExists(channelID))
       return;
 
    return message.client?.channels?.cache.find(e => e.id === channelID);
