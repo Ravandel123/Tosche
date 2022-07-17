@@ -1221,7 +1221,7 @@ module.exports.dcCheckIfMemberHasRole = dcCheckIfMemberHasRole;
 
 //-------------------------------------------------------Users-------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-function dcGetUserByID(message, ) {
+function dcGetUserByID(message, userID) {
    if (!dcCheckIfMessage(message) || !userID)
       return;
 
