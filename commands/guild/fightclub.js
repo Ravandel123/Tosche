@@ -54,8 +54,8 @@ async function sparring(message, user1, user2) {
       return;
    }
 
-   user1.resources.hp = CG.getMaxHp(user1);
-   user2.resources.hp = CG.getMaxHp(user2);
+   user1.resources.hp = CM.getMaxHp(user1);
+   user2.resources.hp = CM.getMaxHp(user2);
 
    msg = `---------------------------------------------------------------------------------------------\n` + 
          `Get ready for the next fight! **${user1.ownerName}** has challenged **${user2.ownerName}** for a sparring!`;
