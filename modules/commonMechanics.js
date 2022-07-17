@@ -77,8 +77,8 @@ function getSL(skill, roll) {
 
 // OK---------------------------------------------------------------------------------------------------------------
 function combat(user1, user2) {
-   const u1Roll = rollAttack();
-   const u2Roll = rollAttack();
+   const u1Roll = rollDice();
+   const u2Roll = rollDice();
 
    const u1WS = getSkillWeapon(user1, 'unarmed'); //change to get from currently equipped weapon
    const u2WS = getSkillWeapon(user2, 'unarmed'); //change to get from currently equipped weapon
