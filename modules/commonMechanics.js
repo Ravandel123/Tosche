@@ -1,6 +1,5 @@
 const C = require('./common.js');
 const AG = require('./arraysGuild.js');
-const CG = require('./commonGuild.js');
 
 
 //----------------------------------------------------------- CONSTANTS ----------------------------------------------------------
@@ -49,20 +48,6 @@ module.exports.getWillpowerBonus = getWillpowerBonus;
 
 //----------------------------------------------------------- COMBAT -----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-function rollDice() {
-   let result = {};
-   result.roll = C.rndNo0(100);
-   result.isDouble = isDouble(result.roll);
-
-   return result;
-}
-
-// OK---------------------------------------------------------------------------------------------------------------
-function isDouble(value) {
-   return value == 100 || value % 10 == Math.floor(value / 10);
-}
-
-// OK---------------------------------------------------------------------------------------------------------------
 function getHitLocation() {
    return C.arrGetRandom(arrayHitLocations);
 }
@@ -70,37 +55,11 @@ function getHitLocation() {
 module.exports.getHitLocation = getHitLocation;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function getSL(skill, roll) {
-   const difference = (skill - roll) / 10;
-   return difference > 0 ? Math.floor(difference) : Math.ceil(difference);
-}
-
-// OK---------------------------------------------------------------------------------------------------------------
 function combat(user1, user2) {
-   const u1Roll = rollDice();
-   const u2Roll = rollDice();
-
    const u1WS = getSkillWeapon(user1, 'unarmed'); //change to get from currently equipped weapon
    const u2WS = getSkillWeapon(user2, 'unarmed'); //change to get from currently equipped weapon
 
-   const u1SL = getSL(u1WS, u1Roll.roll);
-   const u2SL = getSL(u2WS, u2Roll.roll);
-
-   let result = {};
-   if (u1SL === 0 && u2SL === 0) {
-      const u1PositiveZero = C.checkIfNumberIsPositive(u1SL);
-      const u2PositiveZero = C.checkIfNumberIsPositive(u2SL);
-
-      result.wasSuccessful = u1PositiveZero != u2PositiveZero ? u1PositiveZero : u1WS != u2WS ? u1WS > u2WS : false;
-   } else if (u1SL == u2SL) {
-      result.wasSuccessful = u1WS != u2WS ? u1WS > u2WS : false;
-   } else {
-      result.wasSuccessful = u1SL > u2SL;
-   }
-
-   result.SL = result.wasSuccessful ? u1SL - u2SL : u2SL - u1SL;
-
-   return result;
+   return opposedRolls(u1WS, u2WS);
 }
 
 module.exports.combat = combat;
@@ -142,6 +101,57 @@ function regenerateHourlyHp(profile) {
 
 module.exports.regenerateHourlyHp = regenerateHourlyHp;
 
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- TESTS AND ROLLS ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function opposedRolls(value1, value2) {
+   const u1Roll = rollDice();
+   const u2Roll = rollDice();
+
+   const u1SL = getSL(value1, u1Roll.roll);
+   const u2SL = getSL(value2, u2Roll.roll);
+
+   let result = {};
+   if (u1SL === 0 && u2SL === 0) {
+      const u1PositiveZero = C.checkIfNumberIsPositive(u1SL);
+      const u2PositiveZero = C.checkIfNumberIsPositive(u2SL);
+
+      result.wasSuccessful = u1PositiveZero != u2PositiveZero ? u1PositiveZero : value1 != value2 ? value1 > value2 : false;
+   } else if (u1SL == u2SL) {
+      result.wasSuccessful = value1 != value2 ? value1 > value2 : false;
+   } else {
+      result.wasSuccessful = u1SL > u2SL;
+   }
+
+   result.SL = result.wasSuccessful ? u1SL - u2SL : u2SL - u1SL;
+
+   return result;
+}
+
+module.exports.combat = combat;
+
+// OK---------------------------------------------------------------------------------------------------------------
+function rollDice() {
+   let result = {};
+   result.roll = C.rndNo0(100);
+   result.isDouble = isDouble(result.roll);
+
+   return result;
+}
+
+// OK---------------------------------------------------------------------------------------------------------------
+function isDouble(value) {
+   return value == 100 || value % 10 == Math.floor(value / 10);
+}
+
+// OK---------------------------------------------------------------------------------------------------------------
+function getSL(skill, roll) {
+   const difference = (skill - roll) / 10;
+   return difference > 0 ? Math.floor(difference) : Math.ceil(difference);
+}
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
