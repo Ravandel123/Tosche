@@ -304,7 +304,7 @@ async function mainHourlyUpdate(client) {
       profilesHourlyUpdate(deltrada, member[1].id);
 }
 
-module.exports.mainhourlyUpdate = mainhourlyUpdate;
+module.exports.mainHourlyUpdate = mainHourlyUpdate;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
