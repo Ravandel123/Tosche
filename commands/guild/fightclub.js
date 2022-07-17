@@ -43,7 +43,6 @@ module.exports = {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function sparring(message, user1, user2) {
-   //set max hp as initial here
    if (C.strCompare(user1.ownerId, user2.ownerId)) {
       C.dcRespondToMsg(message, `You can't fight with yourself!`);
       return;
@@ -54,6 +53,9 @@ async function sparring(message, user1, user2) {
       C.dcRespondToMsg(message, `There is no place to fight!`);
       return;
    }
+
+   user1.resources.hp = CG.getMaxHp(user1);
+   user2.resources.hp = CG.getMaxHp(user2);
 
    msg = `---------------------------------------------------------------------------------------------\n` + 
          `Get ready for the next fight! **${user1.ownerName}** has challenged **${user2.ownerName}** for a sparring!`;
