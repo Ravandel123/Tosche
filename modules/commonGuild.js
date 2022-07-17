@@ -300,7 +300,7 @@ async function hourlyUpdate(client) {
 
    const deltrada = client.guilds.cache.get(SETTINGS.deltradaId);
    const members = C.dcGetAllMembers(deltrada);
-   for (const member of members) {
+   for (const member of members)
       defaultHourlyUpdate(message, member[1].id);
 }
 
