@@ -1414,7 +1414,7 @@ function dcCreateButton(id, label, emoji, style = 'primary', isDisabled = false)
    const buttonStyle = stylesMap.get(style);
 
    if (checkIfExists(id) && buttonStyle) {
-      const button = new D.ButtonBuilder()()
+      const button = new D.ButtonBuilder()
          .setCustomId(id)
          .setStyle(buttonStyle)
          .setDisabled(isDisabled);

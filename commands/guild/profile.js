@@ -162,7 +162,7 @@ function generateMessageEmbed(button, menu, userData, index) {
    const embed = new D.EmbedBuilder()
       .setTitle(generateEmbedTitle(menu, userData))
       .setDescription(generateEmbedContent(menu, userData, index))
-      .setAuthor({ name: userData.profile.ownerName, icon_url: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg'} );
+      .setAuthor({ name: userData.profile.ownerName, iconURL: 'https://i.pinimg.com/564x/37/8d/12/378d129d35c7c2a8d4d5e76c94660036.jpg'});
 
    if (image)
       embed.setImage(image);
