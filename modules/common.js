@@ -1085,6 +1085,7 @@ module.exports.dcCheckIfGuildMessage = dcCheckIfGuildMessage;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCheckIfChannel(value) {
+   console.log(value);
    return value instanceof D.Channel;
 }
 
