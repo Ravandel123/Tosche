@@ -12,8 +12,8 @@ module.exports = {
       let page = 0;
 
       const embedMessage = await message.channel.send({
-         embeds: generatePageEmbed(chapter, page),
-         components: generatePageMovementRow(chapter, page)
+         embeds: generatePageEmbed(chapter, page)//,
+         //components: generatePageMovementRow(chapter, page)
       });
 
       const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
