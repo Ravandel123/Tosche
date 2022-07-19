@@ -54,11 +54,10 @@ async function getOrCreateFishingThread(message) {
 }
 
 async function startFishing(message, thread) {
-console.log(thread);
    const fishingSpot = FIS.getFishingSpotFromThread(thread);
    if (!fishingSpot)
       return;
-console.log('xd');
+
    const embed = [new D.EmbedBuilder()
       .setImage(fishingSpot.img)
       ];
