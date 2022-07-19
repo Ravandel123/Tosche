@@ -12,8 +12,8 @@ module.exports = {
       let page = 0;
 
       const embedMessage = await message.channel.send({
-         embeds: generatePageEmbed(chapter, page)//,
-         //components: generatePageMovementRow(chapter, page)
+         embeds: generatePageEmbed(chapter, page),
+         components: generatePageMovementRow(chapter, page)
       });
 
       const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
@@ -60,7 +60,7 @@ function generatePageEmbed(chapter, page) {
 }
 
 function generatePageMovementRow(chapter, page) {
-   const randomButton = C.dcCreateButton('random', '', '🎲', 'DANGER');
+   const randomButton = C.dcCreateButton('random', '', '🎲', 'danger');
    const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'primary', page == 0);
    const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'primary', page == BWD[chapter].pages.length - 1);
    const chapterMenu = C.dcCreateSelectMenu('chapterId', 'Change chapter', generateChapterArray());

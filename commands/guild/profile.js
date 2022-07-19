@@ -63,9 +63,9 @@ module.exports = {
 let currentDataLength = 0;
 const MAX_ITEMS_ON_PAGE = 5;
 
-const MAIN_BUTTON1 = new C.ButtonData('character', 'Character', '', 'SUCCESS');
-const MAIN_BUTTON2 = new C.ButtonData('inventory', 'Inventory', '', 'SUCCESS');
-const MAIN_BUTTON3 = new C.ButtonData('records', 'Records', '', 'SUCCESS');
+const MAIN_BUTTON1 = new C.ButtonData('character', 'Character', '', 'success');
+const MAIN_BUTTON2 = new C.ButtonData('inventory', 'Inventory', '', 'success');
+const MAIN_BUTTON3 = new C.ButtonData('records', 'Records', '', 'success');
 
 const MENU1_ITEM_1 = new C.SelectOptionData('info', 'Info', '📋');
 const MENU1_ITEM_2 = new C.SelectOptionData('currencies', 'Currencies', '💰');
