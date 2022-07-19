@@ -13,10 +13,10 @@ const client = new Client({
       GatewayIntentBits.GuildMembers,
       GatewayIntentBits.GuildBans,
       GatewayIntentBits.GuildEmojisAndStickers,
-      // GatewayIntentBits.GuildIntegrations,
-      // GatewayIntentBits.GuildWebhooks,
-      // GatewayIntentBits.GuildInvites,
-      // GatewayIntentBits.GuildVoiceStates,
+      GatewayIntentBits.GuildIntegrations,
+      GatewayIntentBits.GuildWebhooks,
+      GatewayIntentBits.GuildInvites,
+      GatewayIntentBits.GuildVoiceStates,
       GatewayIntentBits.GuildPresences,
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildMessageReactions,
@@ -24,8 +24,8 @@ const client = new Client({
       GatewayIntentBits.DirectMessages,
       GatewayIntentBits.DirectMessageReactions,
       GatewayIntentBits.DirectMessageTyping,
-      GatewayIntentBits.MessageContent
-      // GatewayIntentBits.GuildScheduledEvents
+      GatewayIntentBits.MessageContent,
+      GatewayIntentBits.GuildScheduledEvents
    ],
    partials: [
       Partials.Channel,
