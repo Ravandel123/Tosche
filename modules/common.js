@@ -1022,7 +1022,6 @@ module.exports.dcGetChannelByID = dcGetChannelByID;
 
 // OK---------------------------------------------------------------------------------------------------------------
 async function dcGetCreateOrUnarchiveThread(channel, threadName, member) {
-console.log('przed sprawdzeniem');
    if (!dcCheckIfGuildChannel(channel) || dcCheckIfThread(channel) || !checkIfExists(threadName) || !dcCheckIfMember(member))
       return Promise.reject(`Wrong input data!`);
 
@@ -1030,14 +1029,12 @@ console.log('przed sprawdzeniem');
    let thread = channel.threads.cache.find(t => t.name === threadName);
 
    if (!thread) {
-      console.log('tworzy nowy thread');
       thread = await channel.threads.create({
          name: threadName,
          autoArchiveDuration: 60,
          reason: '',
       });
    } else {
-      console.log('else');
       if (thread.archived)
          await thread.setArchived(false);
 
