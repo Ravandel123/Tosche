@@ -68,8 +68,8 @@ function translateData(leaderboards, message) {
 //-------------------------MENU-------------------------
 function generateMenu(index, data, currentMenu) {
    const recordsMenu = C.dcCreateSelectMenu('menu', 'Select a category to display the records', generateMenuItems());
-   const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'PRIMARY', index == 0);
-   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY', index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
+   const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'primary', index == 0);
+   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'primary', index + MAX_ITEMS_ON_PAGE >= data[currentMenu].length);
 
    return [C.dcCreateRow([backButton, forwardButton]), C.dcCreateRow(recordsMenu)];
 }
@@ -84,7 +84,7 @@ function generateMenuItems() {
 //-------------------------EMBED-------------------------
 
 function generateMessageEmbed(leaderboards, menuItem, startingIndex) {
-   return [new D.MessageEmbed()
+   return [new D.EmbedBuilder()
       .setTitle(generateTitle(menuItem))
       .setDescription(generatePageContent(leaderboards, menuItem, startingIndex))];
 }

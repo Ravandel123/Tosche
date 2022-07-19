@@ -1402,13 +1402,21 @@ function dcCreateRow(components) {
 module.exports.dcCreateRow = dcCreateRow;
 
 // OK---------------------------------------------------------------------------------------------------------------
-function dcCreateButton(id, label, emoji, style = `PRIMARY`, isDisabled = false) {
-   const availableStyles = [`PRIMARY`, `SECONDARY`, `SUCCESS`, `DANGER`, `LINK`];
+function dcCreateButton(id, label, emoji, style = 'primary', isDisabled = false) {
+   const stylesMap = new Map([
+      ['primary', D.ButtonStyle.Primary],
+      ['secondary', D.ButtonStyle.Secondary],
+      ['success', D.ButtonStyle.Success],
+      ['danger', D.ButtonStyle.Danger],
+      ['link', D.ButtonStyle.Link]
+   ]);
 
-   if (checkIfExists(id) && checkIfAnyMatch(style, availableStyles)) {
+   const buttonStyle = stylesMap.get(style);
+
+   if (checkIfExists(id) && buttonStyle) {
       const button = new D.MessageButton()
          .setCustomId(id)
-         .setStyle(style)
+         .setStyle(buttonStyle)
          .setDisabled(isDisabled);
 
       if (label)

@@ -53,7 +53,7 @@ module.exports = {
 }
 
 function generatePageEmbed(chapter, page) {
-   return [new D.MessageEmbed()
+   return [new D.EmbedBuilder()
       .setTitle(`${BWD[chapter].name}: ${page == 0 ? 'Title' : 'Page ' + page}`)
       .setURL(generatePageUrl(chapter, page))
       .setImage(BWD[chapter].pages[page])];
@@ -61,8 +61,8 @@ function generatePageEmbed(chapter, page) {
 
 function generatePageMovementRow(chapter, page) {
    const randomButton = C.dcCreateButton('random', '', '🎲', 'DANGER');
-   const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'PRIMARY', page == 0);
-   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'PRIMARY', page == BWD[chapter].pages.length - 1);
+   const backButton = C.dcCreateButton('back', 'Previous', '⬅️', 'primary', page == 0);
+   const forwardButton = C.dcCreateButton('forward', 'Next', '➡️', 'primary', page == BWD[chapter].pages.length - 1);
    const chapterMenu = C.dcCreateSelectMenu('chapterId', 'Change chapter', generateChapterArray());
    const pageMenu = C.dcCreateSelectMenu('pageId', 'Jump to a page', generatePageArray(chapter));
 
