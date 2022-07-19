@@ -10,10 +10,9 @@ const CG = require('./modules/commonGuild.js');
 
 const client = new Client({
    intents: [
-      GatewayIntentBits.Guilds,
-      GatewayIntentBits.Channel
+      GatewayIntentBits.Guilds
    ],
-   partials: ['USER', 'MESSAGE', 'GUILD_MEMBER', 'CHANNEL', 'REACTION'],
+   partials: [Partials.Channel],
 });
 
 // const client = new Client({
