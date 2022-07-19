@@ -1,4 +1,3 @@
-// const { Client, Intents } = require('discord.js');
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 const FS = require('fs');
 const Mongoose = require('mongoose');
@@ -11,10 +10,22 @@ const CG = require('./modules/commonGuild.js');
 const client = new Client({
    intents: [
       GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildBans,
+      GatewayIntentBits.GuildEmojisAndStickers,
+      // GatewayIntentBits.GuildIntegrations,
+      // GatewayIntentBits.GuildWebhooks,
+      // GatewayIntentBits.GuildInvites,
+      // GatewayIntentBits.GuildVoiceStates,
+      GatewayIntentBits.GuildPresences,
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildMessageReactions,
-      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildMessageTyping,
+      GatewayIntentBits.DirectMessages,
+      GatewayIntentBits.DirectMessageReactions,
+      GatewayIntentBits.DirectMessageTyping,
       GatewayIntentBits.MessageContent
+      // GatewayIntentBits.GuildScheduledEvents
    ],
    partials: [
       Partials.Channel,
@@ -26,11 +37,6 @@ const client = new Client({
       Partials.User
    ],
 });
-
-// const client = new Client({
-    // partials: ['USER', 'MESSAGE', 'GUILD_MEMBER', 'CHANNEL', 'REACTION'],
-    // intents: 32767,
-// });
 
 const gBotOwner = '392728479696814092';
 const GUriString = process.env.MONGODB_URI;
