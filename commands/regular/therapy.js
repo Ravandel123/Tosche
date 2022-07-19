@@ -16,16 +16,16 @@ module.exports = {
       const modal = new D.Modal()
          .setCustomId(customId)
          .setTitle('Therapy with Tosche');
-      const categoryInput = new D.TextInputComponent()
+      const categoryInput = new D.TextInputBuilder()
          .setCustomId('categoryInput')
          .setLabel("What is the category of your problem?")
          .setStyle('SHORT');
-      const explanationInput = new D.TextInputComponent()
+      const explanationInput = new D.TextInputBuilder()
          .setCustomId('explanationInput')
          .setLabel("Explain your problem.")
          .setStyle('PARAGRAPH');
-      const firstActionRow = new D.MessageActionRow().addComponents(categoryInput);
-      const secondActionRow = new D.MessageActionRow().addComponents(explanationInput);
+      const firstActionRow = new D.ActionRowBuilder().addComponents(categoryInput);
+      const secondActionRow = new D.ActionRowBuilder().addComponents(explanationInput);
       modal.addComponents(firstActionRow, secondActionRow);
 
       const collector = embedMessage.createMessageComponentCollector({ time: 10000 });

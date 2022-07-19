@@ -1068,7 +1068,7 @@ module.exports.dcCheckIfMessage = dcCheckIfMessage;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCheckIfMessageComponents(value) {
-   return checkAllByFunction(value, e => e instanceof D.MessageButton || e instanceof D.MessageSelectMenu)
+   return checkAllByFunction(value, e => e instanceof D.ButtonBuilder || e instanceof D.SelectMenuBuilder)
 }
 
 module.exports.dcCheckIfMessage = dcCheckIfMessage;
@@ -1395,7 +1395,7 @@ module.exports.dcGetMemberIDFromMention = dcGetMemberIDFromMention;
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCreateRow(components) {
    if(dcCheckIfMessageComponents(components))
-      return new D.MessageActionRow()
+      return new D.ActionRowBuilder()
          .addComponents(components);
 }
 
@@ -1414,7 +1414,7 @@ function dcCreateButton(id, label, emoji, style = 'primary', isDisabled = false)
    const buttonStyle = stylesMap.get(style);
 
    if (checkIfExists(id) && buttonStyle) {
-      const button = new D.MessageButton()
+      const button = new D.ButtonBuilder()()
          .setCustomId(id)
          .setStyle(buttonStyle)
          .setDisabled(isDisabled);
@@ -1434,7 +1434,7 @@ module.exports.dcCreateButton = dcCreateButton;
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCreateSelectMenu(id, placeholderText, options) {
    if (checkIfExists(id) && checkIfString(placeholderText) && checkIfExists(options))
-      return new D.MessageSelectMenu()
+      return new D.SelectMenuBuilder()
          .setCustomId(id)
          .setPlaceholder(placeholderText)
          .addOptions(options);
