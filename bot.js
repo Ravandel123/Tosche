@@ -1,5 +1,5 @@
-// const { Client, Intents, Collection } = require('discord.js');
-const { Client, GatewayIntentBits, Partials } = require('discord.js');
+// const { Client, Intents } = require('discord.js');
+const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
 const FS = require('fs');
 const Mongoose = require('mongoose');
 const Config = require('./config.json');
