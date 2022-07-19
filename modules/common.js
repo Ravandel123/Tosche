@@ -1099,7 +1099,7 @@ module.exports.dcCheckIfGuildChannel = dcCheckIfGuildChannel;
 
 // OK---------------------------------------------------------------------------------------------------------------
 function dcCheckIfThread(value) {
-   return (dcCheckIfChannel(value) && value.isThread());
+   return value instanceof D.ThreadChannel ;
 }
 
 module.exports.dcCheckIfThread = dcCheckIfThread;
