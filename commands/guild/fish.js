@@ -58,7 +58,7 @@ async function startFishing(message, thread) {
    if (!fishingSpot)
       return;
 
-   const embed = [new D.MessageEmbed()
+   const embed = [new D.EmbedBuilder()
       .setImage(fishingSpot.img)
       ];
    await thread.send({ embeds: embed});
