@@ -6,11 +6,12 @@ const DB = require('../../modules/db.js');
 module.exports = {
    name: 'sendpolcanthugs',
    description: 'Sends polcan thugs.',
-   usage: '[amount]',
+   usage: '[user]',
    example: '',
    async execute(message, args) {
       if (!message.client.data.fightClub.fightInProgress) {
          message.client.data.fightClub.fightInProgress = true;
+         
          try {
             let msg;
             const user1 = await CG.getMemberProfile(message, args[1]);
@@ -18,6 +19,7 @@ module.exports = {
          } catch(error) {
             C.dcRespondToMsg(message, error);
          }
+         
          message.client.data.fightClub.fightInProgress = false;
       } else {
          C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
@@ -36,8 +38,8 @@ async function duel(message, user1) {
    let hpPolcan1 = 50;
    let hpPolcan2 = 120;
    let hpPolcan3 = 150;
-   
-   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fightclub');
+
+   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club');
 
    msg = `---------------------------------------------------------------------------------------------\n` + 
          `**${user1Name}** get ready for some beating!`;
