@@ -63,7 +63,6 @@ const gProfileSchema = new MG.Schema({
          },
       },
    },
-   weaponSkills: {},
    currencies: {
       amberDrops: Number,
       pearlFlakes: Number,
