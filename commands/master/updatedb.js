@@ -228,8 +228,9 @@ async function updateGuildProfiles(guildProfiles) {
    // await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$unset : {fightClub : ""}});
 
    await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$unset : {weaponSkills : ""}});
-   await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$unset : {skills.swimming : ""}});
+   await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$unset : {skills : ""}});
    await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$set : {skills : skills}});
+   await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$rename:{"resources.hp":"resources.health"}}, false, true);
 
 
 
