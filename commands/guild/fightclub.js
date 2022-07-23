@@ -54,8 +54,8 @@ async function sparring(message, user1, user2) {
       return;
    }
 
-   user1.resources.hp = CM.getMaxHp(user1);
-   user2.resources.hp = CM.getMaxHp(user2);
+   user1.resources.health = CM.getMaxHp(user1);
+   user2.resources.health = CM.getMaxHp(user2);
 
    msg = `---------------------------------------------------------------------------------------------\n` + 
          `Get ready for the next fight! **${user1.ownerName}** has challenged **${user2.ownerName}** for a sparring!`;
@@ -85,7 +85,7 @@ async function sparring(message, user1, user2) {
 
       if (attackResult.wasSuccessful) {
          damage = CM.calculateDamage(attackResult.SL, attacker, defender);
-         defender.resources.hp -= damage;
+         defender.resources.health -= damage;
       }
 
       msg = getCombatMsg(user1, user2, attacker, defender, damage);
@@ -96,9 +96,9 @@ async function sparring(message, user1, user2) {
       attacker = tmp;
 
       await C.sleep(1.5);
-   } while (attacker.resources.hp > 0 && defender.resources.hp > 0);
+   } while (attacker.resources.health > 0 && defender.resources.health > 0);
 
-   const winner = user1.resources.hp > user2.resources.hp ? user1 : user2;
+   const winner = user1.resources.health > user2.resources.health ? user1 : user2;
    C.dcSendMsgToChannel(fightClubChannel, `**${winner.ownerName}** has won!`);
    C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
 }
@@ -121,8 +121,8 @@ function getCombatMsg(user1, user2, attacker, defender, damage) {
    }
 
    if (showHP)
-      msg += `**${C.strAddEndingApostrophe(user1.ownerName)}** HP: ${user1.resources.hp}\n` +
-             `**${C.strAddEndingApostrophe(user2.ownerName)}** HP: ${user2.resources.hp}\n`;
+      msg += `**${C.strAddEndingApostrophe(user1.ownerName)}** HP: ${user1.resources.health}\n` +
+             `**${C.strAddEndingApostrophe(user2.ownerName)}** HP: ${user2.resources.health}\n`;
 
    msg +=`-----------------------------------------------------------`;
 

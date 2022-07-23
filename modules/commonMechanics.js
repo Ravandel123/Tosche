@@ -93,10 +93,10 @@ function regenerateHourlyHp(profile) {
       return;
 
    const maxHp = getMaxHp(profile);
-   const currentHp = profile.resources.hp;
+   const currentHp = profile.resources.health;
    const hourlyHpRegen = getToughnessBonus(profile) * 2;
 
-   profile.resources.hp = currentHp + hourlyHpRegen < maxHp ? currentHp + hourlyHpRegen : maxHp;
+   profile.resources.health = currentHp + hourlyHpRegen < maxHp ? currentHp + hourlyHpRegen : maxHp;
 }
 
 module.exports.regenerateHourlyHp = regenerateHourlyHp;
@@ -167,7 +167,7 @@ function getSkillWeapon(profile, weaponSkillName) {
    if (!C.checkIfProfile(profile) || !C.strCheckIfAnyMatch(weaponSkillName, AG.weaponTypes))
       return;
 
-   return profile.weaponSkills.melee.current + profile.weaponSkills[weaponSkillName].current;
+   return profile.skills.weapon.melee.current + profile.skills.weapon[weaponSkillName].current;
 }
 
 module.exports.getSkillWeapon = getSkillWeapon;
