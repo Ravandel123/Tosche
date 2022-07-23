@@ -34,31 +34,33 @@ const gProfileSchema = new MG.Schema({
       luck: { type: Number, default: 10 },
    },
    skills: {
-      cooking : {
-         current: { type: Number, default: 1 },
-         progress: { type: Number, default: 0 },
+      general: {
+         cooking : {
+            current: { type: Number, default: 1 },
+            progress: { type: Number, default: 0 },
+         },
+         fishing: {
+            current: { type: Number, default: 1 },
+            progress: { type: Number, default: 0 },
+         },
+         swimming: {
+            current: { type: Number, default: 1 },
+            progress: { type: Number, default: 0 },
+         },
       },
-      fishing: {
-         current: { type: Number, default: 1 },
-         progress: { type: Number, default: 0 },
-      },
-      swimming: {
-         current: { type: Number, default: 1 },
-         progress: { type: Number, default: 0 },
-      },
-   },
-   weaponSkills: {
-      melee: {
-         current: { type: Number, default: 1 },
-         progress: { type: Number, default: 0 },
-      },
-      ranged: {
-         current: { type: Number, default: 1 },
-         progress: { type: Number, default: 0 },
-      },
-      unarmed: {
-         current: { type: Number, default: 1 },
-         progress: { type: Number, default: 0 },
+      weapon: {
+         melee: {
+            current: { type: Number, default: 1 },
+            progress: { type: Number, default: 0 },
+         },
+         ranged: {
+            current: { type: Number, default: 1 },
+            progress: { type: Number, default: 0 },
+         },
+         unarmed: {
+            current: { type: Number, default: 1 },
+            progress: { type: Number, default: 0 },
+         },
       },
    },
    currencies: {

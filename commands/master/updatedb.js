@@ -188,14 +188,48 @@ async function defaultUpdate(message, id) {
 
 async function updateGuildProfiles(guildProfiles) {
    //ALL STUFF NEED TO BE FIRST IN SCHEMATICS, EVEN FOR REMOVAL
-   let swimming = {
-      current: 1,
-      progress: 0,
+   // const swimming = {
+      // current: 1,
+      // progress: 0,
+   // };
+
+   const skills = {
+      general: {
+         cooking : {
+            current: 1,
+            progress: 0,
+         },
+         fishing: {
+            current: 1,
+            progress: 0,
+         },
+         swimming: {
+            current: 1,
+            progress: 0,
+         },
+      },
+      weapon: {
+         melee: {
+            current: 1,
+            progress: 0,
+         },
+         ranged: {
+            current: 1,
+            progress: 0,
+         },
+         unarmed: {
+            current: 1,
+            progress: 0,
+         },
+      },
    };
 
    // await guildProfiles.updateMany({ownerId: '466378653216014359', "skills.swimming" : {$exists : false}}, {$set : {"skills.swimming" : swimming}}); //ADD SKILL
    // await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$unset : {fightClub : ""}});
 
+   await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$unset : {weaponSkills : ""}});
+   await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$unset : {skills.swimming : ""}});
+   await guildProfiles.updateMany({ownerId: '466378653216014359'}, {$set : {skills : skills}});
 
 
 
