@@ -119,9 +119,13 @@ function opposedRolls(value1, value2) {
       const u1PositiveZero = C.checkIfNumberIsPositive(u1SL);
       const u2PositiveZero = C.checkIfNumberIsPositive(u2SL);
 
-      result.wasSuccessful = u1PositiveZero != u2PositiveZero ? u1PositiveZero : value1 != value2 ? value1 > value2 : false;
+      result.wasSuccessful = u1PositiveZero != u2PositiveZero
+                              ? u1PositiveZero
+                              : value1 != value2
+                                 ? value1 > value2
+                                 : true;
    } else if (u1SL == u2SL) {
-      result.wasSuccessful = value1 != value2 ? value1 > value2 : false;
+      result.wasSuccessful = value1 != value2 ? value1 > value2 : true;
    } else {
       result.wasSuccessful = u1SL > u2SL;
    }
