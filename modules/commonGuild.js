@@ -241,29 +241,28 @@ function moveFishingRecordDown(records, placeNumber) {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-//----------------------------------------------------------- PERIODIC AND DEFAULT----------------------------------------------------------
+//----------------------------------------------------------- GENERAL----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-async function checkMemberAvailability(profile) {
-   
-   
-}
 
-module.exports.checkMemberAvailability = checkMemberAvailability;
 
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//----------------------------------------------------------- PERIODIC----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
-async function mainHourlyUpdate(client) {
+async function mainUpdate1h(client) {
    modifyActionPointsForAll(1);
 
    const deltrada = client.guilds.cache.get(SETTINGS.deltradaId);
    const members = C.dcGetAllMembers(deltrada);
    for (const member of members)
-      profilesHourlyUpdate(deltrada, member[1].id);
+      profilesUpdate1h(deltrada, member[1].id);
 }
 
-module.exports.mainHourlyUpdate = mainHourlyUpdate;
+module.exports.mainUpdate1h = mainUpdate1h;
 
 // OK---------------------------------------------------------------------------------------------------------------
-async function profilesHourlyUpdate(guild, id) {
+async function profilesUpdate1h(guild, id) {
    try {
       let profile = await getProfileById(guild, id);
       CM.regenerateHourlyHp(profile);

@@ -10,7 +10,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
       if (args[1] == 'hourly') {
-         CG.mainHourlyUpdate(message.client);
+         CG.mainUpdate1h(message.client);
          return;
       }
 

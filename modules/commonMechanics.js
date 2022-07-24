@@ -77,6 +77,35 @@ module.exports.calculateDamage = calculateDamage;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+//----------------------------------------------------------- GENERAL ----------------------------------------------------------
+// OK---------------------------------------------------------------------------------------------------------------
+function canTakeAction(profile, message, who = 'you') {
+   if (!C.checkIfProfile(profile))
+      return;
+
+   const actionPointCheck = profile.actionPoints.current > 0;
+   const healthCheck = profile.resources.health > 0;
+
+   if (C.dcCheckIfMessage(message)) {
+      const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? `don't` : `doesn't`);
+      const msgContent = !actionPointCheck
+                            ? `${firstPart} have any action points!`
+                            : !healthCheck
+                               ? `${firstPart} have any health points!`
+                               : '';
+
+      if (msgContent)
+         C.dcRespondToMsg(message, msgContent);
+   }
+
+   return actionPointCheck && healthCheck;
+}
+
+module.exports.canTakeAction = canTakeAction;
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 //----------------------------------------------------------- RESOURCES ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function getMaxHp(profile) {

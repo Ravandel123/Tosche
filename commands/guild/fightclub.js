@@ -18,14 +18,24 @@ module.exports = {
       if (!message.client.data.fightClub.fightInProgress) {
          message.client.data.fightClub.fightInProgress = true;
 
-         if (C.strCompare(args[1], 'sparring')) {
+         if (C.strCheckIfAnyMatch(args[1], ['sparring', 'duel'])) {
             try {
                let user1 = {};
                let user2 = {};
 
                user1.profile = await CG.getMessageAuthorProfile(message);
                user2.profile = await CG.getMemberProfile(message, args[2]);
-               await sparring(message, user1.profile, user2.profile);
+
+               switch (C.strCompare(args[1])) {
+                  case 'sparring':
+                     await sparring(message, user1.profile, user2.profile);
+                     break;
+
+                  case 'duel':
+                     if (!CM.canTakeAction(user1.profile, message) && !CM.canTakeAction(user2.profile, message, user2.profile.ownerName)
+                        await duel(message, user1.profile, user2.profile);
+                     break;
+               }
             } catch(error) {
                C.dcRespondToMsg(message, error);
             }
@@ -33,7 +43,7 @@ module.exports = {
             C.dcRespondToMsg(message, `There is no fight club action called ${args[1]}.`);
          }
 
-      message.client.data.fightClub.fightInProgress = false;
+         message.client.data.fightClub.fightInProgress = false;
       } else {
          C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
       }
@@ -101,6 +111,11 @@ async function sparring(message, user1, user2) {
    const winner = user1.resources.health > user2.resources.health ? user1 : user2;
    C.dcSendMsgToChannel(fightClubChannel, `**${winner.ownerName}** has won!`);
    C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
+}
+
+async function duel(message, user1, user2) {
+   
+   
 }
 
 // OK---------------------------------------------------------------------------------------------------------------
