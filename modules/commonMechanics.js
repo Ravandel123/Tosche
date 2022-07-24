@@ -85,7 +85,7 @@ function canTakeAction(profile, message, who = 'you') {
 
    const actionPointCheck = profile.actionPoints.current > 0;
    const healthCheck = profile.resources.health > 0;
-
+console.log('weszlo 1' + actionPointCheck + ' ' + healthCheck);
    if (C.dcCheckIfMessage(message)) {
       const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? `don't` : `doesn't`);
       const msgContent = !actionPointCheck
@@ -93,7 +93,7 @@ function canTakeAction(profile, message, who = 'you') {
                             : !healthCheck
                                ? `${firstPart} have any health points!`
                                : '';
-
+console.log('weszlo 2');
       if (msgContent)
          C.dcRespondToMsg(message, msgContent);
    }
