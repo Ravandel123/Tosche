@@ -26,7 +26,7 @@ module.exports = {
             user2.profile = await CG.getMemberProfile(message, args[2]);
 
             const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club');
-            if (additionalCheck(user1, user2, fightClubChannel)) {
+            if (additionalCheck(user1.profile, user2.profile, fightClubChannel)) {
                switch (args[1].toLowerCase()) {
                   case 'sparring':
                      await sparring(user1.profile, user2.profile, fightClubChannel);
@@ -48,73 +48,6 @@ module.exports = {
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------
-async function sparring(profile1, profile2, fightClubChannel) {
-   profile1.resources.health = CM.getMaxHp(profile1);
-   profile2.resources.health = CM.getMaxHp(profile2);
-
-   await fight(profile1, profile2, fightClubChannel);
-}
-
-//------------------------------------------------------------------------------------------------------------------
-async function duel(profile1, profile2, fightClubChannel) {
-   await fight(profile1, profile2, fightClubChannel);
-
-   CM.modifyActionPoints(profile1, -1);
-   CM.modifyActionPoints(profile2, -1);
-
-   await profile1.save();
-   await profile2.save();
-}
-
-//------------------------------------------------------------------------------------------------------------------
-async function fight(message, user1, user2, fightClubChannel) {
-   let msg = `---------------------------------------------------------------------------------------------\n` + 
-         `Get ready for the next fight! **${user1.ownerName}** has challenged **${user2.ownerName}** for a sparring!`;
-
-   C.dcSendMsgToChannel(fightClubChannel, msg);
-   await C.sleep(0.5);
-   C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayStartGif));
-   await C.sleep(0.5);
-   C.dcSendMsgToChannel(fightClubChannel, `-----------------------------------------------------------`);
-   await C.sleep(3);
-
-   //roll initiative //take stamina into account
-   let attacker;
-   let defender;
-
-   if (C.chance(50)) {
-      attacker = user1;
-      defender = user2;
-   } else {
-      attacker = user2;
-      defender = user1;
-   }
-
-   do {
-      const attackResult = CM.combat(attacker, defender);
-      let damage = -1;
-
-      if (attackResult.wasSuccessful) {
-         damage = CM.calculateDamage(attackResult.SL, attacker, defender);
-         defender.resources.health -= damage;
-      }
-
-      msg = getCombatMsg(user1, user2, attacker, defender, damage);
-      C.dcSendMsgToChannel(fightClubChannel, msg);
-
-      const tmp = defender;
-      defender = attacker;
-      attacker = tmp;
-
-      await C.sleep(1.5);
-   } while (attacker.resources.health > 0 && defender.resources.health > 0);
-
-   const winner = user1.resources.health > user2.resources.health ? user1 : user2;
-   C.dcSendMsgToChannel(fightClubChannel, `**${winner.ownerName}** has won!`);
-   C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
-}
-
 //------------------------------------------------------------------------------------------------------------------
 function initialCheck(message, command) {
    let msgContent = '';
@@ -154,7 +87,74 @@ function additionalCheck(user1, user2, fightClubChannel) {
 }
 
 //------------------------------------------------------------------------------------------------------------------
-function getCombatMsg(user1, user2, attacker, defender, damage) {
+async function sparring(profile1, profile2, fightClubChannel) {
+   profile1.resources.health = CM.getMaxHp(profile1);
+   profile2.resources.health = CM.getMaxHp(profile2);
+
+   await fight(profile1, profile2, fightClubChannel);
+}
+
+//------------------------------------------------------------------------------------------------------------------
+async function duel(profile1, profile2, fightClubChannel) {
+   await fight(profile1, profile2, fightClubChannel);
+
+   CM.modifyActionPoints(profile1, -1);
+   CM.modifyActionPoints(profile2, -1);
+
+   await profile1.save();
+   await profile2.save();
+}
+
+//------------------------------------------------------------------------------------------------------------------
+async function fight(message, profile1, profile2, fightClubChannel) {
+   let msg = `---------------------------------------------------------------------------------------------\n` + 
+         `Get ready for the next fight! **${profile1.ownerName}** has challenged **${profile2.ownerName}** for a sparring!`;
+
+   C.dcSendMsgToChannel(fightClubChannel, msg);
+   await C.sleep(0.5);
+   C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayStartGif));
+   await C.sleep(0.5);
+   C.dcSendMsgToChannel(fightClubChannel, `-----------------------------------------------------------`);
+   await C.sleep(3);
+
+   //roll initiative //take stamina into account
+   let attacker;
+   let defender;
+
+   if (C.chance(50)) {
+      attacker = profile1;
+      defender = profile2;
+   } else {
+      attacker = profile2;
+      defender = profile1;
+   }
+
+   do {
+      const attackResult = CM.combat(attacker, defender);
+      let damage = -1;
+
+      if (attackResult.wasSuccessful) {
+         damage = CM.calculateDamage(attackResult.SL, attacker, defender);
+         defender.resources.health -= damage;
+      }
+
+      msg = getCombatMsg(profile1, profile2, attacker, defender, damage);
+      C.dcSendMsgToChannel(fightClubChannel, msg);
+
+      const tmp = defender;
+      defender = attacker;
+      attacker = tmp;
+
+      await C.sleep(1.5);
+   } while (attacker.resources.health > 0 && defender.resources.health > 0);
+
+   const winner = profile1.resources.health > profile2.resources.health ? profile1 : profile2;
+   C.dcSendMsgToChannel(fightClubChannel, `**${winner.ownerName}** has won!`);
+   C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
+}
+
+//------------------------------------------------------------------------------------------------------------------
+function getCombatMsg(profile1, profile2, attacker, defender, damage) {
    const moveName = C.arrGetRandom(arrayMoves);
    const hitLocation = getMoreInterestingHitLocationName(CM.getHitLocation());
    let msg;
@@ -171,8 +171,8 @@ function getCombatMsg(user1, user2, attacker, defender, damage) {
    }
 
    if (showHP)
-      msg += `**${C.strAddEndingApostrophe(user1.ownerName)}** HP: ${user1.resources.health}\n` +
-             `**${C.strAddEndingApostrophe(user2.ownerName)}** HP: ${user2.resources.health}\n`;
+      msg += `**${C.strAddEndingApostrophe(profile1.ownerName)}** HP: ${profile1.resources.health}\n` +
+             `**${C.strAddEndingApostrophe(profile2.ownerName)}** HP: ${profile2.resources.health}\n`;
 
    msg +=`-----------------------------------------------------------`;
 
