@@ -11,7 +11,7 @@ const gProfileSchema = new MG.Schema({
       totalEarned: { type: Number, default: 0 },
    },
    resources: {
-      hp: { type: Number, default: 1 },
+      health: { type: Number, default: 1 },
       hunger:  { type: Number, default: 0 },
       satisfaction: { type: Number, default: 0 },
       stamina: { type: Number, default: 1 },

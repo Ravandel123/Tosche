@@ -1,6 +1,7 @@
 const C = require('./common.js');
 const AG = require('./arraysGuild.js');
 
+"use strict";
 
 //----------------------------------------------------------- CONSTANTS ----------------------------------------------------------
 const HP_PER_T = 10;
@@ -120,10 +121,10 @@ function opposedRolls(value1, value2) {
       const u2PositiveZero = C.checkIfNumberIsPositive(u2SL);
 
       result.wasSuccessful = u1PositiveZero != u2PositiveZero
-                              ? u1PositiveZero
-                              : value1 != value2
-                                 ? value1 > value2
-                                 : true;
+                                ? u1PositiveZero
+                                : value1 != value2
+                                   ? value1 > value2
+                                   : true;
    } else if (u1SL == u2SL) {
       result.wasSuccessful = value1 != value2 ? value1 > value2 : true;
    } else {

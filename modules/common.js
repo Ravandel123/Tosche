@@ -2,6 +2,8 @@ const D = require('discord.js');
 const AS = require('./arraysSpeech.js');
 const SG = require('./schematicsGuild.js');
 
+"use strict";
+
 const MAX_MSG_LENGTH = 2000;
 const PREFIX_LENGTH = 2;
 

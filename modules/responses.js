@@ -3,6 +3,7 @@ const AC = require('./arraysCommon.js');
 const AS = require('./arraysSpeech.js');
 const G = require('./generators.js');
 
+"use strict";
 
 const RND = C.arrGetRandom;
 

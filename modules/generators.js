@@ -2,6 +2,8 @@ const C = require('./common.js');
 const AC = require('./arraysCommon.js');
 const AS = require('./arraysSpeech.js');
 
+"use strict";
+
 //----------------------------------------------------------- GENERATION ----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 function genRandomMultiplier(maxDigitScope, nextDigitChance = 50) {

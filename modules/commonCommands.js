@@ -3,6 +3,8 @@ const C = require('./common.js');
 const AG = require('./arraysGuild.js');
 const R = require('./responses.js');
 
+"use strict";
+
 //----------------------------------------------------------- MAIN -----------------------------------------------------------
 // OK---------------------------------------------------------------------------------------------------------------
 async function showCommands(commands, message, commandName, prefix, groupName) {
