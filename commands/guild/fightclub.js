@@ -15,59 +15,61 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      if (!message.client.data.fightClub.fightInProgress) {
+      if (initialCheck(message, args[1])) {
          message.client.data.fightClub.fightInProgress = true;
 
-         if (C.strCheckIfAnyMatch(args[1], ['sparring', 'duel'])) {
-            try {
-               let user1 = {};
-               let user2 = {};
+         try {
+            let user1 = {};
+            let user2 = {};
 
-               user1.profile = await CG.getMessageAuthorProfile(message);
-               user2.profile = await CG.getMemberProfile(message, args[2]);
+            user1.profile = await CG.getMessageAuthorProfile(message);
+            user2.profile = await CG.getMemberProfile(message, args[2]);
 
+            const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club');
+            if (additionalCheck(user1, user2, fightClubChannel)) {
                switch (args[1].toLowerCase()) {
                   case 'sparring':
-                     await sparring(message, user1.profile, user2.profile);
+                     await sparring(user1.profile, user2.profile, fightClubChannel);
                      break;
 
                   case 'duel':
                      if (CM.canTakeAction(user1.profile, message) && CM.canTakeAction(user2.profile, message, user2.profile.ownerName))
-                        await duel(message, user1.profile, user2.profile);
+                        await duel(user1.profile, user2.profile, fightClubChannel);
                      break;
                }
-            } catch(error) {
-               C.dcRespondToMsg(message, error);
             }
-         } else {
-            C.dcRespondToMsg(message, `There is no fight club action called ${args[1]}.`);
+         } catch(error) {
+            C.dcRespondToMsg(message, error);
          }
 
          message.client.data.fightClub.fightInProgress = false;
-      } else {
-         C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
       }
    },
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-async function sparring(message, user1, user2) {
-   if (C.strCompare(user1.ownerId, user2.ownerId)) {
-      C.dcRespondToMsg(message, `You can't fight with yourself!`);
-      return;
-   }
+async function sparring(profile1, profile2, fightClubChannel) {
+   profile1.resources.health = CM.getMaxHp(profile1);
+   profile2.resources.health = CM.getMaxHp(profile2);
 
-   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club');
-   if (!fightClubChannel) {
-      C.dcRespondToMsg(message, `There is no place to fight!`);
-      return;
-   }
+   await fight(profile1, profile2, fightClubChannel);
+}
 
-   user1.resources.health = CM.getMaxHp(user1);
-   user2.resources.health = CM.getMaxHp(user2);
+//------------------------------------------------------------------------------------------------------------------
+async function duel(profile1, profile2, fightClubChannel) {
+   await fight(profile1, profile2, fightClubChannel);
 
-   msg = `---------------------------------------------------------------------------------------------\n` + 
+   CM.modifyActionPoints(profile1, -1);
+   CM.modifyActionPoints(profile2, -1);
+
+   await profile1.save();
+   await profile2.save();
+}
+
+//------------------------------------------------------------------------------------------------------------------
+async function fight(message, user1, user2, fightClubChannel) {
+   let msg = `---------------------------------------------------------------------------------------------\n` + 
          `Get ready for the next fight! **${user1.ownerName}** has challenged **${user2.ownerName}** for a sparring!`;
 
    C.dcSendMsgToChannel(fightClubChannel, msg);
@@ -114,9 +116,41 @@ async function sparring(message, user1, user2) {
 }
 
 //------------------------------------------------------------------------------------------------------------------
-async function duel(message, user1, user2) {
-   
-   
+function initialCheck(message, command) {
+   let msgContent = '';
+   let result = true;
+
+   if (message.client.data.fightClub.fightInProgress) {
+      msgContent = `The fight is already on! Wait until it is over.`;
+      result = false;
+   } else if (C.strCheckIfAnyMatch(args[1], ['sparring', 'duel'])) {
+      msgContent = `There is no fight club action called ${command}.`;
+      result = false;
+   }
+
+   if (msgContent)
+      C.dcRespondToMsg(message, msgContent);
+
+   return result;
+}
+
+//------------------------------------------------------------------------------------------------------------------
+function additionalCheck(user1, user2, fightClubChannel) {
+   let msgContent = '';
+   let result = true;
+
+   if (!fightClubChannel) {
+      msgContent = `There is no place to fight!`;
+      result = false;
+   } else if (C.strCompare(user1.ownerId, user2.ownerId)) {
+      msgContent = `You can't fight with yourself!`;
+      result = false;
+   }
+
+   if (msgContent)
+      C.dcRespondToMsg(message, msgContent);
+
+   return result;
 }
 
 //------------------------------------------------------------------------------------------------------------------

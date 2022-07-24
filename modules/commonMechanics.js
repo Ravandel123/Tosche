@@ -87,7 +87,7 @@ function canTakeAction(profile, message, who = 'you') {
    const healthCheck = profile.resources.health > 0;
 
    if (C.dcCheckIfMessage(message)) {
-      const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? `don't` : `doesn't`);
+      const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? ` don't` : ` doesn't`);
       const msgContent = !actionPointCheck
                             ? `${firstPart} have any action points!`
                             : !healthCheck
@@ -102,6 +102,16 @@ function canTakeAction(profile, message, who = 'you') {
 }
 
 module.exports.canTakeAction = canTakeAction;
+
+//------------------------------------------------------------------------------------------------------------------
+function modifyActionPoints(profile, amount) {
+   if (!C.checkIfProfile(profile) || !checkIfNaturalNumber(amount))
+      return;
+
+   profile.actionPoints.current += amount;
+}
+
+module.exports.modifyActionPoints = modifyActionPoints;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
