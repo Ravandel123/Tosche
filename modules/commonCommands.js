@@ -6,7 +6,7 @@ const R = require('./responses.js');
 "use strict";
 
 //----------------------------------------------------------- MAIN -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function showCommands(commands, message, commandName, prefix, groupName) {
    let data;
 
@@ -44,7 +44,7 @@ async function showCommands(commands, message, commandName, prefix, groupName) {
 
 module.exports.showCommands = showCommands;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcValidateForBannedWords(message) {
    if (!C.dcCheckIfMessage(message))
       return;
@@ -68,7 +68,7 @@ module.exports.dcValidateForBannedWords = dcValidateForBannedWords;
 
 
 //----------------------------------------------------------- CHECKERS -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkArgsAmount(message, args, requiredArgs) {
    if (!C.checkIfArray(args) || !C.checkIfArray(requiredArgs))
       return;
@@ -90,7 +90,7 @@ function checkArgsAmount(message, args, requiredArgs) {
 
 module.exports.checkArgsAmount = checkArgsAmount;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfArgIsNumber(message, argument) {
    if (!C.dcCheckIfMessage(message))
       return;
@@ -107,7 +107,7 @@ function checkIfArgIsNumber(message, argument) {
 
 module.exports.checkIfArgIsNumber = checkIfArgIsNumber;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfArgIsNaturalNumber(message, argument) {
    if (!C.dcCheckIfMessage(message))
       return;
@@ -124,7 +124,7 @@ function checkIfArgIsNaturalNumber(message, argument) {
 
 module.exports.checkIfArgIsNaturalNumber = checkIfArgIsNaturalNumber;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfArgIsNaturalNumberInScope(message, argument, min, max) {
    if (!C.dcCheckIfMessage(message))
       return;
@@ -144,7 +144,7 @@ module.exports.checkIfArgIsNaturalNumberInScope = checkIfArgIsNaturalNumberInSco
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------- OTHERS -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getMemberByNameOrMention(message, nameOrMention) {
    let found = C.getMemberIdByNameOrMention(message, nameOrMention);
 

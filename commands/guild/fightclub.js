@@ -32,7 +32,7 @@ module.exports = {
                      break;
 
                   case 'duel':
-                     if (!CM.canTakeAction(user1.profile, message) && !CM.canTakeAction(user2.profile, message, user2.profile.ownerName)
+                     if (!CM.canTakeAction(user1.profile, message) && !CM.canTakeAction(user2.profile, message, user2.profile.ownerName))
                         await duel(message, user1.profile, user2.profile);
                      break;
                }
@@ -51,7 +51,7 @@ module.exports = {
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function sparring(message, user1, user2) {
    if (C.strCompare(user1.ownerId, user2.ownerId)) {
       C.dcRespondToMsg(message, `You can't fight with yourself!`);
@@ -113,12 +113,13 @@ async function sparring(message, user1, user2) {
    C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
 }
 
+//------------------------------------------------------------------------------------------------------------------
 async function duel(message, user1, user2) {
    
    
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getCombatMsg(user1, user2, attacker, defender, damage) {
    const moveName = C.arrGetRandom(arrayMoves);
    const hitLocation = getMoreInterestingHitLocationName(CM.getHitLocation());
@@ -144,7 +145,7 @@ function getCombatMsg(user1, user2, attacker, defender, damage) {
    return msg;
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getMoreInterestingHitLocationName(bodyPart) {
    switch (bodyPart) {
       case 'head':

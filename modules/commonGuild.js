@@ -8,7 +8,7 @@ const DB = require('./db.js');
 "use strict";
 
 //----------------------------------------------------------- ACTION POINTS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function modifyActionPointsForAll(amount) {
    await DB.updateMany(SG.profile, {}, {$inc: {"actionPoints.current" : amount, "actionPoints.totalEarned" : amount}});
 }
@@ -20,14 +20,14 @@ module.exports.modifyActionPointsForAll = modifyActionPointsForAll;
 
 
 //----------------------------------------------------------- CURRENCIES ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getCurrencyObject(currencyAlias) {
    return C.arrGetObjectByAnyOfItsValues(AG.currencies, currencyAlias);
 }
 
 module.exports.getCurrencyObject = getCurrencyObject;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function transferCurrency(message, source, target, amount, currency) {
    if (!C.checkIfProfile(source) || !C.checkIfProfile(target) || !C.checkIfNaturalNumber(amount) || !C.checkIfAnyByFunction(AG.currencies, e => C.strCompare(e.nameDB, currency.nameDB)))
       return;
@@ -50,7 +50,7 @@ module.exports.transferCurrency = transferCurrency;
 
 
 //----------------------------------------------------------- FIGHT CLUB ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function getFightClubDoc() {
    const recordDoc = await DB.findOne(SG.record, {}) ?? new SG.record({});
    return Promise.resolve(recordDoc);
@@ -63,19 +63,19 @@ module.exports.getFightClubDoc = getFightClubDoc;
 
 
 //----------------------------------------------------------- FISHING ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfFishingDoc(value) {
    return value instanceof SG.fishing;
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function getMessageAuthorFishingDoc(message) {
    return Promise.resolve(getFishingDocById(message, message.author.id));
 }
 
 module.exports.getMessageAuthorFishingDoc = getMessageAuthorFishingDoc;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function getFishingDocById(message, id) {
    if (!C.dcCheckIfMessage(message) || !id)
       return Promise.reject(`Wrong input argument!`);
@@ -95,7 +95,7 @@ async function getFishingDocById(message, id) {
 
 module.exports.getFishingDocById = getFishingDocById;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function createNewFishingDocFromID(message, id) {
    const member = C.dcGetMemberByID(message, id);
    return createNewFishingDoc(member);
@@ -103,7 +103,7 @@ function createNewFishingDocFromID(message, id) {
 
 module.exports.createNewFishingDocFromID = createNewFishingDocFromID;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function createNewFishingDoc(member) {
    if (!C.dcCheckIfMember(member))
       return;
@@ -117,7 +117,7 @@ function createNewFishingDoc(member) {
 
 module.exports.createNewFishingDoc = createNewFishingDoc;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function addFishToFishingDoc(fishingDoc, fishToAdd) {
    if (!checkIfFishingDoc(fishingDoc) || !fishToAdd)
       return Promise.reject(`Wrong input argument!`);
@@ -148,7 +148,7 @@ async function addFishToFishingDoc(fishingDoc, fishToAdd) {
 
 module.exports.addFishToFishingDoc = addFishToFishingDoc;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function addFishToMessageOwnerFishingDoc(message, fish) {
    try {
       const fishingDoc = await getMessageAuthorFishingDoc(message);
@@ -161,7 +161,7 @@ async function addFishToMessageOwnerFishingDoc(message, fish) {
 
 module.exports.addFishToMessageOwnerFishingDoc = addFishToMessageOwnerFishingDoc;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function updateFishingRecords(fishingDoc, fish, serverRecords) {
    let result = {
       previousPersonalRecord: -1,
@@ -215,7 +215,7 @@ function updateFishingRecords(fishingDoc, fish, serverRecords) {
    return result;
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function setFishingResult(result, element, placeNumber) {
    const defaultBeginning = 'place' + placeNumber;
 
@@ -224,7 +224,7 @@ function setFishingResult(result, element, placeNumber) {
    result.currentPlace = placeNumber;
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function moveFishingRecordDown(records, placeNumber) {
    if (placeNumber < 3 && records.place2Weight > 0) {
       records.place3Id = records.place2Id;
@@ -242,14 +242,14 @@ function moveFishingRecordDown(records, placeNumber) {
 
 
 //----------------------------------------------------------- GENERAL----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------- PERIODIC----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function mainUpdate1h(client) {
    modifyActionPointsForAll(1);
 
@@ -261,7 +261,7 @@ async function mainUpdate1h(client) {
 
 module.exports.mainUpdate1h = mainUpdate1h;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function profilesUpdate1h(guild, id) {
    try {
       let profile = await getProfileById(guild, id);
@@ -277,14 +277,14 @@ async function profilesUpdate1h(guild, id) {
 
 
 //----------------------------------------------------------- PROFILE ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function getMessageAuthorProfile(message) {
    return Promise.resolve(getProfileById(message, message.author.id));
 }
 
 module.exports.getMessageAuthorProfile = getMessageAuthorProfile;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function getProfileById(element, id) {
    if (!C.dcCheckIfMessage(element) && !C.dcCheckIfGuild(element) || !id)
       return Promise.reject(`Wrong input argument!`);
@@ -307,7 +307,7 @@ async function getProfileById(element, id) {
 
 module.exports.getProfileById = getProfileById;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function getMemberProfile(message, nameOrMention) {
    let found = C.getMemberIdByNameOrMention(message, nameOrMention);
 
@@ -333,7 +333,7 @@ async function getMemberProfile(message, nameOrMention) {
 
 module.exports.getMemberProfile = getMemberProfile;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function createNewGuildProfile(member) {
    if (!C.dcCheckIfMember(member))
       return;
@@ -359,7 +359,7 @@ function createNewGuildProfile(member) {
 
 module.exports.createNewGuildProfile = createNewGuildProfile;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function createNewGuildProfileFromID(element, id) {
    const member = C.dcGetMemberByID(element, id);
    return createNewGuildProfile(member);
@@ -372,7 +372,7 @@ module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
 
 
 //----------------------------------------------------------- RECORDS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function getRecordDoc() {
    const recordDoc = await DB.findOne(SG.record, {}) ?? new SG.record({});
    return Promise.resolve(recordDoc);

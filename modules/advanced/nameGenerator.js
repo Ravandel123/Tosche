@@ -387,7 +387,7 @@ const arraysFemale = [arrayF1, arrayF2, arrayF3, arrayF4];
 
 
 //----------------------------------------------------------- FUNCTIONS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function totalNamesCount() {
    const namesMCount = (arrayM1[0].length) + ((arrayM2[0].length) * (arrayM2[1].length)) + ((arrayM3[0].length) * (arrayM3[1].length) * (arrayM3[2].length)) + ((arrayM4[0].length) * (arrayM4[1].length) * (arrayM4[2].length) * (arrayM4[3].length));
    const namesFCount = (arrayF1[0].length) + ((arrayF2[0].length) * (arrayF2[1].length)) + ((arrayF3[0].length) * (arrayF3[1].length) * (arrayF3[2].length)) + ((arrayF4[0].length) * (arrayF4[1].length) * (arrayF4[2].length) * (arrayF4[3].length));
@@ -397,7 +397,7 @@ function totalNamesCount() {
 
 module.exports.totalNamesCount = totalNamesCount;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function generateRandomName(gender, syllablesAmount) {
    const syllablesArray = returnSyllablesArray(gender, syllablesAmount);
    if (!syllablesArray)
@@ -413,7 +413,7 @@ function generateRandomName(gender, syllablesAmount) {
 
 module.exports.generateRandomName = generateRandomName;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function createRandomName(syllable, gender, syllablePosition, syllablesAmount) {
    if (!C.checkIfString(syllable) || !C.checkIfIntInRange(syllablePosition, 1, MAX_SYLLABLES_AMOUNT))
       return;
@@ -438,7 +438,7 @@ module.exports.createRandomName = createRandomName;
 
 
 //----------------------------------------------------------- INTERNALS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function returnSyllablesArray(gender, syllablesAmount) {
    if (!C.checkIfIntInRange(syllablesAmount, 1, MAX_SYLLABLES_AMOUNT))
       return;

@@ -5,7 +5,7 @@ const AS = require('./arraysSpeech.js');
 "use strict";
 
 //----------------------------------------------------------- GENERATION ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function genRandomMultiplier(maxDigitScope, nextDigitChance = 50) {
    if (!C.checkIfNumber(maxDigitScope))
       return;
@@ -24,14 +24,14 @@ function genRandomMultiplier(maxDigitScope, nextDigitChance = 50) {
 
 module.exports.genRandomMultiplier = genRandomMultiplier;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function genPerson() {
    return C.chance(75) ? C.arrGetRandom(AC.charactersIrlOnly) : C.arrGetRandom(AC.charactersAll);
 }
 
 module.exports.genPerson = genPerson;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function genPersonalInsult() {
    const adjective = C.chance(75) ? C.arrGetRandom(AS.adjAcceptedInsulting) + ' ' : '';
    return `${adjective}${C.arrGetRandom(AS.nounsAcceptedInsulting)}`;
@@ -39,7 +39,7 @@ function genPersonalInsult() {
 
 module.exports.genPersonalInsult = genPersonalInsult;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function genAccuracy(capitalize = false) {
    const result = C.arrGetRandom(AS.termsAccuracy) + ' ';
 
@@ -48,7 +48,7 @@ function genAccuracy(capitalize = false) {
 
 module.exports.genAccuracy = genAccuracy;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function genFunnyEnding(endingChar = '.', chanceForEnding = 25) {
    if (C.checkIfNumber(chanceForEnding))
       return (C.chance(chanceForEnding) ? `, ${C.arrGetRandom(AC.additionalFunnyWords)}` : '') + endingChar;
@@ -61,7 +61,7 @@ module.exports.genFunnyEnding = genFunnyEnding;
 
 
 //----------------------------------------------------------- MODIFICATION ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function addFunnyEnding(sentence) {
    if (!C.checkIfString(sentence))
       return;
@@ -71,7 +71,7 @@ function addFunnyEnding(sentence) {
 
 module.exports.addFunnyEnding = addFunnyEnding;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function addFunnyEndingToAll(arraySentences, endingChar = '.') {
    if (!C.checkIfArray(arraySentences))
       return;

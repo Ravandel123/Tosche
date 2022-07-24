@@ -8,7 +8,7 @@ const G = require('./generators.js');
 const RND = C.arrGetRandom;
 
 //----------------------------------------------------------- COMMON DATA ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 const arrayUniversalResponses = [
    `Excuse me?!`,
    `I know.`,
@@ -46,7 +46,7 @@ function universalResponses() {
 
 
 //----------------------------------------------------------- COMMON ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resMissingArgs(missingArgs) {
    if (!C.checkIfArray(missingArgs))
       return;
@@ -64,7 +64,7 @@ function resMissingArgs(missingArgs) {
 
 module.exports.resMissingArgs = resMissingArgs;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resIssue(issue, additionalText = '') {
    if (!C.checkIfExists(issue))
       return;
@@ -87,7 +87,7 @@ function resIssue(issue, additionalText = '') {
 
 module.exports.resIssue = resIssue;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resIssueSingle(issue, additionalText = '') {
    return C.arrGetRandom(resIssue(issue, additionalText));
 }
@@ -145,7 +145,7 @@ function resDefault() {
 
 module.exports.resDefault = resDefault;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resAmount(maxMultiplier = 8, additionalSymbol = '') {
    const maxNumber = G.genRandomMultiplier(maxMultiplier, 75) + 1;
    const amountPart = C.rnd(maxNumber) + additionalSymbol;
@@ -163,7 +163,7 @@ function resAmount(maxMultiplier = 8, additionalSymbol = '') {
 
 module.exports.resAmount = resAmount;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resChance() {
    const number = C.chance(90) ? C.rnd(100) : C.rndBetween(100, 200);
 
@@ -181,7 +181,7 @@ function resChance() {
 
 module.exports.resChance = resChance;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resCost() {
    if (C.chance(10)) {
       const arrayResultSpecial = [
@@ -209,7 +209,7 @@ function resCost() {
 
 module.exports.resCost = resCost;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resDndalign(who) {
    if (!who)
       return;
@@ -226,7 +226,7 @@ function resDndalign(who) {
 
 module.exports.resDndalign = resDndalign;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resHate() {
    const arrayResult = [
       `I hate you.`,
@@ -286,7 +286,7 @@ function resHate() {
 
 module.exports.resHate = resHate;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resIs() {
    let result;
 
@@ -338,7 +338,7 @@ function resIs() {
 
 module.exports.resIs = resIs;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resLove(who) {
    const pG = new C.PersonGrammar(!who ? 'me' : who);
    const array1 = ['a new book', 'a burning Ermehn village', 'the blood of my enemies'];
@@ -391,7 +391,7 @@ function resLove(who) {
 
 module.exports.resLove = resLove;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resPercentSpecial(who, what) {
    if (!who || !what)
       return;
@@ -407,7 +407,7 @@ function resPercentSpecial(who, what) {
 
 module.exports.resPercentSpecial = resPercentSpecial;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resRate(subject) {
    const who = C.strCheckIfAnyMatch(subject, ['i', 'me']) ? 'you' : 'that';
    const auxiliaryVerb = who == 'you' ? 'are' : 'is';
@@ -452,7 +452,7 @@ function resRate(subject) {
 
 module.exports.resRate = resRate;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resResolve(who) {
    if (!who)
       return;
@@ -463,14 +463,14 @@ function resResolve(who) {
 
 module.exports.resResolve = resResolve;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resWho() {
    return G.genPerson() + G.genFunnyEnding();
 }
 
 module.exports.resWho = resWho;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function resYou() {
    let arrayResult = [
       `After hearing what you just said, I realized that honest people still do exists!`,
@@ -572,7 +572,7 @@ module.exports.resYou = resYou;
 
 
 //----------------------------------------------------------- ADVANCED COMMANDS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function fishCatchFailed(spotName, fish) {
    const fishName = C.strAddArticle(fish.name);
    const fishWeight = `**${fish.data?.weight} kg (${C.calcKgToImperial(fish.data?.weight)})**`;
@@ -592,7 +592,7 @@ function fishCatchFailed(spotName, fish) {
 
 module.exports.fishCatchFailed = fishCatchFailed;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function fishRecord(recordResult, fish, previousRecordHolder) {
    const correctFish = `${C.strAddArticle(fish.name, true)}`;
    let finalMessage = '';

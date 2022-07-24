@@ -8,7 +8,7 @@ const MAX_MSG_LENGTH = 2000;
 const PREFIX_LENGTH = 2;
 
 //----------------------------------------------------------- CLASSES ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 class PersonGrammar {
    constructor(who) {
       if (!who || strCheckIfAnyMatch(who, ['i', 'me', 'you'])) {
@@ -77,7 +77,7 @@ class PersonGrammar {
 
 module.exports.PersonGrammar = PersonGrammar;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 class ButtonData {
    constructor(id, label, emoji, style = `PRIMARY`) {
       this._id = id;
@@ -105,7 +105,7 @@ class ButtonData {
 
 module.exports.ButtonData = ButtonData;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 class SelectOptionData {
    constructor(value, label, emoji, description) {
       this._value = value;
@@ -138,14 +138,14 @@ module.exports.SelectOptionData = SelectOptionData;
 
 
 //----------------------------------------------------------- ARRAYS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrCheckIfNotEmpty(array) {
    return (checkIfArray(array) && array?.length > 0);
 }
 
 module.exports.arrCheckIfNotEmpty = arrCheckIfNotEmpty;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrGetDimension(array) {
    if (!checkIfArray(array))
       return;
@@ -166,7 +166,7 @@ function arrGetDimension(array) {
 
 module.exports.arrGetDimension = arrGetDimension;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrGetRandom(array) {
    if (checkIfArray(array))
       return array[Math.floor(Math.random() * array.length)];
@@ -174,7 +174,7 @@ function arrGetRandom(array) {
 
 module.exports.arrGetRandom = arrGetRandom;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrConvertToUnqiue(array) {
    if (checkIfArray(array))
       return [... new Set(array)];
@@ -182,7 +182,7 @@ function arrConvertToUnqiue(array) {
 
 module.exports.arrConvertToUnqiue = arrConvertToUnqiue;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrGetFirstByFunction(array, findFunction) {
    if (!checkIfArray(array) || !checkIfFunction(findFunction))
       return;
@@ -192,7 +192,7 @@ function arrGetFirstByFunction(array, findFunction) {
 
 module.exports.arrGetFirstByFunction = arrGetFirstByFunction;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrGetAllByFunction(array, findFunction) {
    if (!checkIfArray(array) || !checkIfFunction(findFunction))
       return;
@@ -202,7 +202,7 @@ function arrGetAllByFunction(array, findFunction) {
 
 module.exports.arrGetAllByFunction = arrGetAllByFunction;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrGetObjectByAnyOfItsValues(array, valueToFind) {
    if (!checkIfArray(array) || !checkIfExists(valueToFind))
       return;
@@ -212,21 +212,21 @@ function arrGetObjectByAnyOfItsValues(array, valueToFind) {
 
 module.exports.arrGetObjectByAnyOfItsValues = arrGetObjectByAnyOfItsValues;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrAddTextToAllItems(array, textAtStart = '', textAtEnd = '') {
    return convertByFunction(array, (e) => textAtStart + e + textAtEnd);
 }
 
 module.exports.arrAddTextToAllItems = arrAddTextToAllItems;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrGetRandomFromPopulated1D(array2DToPopulate) {
    return arrGetRandom(arrGetPopulatedFrom2D(array2DToPopulate));
 }
 
 module.exports.arrGetRandomFromPopulated1D = arrGetRandomFromPopulated1D;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arr2DCheckItemExistence(array, itemToFind, columnToSearch) {
    if (!checkIfArray(array) || !itemToFind || !checkIfInt(columnToSearch))
       return;
@@ -245,7 +245,7 @@ function arr2DCheckItemExistence(array, itemToFind, columnToSearch) {
 
 module.exports.arr2DCheckItemExistence = arr2DCheckItemExistence;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arr2DGetItemRow(array, itemToFind, columnToSearch = 0) {
    if (!checkIfArray(array) || !checkIfExists(itemToFind) || !checkIfInt(columnToSearch))
       return;
@@ -264,7 +264,7 @@ function arr2DGetItemRow(array, itemToFind, columnToSearch = 0) {
 
 module.exports.arr2DGetItemRow = arr2DGetItemRow;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arr2DGetItemColumnValue(array, itemToFind, columnToReturn, columnToSearch = -1) {
    if (!checkIfArray(array) || !checkIfExists(itemToFind) || !checkIfNaturalNumber(columnToReturn) || !checkIfInt(columnToSearch))
       return;
@@ -283,7 +283,7 @@ function arr2DGetItemColumnValue(array, itemToFind, columnToReturn, columnToSear
 
 module.exports.arr2DGetItemColumnValue = arr2DGetItemColumnValue;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrGetPopulatedFrom2D(array2D) {
    if (arrGetDimension(array2D) < 2)
       return;
@@ -299,7 +299,7 @@ function arrGetPopulatedFrom2D(array2D) {
 
 module.exports.arrGetPopulatedFrom2D = arrGetPopulatedFrom2D;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrGenerateFromFrequency(array, keyName, valueName) {
    if (!checkIfArray(array) || !checkAllByFunction(array, e => e[keyName] !== undefined && checkIfNaturalNumber(e[valueName])))
       return;
@@ -316,7 +316,7 @@ function arrGenerateFromFrequency(array, keyName, valueName) {
 
 module.exports.arrGenerateFromFrequency = arrGenerateFromFrequency;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function arrRandomFromFrequency(array, keyName, valueName) {
    return arrGetRandom(arrGenerateFromFrequency(array, keyName, valueName));
 }
@@ -328,7 +328,7 @@ module.exports.arrRandomFromFrequency = arrRandomFromFrequency;
 
 
 //----------------------------------------------------------- RANDOM -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function rnd(max = 100) {
    if (!checkIfNumber(max))
       return;
@@ -338,7 +338,7 @@ function rnd(max = 100) {
 
 module.exports.rnd = rnd;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function rndNo0(max = 100) {
    if (!checkIfNumber(max))
       return;
@@ -348,7 +348,7 @@ function rndNo0(max = 100) {
 
 module.exports.rndNo0 = rndNo0;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function rndBetween(min, max, decimalPlaces = 0) {
    if (!checkIfNumber(min) || !checkIfNumber(max))
       return;
@@ -359,7 +359,7 @@ function rndBetween(min, max, decimalPlaces = 0) {
 
 module.exports.rndBetween = rndBetween;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function chance(chanceOfSuccess) {
    if (!checkIfNumber(chanceOfSuccess))
       return;
@@ -369,7 +369,7 @@ function chance(chanceOfSuccess) {
 
 module.exports.chance = chance;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function generateRandomMultiplier(maxDigitScope) {
    if (!checkIfNumber(maxDigitScope))
       return;
@@ -393,7 +393,7 @@ module.exports.generateRandomMultiplier = generateRandomMultiplier;
 
 
 //----------------------------------------------------------- SCHEMATICS -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfProfile(value) {
    return value instanceof SG.profile;
 }
@@ -405,7 +405,7 @@ module.exports.checkIfProfile = checkIfProfile;
 
 
 //----------------------------------------------------------- TEXT -----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strRemoveSpaces(string) {
    if (!checkIfString(string))
       return;
@@ -415,7 +415,7 @@ function strRemoveSpaces(string) {
 
 module.exports.strRemoveSpaces = strRemoveSpaces;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strGetFirstChar(string) {
    if (!checkIfString(string))
       return;
@@ -425,7 +425,7 @@ function strGetFirstChar(string) {
 
 module.exports.strGetFirstChar = strGetFirstChar;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strGetLastChar(string) {
    if (!checkIfString(string))
       return;
@@ -435,7 +435,7 @@ function strGetLastChar(string) {
 
 module.exports.strGetLastChar = strGetLastChar;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strGetCharAt(string, index) {
    if (!checkIfString(string) || (index < 0 ? Math.abs(index) : index + 1) > string.length)
       return;
@@ -445,14 +445,14 @@ function strGetCharAt(string, index) {
 
 module.exports.strGetCharAt = strGetCharAt;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strToLowerCase(value) {
    return convertByFunction(value, (e) => checkIfString(e) ? e.toLowerCase() : e);
 }
 
 module.exports.strToLowerCase = strToLowerCase;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strCapitalizeFirstLetter(value, extraCheck = true) {
    return convertByFunction(value, (e) => {
       if (!checkIfString(e))
@@ -467,7 +467,7 @@ function strCapitalizeFirstLetter(value, extraCheck = true) {
 
 module.exports.strCapitalizeFirstLetter = strCapitalizeFirstLetter;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strGetSyllablesAmount(wordToCheck) {
    if (!checkIfString(wordToCheck))
       return;
@@ -492,14 +492,14 @@ function strGetSyllablesAmount(wordToCheck) {
 
 module.exports.strGetSyllablesAmount = strGetSyllablesAmount;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strDecapitalizeFirstLetter(value) {
    return convertByFunction(value, (e) => checkIfString(e) ? e.charAt(0).toLowerCase() + e.slice(1) : e);
 }
 
 module.exports.strDecapitalizeFirstLetter = strDecapitalizeFirstLetter;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strBold(string) {
    if (!string)
       return;
@@ -509,7 +509,7 @@ function strBold(string) {
 
 module.exports.strBold = strBold;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strItalics(string) {
    if (!string)
       return;
@@ -519,7 +519,7 @@ function strItalics(string) {
 
 module.exports.strItalics = strItalics;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strUnderline(string) {
    if (!string)
       return;
@@ -529,7 +529,7 @@ function strUnderline(string) {
 
 module.exports.strUnderline = strUnderline;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strCompare(string1, string2, ignoreCase = true) {
    if (!checkIfExists(string1) || !checkIfExists(string2))
       return;
@@ -539,7 +539,7 @@ function strCompare(string1, string2, ignoreCase = true) {
 
 module.exports.strCompare = strCompare;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strCheckIfContains(string, fragment, ignoreCase = true) {
    if (!checkIfExists(string))
       return;
@@ -557,7 +557,7 @@ function strCheckIfContains(string, fragment, ignoreCase = true) {
 
 module.exports.strCheckIfContains = strCheckIfContains;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strCheckIfContainsAny(value, array, ignoreCase = true) {
    if (!checkIfExists(value) || !checkIfArray(array))
       return;
@@ -577,7 +577,7 @@ function strCheckIfContainsAny(value, array, ignoreCase = true) {
 
 module.exports.strCheckIfContainsAny = strCheckIfContainsAny;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strCheckIfContainsAll(string, array, ignoreCase = true) {
    if (!checkIfExists(string) || !checkIfArray(array))
       return;
@@ -592,7 +592,7 @@ function strCheckIfContainsAll(string, array, ignoreCase = true) {
 
 module.exports.strCheckIfContainsAll = strCheckIfContainsAll;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strCheckIfAnyMatch(string, array, ignoreCase = true) {
    if (!checkIfString(string) || !checkIfArray(array))
       return;
@@ -603,7 +603,7 @@ function strCheckIfAnyMatch(string, array, ignoreCase = true) {
 module.exports.strCheckIfAnyMatch = strCheckIfAnyMatch;
 
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strCheckIfVowel(letter) {
    if (!checkIfString(letter))
       return;
@@ -611,7 +611,7 @@ function strCheckIfVowel(letter) {
    return strCheckIfAnyMatch(letter, AS.vowels);
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strRemoveBetween(string, startIndex, endIndex) {
    if (!checkIfString(string) || !checkIfNaturalNumber(startIndex) || !checkIfNaturalNumber(endIndex))
       return;
@@ -627,7 +627,7 @@ function strRemoveBetween(string, startIndex, endIndex) {
 
 module.exports.strRemoveBetween = strRemoveBetween;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strRemoveAllSpecialChars(string) {
    if (!checkIfString(string))
       return;
@@ -637,7 +637,7 @@ function strRemoveAllSpecialChars(string) {
 
 module.exports.strRemoveAllSpecialChars = strRemoveAllSpecialChars;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strAddArticle(string, makeBold = false) {
    if (!checkIfString(string))
       return;
@@ -662,7 +662,7 @@ function strAddArticle(string, makeBold = false) {
 
 module.exports.strAddArticle = strAddArticle;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strAddEndingApostrophe(string) {
    if (!checkIfString(string))
       return;
@@ -673,7 +673,7 @@ function strAddEndingApostrophe(string) {
 }
 module.exports.strAddEndingApostrophe = strAddEndingApostrophe;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strGetPastTense(verb) {
    if (!checkIfString(verb))
       return;
@@ -720,7 +720,7 @@ function strGetPastTense(verb) {
 
 module.exports.strGetPastTense = strGetPastTense;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strGetBasicPronoun(string) {
    if (strCompare(string, 'female'))
       return 'she';
@@ -732,7 +732,7 @@ function strGetBasicPronoun(string) {
 
 module.exports.strGetBasicPronoun = strGetBasicPronoun;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function strGetPronoun(string, version = 1) {
    if (!checkIfString(string))
       return;
@@ -753,7 +753,7 @@ module.exports.strGetPronoun = strGetPronoun;
 
 
 //----------------------------------------------------------- TIME ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function sleep(s) {
    return new Promise(resolve => setTimeout(resolve, s * 1000));
 }
@@ -765,7 +765,7 @@ module.exports.sleep = sleep;
 
 
 //----------------------------------------------------------- OBJECTS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function objCompare(object1, object2) {
    if (!checkAllByFunction([object1, object2], checkIfObject))
       return;
@@ -795,14 +795,14 @@ module.exports.objCompare = objCompare;
 
 
 //----------------------------------------------------------- VALIDATION ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfExists(itemToCheck) {
    return itemToCheck || itemToCheck == 0;
 }
 
 module.exports.checkIfExists = checkIfExists;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfNumberIsPositive(value) {
    if (value === 0)
       return value.toLocaleString()[0] !== "-";
@@ -812,7 +812,7 @@ function checkIfNumberIsPositive(value) {
 
 module.exports.checkIfNumberIsPositive = checkIfNumberIsPositive;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkAllByFunction(objectToCheck, checkFunction) {
    if (!checkIfExists(objectToCheck) || !checkIfFunction(checkFunction))
       return;
@@ -825,7 +825,7 @@ function checkAllByFunction(objectToCheck, checkFunction) {
 
 module.exports.checkAllByFunction = checkAllByFunction;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfAnyByFunction(objectToCheck, checkFunction) {
    if (!checkIfExists(objectToCheck) || !checkIfFunction(checkFunction))
       return;
@@ -838,70 +838,70 @@ function checkIfAnyByFunction(objectToCheck, checkFunction) {
 
 module.exports.checkIfAnyByFunction = checkIfAnyByFunction;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfAnyMatch(soughtItem, objectToCheck, checkType = false) {
    return checkIfAnyByFunction(objectToCheck, e => checkType ? e === soughtItem : e == soughtItem);
 }
 
 module.exports.checkIfAnyMatch = checkIfAnyMatch;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfArray(value) {
    return Array.isArray(value);
 }
 
 module.exports.checkIfArray = checkIfArray;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfFunction(value) {
    return value instanceof Function;
 }
 
 module.exports.checkIfFunction = checkIfFunction;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfObject(value) {
    return typeof value === 'object' && !checkIfArray(value);
 }
 
 module.exports.checkIfObject = checkIfObject;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfNumber(value) {
    return !isNaN(value);
 }
 
 module.exports.checkIfNumber = checkIfNumber;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfString(value) {
    return typeof value == 'string';
 }
 
 module.exports.checkIfString = checkIfString;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfNaturalNumber(value) {
    return checkIfInt(value) && value >= 0;
 }
 
 module.exports.checkIfNaturalNumber = checkIfNaturalNumber;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfNaturalNumberInScope(value, min, max) {
    return checkIfInt(value) && value >= 0 && value >= min && value <= max;
 }
 
 module.exports.checkIfNaturalNumberInScope = checkIfNaturalNumberInScope;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfInt(objectToCheck, convertToNumberFirst = true) {
    return checkAllByFunction(objectToCheck, (e) => Number.isInteger(convertToNumberFirst ? Number(e) : e));
 }
 
 module.exports.checkIfInt = checkIfInt;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfIntInRange(value, min, max, convertToNumberFirst = true) {
    if (!checkIfInt([value, min, max], convertToNumberFirst))
       return;
@@ -911,14 +911,14 @@ function checkIfIntInRange(value, min, max, convertToNumberFirst = true) {
 
 module.exports.checkIfIntInRange = checkIfIntInRange;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function chackIfImageUrl(url) {
    return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
 }
 
 module.exports.chackIfImageUrl = chackIfImageUrl;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfValidHttpUrl(string) {
    let url;
 
@@ -938,7 +938,7 @@ module.exports.checkIfValidHttpUrl = checkIfValidHttpUrl;
 
 
 //----------------------------------------------------------- CONVERTERS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function convertByFunction(objectToConvert, convertFunction) {
    if (!checkIfExists(objectToConvert) || !checkIfFunction(convertFunction))
       return;
@@ -951,21 +951,21 @@ function convertByFunction(objectToConvert, convertFunction) {
 
 module.exports.convertByFunction = convertByFunction;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function convertToInt(value) {
    return convertByFunction(value, (e) => parseInt(e));
 }
 
 module.exports.convertToInt = convertToInt;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function convertToString(value) {
    return convertByFunction(value, (e) => e.toString());
 }
 
 module.exports.convertToString = convertToString;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function roundNumber(value, decimalPlaces = 0) {
    if (!checkIfNumber(value) || !checkIfNaturalNumber(decimalPlaces))
       return;
@@ -987,7 +987,7 @@ module.exports.roundNumber = roundNumber;
 //https://discordjs.guide/additional-info/changes-in-v12.html#collection
 
 //-------------------------------------------------------Channels-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetChannel(element) {
    if (dcCheckIfMessage(element))
       return element.channel;
@@ -997,7 +997,7 @@ function dcGetChannel(element) {
 
 module.exports.dcGetChannel = dcGetChannel;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetChannelByName(element, channelName) {
    if (!checkIfExists(channelName))
       return;
@@ -1012,7 +1012,7 @@ function dcGetChannelByName(element, channelName) {
 
 module.exports.dcGetChannelByName = dcGetChannelByName;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetChannelByID(message, channelID) {
    if (!dcCheckIfMessage(message) || !checkIfExists(channelID))
       return;
@@ -1022,7 +1022,7 @@ function dcGetChannelByID(message, channelID) {
 
 module.exports.dcGetChannelByID = dcGetChannelByID;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function dcGetCreateOrUnarchiveThread(channel, threadName, member) {
    if (!dcCheckIfGuildChannel(channel) || dcCheckIfThread(channel) || !checkIfExists(threadName) || !dcCheckIfMember(member))
       return Promise.reject(`Wrong input data!`);
@@ -1054,28 +1054,28 @@ module.exports.dcGetCreateOrUnarchiveThread = dcGetCreateOrUnarchiveThread;
 // ---------------------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------Checkers-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfCollection(value) {
    return value instanceof D.Collection;
 }
 
 module.exports.dcCheckIfCollection = dcCheckIfCollection;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfMessage(value) {
    return value instanceof D.Message;
 }
 
 module.exports.dcCheckIfMessage = dcCheckIfMessage;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfMessageComponents(value) {
    return checkAllByFunction(value, e => e instanceof D.ButtonBuilder || e instanceof D.SelectMenuBuilder)
 }
 
 module.exports.dcCheckIfMessage = dcCheckIfMessage;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfGuildMessage(message) {
    if (!dcCheckIfMessage(message))
       return;
@@ -1085,49 +1085,49 @@ function dcCheckIfGuildMessage(message) {
 
 module.exports.dcCheckIfGuildMessage = dcCheckIfGuildMessage;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfChannel(value) {
    return value instanceof D.TextChannel;
 }
 
 module.exports.dcCheckIfChannel = dcCheckIfChannel;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfGuildChannel(value) {
    return (dcCheckIfChannel(value) && value.guild !== undefined);
 }
 
 module.exports.dcCheckIfGuildChannel = dcCheckIfGuildChannel;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfThread(value) {
    return value instanceof D.ThreadChannel ;
 }
 
 module.exports.dcCheckIfThread = dcCheckIfThread;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfRole(value) {
    return value instanceof D.Role;
 }
 
 module.exports.dcCheckIfRole = dcCheckIfRole;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfMember(value) {
    return value instanceof D.GuildMember;
 }
 
 module.exports.dcCheckIfMember = dcCheckIfMember;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfGuild(value) {
    return value instanceof D.Guild;
 }
 
 module.exports.dcCheckIfGuild = dcCheckIfGuild;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfDM(message) {
    if (!dcCheckIfMessage(message))
       return;
@@ -1180,7 +1180,7 @@ function dcSendMsg(message, msgContent, msgType = 'channel') {
 
 module.exports.dcSendMsg = dcSendMsg;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcSendMsgToChannel(channel, msgContent) {
    if (!dcCheckIfChannel(channel) || !checkIfExists(msgContent))
       return;
@@ -1194,7 +1194,7 @@ function dcSendMsgToChannel(channel, msgContent) {
 
 module.exports.dcSendMsgToChannel = dcSendMsgToChannel;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function dcSendMsgToChannelAndGetItsRef(msgOrChannel, msgContent) {
    if (!checkIfExists(msgContent))
       return Promise.reject(`You cannot send an empty message!`);
@@ -1212,14 +1212,14 @@ async function dcSendMsgToChannelAndGetItsRef(msgOrChannel, msgContent) {
 
 module.exports.dcSendMsgToChannelAndGetItsRef = dcSendMsgToChannelAndGetItsRef;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcRespondToMsg(message, msgContent) {
    dcSendMsg(message, msgContent, 'channel');
 }
 
 module.exports.dcRespondToMsg = dcRespondToMsg;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcSendDM(message, userID, msgContent) {
    if (!msgContent)
       return;
@@ -1231,21 +1231,21 @@ function dcSendDM(message, userID, msgContent) {
 
 module.exports.dcSendDM = dcSendDM;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcSendDMToAuthor(message, msgContent) {
    dcSendMsg(message, msgContent, 'dm');
 }
 
 module.exports.dcSendDMToAuthor = dcSendDMToAuthor;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcReplyToMsg(message, msgContent) {
    dcSendMsg(message, msgContent, 'reply');
 }
 
 module.exports.dcReplyToMsg = dcReplyToMsg;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcRespondFromArray(message, array, msgType = 'channel') {
    if (!checkIfArray(array))
       return;
@@ -1259,7 +1259,7 @@ module.exports.dcRespondFromArray = dcRespondFromArray;
 
 
 //-------------------------------------------------------Roles-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetRoleByName(element, roleName) {
    if (!checkIfExists(roleName))
       return;
@@ -1274,7 +1274,7 @@ function dcGetRoleByName(element, roleName) {
 
 module.exports.dcGetRoleByName = dcGetRoleByName;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcAddRoleToMember(member, roleName) {
    const role = dcGetRoleByName(member, roleName);
 
@@ -1284,7 +1284,7 @@ function dcAddRoleToMember(member, roleName) {
 
 module.exports.dcAddRoleToMember = dcAddRoleToMember;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcRemoveRoleFromMember(member, roleName) {
    const role = dcGetRoleByName(member, roleName);
 
@@ -1294,7 +1294,7 @@ function dcRemoveRoleFromMember(member, roleName) {
 
 module.exports.dcRemoveRoleFromMember = dcRemoveRoleFromMember;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCheckIfMemberHasRole(member, roleName) {
    if (dcCheckIfMember(member) && roleName)
       return member.roles.cache.some(e => e.name == roleName);
@@ -1305,7 +1305,7 @@ module.exports.dcCheckIfMemberHasRole = dcCheckIfMemberHasRole;
 // ---------------------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------Users-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetUserByID(message, userID) {
    if (!dcCheckIfMessage(message) || !userID)
       return;
@@ -1318,14 +1318,14 @@ module.exports.dcGetUserByID = dcGetUserByID;
 // ---------------------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------Members-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getMemberIdByNameOrMention(message, nameOrMention) {
    return dcGetMemberIDFromMention(nameOrMention) ?? dcGetAllMembersByNick(message, nameOrMention);
 }
 
 module.exports.getMemberIdByNameOrMention = getMemberIdByNameOrMention;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetMemberByID(element, userID) {
    if (!userID)
       return;
@@ -1338,7 +1338,7 @@ function dcGetMemberByID(element, userID) {
 
 module.exports.dcGetMemberByID = dcGetMemberByID;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetMessageAuthorAsMember(message) {
    if (dcCheckIfGuildMessage(message))
       return message.member;
@@ -1346,7 +1346,7 @@ function dcGetMessageAuthorAsMember(message) {
 
 module.exports.dcGetMessageAuthorAsMember = dcGetMessageAuthorAsMember;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetAllMembersByNick(element, nick) {
    if (!checkIfExists(nick))
       return;
@@ -1361,7 +1361,7 @@ function dcGetAllMembersByNick(element, nick) {
 
 module.exports.dcGetAllMembersByNick = dcGetAllMembersByNick;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetAllMembers(element) {
    if (dcCheckIfGuildMessage(element))
       return element.guild.members.cache;
@@ -1371,7 +1371,7 @@ function dcGetAllMembers(element) {
 
 module.exports.dcGetAllMembers = dcGetAllMembers;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetMentionedMember(message) {
    if (dcCheckIfMessage(message))
       return message.mentions?.members?.first();
@@ -1379,7 +1379,7 @@ function dcGetMentionedMember(message) {
 
 module.exports.dcGetMentionedMember = dcGetMentionedMember;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcGetMemberIDFromMention(mention) {
    if (!strCheckIfContainsAll(mention, ['<@', '>']))
       return;
@@ -1394,7 +1394,7 @@ module.exports.dcGetMemberIDFromMention = dcGetMemberIDFromMention;
 // ---------------------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------Interactions-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCreateRow(components) {
    if(dcCheckIfMessageComponents(components))
       return new D.ActionRowBuilder()
@@ -1403,7 +1403,7 @@ function dcCreateRow(components) {
 
 module.exports.dcCreateRow = dcCreateRow;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCreateButton(id, label, emoji, style = 'primary', isDisabled = false) {
    const stylesMap = new Map([
       ['primary', D.ButtonStyle.Primary],
@@ -1433,7 +1433,7 @@ function dcCreateButton(id, label, emoji, style = 'primary', isDisabled = false)
 
 module.exports.dcCreateButton = dcCreateButton;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function dcCreateSelectMenu(id, placeholderText, options) {
    if (checkIfExists(id) && checkIfString(placeholderText) && checkIfExists(options))
       return new D.SelectMenuBuilder()
@@ -1448,7 +1448,7 @@ module.exports.dcCreateSelectMenu = dcCreateSelectMenu;
 
 
 //-------------------------------------------------------Internal-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getFixedMessageContent(msgContent) {
    if (!checkIfExists(msgContent))
       return;
@@ -1486,7 +1486,7 @@ function getFixedMessageContent(msgContent) {
 
 //----------------------------------------------------------- CALCULATION ----------------------------------------------------------
 //-------------------------------------------------------Main-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function calcBMI(height, weight) {
    if (!checkIfNumber(height) || !checkIfNumber(weight))
       return;
@@ -1499,7 +1499,7 @@ function calcBMI(height, weight) {
 
 module.exports.calcBMI = calcBMI;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function calcBMIWeight(height, bmi) {
    if (!checkIfNumber(height) || !checkIfNumber(bmi))
       return;
@@ -1512,7 +1512,7 @@ function calcBMIWeight(height, bmi) {
 
 module.exports.calcBMIWeight = calcBMIWeight;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function calcFixMaxDecimal(value, maxDecimal = 2) {
    if (!checkIfNumber(value) || !checkIfNaturalNumber(maxDecimal))
       return;
@@ -1524,7 +1524,7 @@ function calcFixMaxDecimal(value, maxDecimal = 2) {
 
 module.exports.calcFixMaxDecimal = calcFixMaxDecimal;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function calcCmToImperial(centimeters, decimalPlaces = 0) {
    if (!checkIfNumber(centimeters))
       return;
@@ -1538,7 +1538,7 @@ function calcCmToImperial(centimeters, decimalPlaces = 0) {
 
 module.exports.calcCmToImperial = calcCmToImperial;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function calcKgToImperial(kilograms, decimalPlaces = 0) {
    if (!checkIfNumber(kilograms))
       return;
@@ -1552,7 +1552,7 @@ function calcKgToImperial(kilograms, decimalPlaces = 0) {
 
 module.exports.calcKgToImperial = calcKgToImperial;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function calcFahrenheitToCelsius(value) {
    if (!checkIfNumber(value))
       return;
@@ -1562,7 +1562,7 @@ function calcFahrenheitToCelsius(value) {
 
 module.exports.calcFahrenheitToCelsius = calcFahrenheitToCelsius;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function calcCelsiusToFahrenheit(value) {
    if (!checkIfNumber(value))
       return;
@@ -1576,7 +1576,7 @@ module.exports.calcCelsiusToFahrenheit = calcCelsiusToFahrenheit;
 
 
 //-------------------------------------------------------Other-------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getFullKgToImperial(kilograms, decimalPlaces = 0) {
    return `${kilograms} kg (${calcKgToImperial(kilograms, decimalPlaces = 0)})`;
 }
@@ -1584,7 +1584,7 @@ function getFullKgToImperial(kilograms, decimalPlaces = 0) {
 module.exports.getFullKgToImperial = getFullKgToImperial;
 
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getFullCmToImperial(centimeters, decimalPlaces = 0) {
    return `${centimeters} cm (${calcCmToImperial(centimeters, decimalPlaces = 0)})`;
 }
@@ -1595,7 +1595,7 @@ module.exports.getFullCmToImperial = getFullCmToImperial;
 
 
 //----------------------------------------------------------- OTHER ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function runFunctionOnAll(objectToRunOn, functionToRun) {
    if (!checkIfExists(objectToRunOn) || !checkIfFunction(functionToRun))
       return;
@@ -1608,7 +1608,7 @@ function runFunctionOnAll(objectToRunOn, functionToRun) {
 
 module.exports.runFunctionOnAll = runFunctionOnAll;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function recognizeWhoFullText(argument, message, command) {
    if (!dcCheckIfMessage(message) || !command)
       return;
@@ -1618,7 +1618,7 @@ function recognizeWhoFullText(argument, message, command) {
 
 module.exports.recognizeWhoFullText = recognizeWhoFullText;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function recognizeWhoOneArg(argument, message) {
    if (!dcCheckIfMessage(message))
       return;
@@ -1628,7 +1628,7 @@ function recognizeWhoOneArg(argument, message) {
 
 module.exports.recognizeWhoOneArg = recognizeWhoOneArg;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function recognizeWhoOneArgNoAuthor(argument, message) {
    if (!dcCheckIfMessage(message))
       return;
@@ -1638,7 +1638,7 @@ function recognizeWhoOneArgNoAuthor(argument, message) {
 
 module.exports.recognizeWhoOneArgNoAuthor = recognizeWhoOneArgNoAuthor;
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function slicePrefix(argumentWithPrefix) {
    if (!checkIfString(argumentWithPrefix))
       return;
@@ -1653,7 +1653,7 @@ module.exports.slicePrefix = slicePrefix;
 
 
 //----------------------------------------------------------- INTERNALS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function convertToInches(centimeters) {
    if (!checkIfNumber(centimeters))
       return;
@@ -1661,7 +1661,7 @@ function convertToInches(centimeters) {
    return centimeters * 0.39370078740157;
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function convertToOunces(kilograms) {
    if (!checkIfNumber(kilograms))
       return;
@@ -1669,7 +1669,7 @@ function convertToOunces(kilograms) {
    return kilograms * 35.27396194958;
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getTotalFeet(inches) {
    if (!checkIfNumber(inches))
       return;
@@ -1677,7 +1677,7 @@ function getTotalFeet(inches) {
    return Math.floor(inches / 12);
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getTotalPounds(ounces) {
    if (!checkIfNumber(ounces))
       return;
@@ -1685,7 +1685,7 @@ function getTotalPounds(ounces) {
    return Math.floor(ounces / 16);
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getLeftoverInches(inches, decimalPlaces = 0) {
    if (!checkIfNumber(inches))
       return;
@@ -1693,7 +1693,7 @@ function getLeftoverInches(inches, decimalPlaces = 0) {
    return roundNumber(inches % 12, decimalPlaces);
 }
 
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function getLeftoverOunces(ounces, decimalPlaces = 0) {
    if (!checkIfNumber(ounces))
       return;

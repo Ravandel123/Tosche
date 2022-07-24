@@ -3,7 +3,7 @@ const SG = require('./schematicsGuild.js');
 const MG = require('mongoose');
 
 //----------------------------------------------------------- CHECKERS ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 function checkIfMongooseModel(value){
    return value.hasOwnProperty('schema') && value.schema instanceof MG.Schema;
 }
@@ -13,7 +13,7 @@ function checkIfMongooseModel(value){
 
 
 //----------------------------------------------------------- INSERT MANY ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function insertMany(model, dataToInsert) {
    if (!checkIfMongooseModel(model) || !C.checkIfExists(dataToInsert))
       return Promise.reject(`Wrong input argument!`);
@@ -33,7 +33,7 @@ module.exports.insertMany = insertMany;
 
 
 //----------------------------------------------------------- UPDATE MANY ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function updateMany(model, filter, updateQuery) {
    if (!checkIfMongooseModel(model) || !C.checkIfObject(filter) || !C.checkIfObject(updateQuery))
       return Promise.reject(`Wrong input argument!`);
@@ -53,7 +53,7 @@ module.exports.updateMany = updateMany;
 
 
 //----------------------------------------------------------- FIND ----------------------------------------------------------
-// OK---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 async function findOne(model, filter) {
    if (!checkIfMongooseModel(model) || !C.checkIfObject(filter))
       return Promise.reject(`Wrong input argument!`);
