@@ -21,7 +21,6 @@ const gProfileSchema = new MG.Schema({
       fortune: { type: Number, default: 0 },
       resilience: { type: Number, default: 0 },
       resolve: { type: Number, default: 0 },
-      hp: Number,
    },
    attributes: {
       strength: { type: Number, default: 10 },
