@@ -26,7 +26,7 @@ module.exports = {
                user1.profile = await CG.getMessageAuthorProfile(message);
                user2.profile = await CG.getMemberProfile(message, args[2]);
 
-               switch (C.strCompare(args[1])) {
+               switch (args[1].toLowerCase()) {
                   case 'sparring':
                      await sparring(message, user1.profile, user2.profile);
                      break;
