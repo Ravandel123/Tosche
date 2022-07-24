@@ -93,7 +93,7 @@ function canTakeAction(profile, message, who = 'you') {
                             : !healthCheck
                                ? `${firstPart} have any health points!`
                                : '';
-console.log(msgContent);
+
       if (msgContent)
          C.dcRespondToMsg(message, msgContent);
    }

@@ -32,7 +32,7 @@ module.exports = {
                      break;
 
                   case 'duel':
-                     if (!CM.canTakeAction(user1.profile, message) && !CM.canTakeAction(user2.profile, message, user2.profile.ownerName))
+                     if (CM.canTakeAction(user1.profile, message) && CM.canTakeAction(user2.profile, message, user2.profile.ownerName))
                         await duel(message, user1.profile, user2.profile);
                      break;
                }
