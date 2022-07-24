@@ -92,12 +92,12 @@ async function sparring(profile1, profile2, fightClubChannel) {
    profile1.resources.health = CM.getMaxHp(profile1);
    profile2.resources.health = CM.getMaxHp(profile2);
 
-   await fight(profile1, profile2, fightClubChannel);
+   await fight(profile1, profile2, fightClubChannel, 'sparring');
 }
 
 //------------------------------------------------------------------------------------------------------------------
 async function duel(profile1, profile2, fightClubChannel) {
-   await fight(profile1, profile2, fightClubChannel);
+   await fight(profile1, profile2, fightClubChannel, 'duel');
 
    CM.modifyActionPoints(profile1, -1);
    CM.modifyActionPoints(profile2, -1);
@@ -107,9 +107,9 @@ async function duel(profile1, profile2, fightClubChannel) {
 }
 
 //------------------------------------------------------------------------------------------------------------------
-async function fight(profile1, profile2, fightClubChannel) {
+async function fight(profile1, profile2, fightClubChannel, modeName) {
    let msg = `---------------------------------------------------------------------------------------------\n` + 
-         `Get ready for the next fight! **${profile1.ownerName}** has challenged **${profile2.ownerName}** for a sparring!`;
+         `Get ready for the next fight! **${profile1.ownerName}** has challenged **${profile2.ownerName}** for a ${modeName}!`;
 
    C.dcSendMsgToChannel(fightClubChannel, msg);
    await C.sleep(0.5);

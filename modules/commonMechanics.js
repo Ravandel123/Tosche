@@ -105,7 +105,7 @@ module.exports.canTakeAction = canTakeAction;
 
 //------------------------------------------------------------------------------------------------------------------
 function modifyActionPoints(profile, amount) {
-   if (!C.checkIfProfile(profile) || !checkIfNaturalNumber(amount))
+   if (!C.checkIfProfile(profile) || !C.checkIfNaturalNumber(amount))
       return;
 
    profile.actionPoints.current += amount;
