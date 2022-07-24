@@ -123,7 +123,7 @@ function initialCheck(message, command) {
    if (message.client.data.fightClub.fightInProgress) {
       msgContent = `The fight is already on! Wait until it is over.`;
       result = false;
-   } else if (C.strCheckIfAnyMatch(args[1], ['sparring', 'duel'])) {
+   } else if (C.strCheckIfAnyMatch(command, ['sparring', 'duel'])) {
       msgContent = `There is no fight club action called ${command}.`;
       result = false;
    }
