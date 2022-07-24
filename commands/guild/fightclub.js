@@ -26,7 +26,9 @@ module.exports = {
             user2.profile = await CG.getMemberProfile(message, args[2]);
 
             const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club');
+console.log("fail1");
             if (additionalCheck(user1.profile, user2.profile, fightClubChannel)) {
+console.log("fail2");
                switch (args[1].toLowerCase()) {
                   case 'sparring':
                      await sparring(user1.profile, user2.profile, fightClubChannel);
@@ -90,14 +92,14 @@ function additionalCheck(user1, user2, fightClubChannel) {
 async function sparring(profile1, profile2, fightClubChannel) {
    profile1.resources.health = CM.getMaxHp(profile1);
    profile2.resources.health = CM.getMaxHp(profile2);
-
+console.log("fail3");
    await fight(profile1, profile2, fightClubChannel);
 }
 
 //------------------------------------------------------------------------------------------------------------------
 async function duel(profile1, profile2, fightClubChannel) {
    await fight(profile1, profile2, fightClubChannel);
-
+console.log("fail4");
    CM.modifyActionPoints(profile1, -1);
    CM.modifyActionPoints(profile2, -1);
 
