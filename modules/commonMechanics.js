@@ -129,7 +129,7 @@ function getMaxHp(profile) {
 module.exports.getMaxHp = getMaxHp;
 
 //------------------------------------------------------------------------------------------------------------------
-function regenerateHourlyHp(profile) {
+function regenerateHp1h(profile) {
    if (!C.checkIfProfile(profile))
       return;
 
@@ -140,7 +140,7 @@ function regenerateHourlyHp(profile) {
    profile.resources.health = currentHp + hourlyHpRegen < maxHp ? currentHp + hourlyHpRegen : maxHp;
 }
 
-module.exports.regenerateHourlyHp = regenerateHourlyHp;
+module.exports.regenerateHp1h = regenerateHp1h;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

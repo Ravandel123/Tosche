@@ -8,10 +8,10 @@ module.exports = {
    name: 'fightclub',
    aliases: ['fc'],
    description: 'Used to access Fight Club.',
-   usage: '[sparring] [user]',
+   usage: '[sparring/duel] [user]',
    example: 'sparring Ravandel',
    async execute(message, args) {
-      const requiredArgs = [`action (sparring)`, `user name`];
+      const requiredArgs = [`action (sparring, duel)`, `user name`];
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 

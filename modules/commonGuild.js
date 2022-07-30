@@ -265,7 +265,7 @@ module.exports.mainUpdate1h = mainUpdate1h;
 async function profilesUpdate1h(guild, id) {
    try {
       let profile = await getProfileById(guild, id);
-      CM.regenerateHourlyHp(profile);
+      CM.regenerateHp1h(profile);
       await profile.save();
    } catch {
       console.log(`Error while doing hourly update for user with ID: ${id}`);

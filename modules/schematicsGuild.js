@@ -78,7 +78,16 @@ const profile = MG.model('gProfile', gProfileSchema);
 //---------------------------------------------------------------------------------------------------------------
 const gFightClubSchema = new MG.Schema({
    ownerId: String,
-   fame: { type: String, default: 0 }
+   duel: {
+      rating: { type: Number, default: 0 },
+      wins: { type: Number, default: 0 },
+      loses:  { type: Number, default: 0 },
+   },
+   clash: {
+      rating: { type: Number, default: 0 },
+      wins: { type: Number, default: 0 },
+      loses:  { type: Number, default: 0 },
+   }
 });
 
 const fightClub = MG.model('gFighClub', gFightClubSchema);
