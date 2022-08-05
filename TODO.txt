@@ -27,3 +27,10 @@ function checkIfArgIsNumber(message, argument)
 
 
 getProfileById
+
+
+
+
+
+
+

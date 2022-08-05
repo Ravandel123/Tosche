@@ -1,21 +1,19 @@
 {
-  "name": "Tosche",
-  "description": "",
-  "version": "1.0.0",
-  "main": "bot.js",
-  "scripts": {
-  "start": "node bot.js"
-  },
-
-  "dependencies": {
-    "discord.js": "^14.0.1",
-    "mongoose": "^6.2.1",
-    "cron": "^1.8.2",
-    "request": "2.81.0",
-    "node-cron": "^1.2.1"
-  },
-
-  "engines": {
-    "node": "^16.9"
-  }
+   "name": "Tosche",
+   "description": "",
+   "version": "1.0.0",
+   "main": "bot.js",
+   "scripts": {
+      "start": "node bot.js"
+   },
+   "dependencies": {
+      "discord.js": "^14.0.1",
+      "mongoose": "^6.2.1",
+      "cron": "^1.8.2",
+      "request": "2.81.0",
+      "node-cron": "^1.2.1"
+   },
+   "engines": {
+      "node": "^16.9"
+   }
 }
