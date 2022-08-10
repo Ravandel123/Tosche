@@ -1,6 +1,6 @@
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
-const charactersIrl = ['VVooly', 'Dinly', 'Lanaar', 'Me', 'Ravandel', 'Catz', 'You', 'Nachtkind'];
+const charactersIrl = ['Dinly', 'Lanaar', 'Me', 'Ravandel', 'Catz', 'You', 'Nachtkind'];
 const charactersSpecial = ['Everybody', 'Nobody'];
 const charactersBwd = [
    'Asha', 'Ashtor', 'Beck', 'Bevan', 'Cain', 'Clovis', 'Crim', 'Dakkan', 'Eira', 'Hardin', 'Janik', 'Kenosh',

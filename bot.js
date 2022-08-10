@@ -293,7 +293,7 @@ client.on('messageCreate', message => {
   //-----People------------------------------------------------------------------------------------------------------------------------------------------------------
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
   
-  var serverPeopleList = ['VVooly', 'Nachtkind', 'Dinly', 'Me', 'Ravandel', 'Catz', 'You']
+  var serverPeopleList = ['Nachtkind', 'Laanar', 'Dinly', 'Me', 'Ravandel', 'Catz', 'You']
   
   var dictatorsPeopleList = [
   'Asha', 'Ashtor', 'Beck', 'Bevan', 'Cain', 'Clovis', 'Crim', 'Dakkan', 'Eira', 'Hardin', 'Janik', 'Kenosh',
