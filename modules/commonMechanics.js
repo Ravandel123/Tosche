@@ -1,5 +1,5 @@
 const C = require('./common.js');
-const AG = require('./arraysGuild.js');
+const AG = require('./dataGuild.js.js');
 
 "use strict";
 

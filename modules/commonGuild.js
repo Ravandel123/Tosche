@@ -1,7 +1,7 @@
 const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
 const CM = require('./commonMechanics.js');
-const AG = require('./arraysGuild.js');
+const AG = require('./dataGuild.js.js');
 const SG = require('./schematicsGuild.js');
 const DB = require('./db.js');
 

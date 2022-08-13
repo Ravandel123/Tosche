@@ -1,5 +1,5 @@
 const D = require('discord.js');
-const AS = require('./arraysSpeech.js');
+const AS = require('./dataSpeech.js');
 const SG = require('./schematicsGuild.js');
 
 "use strict";

@@ -1,6 +1,6 @@
 const D = require('discord.js');
 const C = require('../../modules/common.js');
-const BWD = require('../../modules/arraysBWD.js');
+const BWD = require('../../modules/dataBWD.js');
 
 module.exports = {
    name: 'comic',

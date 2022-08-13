@@ -1,6 +1,6 @@
 const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
-const AC = require('../../modules/arraysCommon.js');
+const AC = require('../../modules/dataCommon.js');
 
 module.exports = {
    name: 'bmiforheight',

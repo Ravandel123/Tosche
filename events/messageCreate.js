@@ -2,8 +2,8 @@ const SETTINGS = require('../modules/serverSettings.js');
 const C = require('../modules/common.js');
 const G = require('../modules/generators.js');
 const R = require('../modules/responses.js');
-const AC = require('../modules/arraysCommon.js');
-const AG = require('../modules/arraysGuild.js');
+const AC = require('../modules/dataCommon.js');
+const AG = require('../modules/dataGuild.js.js');
 const CC = require('../modules/commonCommands.js');
 const { Collection } = require('discord.js');
 const {

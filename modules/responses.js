@@ -1,6 +1,6 @@
 const C = require('./common.js');
-const AC = require('./arraysCommon.js');
-const AS = require('./arraysSpeech.js');
+const AC = require('./dataCommon.js');
+const AS = require('./dataSpeech.js');
 const G = require('./generators.js');
 
 "use strict";
