@@ -1,6 +1,6 @@
 const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
-const AG = require('./dataGuild.js.js');
+const AG = require('./dataGuild.js');
 const R = require('./responses.js');
 
 "use strict";
