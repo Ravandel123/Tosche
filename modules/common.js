@@ -137,6 +137,61 @@ module.exports.SelectOptionData = SelectOptionData;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
+//----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+function checkIfTaskCanBeAssigned(client, id) {
+   const member = client.data.members.find(e => e.id == id);
+   return !member || member.breakable;
+}
+
+   module.exports.checkIfTaskCanBeAssigned = checkIfTaskCanBeAssigned;
+
+//------------------------------------------------------------------------------------------------------------------
+function assignNewTask(client, id, collector, breakable = true) {
+   let member = client.data.members.find(e => e.id == id);
+
+   if (!member) {
+      member = {
+         id: id,
+         busy: true,
+         breakable: breakable,
+         collector: collector
+      }
+
+      client.data.members.push(member);
+      return true;
+   }
+
+   if (!member.breakable)
+      return false;
+
+   if (member.collector)
+      member.collector.stop();
+
+   member.breakable = breakable;
+   member.collector = collector;
+   return true;
+}
+
+module.exports.assignNewTask = assignNewTask;
+
+//------------------------------------------------------------------------------------------------------------------
+function finishTask(client, id) {
+   const member = client.data.members.find(e => e.id == id);
+
+   if (member) {
+      member.busy = false;
+      member.breakable = true;
+      member.collector = null;
+   }
+}
+
+module.exports.finishTask = finishTask;
+
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 //----------------------------------------------------------- ARRAYS ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 function arrCheckIfNotEmpty(array) {

@@ -40,13 +40,13 @@ const client = new Client({
 
 const gBotOwner = '392728479696814092';
 const GUriString = process.env.MONGODB_URI;
-const gData = {
+
+client.data = {
    fightClub : {
       fightInProgress: false
-    },
-}
-
-client.data = gData;
+   },
+   members: []
+};
 client.commands = new Collection();
 client.commandsRP = new Collection();
 client.commandsG = new Collection();
