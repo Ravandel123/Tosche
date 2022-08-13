@@ -56,7 +56,7 @@ module.exports = {
          });
 
          collector.on('end', async i => {
-            finishTask(message.client, message.author.id);
+            C.finishTask(message.client, message.author.id);
             embedMessage.edit({ content: `The profile browser has been closed.`, components: [] });
             embedMessage.suppressEmbeds(true);
          });
