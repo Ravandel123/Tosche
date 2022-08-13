@@ -1,6 +1,6 @@
 const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
-const AC = require('../../modules/dataCommon.js');
+const DC = require('../../modules/dataCommon.js');
 
 module.exports = {
    name: 'bmiforheight',
@@ -18,8 +18,8 @@ module.exports = {
 
       let msg = '';
 
-      for (let i = 0; i < AC.bodyShapes.length; i++) {
-         const currentBMI = AC.bodyShapes[i];
+      for (let i = 0; i < DC.bodyShapes.length; i++) {
+         const currentBMI = DC.bodyShapes[i];
          const minWeight = C.calcBMIWeight(args[1], currentBMI.minBMI);
          const maxWeight = C.calcBMIWeight(args[1], currentBMI.maxBMI);
 

@@ -1,7 +1,7 @@
 const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
 const CM = require('./commonMechanics.js');
-const AG = require('./dataGuild.js');
+const DG = require('./dataGuild.js');
 const SG = require('./schematicsGuild.js');
 const DB = require('./db.js');
 
@@ -22,14 +22,14 @@ module.exports.modifyActionPointsForAll = modifyActionPointsForAll;
 //----------------------------------------------------------- CURRENCIES ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 function getCurrencyObject(currencyAlias) {
-   return C.arrGetObjectByAnyOfItsValues(AG.currencies, currencyAlias);
+   return C.arrGetObjectByAnyOfItsValues(DG.currencies, currencyAlias);
 }
 
 module.exports.getCurrencyObject = getCurrencyObject;
 
 //------------------------------------------------------------------------------------------------------------------
 function transferCurrency(message, source, target, amount, currency) {
-   if (!C.checkIfProfile(source) || !C.checkIfProfile(target) || !C.checkIfNaturalNumber(amount) || !C.checkIfAnyByFunction(AG.currencies, e => C.strCompare(e.nameDB, currency.nameDB)))
+   if (!C.checkIfProfile(source) || !C.checkIfProfile(target) || !C.checkIfNaturalNumber(amount) || !C.checkIfAnyByFunction(DG.currencies, e => C.strCompare(e.nameDB, currency.nameDB)))
       return;
 
    if (source.currencies[currency.nameDB] < amount) {

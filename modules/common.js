@@ -1,5 +1,5 @@
 const D = require('discord.js');
-const AS = require('./dataSpeech.js');
+const DS = require('./dataSpeech.js');
 const SG = require('./schematicsGuild.js');
 
 "use strict";
@@ -663,7 +663,7 @@ function strCheckIfVowel(letter) {
    if (!checkIfString(letter))
       return;
 
-   return strCheckIfAnyMatch(letter, AS.vowels);
+   return strCheckIfAnyMatch(letter, DS.vowels);
 }
 
 //------------------------------------------------------------------------------------------------------------------
@@ -700,13 +700,13 @@ function strAddArticle(string, makeBold = false) {
    let result = '';
    const firstLetter = strGetFirstChar(string);
 
-   if (strCheckIfAnyMatch(string, AS.exceptionsWithA)) {
+   if (strCheckIfAnyMatch(string, DS.exceptionsWithA)) {
       result = 'a ';
-   } else if (strCheckIfAnyMatch(string, AS.exceptionsWithAn)) {
+   } else if (strCheckIfAnyMatch(string, DS.exceptionsWithAn)) {
       result = 'an ';
-   } else if (strCheckIfAnyMatch(string, AS.exceptionsWithNone)) {
+   } else if (strCheckIfAnyMatch(string, DS.exceptionsWithNone)) {
       result = '';
-   } else if (strCheckIfAnyMatch(string, AS.vowels)) {
+   } else if (strCheckIfAnyMatch(string, DS.vowels)) {
       result = 'an ';
    } else {
       result = 'a ';
@@ -733,7 +733,7 @@ function strGetPastTense(verb) {
    if (!checkIfString(verb))
       return;
 
-   const irregularVerb = arr2DGetItemColumnValue(AS.verbsIrregular, strToLowerCase(verb), 1, 0);
+   const irregularVerb = arr2DGetItemColumnValue(DS.verbsIrregular, strToLowerCase(verb), 1, 0);
    if (irregularVerb)
       return irregularVerb;
 
@@ -793,7 +793,7 @@ function strGetPronoun(string, version = 1) {
       return;
 
    const stringLowered = strToLowerCase(string);
-   let result = arr2DGetItemColumnValue(AS.pronouns, stringLowered, version, 0);
+   let result = arr2DGetItemColumnValue(DS.pronouns, stringLowered, version, 0);
 
    if (!result)
       result = strAddEndingApostrophe(string);

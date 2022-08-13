@@ -1,6 +1,6 @@
 const C = require('./common.js');
-const AC = require('./dataCommon.js');
-const AS = require('./dataSpeech.js');
+const DC = require('./dataCommon.js');
+const DS = require('./dataSpeech.js');
 const G = require('./generators.js');
 
 "use strict";
@@ -31,7 +31,7 @@ function universalResponses() {
       `I agree, in ${C.rnd(110)}%.`,
       `No, ${RND(['you', 'u'])}`,
       `Well, ${C.rnd(12)} out 10 people agree!`,
-      `${C.strCapitalizeFirstLetter(RND(AS.termsNoDoubt))}.`,
+      `${C.strCapitalizeFirstLetter(RND(DS.termsNoDoubt))}.`,
       `*Tosche pulls out his ${RND(['sword', 'axe', 'gun', 'rocket launcher', 'crossbow', 'minigun', 'shotgun'])}.*`, //weapons here
       `And now I need to cut off your ${RND(['tongue', 'ears', 'fingers', 'toes', 'tail'])}.`
    ];
@@ -101,7 +101,7 @@ module.exports.resIssueSingle = resIssueSingle;
 //----------------------------------------------------------- COMMANDS ----------------------------------------------------------
 //---------------------------------------------------------------------------------------------------------------
 function resDefault() {
-   const affilction = C.chance(50) ? `${RND(AS.advBase)} ${RND(AS.adjAfflictionsVirtues)}` : `${RND(AS.adjAfflictionsVirtues)}`;
+   const affilction = C.chance(50) ? `${RND(DS.advBase)} ${RND(DS.adjAfflictionsVirtues)}` : `${RND(DS.adjAfflictionsVirtues)}`;
 
    const opinions = [
       `I am skeptic about that.`,
@@ -136,7 +136,7 @@ function resDefault() {
       `${RND(gifs)}`,
       `You ${RND(speaking)} like someone ${affilction}.`,
       `That information just made me ${affilction}.`,
-      `*${C.strCapitalizeFirstLetter(RND(AS.adjAfflictions))} Tosche noises.*`,
+      `*${C.strCapitalizeFirstLetter(RND(DS.adjAfflictions))} Tosche noises.*`,
       `${RND(universalResponses())}`
    ];
 
@@ -188,13 +188,13 @@ function resCost() {
          `That is worthless`,
          `That is priceless`,
          //tmp   'You need to give ' + GenerateRandomWeapon() + ' for that',
-         `Only acceptable payment for that is ${C.arrGetRandom(AC.charactersIrlOnly)}`
+         `Only acceptable payment for that is ${C.arrGetRandom(DC.charactersIrlOnly)}`
       ];
 
       return G.addFunnyEndingToAll(arrayResultSpecial);
    } else {
       const amount = C.rnd(G.genRandomMultiplier(8));
-      const cost = `${amount} ${C.arrGetRandom(AC.currenciesAll)}`;
+      const cost = `${amount} ${C.arrGetRandom(DC.currenciesAll)}`;
 
       const arrayResult = [
          `${cost}`,
@@ -214,11 +214,11 @@ function resDndalign(who) {
    if (!who)
       return;
 
-   const alignment = `**${RND(AC.dndAlignments)}**`;
+   const alignment = `**${RND(DC.dndAlignments)}**`;
    const arrayResult = [
       `${who} is ${alignment}.`,
       `It seems like ${who} is ${alignment}.`,
-      `${C.strCapitalizeFirstLetter(RND(AS.termsNoDoubt))} ${alignment}.`
+      `${C.strCapitalizeFirstLetter(RND(DS.termsNoDoubt))} ${alignment}.`
    ];
 
    return G.addFunnyEnding(RND(arrayResult));
@@ -420,7 +420,7 @@ function resRate(subject) {
          ``,
          `Hmm... I'd rate ${who}`,
          `I'd give ${who}`,
-         `${RND(AS.termsNoDoubt)}`,
+         `${RND(DS.termsNoDoubt)}`,
          `I think it's gonna be`,
          `I'd say`
       ];
@@ -435,11 +435,11 @@ function resRate(subject) {
          `I think we need a negative scale for ${who}.`,
          `I don't want to rate ${who}.`,
          `No way I'm gonna rate that!`,
-         `${who} ${auxiliaryVerb} ${RND(C.chance(50) ? AS.termsExtremelyGood : AS.termsExtremelyBad)}!`,
+         `${who} ${auxiliaryVerb} ${RND(C.chance(50) ? DS.termsExtremelyGood : DS.termsExtremelyBad)}!`,
          `Why do you even want to rate ${reflexivePronoun}?`,
          `${who} suck${additionalS}.`,
-         `Better than ${RND(AC.charactersBadGuys)}.`,
-         `${RND(AC.charactersBadGuys)} was better.`,
+         `Better than ${RND(DC.charactersBadGuys)}.`,
+         `${RND(DC.charactersBadGuys)} was better.`,
          `Over 9000!`,
          `https://tenor.com/view/caroline-cameron-sportsnet-awful-absolutely-awful-horrible-gif-18101478`
       ];
@@ -457,7 +457,7 @@ function resResolve(who) {
    if (!who)
       return;
 
-   const result = C.chance(75) ? `${RND(AS.adjAfflictions)} <:Stress:554734700279627792>` : `${RND(AS.adjVirtues)} <:Virtue:554734699935694848>`;
+   const result = C.chance(75) ? `${RND(DS.adjAfflictions)} <:Stress:554734700279627792>` : `${RND(DS.adjVirtues)} <:Virtue:554734699935694848>`;
    return `${who} is **${C.strCapitalizeFirstLetter(result)}**`;
 }
 

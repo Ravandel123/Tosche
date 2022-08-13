@@ -1,6 +1,6 @@
 const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
-const AC = require('../../modules/dataCommon.js');
+const DC = require('../../modules/dataCommon.js');
 
 module.exports = {
    name: 'bmi',
@@ -17,7 +17,7 @@ module.exports = {
          return;
 
       const bmi = C.calcBMI(args[1], args[2]);
-      let possibleBodyShapes = C.arrGetAllByFunction(AC.bodyShapes, (e) => bmi >= e.minBMI && bmi <= e.maxBMI);
+      let possibleBodyShapes = C.arrGetAllByFunction(DC.bodyShapes, (e) => bmi >= e.minBMI && bmi <= e.maxBMI);
       possibleBodyShapes = possibleBodyShapes.map(e => e.name).join(' or ');
 
       C.dcRespondToMsg(message, `Your BMI: ${bmi} (${possibleBodyShapes})`);

@@ -1,5 +1,5 @@
 const C = require('./common.js');
-const AG = require('./dataGuild.js');
+const DG = require('./dataGuild.js');
 
 "use strict";
 
@@ -12,7 +12,7 @@ const HP_PER_WP = 5;
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------- ARRAYS -----------------------------------------------------------
-const arrayHitLocations = C.arrGetPopulatedFrom2D(AG.bodyLocations);
+const arrayHitLocations = C.arrGetPopulatedFrom2D(DG.bodyLocations);
 
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -205,7 +205,7 @@ function getSL(skill, roll) {
 //----------------------------------------------------------- WEAPON SKILLS ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 function getSkillWeapon(profile, weaponSkillName) {
-   if (!C.checkIfProfile(profile) || !C.strCheckIfAnyMatch(weaponSkillName, AG.weaponTypes))
+   if (!C.checkIfProfile(profile) || !C.strCheckIfAnyMatch(weaponSkillName, DG.weaponTypes))
       return;
 
    return profile.skills.weapon.melee.current + profile.skills.weapon[weaponSkillName].current;
