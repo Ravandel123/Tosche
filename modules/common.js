@@ -147,7 +147,7 @@ function checkIfTaskCanBeAssigned(client, id) {
    module.exports.checkIfTaskCanBeAssigned = checkIfTaskCanBeAssigned;
 
 //------------------------------------------------------------------------------------------------------------------
-function assignNewTask(client, id, collector, breakable = true) {
+function assignNewTask(client, id, breakable = true, collector) {
    let member = client.data.members.find(e => e.id == id);
 
    if (!member) {

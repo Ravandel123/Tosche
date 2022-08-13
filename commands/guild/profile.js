@@ -29,7 +29,7 @@ module.exports = {
 
 
          const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
-         C.assignNewTask(message.client, message.author.id, collector);
+         C.assignNewTask(message.client, message.author.id, true, collector);
 
          collector.on('collect', async i => {
             if (i.user.id != message.author.id) {

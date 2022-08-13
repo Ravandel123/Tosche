@@ -37,11 +37,11 @@ module.exports = {
                      if (
                         CM.canTakeAction(user1.profile, message) &&
                         CM.canTakeAction(user2.profile, message, user2.profile.ownerName) &&
-                        C.checkIfTaskCanBeAssigned(message.client, user1.profile.ownerId, undefined, false) &&
-                        C.checkIfTaskCanBeAssigned(message.client, user2.profile.ownerId, undefined, false)
+                        C.checkIfTaskCanBeAssigned(message.client, user1.profile.ownerId) &&
+                        C.checkIfTaskCanBeAssigned(message.client, user2.profile.ownerId)
                      ) {
-                        C.assignNewTask(message.client, user1.profile.ownerId);
-                        C.assignNewTask(message.client, user2.profile.ownerId);
+                        C.assignNewTask(message.client, user1.profile.ownerId, false);
+                        C.assignNewTask(message.client, user2.profile.ownerId, false);
                         await duel(user1.profile, user2.profile, fightClubChannel);
                         C.finishTask(message.client, user1.profile.ownerId);
                         C.finishTask(message.client, user2.profile.ownerId);
