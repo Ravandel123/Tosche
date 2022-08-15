@@ -1,8 +1,9 @@
 const D = require('discord.js');
 const C = require('../../modules/common.js');
+const CG = require('../../modules/commonGuild.js');
+const CM = require('../../modules/commonMechanics.js');
 const FIS = require('../../modules/advanced/fishing.js');
 const R = require('../../modules/responses.js');
-const CG = require('../../modules/commonGuild.js');
 
 module.exports = {
    name: 'fish',

@@ -17,6 +17,7 @@ module.exports = {
          let currentButton = MAIN_BUTTON1.id;
          let currentMenu = MENU1_ITEM_1.value;
          let index = 0;
+         let reloadNeeded = false;
 
          userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
 
@@ -37,22 +38,29 @@ module.exports = {
             if (i.isButton()) {
                if (i.customId == 'back' || i.customId == 'forward') {
                   index = i.customId == 'back' ? index - MAX_ITEMS_ON_PAGE : index + MAX_ITEMS_ON_PAGE;
+                  reloadNeeded = false;
                } else {
                   currentButton = i.customId;
                   currentMenu = getDefaultMenuForButton(currentButton);
                   index = 0;
+                  reloadNeeded = true;
                }
             } else if (i.isSelectMenu()) {
-               if (i.customId === 'menu')
+               if (i.customId === 'menu') {
                   currentMenu = i.values[0];
+                  reloadNeeded = true;
+               }
             }
 
-            await loadData(userData, currentMenu, message);
+            if (reloadNeeded)
+               await loadData(userData, currentMenu, message);
+
             await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index), components: generateComponents(currentButton, currentMenu, index) });
          });
 
          collector.on('end', async i => {
             C.cdFinishTask(message, message.author.id);
+
             embedMessage.edit({ content: `The profile browser has been closed.`, components: [] });
             embedMessage.suppressEmbeds(true);
          });

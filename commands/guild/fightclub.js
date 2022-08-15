@@ -1,8 +1,8 @@
 const C = require('../../modules/common.js');
 const CC = require('../../modules/commonCommands.js');
 const CG = require('../../modules/commonGuild.js');
-const DB = require('../../modules/db.js');
 const CM = require('../../modules/commonMechanics.js');
+const DB = require('../../modules/db.js');
 
 module.exports = {
    name: 'fightclub',
