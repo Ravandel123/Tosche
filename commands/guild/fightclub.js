@@ -33,7 +33,7 @@ module.exports = {
                      await sparring(user1.profile, user2.profile, fightClubChannel);
                      break;
 
-                  case 'duel': //trzeba sprawdzic raz jeszcze cdCheckIfTaskCanBeAssigned przy klikaniu buttona zeby sie nie sypnal jak ktos zwleka
+                  case 'duel': //trzeba sprawdzic raz jeszcze cdCheckIfTaskCanBeAssigned przy klikaniu buttona zeby sie nie sypnal jak ktos zwleka, jak przeciwnik kliknie buttona to robi assign new test
                      if (
                         CM.canTakeAction(user1.profile, message) &&
                         CM.canTakeAction(user2.profile, message, user2.profile.ownerName) &&

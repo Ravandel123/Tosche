@@ -88,7 +88,7 @@ async function startFishing(message, thread) {
    if (!fish)
       return;
 
-   let fishCaught = false;
+   let collectorFinished = false;
 
    const filter = i => i.user.id == message.author.id;
    const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 30000});
