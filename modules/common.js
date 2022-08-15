@@ -208,7 +208,8 @@ function cdFinishTask(message, id = message.author.id) {
       member.breakable = true;
       if (member.collector)
          member.collector.stop();
-      member.collector.stop();
+      if (member.collector)
+         member.collector.stop();
       member.collector = null;
    }
 }
