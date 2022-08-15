@@ -206,6 +206,9 @@ function cdFinishTask(message, id = message.author.id) {
    if (member) {
       member.busy = false;
       member.breakable = true;
+      if (member.collector)
+         member.collector.stop();
+      member.collector.stop();
       member.collector = null;
    }
 }
