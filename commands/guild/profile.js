@@ -9,6 +9,9 @@ module.exports = {
    usage: '[user]',
    example: '',
    async execute(message, args) {
+      if (!C.cdCheckIfTaskCanBeAssigned(message, message.author.id))
+         return;
+
       try {
          let userData = {};
          let currentButton = MAIN_BUTTON1.id;
@@ -17,19 +20,13 @@ module.exports = {
 
          userData.profile = C.checkIfExists(args[1]) ? await CG.getMemberProfile(message, args[1]) : await CG.getMessageAuthorProfile(message);
 
-         if (!C.checkIfTaskCanBeAssigned(message.client, message.author.id)) {
-            C.dcRespondToMsg(message, `You are too busy right now! Finish your previous task!`);
-            return;
-         }
-
          const embedMessage = await message.channel.send({
             embeds: generateMessageEmbed(currentButton, currentMenu, userData, index, message),
             components: generateComponents(currentButton, currentMenu, index)
          });
 
-
          const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
-         C.assignNewTask(message.client, message.author.id, true, collector);
+         C.cdAssignNewTask(message.client, message.author.id, true, collector);
 
          collector.on('collect', async i => {
             if (i.user.id != message.author.id) {
@@ -51,12 +48,11 @@ module.exports = {
             }
 
             await loadData(userData, currentMenu, message);
-
             await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index), components: generateComponents(currentButton, currentMenu, index) });
          });
 
          collector.on('end', async i => {
-            C.finishTask(message.client, message.author.id);
+            C.cdFinishTask(message, message.author.id);
             embedMessage.edit({ content: `The profile browser has been closed.`, components: [] });
             embedMessage.suppressEmbeds(true);
          });
@@ -88,9 +84,12 @@ async function loadData(userData, menu, message) {
    switch (menu) {
       case MENU2_ITEM_1.value:
       case MENU3_ITEM_1.value:
-         if (!userData.fishing) {
-            userData.fishing = await CG.getFishingDocById(message, userData.profile.ownerId);
-         }
+         userData.profile = await CG.getMessageAuthorProfile(message);
+         break;
+
+      case MENU2_ITEM_1.value:
+      case MENU3_ITEM_1.value:
+         userData.fishing = await CG.getFishingDocById(message, userData.profile.ownerId);
          break;
    }
 }

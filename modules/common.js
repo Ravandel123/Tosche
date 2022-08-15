@@ -139,16 +139,40 @@ module.exports.SelectOptionData = SelectOptionData;
 
 //----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-function checkIfTaskCanBeAssigned(client, id) {
-   const member = client.data.members.find(e => e.id == id);
-   return !member || member.breakable;
+function cdCheckIfBusy(message, id, who = 'you') {
+   const member = message.client.data.members.find(e => e.id == id);
+
+   if (member && member.busy)
+      return true;
+
+   const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? ` are` : ` is`);
+   C.dcRespondToMsg(message, `${firstPart} too busy right now!`);
+
+   return false;
+
 }
 
-   module.exports.checkIfTaskCanBeAssigned = checkIfTaskCanBeAssigned;
+module.exports.cdCheckIfBusy = cdCheckIfBusy;
 
 //------------------------------------------------------------------------------------------------------------------
-function assignNewTask(client, id, breakable = true, collector) {
-   let member = client.data.members.find(e => e.id == id);
+function cdCheckIfTaskCanBeAssigned(message, id, who = 'you') {
+   const member = message.client.data.members.find(e => e.id == id);
+
+   if (!member || member.breakable)
+      return true;
+
+   const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? ` are` : ` is`);
+   C.dcRespondToMsg(message, `${firstPart} too busy right now!`);
+
+   return false;
+
+}
+
+module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
+
+//------------------------------------------------------------------------------------------------------------------
+function cdAssignNewTask(message, id, breakable = true, collector) {
+   let member = msessage.client.data.members.find(e => e.id == id);
 
    if (!member) {
       member = {
@@ -158,7 +182,7 @@ function assignNewTask(client, id, breakable = true, collector) {
          collector: collector
       }
 
-      client.data.members.push(member);
+      msessage.client.data.members.push(member);
       return true;
    }
 
@@ -173,11 +197,11 @@ function assignNewTask(client, id, breakable = true, collector) {
    return true;
 }
 
-module.exports.assignNewTask = assignNewTask;
+module.exports.cdAssignNewTask = cdAssignNewTask;
 
 //------------------------------------------------------------------------------------------------------------------
-function finishTask(client, id) {
-   const member = client.data.members.find(e => e.id == id);
+function cdFinishTask(message, id) {
+   const member = message.client.data.members.find(e => e.id == id);
 
    if (member) {
       member.busy = false;
@@ -186,7 +210,7 @@ function finishTask(client, id) {
    }
 }
 
-module.exports.finishTask = finishTask;
+module.exports.cdFinishTask = cdFinishTask;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

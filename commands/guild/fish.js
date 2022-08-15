@@ -10,6 +10,15 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
+      //Initial Check
+      if (!C.cdCheckIfTaskCanBeAssigned(message, message.author.id))
+         return;
+
+      const profile = await CG.getMessageAuthorProfile(message);
+      if (!CM.canTakeAction(user1.profile, message))
+         return;
+
+      //Main
       const fishingThread = await getOrCreateFishingThread(message);
       if (fishingThread)
          await startFishing(message, fishingThread);
@@ -17,9 +26,11 @@ module.exports = {
 }
 
 async function getOrCreateFishingThread(message) {
+   //Check if you are already on the fishing channel/thread
    if (FIS.checkIfThreadIsFishingSpot(message.channel))
       return Promise.resolve(message.channel);
 
+   //Check if you can fish on this channel
    let replyMsg, fishingThread;
    const spots = FIS.getFishingSpotsForArea(message.channel.name);
 
@@ -37,6 +48,8 @@ async function getOrCreateFishingThread(message) {
 
    const filter = i => i.user.id == message.author.id;
    const locationCollector = replyMsg.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 10000 });
+   C.cdAssignNewTask(message, message.author.id, true, locationCollector);
+
    locationCollector.on('collect', async i => {
       fishingThread = await C.dcGetCreateOrUnarchiveThread(message.channel, i.customId, C.dcGetMemberByID(message.guild, message.author.id));
       await i.update({ content: `Now go to the <#${fishingThread.id}>!`, components: [] });
@@ -45,6 +58,8 @@ async function getOrCreateFishingThread(message) {
 
    return new Promise(resolve => {
       locationCollector.on('end', async i => {
+         C.cdFinishTask(message, message.author.id);
+
          if (i.size == 0)
             replyMsg.edit({ content: `It looks you are not interesting in fishing...`, components: [] });
 
@@ -76,6 +91,8 @@ async function startFishing(message, thread) {
 
    const filter = i => i.user.id == message.author.id;
    const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button});
+   C.cdAssignNewTask(message, message.author.id, true, fishingCollector);
+   
    fishingCollector.on('collect', async i => {
       if (i.customId === 'start') {
          msgContent = `You cast your fishing rod, and wait`;
@@ -100,6 +117,8 @@ async function startFishing(message, thread) {
    });
 
    fishingCollector.on('end', async i => {
+      C.cdFinishTask(message, message.author.id);
+
       if (i.size == 1) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
       } else {
