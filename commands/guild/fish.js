@@ -48,7 +48,7 @@ async function getOrCreateFishingThread(message) {
    }
 
    const filter = i => i.user.id == message.author.id;
-   const locationCollector = replyMsg.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 10000 });
+   const locationCollector = replyMsg.createMessageComponentCollector({filter, componentType: D.ComponentType.Button, time: 10000});
    C.cdAssignNewTask(message, message.author.id, true, locationCollector);
 
    locationCollector.on('collect', async i => {
@@ -91,8 +91,8 @@ async function startFishing(message, thread) {
    let fishCaught = false;
 
    const filter = i => i.user.id == message.author.id;
-   const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button});
-   C.cdAssignNewTask(message, message.author.id, true, fishingCollector);
+   const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 10000});
+   C.cdAssignNewTask(message, message.author.id, false, fishingCollector);
 
    fishingCollector.on('collect', async i => {
       if (i.customId === 'start') {
