@@ -162,7 +162,7 @@ function cdCheckIfTaskCanBeAssigned(message, id, who = 'you') {
       return true;
 
    const firstPart = strCapitalizeFirstLetter(who) + (strCheckIfAnyMatch(who, ['you', 'i']) ? ` are` : ` is`);
-   C.dcRespondToMsg(message, `${firstPart} too busy right now!`);
+   dcRespondToMsg(message, `${firstPart} too busy right now!`);
 
    return false;
 
