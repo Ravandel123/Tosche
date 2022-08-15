@@ -89,9 +89,10 @@ async function startFishing(message, thread) {
       return;
 
    let fishCaught = false;
+   let collectorFinished = false;
 
    const filter = i => i.user.id == message.author.id;
-   const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 10000});
+   const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 5000});
    C.cdAssignNewTask(message, message.author.id, false, fishingCollector);
 
    fishingCollector.on('collect', async i => {
@@ -100,27 +101,31 @@ async function startFishing(message, thread) {
          await i.update({ content: msgContent, components: [] });
 
          for (let t = 0; t < C.rndNo0(7); t++) {
-            if (fishCaught)
-               return;
-
             msgContent += `.`;
             await i.editReply({ content: msgContent , components: [] });
             await C.sleep(1);
+
+            if (collectorFinished)
+               return;
          }
+
          await mainMessage.edit({ content: `There's something on the line! Quickly, reel in!`, components: [C.dcCreateRow([C.dcCreateButton('reelIn', `*Reel in*`)])] });
-         await C.sleep(C.rndNo0(3));
+         // await C.sleep(C.rndNo0(3));
+         await C.sleep(C.rndNo0(10));
          fishingCollector.stop();
       } else if (i.customId === 'reelIn') {
          fishCaught = true;
+         collectorFinished = true;
          await i.update({ content: `Congratulations <@!${message.author.id}>! You caught ${C.strAddArticle(fish.name, true)}! It weighs **${C.getFullKgToImperial(fish.data.weight)}**!`, components: [] });
          fishingCollector.stop();
       }
    });
 
    fishingCollector.on('end', async i => {
+      collectorFinished = true;
       C.cdFinishTask(message, message.author.id);
 
-      if (i.size == 0) {
+      if (i.size == 0 && !fishCaught) {
          mainMessage.edit({ content: `It looks you are not interesting in fishing...`, components: [] });
       } else if (i.size == 1) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
