@@ -93,7 +93,7 @@ async function startFishing(message, thread) {
    const filter = i => i.user.id == message.author.id;
    const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button});
    C.cdAssignNewTask(message, message.author.id, true, fishingCollector);
-   
+
    fishingCollector.on('collect', async i => {
       if (i.customId === 'start') {
          msgContent = `You cast your fishing rod, and wait`;
@@ -120,7 +120,9 @@ async function startFishing(message, thread) {
    fishingCollector.on('end', async i => {
       C.cdFinishTask(message, message.author.id);
 
-      if (i.size == 1) {
+      if (i.size == 0) {
+         mainMessage.edit({ content: `It looks you are not interesting in fishing...`, components: [] });
+      } else if (i.size == 1) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
       } else {
          try {
