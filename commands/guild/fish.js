@@ -16,7 +16,7 @@ module.exports = {
          return;
 
       const profile = await CG.getMessageAuthorProfile(message);
-      if (!CM.canTakeAction(user1.profile, message))
+      if (!CM.canTakeAction(profile, message))
          return;
 
       //Main
