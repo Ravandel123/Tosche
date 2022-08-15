@@ -40,10 +40,8 @@ module.exports = {
                         C.cdCheckIfTaskCanBeAssigned(message) &&
                         C.cdCheckIfTaskCanBeAssigned(message, user2.profile.ownerId, user2.profile.ownerName)
                      ) {
-                        // C.cdAssignNewTask(message, false);
-                        // C.cdAssignNewTask(message, false);
-                        C.cdAssignNewTask(message);
-                        C.cdAssignNewTask(message);
+                        C.cdAssignNewTask(message, undefined, false);
+                        C.cdAssignNewTask(message, undefined, false);
                         await duel(user1.profile, user2.profile, fightClubChannel);
                         C.cdFinishTask(message);
                         C.cdFinishTask(message, user2.profile.ownerId);

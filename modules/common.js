@@ -171,7 +171,7 @@ function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you'
 module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
 
 //------------------------------------------------------------------------------------------------------------------
-function cdAssignNewTask(message, breakable = true, collector, id = message.author.id) {
+function cdAssignNewTask(message, collector, breakable = true, id = message.author.id) {
    let member = message.client.data.members.find(e => e.id == id);
 
    if (!member) {

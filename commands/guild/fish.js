@@ -49,7 +49,7 @@ async function getOrCreateFishingThread(message) {
 
    const filter = i => i.user.id == message.author.id;
    const locationCollector = replyMsg.createMessageComponentCollector({filter, componentType: D.ComponentType.Button, time: 10000});
-   C.cdAssignNewTask(message, true, locationCollector);
+   C.cdAssignNewTask(message, locationCollector);
 
    locationCollector.on('collect', async i => {
       fishingThread = await C.dcGetCreateOrUnarchiveThread(message.channel, i.customId, C.dcGetMemberByID(message.guild, message.author.id));
@@ -92,7 +92,7 @@ async function startFishing(message, thread) {
 
    const filter = i => i.user.id == message.author.id;
    const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 30000});
-   C.cdAssignNewTask(message, false, fishingCollector);
+   C.cdAssignNewTask(message, fishingCollector, false);
 
    fishingCollector.on('collect', async i => {
       if (i.customId === 'start') {
