@@ -12,7 +12,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
       //Initial Check
-      if (!C.cdCheckIfTaskCanBeAssigned(message, message.author.id))
+      if (!C.cdCheckIfTaskCanBeAssigned(message))
          return;
 
       const profile = await CG.getMessageAuthorProfile(message);
@@ -49,7 +49,7 @@ async function getOrCreateFishingThread(message) {
 
    const filter = i => i.user.id == message.author.id;
    const locationCollector = replyMsg.createMessageComponentCollector({filter, componentType: D.ComponentType.Button, time: 10000});
-   C.cdAssignNewTask(message, message.author.id, true, locationCollector);
+   C.cdAssignNewTask(message, true, locationCollector);
 
    locationCollector.on('collect', async i => {
       fishingThread = await C.dcGetCreateOrUnarchiveThread(message.channel, i.customId, C.dcGetMemberByID(message.guild, message.author.id));
@@ -59,7 +59,7 @@ async function getOrCreateFishingThread(message) {
 
    return new Promise(resolve => {
       locationCollector.on('end', async i => {
-         C.cdFinishTask(message, message.author.id);
+         C.cdFinishTask(message);
 
          if (i.size == 0)
             replyMsg.edit({ content: `It looks you are not interesting in fishing...`, components: [] });
@@ -92,7 +92,7 @@ async function startFishing(message, thread) {
 
    const filter = i => i.user.id == message.author.id;
    const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 30000});
-   C.cdAssignNewTask(message, message.author.id, false, fishingCollector);
+   C.cdAssignNewTask(message, false, fishingCollector);
 
    fishingCollector.on('collect', async i => {
       if (i.customId === 'start') {
@@ -120,7 +120,7 @@ async function startFishing(message, thread) {
 
    fishingCollector.on('end', async i => {
       collectorFinished = true;
-      C.cdFinishTask(message, message.author.id);
+      C.cdFinishTask(message);
 
       if (i.size == 0) {
          mainMessage.edit({ content: `It looks you are not interesting in fishing...`, components: [] });

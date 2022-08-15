@@ -9,7 +9,7 @@ module.exports = {
    usage: '[user]',
    example: '',
    async execute(message, args) {
-      if (!C.cdCheckIfTaskCanBeAssigned(message, message.author.id))
+      if (!C.cdCheckIfTaskCanBeAssigned(message))
          return;
 
       try {
@@ -27,7 +27,7 @@ module.exports = {
          });
 
          const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
-         C.cdAssignNewTask(message, message.author.id, true, collector);
+         C.cdAssignNewTask(message, true, collector);
 
          collector.on('collect', async i => {
             if (i.user.id != message.author.id) {
@@ -59,7 +59,7 @@ module.exports = {
          });
 
          collector.on('end', async i => {
-            C.cdFinishTask(message, message.author.id);
+            C.cdFinishTask(message);
 
             embedMessage.edit({ content: `The profile browser has been closed.`, components: [] });
             embedMessage.suppressEmbeds(true);

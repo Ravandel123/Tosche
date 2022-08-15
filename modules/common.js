@@ -139,7 +139,7 @@ module.exports.SelectOptionData = SelectOptionData;
 
 //----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-function cdCheckIfBusy(message, id, who = 'you') {
+function cdCheckIfBusy(message, id = message.author.id, who = 'you') {
    const member = message.client.data.members.find(e => e.id == id);
 
    if (member && member.busy)
@@ -155,14 +155,14 @@ function cdCheckIfBusy(message, id, who = 'you') {
 module.exports.cdCheckIfBusy = cdCheckIfBusy;
 
 //------------------------------------------------------------------------------------------------------------------
-function cdCheckIfTaskCanBeAssigned(message, id, who = 'you') {
+function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you') {
    const member = message.client.data.members.find(e => e.id == id);
 
    if (!member || member.breakable)
       return true;
 
    const firstPart = strCapitalizeFirstLetter(who) + (strCheckIfAnyMatch(who, ['you', 'i']) ? ` are` : ` is`);
-   dcRespondToMsg(message, `${firstPart} too busy right now!`);
+   dcRespondToMsg(message, `${firstPart} too busy right now! Can't cancel your current task!`);
 
    return false;
 
@@ -171,7 +171,7 @@ function cdCheckIfTaskCanBeAssigned(message, id, who = 'you') {
 module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
 
 //------------------------------------------------------------------------------------------------------------------
-function cdAssignNewTask(message, id, breakable = true, collector) {
+function cdAssignNewTask(message, breakable = true, collector, id = message.author.id) {
    let member = message.client.data.members.find(e => e.id == id);
 
    if (!member) {
@@ -200,7 +200,7 @@ function cdAssignNewTask(message, id, breakable = true, collector) {
 module.exports.cdAssignNewTask = cdAssignNewTask;
 
 //------------------------------------------------------------------------------------------------------------------
-function cdFinishTask(message, id) {
+function cdFinishTask(message, id = message.author.id) {
    const member = message.client.data.members.find(e => e.id == id);
 
    if (member) {

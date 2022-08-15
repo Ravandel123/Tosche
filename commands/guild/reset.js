@@ -6,23 +6,44 @@ const CG = require('../../modules/commonGuild.js');
 module.exports = {
    name: 'reset',
    description: 'Resets profile data.',
-   usage: '[picture]',
-   example: 'picture',
+   usage: '[picture/task]',
+   example: [
+      `picture`,
+      `task`
+   ],
    async execute(message, args) {
       const requiredArgs = [`what you want to reset`];
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      try {
-         let profile = await CG.getMessageAuthorProfile(message);
+      switch (C.strToLowerCase(args[1])) {
+         case 'picture':
+            await resetPicture(message);
+            break;
 
-         if (C.strCompare(args[1], 'picture')) {
-            profile.picture = '';
-            await profile.save();
-            C.dcRespondToMsg(message, `Your profile picture has been reseted.`);
-         }
-      } catch (e) {
-         C.dcRespondToMsg(message, e);
+         case 'task':
+            resetTask(message);
+            break;
+
+         default:
+            C.dcRespondToMsg(message, `You can't reset '${args[1]}'!`);
       }
    },
+}
+
+async function resetPicture(message) {
+   try {
+      let profile = await CG.getMessageAuthorProfile(message);
+
+      profile.picture = '';
+      await profile.save();
+      C.dcRespondToMsg(message, `Your profile picture has been reseted.`);
+   } catch (e) {
+      C.dcRespondToMsg(message, e);
+   }
+}
+
+function resetTask(message) {
+   if (C.cdCheckIfTaskCanBeAssigned(message))
+      C.cdFinishTask(message);
 }
