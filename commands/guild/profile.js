@@ -82,8 +82,8 @@ const MENU3_ITEM_1 = new C.SelectOptionData('recFishing', 'Fishing', '🐟');
 //-------------------------DATA-------------------------
 async function loadData(userData, menu, message) {
    switch (menu) {
-      case MENU2_ITEM_1.value:
-      case MENU3_ITEM_1.value:
+      case MENU1_ITEM_1.value:
+      case MENU1_ITEM_2.value:
          userData.profile = await CG.getMessageAuthorProfile(message);
          break;
 
