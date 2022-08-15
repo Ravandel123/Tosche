@@ -172,7 +172,7 @@ module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
 
 //------------------------------------------------------------------------------------------------------------------
 function cdAssignNewTask(message, id, breakable = true, collector) {
-   let member = msessage.client.data.members.find(e => e.id == id);
+   let member = message.client.data.members.find(e => e.id == id);
 
    if (!member) {
       member = {
@@ -182,7 +182,7 @@ function cdAssignNewTask(message, id, breakable = true, collector) {
          collector: collector
       }
 
-      msessage.client.data.members.push(member);
+      message.client.data.members.push(member);
       return true;
    }
 
