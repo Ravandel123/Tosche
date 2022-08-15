@@ -89,10 +89,9 @@ async function startFishing(message, thread) {
       return;
 
    let fishCaught = false;
-   let collectorFinished = false;
 
    const filter = i => i.user.id == message.author.id;
-   const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 5000});
+   const fishingCollector = mainMessage.createMessageComponentCollector({ filter, componentType: D.ComponentType.Button, time: 30000});
    C.cdAssignNewTask(message, message.author.id, false, fishingCollector);
 
    fishingCollector.on('collect', async i => {
@@ -110,11 +109,9 @@ async function startFishing(message, thread) {
          }
 
          await mainMessage.edit({ content: `There's something on the line! Quickly, reel in!`, components: [C.dcCreateRow([C.dcCreateButton('reelIn', `*Reel in*`)])] });
-         // await C.sleep(C.rndNo0(3));
-         await C.sleep(C.rndNo0(10));
+         await C.sleep(C.rndNo0(3));
          fishingCollector.stop();
       } else if (i.customId === 'reelIn') {
-         fishCaught = true;
          collectorFinished = true;
          await i.update({ content: `Congratulations <@!${message.author.id}>! You caught ${C.strAddArticle(fish.name, true)}! It weighs **${C.getFullKgToImperial(fish.data.weight)}**!`, components: [] });
          fishingCollector.stop();
@@ -125,7 +122,7 @@ async function startFishing(message, thread) {
       collectorFinished = true;
       C.cdFinishTask(message, message.author.id);
 
-      if (i.size == 0 && !fishCaught) {
+      if (i.size == 0) {
          mainMessage.edit({ content: `It looks you are not interesting in fishing...`, components: [] });
       } else if (i.size == 1) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
