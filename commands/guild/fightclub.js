@@ -40,11 +40,17 @@ module.exports = {
                         C.cdCheckIfTaskCanBeAssigned(message) &&
                         C.cdCheckIfTaskCanBeAssigned(message, user2.profile.ownerId, user2.profile.ownerName)
                      ) {
-                        C.cdAssignNewTask(message, undefined, false);
-                        C.cdAssignNewTask(message, undefined, false);
-                        await duel(user1.profile, user2.profile, fightClubChannel);
-                        C.cdFinishTask(message);
-                        C.cdFinishTask(message, user2.profile.ownerId);
+                        await challengeAccepted = collectChoice(user2.profile.ownerId, user1.profile.ownerId);
+                        if (challengeAccepted)
+                           C.dcRespondToMsg(message, 'dziala');
+                        else
+                           C.dcRespondToMsg(message, 'nie dziala');
+                        
+                        // C.cdAssignNewTask(message, undefined, false);
+                        // C.cdAssignNewTask(message, undefined, false);
+                        // await duel(user1.profile, user2.profile, fightClubChannel);
+                        // C.cdFinishTask(message);
+                        // C.cdFinishTask(message, user2.profile.ownerId);
                      }
                      break;
                }
@@ -95,6 +101,39 @@ function additionalCheck(user1, user2, fightClubChannel) {
       C.dcRespondToMsg(message, msgContent);
 
    return result;
+}
+
+async function collectChoice(targetId, challengerId) {
+   const msgContent = `<@!${targetId}>\n<@!${challengerId}> has challenged you for a duel!`;
+   const acceptButton = C.dcCreateButton('acceptId', 'ACCEPT');
+   const declineButton = C.dcCreateButton('declineId', 'DECLINE');
+
+   const buttons = [acceptButton, declineButton];
+   const row = C.dcCreateRow(buttons);
+   const mainMessage = await thread.send({ content: msgContent, components: [row] });
+
+   let finalChoice = false;
+   const filter = i => i.user.id == id;
+   const choiceCollector = mainMessage.createMessageComponentCollector({ filter, time: 30000});
+
+   choiceCollector.on('collect', async i => {
+      if (i.customId == 'acceptId') {
+         finalChoice = true;
+      }
+
+      // await i.update({ embeds: generateMessageEmbed(currentButton, currentMenu, userData, index), components: generateComponents(currentButton, currentMenu, index) });
+   });
+
+   return new Promise(resolve => {
+      choiceCollector.on('end', async i => {
+         C.cdFinishTask(message);
+
+         if (i.size == 0)
+            replyMsg.edit({ content: `It looks you are not interesting in the challenge...`, components: [] });
+
+         resolve(finalChoice);
+      });
+   });
 }
 
 //------------------------------------------------------------------------------------------------------------------
