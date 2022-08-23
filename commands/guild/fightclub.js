@@ -117,8 +117,10 @@ async function collectChoice(targetId, challengerId, channel) {
    const choiceCollector = mainMessage.createMessageComponentCollector({time: 15000});
 
    choiceCollector.on('collect', async i => {
-      if (i.user.id != targetId)
+      if (i.user.id != targetId) {
          i.reply({ content: `That decision is not meant for you!`, ephemeral: true });
+         return;
+      }
 
       if (i.customId == 'acceptId') {
          finalChoice = true;
