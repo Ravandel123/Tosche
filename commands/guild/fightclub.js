@@ -42,7 +42,8 @@ module.exports = {
                      ) {
                         const challengeAccepted = await collectChoice(user2.profile.ownerId, user1.profile.ownerId, C.dcGetChannelByName(message.guild, 'fight-club2'));
                         if (challengeAccepted)
-                           C.dcRespondToMsg(message, 'dziala');
+                           // C.dcRespondToMsg(message, 'dziala');
+                           message.channel.send({content: 'This is an embed', ephemeral: true});
                         else
                            C.dcRespondToMsg(message, 'nie dziala');
                         
@@ -114,18 +115,12 @@ async function collectChoice(targetId, challengerId, channel) {
 
    let finalChoice = false;
    const filter = i => {
-      // await i.reply({ content: `That decision is not meant for you!`, ephemeral: true });
-      i.update({ content: `Only the person who ran the command can do that!`, components: [], ephemeral: true });
+      await i.reply({ content: `That decision is not meant for you!`, ephemeral: true });
       return i.user.id == targetId;
    }
    const choiceCollector = mainMessage.createMessageComponentCollector({filter, time: 15000});
 
    choiceCollector.on('collect', async i => {
-      // if (i.user.id != targetId) {
-         // i.reply({ content: `That decision is not meant for you!`, ephemeral: true });
-         // return;
-      // }
-
       if (i.customId == 'acceptId') {
          finalChoice = true;
          await i.update({ content: `You have accepted the challenge!`, components: []});
