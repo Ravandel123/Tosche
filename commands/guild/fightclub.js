@@ -115,14 +115,12 @@ async function collectChoice(targetId, challengerId, channel) {
 
    let finalChoice = false;
    const filter = i => {
-      if (i.user.id == targetId) {
+      if (i.user.id == targetId)
          return true;
-      } else {
-         i.reply({ content: `That decision is not meant for you!`, ephemeral: true });
-         return false;
-      }
+
+      i.reply({ content: `That decision is not meant for you!`, ephemeral: true });
    }
-   const choiceCollector = mainMessage.createMessageComponentCollector({filter, time: 15000});
+   const choiceCollector = mainMessage.createMessageComponentCollector({filter, time: 10000});
 
    choiceCollector.on('collect', async i => {
       if (i.customId == 'acceptId') {
