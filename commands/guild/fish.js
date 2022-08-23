@@ -62,7 +62,7 @@ async function getOrCreateFishingThread(message) {
          C.cdFinishTask(message);
 
          if (i.size == 0)
-            replyMsg.edit({ content: `It looks you are not interesting in fishing...`, components: [] });
+            replyMsg.edit({ content: `It looks like you are not interested in fishing...`, components: [] });
 
          resolve(fishingThread);
       });

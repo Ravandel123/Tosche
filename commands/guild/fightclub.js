@@ -105,16 +105,16 @@ function additionalCheck(user1, user2, fightClubChannel) {
 
 async function collectChoice(targetId, challengerId, channel) {
    const msgContent = `<@!${targetId}>!\n<@!${challengerId}> has challenged you for a duel!`;
-   const acceptButton = C.dcCreateButton('acceptId', 'ACCEPT');
-   const declineButton = C.dcCreateButton('declineId', 'DECLINE');
+   const acceptButton = C.dcCreateButton('acceptId', 'Accept', 'success');
+   const declineButton = C.dcCreateButton('declineId', 'Decline', 'danger');
 
    const buttons = [acceptButton, declineButton];
    const row = C.dcCreateRow(buttons);
    const mainMessage = await channel.send({ content: msgContent, components: [row] });
 
    let finalChoice = false;
-   const filter = i => targetId == id;
-   const choiceCollector = mainMessage.createMessageComponentCollector({ filter, time: 10000});
+   const filter = i => i.user.id == targetId;
+   const choiceCollector = mainMessage.createMessageComponentCollector({ filter, time: 15000});
 
    choiceCollector.on('collect', async i => {
       if (i.customId == 'acceptId') {
@@ -126,8 +126,6 @@ async function collectChoice(targetId, challengerId, channel) {
 
    return new Promise(resolve => {
       choiceCollector.on('end', async i => {
-         C.cdFinishTask(message);
-
          if (i.size == 0)
             mainMessage.edit({ content: `It looks you are not interesting in the challenge...`, components: [] });
 
