@@ -40,7 +40,7 @@ module.exports = {
                         C.cdCheckIfTaskCanBeAssigned(message) &&
                         C.cdCheckIfTaskCanBeAssigned(message, user2.profile.ownerId, user2.profile.ownerName)
                      ) {
-                        await challengeAccepted = collectChoice(user2.profile.ownerId, user1.profile.ownerId);
+                        const challengeAccepted = await collectChoice(user2.profile.ownerId, user1.profile.ownerId);
                         if (challengeAccepted)
                            C.dcRespondToMsg(message, 'dziala');
                         else
