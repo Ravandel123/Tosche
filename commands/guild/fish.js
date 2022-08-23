@@ -76,7 +76,7 @@ async function startFishing(message, thread) {
 
    const embed = [new D.EmbedBuilder()
       .setImage(fishingSpot.img)
-      ];
+   ];
    await thread.send({ embeds: embed});
 
    let msgContent = `Are you read to start fishing <@!${message.author.id}>?`;
