@@ -105,8 +105,8 @@ function additionalCheck(user1, user2, fightClubChannel) {
 
 async function collectChoice(targetId, challengerId, channel) {
    const msgContent = `<@!${targetId}>!\n<@!${challengerId}> has challenged you for a duel!`;
-   const acceptButton = C.dcCreateButton('acceptId', 'Accept', 'success');
-   const declineButton = C.dcCreateButton('declineId', 'Decline', 'danger');
+   const acceptButton = C.dcCreateButton('acceptId', 'Accept', '', 'success');
+   const declineButton = C.dcCreateButton('declineId', 'Decline', '', 'danger');
 
    const buttons = [acceptButton, declineButton];
    const row = C.dcCreateRow(buttons);
