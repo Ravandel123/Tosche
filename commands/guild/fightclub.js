@@ -117,7 +117,7 @@ async function collectChoice(targetId, challengerId, channel) {
    const filter = i => {
       if (i.user.id == targetId) {
          return true;
-      else {
+      } else {
          i.reply({ content: `That decision is not meant for you!`, ephemeral: true });
          return false;
       }
