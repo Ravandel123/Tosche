@@ -40,7 +40,7 @@ module.exports = {
                         C.cdCheckIfTaskCanBeAssigned(message) &&
                         C.cdCheckIfTaskCanBeAssigned(message, user2.profile.ownerId, user2.profile.ownerName)
                      ) {
-                        const challengeAccepted = await collectChoice(user2.profile.ownerId, user1.profile.ownerId);
+                        const challengeAccepted = await collectChoice(user2.profile.ownerId, user1.profile.ownerId, C.dcGetChannelByName(message.guild, 'fight-club2'));
                         if (challengeAccepted)
                            C.dcRespondToMsg(message, 'dziala');
                         else
@@ -103,16 +103,14 @@ function additionalCheck(user1, user2, fightClubChannel) {
    return result;
 }
 
-async function collectChoice(targetId, challengerId) {
+async function collectChoice(targetId, challengerId, channel) {
    const msgContent = `<@!${targetId}>\n<@!${challengerId}> has challenged you for a duel!`;
    const acceptButton = C.dcCreateButton('acceptId', 'ACCEPT');
    const declineButton = C.dcCreateButton('declineId', 'DECLINE');
 
-   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club2');
-
    const buttons = [acceptButton, declineButton];
    const row = C.dcCreateRow(buttons);
-   const mainMessage = await fightClubChannel.send({ content: msgContent, components: [row] });
+   const mainMessage = await channel.send({ content: msgContent, components: [row] });
 
    let finalChoice = false;
    const filter = i => i.user.id == id;
