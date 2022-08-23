@@ -108,9 +108,11 @@ async function collectChoice(targetId, challengerId) {
    const acceptButton = C.dcCreateButton('acceptId', 'ACCEPT');
    const declineButton = C.dcCreateButton('declineId', 'DECLINE');
 
+   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club2');
+
    const buttons = [acceptButton, declineButton];
    const row = C.dcCreateRow(buttons);
-   const mainMessage = await thread.send({ content: msgContent, components: [row] });
+   const mainMessage = await fightClubChannel.send({ content: msgContent, components: [row] });
 
    let finalChoice = false;
    const filter = i => i.user.id == id;
@@ -129,7 +131,7 @@ async function collectChoice(targetId, challengerId) {
          C.cdFinishTask(message);
 
          if (i.size == 0)
-            replyMsg.edit({ content: `It looks you are not interesting in the challenge...`, components: [] });
+            mainMessage.edit({ content: `It looks you are not interesting in the challenge...`, components: [] });
 
          resolve(finalChoice);
       });
