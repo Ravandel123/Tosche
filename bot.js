@@ -10,13 +10,6 @@ const CG = require('./modules/commonGuild.js');
 console.log(MONGODB_URI);
 console.log(MONGODB_PASSWORD);
 
-let x = {
-   a: xd;
-}
-
-x.map(e => e > 2);
-
-
 const client = new Client({
    intents: [
       GatewayIntentBits.Guilds,
