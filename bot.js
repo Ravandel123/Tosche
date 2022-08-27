@@ -42,7 +42,7 @@ const client = new Client({
 });
 
 const gBotOwner = '392728479696814092';
-const GUriString = process.env.MONGODB_URI;
+const GUriString = MONGODB_URI;
 
 client.data = {
    fightClub : {
