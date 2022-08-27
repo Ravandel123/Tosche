@@ -1,4 +1,5 @@
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
+const { BOT_TOKEN, MONGODB_URI, MONGODB_PASSWORD } require('EnvVariables.js');
 const FS = require('fs');
 const Mongoose = require('mongoose');
 const Config = require('./config.json');
@@ -2742,4 +2743,5 @@ client.on('messageCreate', message => {
   }
 })
 
-client.login(process.env.BOT_TOKEN);
+// client.login(process.env.BOT_TOKEN);
+client.login(BOT_TOKEN);

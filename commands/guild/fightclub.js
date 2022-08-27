@@ -42,8 +42,7 @@ module.exports = {
                      ) {
                         const challengeAccepted = await collectChoice(user2.profile.ownerId, user1.profile.ownerId, C.dcGetChannelByName(message.guild, 'fight-club2'));
                         if (challengeAccepted)
-                           // C.dcRespondToMsg(message, 'dziala');
-                           message.channel.send({content: 'This is an embed', ephemeral: true});
+                           C.dcRespondToMsg(message, 'dziala');
                         else
                            C.dcRespondToMsg(message, 'nie dziala');
                         
