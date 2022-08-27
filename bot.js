@@ -1,5 +1,5 @@
 const { Client, GatewayIntentBits, Partials, Collection } = require('discord.js');
-const { BOT_TOKEN, MONGODB_URI, MONGODB_PASSWORD } = require('EnvVariables.js');
+const { BOT_TOKEN, MONGODB_URI, MONGODB_PASSWORD } = require('./EnvVariables.js');
 const FS = require('fs');
 const Mongoose = require('mongoose');
 const Config = require('./config.json');
