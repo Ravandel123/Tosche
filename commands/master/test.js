@@ -15,7 +15,10 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
-      CG.profilesUpdate1h(message.guild, message.author.id);
+      const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
+      memberData.transactionOpen = true;
+      await C.sleep(args[1]);
+      memberData.transactionOpen = false;
 
    // let fishingProfile;
 
