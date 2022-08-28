@@ -44,6 +44,8 @@ async function resetPicture(message) {
 }
 
 function resetTask(message) {
-   if (C.cdCheckIfTaskCanBeAssigned(message))
-      C.cdFinishTask(message);
+   if (CG.cdCheckIfTaskCanBeAssigned(message))
+      CG.cdFinishTask(message);
+   else
+      C.dcRespondToMsg(message, `Unable to reset your task!`);
 }

@@ -1,5 +1,6 @@
 const D = require('discord.js');
 const C = require('../../modules/common.js');
+const CL = require('../../modules/classes.js');
 const CG = require('../../modules/commonGuild.js');
 const CC = require('../../modules/commonCommands.js');
 const DG = require('../../modules/dataGuild.js');
@@ -14,9 +15,7 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
-      C.dcRespondToMsg(message, R.resDefault());
-
-   // await CG.modifyActionPointsForAll(args[1]);
+      CG.profilesUpdate1h(message.guild, message.author.id);
 
    // let fishingProfile;
 

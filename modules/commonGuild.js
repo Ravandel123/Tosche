@@ -1,5 +1,6 @@
 const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
+const CL = require('./classes.js');
 const CM = require('./commonMechanics.js');
 const DG = require('./dataGuild.js');
 const SG = require('./schematicsGuild.js');
@@ -7,13 +8,98 @@ const DB = require('./db.js');
 
 "use strict";
 
-//----------------------------------------------------------- ACTION POINTS ----------------------------------------------------------
+
+//----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-async function modifyActionPointsForAll(amount) {
-   await DB.updateMany(SG.profile, {}, {$inc: {"actionPoints.current" : amount, "actionPoints.totalEarned" : amount}});
+function cdGetOrCreateMemberData(message, id = message.author.id) {
+   let memberData = message.client.data.members.find(e => e.id == id);
+
+   if (!memberData) {
+      memberData = new CL.MemberData(id);
+      client.data.members.push(memberData);
+   }
+
+   return memberData;
 }
 
-module.exports.modifyActionPointsForAll = modifyActionPointsForAll;
+module.exports.cdGetOrCreateMemberData = cdGetOrCreateMemberData;
+
+//------------------------------------------------------------------------------------------------------------------
+function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you') {
+   const memberData = message.client.data.members.find(e => e.id == id);
+
+   if (!memberData || memberData.breakable)
+      return true;
+
+   const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? ` are` : ` is`);
+   C.dcRespondToMsg(message, `${firstPart} too busy right now! Can't cancel your current task!`);
+
+   return false;
+
+}
+
+module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
+
+//------------------------------------------------------------------------------------------------------------------
+function cdAssignNewTask(message, collector, breakable = true, transcationOpen = true, id = message.author.id) {
+   let memberData = message.client.data.members.find(e => e.id == id);
+
+   if (!memberData) {
+      memberData = new CL.MemberData(id, breakable, transcationOpen, collector);
+
+      message.client.data.members.push(memberData);
+      return true;
+   }
+
+   if (!memberData.breakable)
+      return false;
+
+   if (memberData.collector)
+      memberData.collector.stop();
+
+   memberData.breakable = breakable;
+   memberData.collector = collector;
+   return true;
+}
+
+module.exports.cdAssignNewTask = cdAssignNewTask;
+
+//------------------------------------------------------------------------------------------------------------------
+function cdFinishTask(message, id = message.author.id) {
+   const memberData = message.client.data.members.find(e => e.id == id);
+
+   if (memberData) {
+      memberData.transcationOpen = false;
+      memberData.breakable = true;
+
+      if (memberData.collector) {
+         memberData.collector.stop();
+         memberData.collector = null;
+      }
+   }
+}
+
+module.exports.cdFinishTask = cdFinishTask;
+
+//------------------------------------------------------------------------------------------------------------------
+function cdCanAct(message, userProfile) {
+   if (CM.canTakeAction(userProfile, message, ownerName) && cdCheckIfTaskCanBeAssigned(message, userProfile.ownerId, userProfile.ownerName))
+      return true;
+}
+
+module.exports.cdCanAct = cdCanAct;
+
+//------------------------------------------------------------------------------------------------------------------
+async function cdWaitForAvailableTransaction(memberData) {
+   while (memberData && memberData.transactionOpen) {
+      console.log(`The transaction for member ${memberData.id} is still in progress!`);
+      await C.sleep(5);
+   }
+
+   return Promise.resolve();
+}
+
+module.exports.cdWaitForAvailableTransaction = cdWaitForAvailableTransaction;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -241,18 +327,9 @@ function moveFishingRecordDown(records, placeNumber) {
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-//----------------------------------------------------------- GENERAL----------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------
-
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 //----------------------------------------------------------- PERIODIC----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 async function mainUpdate1h(client) {
-   modifyActionPointsForAll(1);
-
    const deltrada = client.guilds.cache.get(SETTINGS.deltradaId);
    const members = C.dcGetAllMembers(deltrada);
    for (const member of members)
@@ -263,14 +340,24 @@ module.exports.mainUpdate1h = mainUpdate1h;
 
 //------------------------------------------------------------------------------------------------------------------
 async function profilesUpdate1h(guild, id) {
+   const memberData = guild.client.data.members.find(e => e.id == id);
+
+   await cdWaitForAvailableTransaction(memberData);
+
+   memberData.transactionOpen = true;
+   C.sleep(15);
    try {
       let profile = await getProfileById(guild, id);
       CM.regenerateHp1h(profile);
+      CM.modifyActionPoints(profile, 1);
       await profile.save();
    } catch {
       console.log(`Error while doing hourly update for user with ID: ${id}`);
    }
+   memberData.transactionOpen = false;
 }
+
+module.exports.profilesUpdate1h = profilesUpdate1h;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

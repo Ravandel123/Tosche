@@ -34,23 +34,18 @@ module.exports = {
                      break;
 
                   case 'duel': //trzeba sprawdzic raz jeszcze cdCheckIfTaskCanBeAssigned przy klikaniu buttona zeby sie nie sypnal jak ktos zwleka, jak przeciwnik kliknie buttona to robi assign new test
-                     if (
-                        CM.canTakeAction(user1.profile, message) &&
-                        CM.canTakeAction(user2.profile, message, user2.profile.ownerName) &&
-                        C.cdCheckIfTaskCanBeAssigned(message) &&
-                        C.cdCheckIfTaskCanBeAssigned(message, user2.profile.ownerId, user2.profile.ownerName)
-                     ) {
+                     if (CG.cdCanAct(user1.profile, message) && CG.cdCanAct(user2.profile, message))) {
                         const challengeAccepted = await collectChoice(user2.profile.ownerId, user1.profile.ownerId, C.dcGetChannelByName(message.guild, 'fight-club2'));
                         if (challengeAccepted)
                            C.dcRespondToMsg(message, 'dziala');
                         else
                            C.dcRespondToMsg(message, 'nie dziala');
                         
-                        // C.cdAssignNewTask(message, undefined, false);
-                        // C.cdAssignNewTask(message, undefined, false);
+                        // CG.cdAssignNewTask(message, undefined, false);
+                        // CG.cdAssignNewTask(message, undefined, false);
                         // await duel(user1.profile, user2.profile, fightClubChannel);
-                        // C.cdFinishTask(message);
-                        // C.cdFinishTask(message, user2.profile.ownerId);
+                        // CG.cdFinishTask(message);
+                        // CG.cdFinishTask(message, user2.profile.ownerId);
                      }
                      break;
                }

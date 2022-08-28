@@ -1,5 +1,6 @@
 const D = require('discord.js');
 const C = require('../../modules/common.js');
+const CL = require('../../modules/classes.js');
 const CG = require('../../modules/commonGuild.js');
 const FIS = require('../../modules/advanced/fishing.js');
 
@@ -9,7 +10,7 @@ module.exports = {
    usage: '[user]',
    example: '',
    async execute(message, args) {
-      // if (!C.cdCheckIfTaskCanBeAssigned(message))
+      // if (!CG.cdCheckIfTaskCanBeAssigned(message))
          // return;
 
       try {
@@ -27,7 +28,7 @@ module.exports = {
          });
 
          const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
-         // C.cdAssignNewTask(message, collector);
+         // CG.cdAssignNewTask(message, collector);
 
          collector.on('collect', async i => {
             if (i.user.id != message.author.id) {
@@ -59,7 +60,7 @@ module.exports = {
          });
 
          collector.on('end', async i => {
-            // C.cdFinishTask(message);
+            // CG.cdFinishTask(message);
 
             embedMessage.edit({ content: `The profile browser has been closed.`, components: [] });
             embedMessage.suppressEmbeds(true);
@@ -76,16 +77,16 @@ module.exports = {
 let currentDataLength = 0;
 const MAX_ITEMS_ON_PAGE = 5;
 
-const MAIN_BUTTON1 = new C.ButtonData('character', 'Character', '', 'success');
-const MAIN_BUTTON2 = new C.ButtonData('inventory', 'Inventory', '', 'success');
-const MAIN_BUTTON3 = new C.ButtonData('records', 'Records', '', 'success');
+const MAIN_BUTTON1 = new CL.ButtonData('character', 'Character', '', 'success');
+const MAIN_BUTTON2 = new CL.ButtonData('inventory', 'Inventory', '', 'success');
+const MAIN_BUTTON3 = new CL.ButtonData('records', 'Records', '', 'success');
 
-const MENU1_ITEM_1 = new C.SelectOptionData('info', 'Info', '📋');
-const MENU1_ITEM_2 = new C.SelectOptionData('currencies', 'Currencies', '💰');
+const MENU1_ITEM_1 = new CL.SelectOptionData('info', 'Info', '📋');
+const MENU1_ITEM_2 = new CL.SelectOptionData('currencies', 'Currencies', '💰');
 
-const MENU2_ITEM_1 = new C.SelectOptionData('invFishes', 'Fishes', '🐟');
+const MENU2_ITEM_1 = new CL.SelectOptionData('invFishes', 'Fishes', '🐟');
 
-const MENU3_ITEM_1 = new C.SelectOptionData('recFishing', 'Fishing', '🐟');
+const MENU3_ITEM_1 = new CL.SelectOptionData('recFishing', 'Fishing', '🐟');
 
 //-------------------------DATA-------------------------
 async function loadData(userData, menu, message) {

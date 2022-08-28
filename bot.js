@@ -7,8 +7,6 @@ const CRON = require('node-cron');
 const DB = require('./modules/db.js');
 const CG = require('./modules/commonGuild.js');
 
-console.log(MONGODB_URI);
-console.log(MONGODB_PASSWORD);
 
 const client = new Client({
    intents: [
@@ -2745,5 +2743,4 @@ client.on('messageCreate', message => {
   }
 })
 
-// client.login(process.env.BOT_TOKEN);
 client.login(BOT_TOKEN);
