@@ -169,8 +169,8 @@ console.log(`wbilo 1`);
    let fishingDoc = await DB.findOne(SG.fishing, { ownerId: id });
    if (!fishingDoc) {
 console.log(`wbilo 2`);
-      const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
-      await CG.cdWaitForAvailableTransaction(memberData);
+      const memberData = cdGetOrCreateMemberData(message.client, message.author.id);
+      await cdWaitForAvailableTransaction(memberData);
       memberData.transactionOpen = true;
       try {
          fishingDoc = createNewFishingDocFromID(message, id);
