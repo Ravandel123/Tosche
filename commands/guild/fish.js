@@ -12,7 +12,7 @@ module.exports = {
    example: '',
    async execute(message, args) {
       const profile = await CG.getMessageAuthorProfile(message);
-      if (CG.cdCanAct(message, profile))
+      if (!CG.cdCanAct(message, profile))
          return;
 
       const fishingThread = await getOrCreateFishingThread(message);
