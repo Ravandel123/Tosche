@@ -165,21 +165,15 @@ module.exports.getMessageAuthorFishingDoc = getMessageAuthorFishingDoc;
 async function getFishingDocById(message, id) {
    if (!C.dcCheckIfMessage(message) || !id)
       return Promise.reject(`Wrong input argument!`);
-console.log(`wbilo 1`);
+
    let fishingDoc = await DB.findOne(SG.fishing, { ownerId: id });
    if (!fishingDoc) {
-console.log(`wbilo 2`);
-      const memberData = cdGetOrCreateMemberData(message.client, message.author.id);
-      await cdWaitForAvailableTransaction(memberData);
-      memberData.transactionOpen = true;
       try {
          fishingDoc = createNewFishingDocFromID(message, id);
-console.log(`wbilo 3`);
          await fishingDoc.save();
       } catch(error) {
          return Promise.reject(error);
       }
-      memberData.transactionOpen = true;
    }
 
    if (!fishingDoc)
