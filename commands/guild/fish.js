@@ -11,15 +11,10 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
-      //Initial Check
-      if (!CG.cdCheckIfTaskCanBeAssigned(message))
-         return;
-
       const profile = await CG.getMessageAuthorProfile(message);
-      if (!CM.canTakeAction(profile, message))
+      if (CG.cdCanAct(message, profile))
          return;
 
-      //Main
       const fishingThread = await getOrCreateFishingThread(message);
       if (fishingThread)
          await startFishing(message, fishingThread);
@@ -128,6 +123,7 @@ async function startFishing(message, thread) {
       } else if (i.size == 1) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
       } else {
+console.log('wbilo do dobrego');
          const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
          await CG.cdWaitForAvailableTransaction(memberData);
          memberData.transactionOpen = true;

@@ -166,15 +166,22 @@ async function getFishingDocById(message, id) {
    if (!C.dcCheckIfMessage(message) || !id)
       return Promise.reject(`Wrong input argument!`);
 
-   const fishingDoc = await DB.findOne(SG.fishing, { ownerId: id }) ?? createNewFishingDocFromID(message, id);
+   let fishingDoc = await DB.findOne(SG.fishing, { ownerId: id });
+   if (!fishingDoc) {
+      const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
+      await CG.cdWaitForAvailableTransaction(memberData);
+      memberData.transactionOpen = true;
+      try {
+         fishingDoc = createNewFishingDocFromID(message, id);
+         await fishingDoc.save();
+      } catch(error) {
+         return Promise.reject(error);
+      }
+      memberData.transactionOpen = true;
+   }
+
    if (!fishingDoc)
       return Promise.reject(`Unable to find or create fishing profile! The user ${member} doesn't exist or is not in Deltrada!`);
-
-   try {
-      await fishingDoc.save();
-   } catch(error) {
-      return Promise.reject(error);
-   }
 
    return Promise.resolve(fishingDoc);
 }
@@ -341,13 +348,9 @@ module.exports.mainUpdate1h = mainUpdate1h;
 //------------------------------------------------------------------------------------------------------------------
 async function profilesUpdate1h(guild, id) {
    const memberData = cdGetOrCreateMemberData(guild.client, id);
-console.log(`memberData`);
-console.log(memberData);
-
    await cdWaitForAvailableTransaction(memberData);
-console.log(`odczekal`);
+
    memberData.transactionOpen = true;
-   await C.sleep(15);
    try {
       let profile = await getProfileById(guild, id);
       CM.regenerateHp1h(profile);
