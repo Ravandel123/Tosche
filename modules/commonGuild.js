@@ -94,7 +94,7 @@ async function cdWaitForAvailableTransaction(memberData, message, messageContent
    let responseMsg;
    let msgContent = messageContent;
 
-   if (message && msgContent)
+   if (message && msgContent && memberData && memberData.transactionOpen)
       responseMsg = await C.dcSendMsgToChannelAndGetItsRef(message, msgContent);
 
    while (memberData && memberData.transactionOpen) {
