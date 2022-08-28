@@ -41,7 +41,7 @@ function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you'
 module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
 
 //------------------------------------------------------------------------------------------------------------------
-function cdAssignNewTask(message, collector, breakable = true, transcationOpen = true, id = message.author.id) {
+function cdAssignNewTask(message, collector, breakable = true, transcationOpen = false, id = message.author.id) {
    let memberData = message.client.data.members.find(e => e.id == id);
 
    if (!memberData) {
