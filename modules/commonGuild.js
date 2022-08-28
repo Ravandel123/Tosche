@@ -90,8 +90,22 @@ function cdCanAct(message, userProfile) {
 module.exports.cdCanAct = cdCanAct;
 
 //------------------------------------------------------------------------------------------------------------------
-async function cdWaitForAvailableTransaction(memberData) {
+async function cdWaitForAvailableTransaction(memberData, message, messageContent) {
+   let responseMsg;
+   let msgContent = messageContent;
+
+   if (message && msgContent)
+      responseMsg = await C.dcSendMsgToChannelAndGetItsRef(message, msgContent);
+
    while (memberData && memberData.transactionOpen) {
+      if (responseMsg) {
+         msgContent += '.';
+         responseMsg.edit(msgContent);
+
+         if (msgContent.slice(-3) == '...')
+            msgContent = messageContent;
+      }
+
       console.log(`The transaction for member ${memberData.id} is still in progress!`);
       await C.sleep(5);
    }
