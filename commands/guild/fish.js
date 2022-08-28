@@ -124,7 +124,7 @@ async function startFishing(message, thread) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
       } else {
          const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
-         await CG.cdWaitForAvailableTransaction(memberData, message, `Waiting for checking the records and adding your fish to the inventory`);
+         await CG.cdWaitForAvailableTransaction(memberData, message, `Checking the records and adding your fish to the inventory`);
          memberData.transactionOpen = true;
          try {
             const result = await CG.addFishToMessageOwnerFishingDoc(message, fish.data);

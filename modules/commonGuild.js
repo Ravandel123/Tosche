@@ -69,7 +69,6 @@ function cdFinishTask(message, id = message.author.id) {
    const memberData = message.client.data.members.find(e => e.id == id);
 
    if (memberData) {
-      memberData.transcationOpen = false;
       memberData.breakable = true;
 
       if (memberData.collector) {
