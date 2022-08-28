@@ -83,7 +83,7 @@ module.exports.cdFinishTask = cdFinishTask;
 
 //------------------------------------------------------------------------------------------------------------------
 function cdCanAct(message, userProfile) {
-   if (CM.canTakeAction(userProfile, message, ownerName) && cdCheckIfTaskCanBeAssigned(message, userProfile.ownerId, userProfile.ownerName))
+   if (CM.canTakeAction(userProfile, message, userProfile.ownerName) && cdCheckIfTaskCanBeAssigned(message, userProfile.ownerId, userProfile.ownerName))
       return true;
 }
 
