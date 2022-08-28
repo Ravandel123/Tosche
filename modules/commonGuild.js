@@ -340,7 +340,7 @@ module.exports.mainUpdate1h = mainUpdate1h;
 
 //------------------------------------------------------------------------------------------------------------------
 async function profilesUpdate1h(guild, id) {
-   const memberData = guild.client.data.members.find(e => e.id == id);
+   const memberData = cdGetOrCreateMemberData(guild.client, id);
 
    await cdWaitForAvailableTransaction(memberData);
 
