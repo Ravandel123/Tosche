@@ -123,8 +123,9 @@ async function startFishing(message, thread) {
       } else if (i.size == 1) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
       } else {
-console.log('wbilo do dobrego');
          const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
+         console.log(memberData);
+         console.log(CG.cdGetOrCreateMemberData(message.client, message.author.id));
          await CG.cdWaitForAvailableTransaction(memberData);
          memberData.transactionOpen = true;
          try {
