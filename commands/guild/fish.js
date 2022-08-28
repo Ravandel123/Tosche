@@ -128,7 +128,7 @@ async function startFishing(message, thread) {
       } else if (i.size == 1) {
          mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
       } else {
-         const memberData = CG.getMemberData(message);
+         const memberData = CG.getMemberData(message.client, message.author.id);
          await CG.cdWaitForAvailableTransaction(memberData);
          memberData.transactionOpen = true;
          try {

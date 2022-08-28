@@ -11,8 +11,8 @@ const DB = require('./db.js');
 
 //----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-function cdGetOrCreateMemberData(message, id = message.author.id) {
-   let memberData = message.client.data.members.find(e => e.id == id);
+function cdGetOrCreateMemberData(client, id) {
+   let memberData = client.data.members.find(e => e.id == id);
 
    if (!memberData) {
       memberData = new CL.MemberData(id);
