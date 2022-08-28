@@ -341,9 +341,11 @@ module.exports.mainUpdate1h = mainUpdate1h;
 //------------------------------------------------------------------------------------------------------------------
 async function profilesUpdate1h(guild, id) {
    const memberData = cdGetOrCreateMemberData(guild.client, id);
+console.log(`memberData`);
+console.log(memberData);
 
    await cdWaitForAvailableTransaction(memberData);
-
+console.log(`odczekal`);
    memberData.transactionOpen = true;
    C.sleep(15);
    try {
