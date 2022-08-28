@@ -347,7 +347,7 @@ console.log(memberData);
    await cdWaitForAvailableTransaction(memberData);
 console.log(`odczekal`);
    memberData.transactionOpen = true;
-   C.sleep(15);
+   await C.sleep(15);
    try {
       let profile = await getProfileById(guild, id);
       CM.regenerateHp1h(profile);
