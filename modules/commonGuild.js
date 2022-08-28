@@ -110,6 +110,8 @@ async function cdWaitForAvailableTransaction(memberData, message, messageContent
       await C.sleep(5);
    }
 
+   responseMsg.delete();
+
    return Promise.resolve();
 }
 
