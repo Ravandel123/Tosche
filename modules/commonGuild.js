@@ -109,7 +109,8 @@ async function cdWaitForAvailableTransaction(memberData, message, messageContent
       await C.sleep(5);
    }
 
-   responseMsg.delete();
+   if (responseMsg)
+      responseMsg.delete();
 
    return Promise.resolve();
 }
