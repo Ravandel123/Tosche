@@ -102,6 +102,9 @@ async function startUp() {
    }
 }
 
+const { v4: uuidv4 } = require('uuid');
+console.log(uuidv4());
+
 startUp();
 
 // https://stackoverflow.com/questions/17039018/how-to-use-a-variable-as-a-field-name-in-mongodb-native-findone

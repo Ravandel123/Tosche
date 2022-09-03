@@ -394,7 +394,8 @@ const chapter4 = {
       `https://www.westerndeep.net/wp-content/uploads/2022/07/4-72.jpeg`,
       `https://www.westerndeep.net/wp-content/uploads/2022/07/4-73.jpeg`,
       `https://www.westerndeep.net/wp-content/uploads/2022/08/4-74.jpeg`,
-      `https://www.westerndeep.net/wp-content/uploads/2022/08/4-75.jpeg`
+      `https://www.westerndeep.net/wp-content/uploads/2022/08/4-75.jpeg`,
+      `https://www.westerndeep.net/wp-content/uploads/2022/09/4-76.jpeg`
    ],
    regularUrl: `chapter-4-page-`,
    exceptions: new Map([

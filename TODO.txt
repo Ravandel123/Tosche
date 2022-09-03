@@ -23,7 +23,7 @@ function checkIfArgIsNumber(message, argument)
 
 12. Dorob przypominajke na CRONIE
 
-
+CREATE A STACK FOR DATABASE ACCESS
 
 
 getProfileById

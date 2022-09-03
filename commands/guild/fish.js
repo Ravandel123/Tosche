@@ -99,7 +99,7 @@ async function startFishing(message, thread) {
             await i.editReply({ content: msgContent , components: [] });
             await C.sleep(1);
 
-            //In case of timeout
+            //In case of timeout (if you start close to timeout)
             if (collectorFinished)
                return;
          }
