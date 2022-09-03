@@ -8,6 +8,7 @@ const G = require('../../modules/common.js');
 const R = require('../../modules/responses.js');
 const DB = require('../../modules/db.js');
 const SG = require('../../modules/schematicsGuild.js');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = {
    name: 'test',
@@ -15,6 +16,13 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
+      
+   
+
+      console.log(uuidv4);
+      console.log(uuidv4());
+
+
       const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
       memberData.transactionOpen = true;
       await C.sleep(args[1]);
