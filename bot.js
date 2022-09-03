@@ -91,6 +91,11 @@ Mongoose.connect(GUriString, { useNewUrlParser: true, useUnifiedTopology: true }
 
 //https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
 async function startUp() {
+   
+
+const { v4: uuidv4 } = require('uuid');
+console.log(uuidv4());
+
    for (const file of eventFiles) {
       const event = require(`./events/${file}`);
 
@@ -101,9 +106,6 @@ async function startUp() {
       }
    }
 }
-
-const { v4: uuidv4 } = require('uuid');
-console.log(uuidv4());
 
 startUp();
 
