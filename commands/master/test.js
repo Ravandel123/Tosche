@@ -7,7 +7,6 @@ const DG = require('../../modules/dataGuild.js');
 const G = require('../../modules/common.js');
 const R = require('../../modules/responses.js');
 const DB = require('../../modules/db.js');
-const CL = require('../../modules/classes.js');
 const SG = require('../../modules/schematicsGuild.js');
 const { v4: uuidv4 } = require('uuid');
 
