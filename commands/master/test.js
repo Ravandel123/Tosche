@@ -38,7 +38,7 @@ module.exports = {
 
 async function testExecute(memberData, uuid) {
 
-   while (!memberData.first(uuid)) {
+   while (!memberData.isFirst(uuid)) {
       console.log('waiting ' + uuid);
       await C.sleep(args[1]);
    }

@@ -46,14 +46,14 @@ class MemberData {
       this.uuidQueue = [];
    }
 
-   get first() {
-      return this.uuidQueue.length > 0 ? this.uuidQueue[0] : undefined;
-   }
-
    addId() {
       const uuid = uuidv4();
       this.uuidQueue.push(uuid); console.log(`UUID queue:` + this.uuidQueue);
       return uuid;
+   }
+
+   isFirst(uuid) {
+      return this.uuidQueue.length > 0 ? this.uuidQueue[0] == uuid : false;
    }
 
    removeIfFirst(uuid) {
