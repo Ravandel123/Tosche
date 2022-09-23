@@ -958,7 +958,7 @@ module.exports.dcCheckIfGuildMessage = dcCheckIfGuildMessage;
 
 //------------------------------------------------------------------------------------------------------------------
 function dcCheckIfChannel(value) {
-   return value instanceof D.Channel;
+   return value instanceof D.TextChannel || value instanceof D.DMChannel;
 }
 
 module.exports.dcCheckIfChannel = dcCheckIfChannel;
