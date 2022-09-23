@@ -47,7 +47,7 @@ class MemberData {
    }
 
    get first() {
-      return this.uuidQueue.length > 0 ? this.elements[0] : undefined;
+      return this.uuidQueue.length > 0 ? this.uuidQueue[0] : undefined;
    }
 
    addId() {
