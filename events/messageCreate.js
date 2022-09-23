@@ -26,7 +26,7 @@ module.exports = {
          if (!CC.dcValidateForBannedWords(message))
             return;
 
-         let prefixLength, commandName, command, commands, arguments;
+         let prefixLength, commandName, command, commands, args;
 
          if (message.content.startsWith(prefix)) {
             prefixLength = prefix.length;
@@ -55,7 +55,7 @@ module.exports = {
 
          commandName = message.content.slice(prefixLength).trim().split(/ +/g);
          commandName = commandName.shift().toLowerCase();
-         arguments = message.content.split(/[ ]+/);
+         args = message.content.split(/[ ]+/);
 
          if (message.content.startsWith(prefix))
             commands = client.commands;
@@ -92,7 +92,7 @@ module.exports = {
          setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
          try {
-            command.execute(message, arguments);
+            command.execute(message, args);
          } catch (error) {
             console.error(error);
             C.dcReplyToMsg(message, `There was an error trying to execute that command!`);
