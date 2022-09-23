@@ -1027,15 +1027,12 @@ module.exports.deleteMessages = deleteMessages;
 
 // OK ---------------------------------------------------------------------------------------------------------------
 function dcSendMsg(message, msgContent, msgType = 'channel') {
-console.log('weszlo');
    if (!dcCheckIfMessage(message))
       return;
-console.log('weszlo2');
+
    const finalMsg = getFixedMessageContent(msgContent);
-console.log('finalMsg' + finalMsg);
    if (!finalMsg)
       return;
-console.log('msgType=' + msgType);
 
    switch(msgType) {
       case 'channel':
@@ -1056,9 +1053,10 @@ module.exports.dcSendMsg = dcSendMsg;
 
 //------------------------------------------------------------------------------------------------------------------
 function dcSendMsgToChannel(channel, msgContent) {
+console.log('weszlo')'
    if (!dcCheckIfChannel(channel) || !checkIfExists(msgContent))
       return;
-
+console.log('weszlo2')'
    const finalMsg = getFixedMessageContent(msgContent);
    if (!finalMsg)
       return;
