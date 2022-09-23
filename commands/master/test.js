@@ -7,6 +7,7 @@ const DG = require('../../modules/dataGuild.js');
 const G = require('../../modules/common.js');
 const R = require('../../modules/responses.js');
 const DB = require('../../modules/db.js');
+const CL = require('../../modules/classes.js');
 const SG = require('../../modules/schematicsGuild.js');
 const { v4: uuidv4 } = require('uuid');
 
@@ -18,69 +19,34 @@ module.exports = {
    async execute(message, args) {
 
 
-      console.log(uuidv4);
-      console.log(uuidv4());
+      // const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
+      // memberData.transactionOpen = true;
+      // await C.sleep(args[1]);
+      // memberData.transactionOpen = false;
+      
+      
+      
+      const memberData = CG.cdGetOrCreateMemberData(message, message.author.id);
+      const uuid1 = memberData.addId();
+      const uuid2 = memberData.addId();
 
-
-      const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
-      memberData.transactionOpen = true;
-      await C.sleep(args[1]);
-      memberData.transactionOpen = false;
-
-   // let fishingProfile;
-
-   // if (!args[1]) {
-      // fishingProfile = new SG.fishing({
-         // ownerId: message.author.id
-      // });
-
-      // try {
-         // await fishingProfile.save().catch(err => console.log(err));
-      // } catch(error) {
-         // console.log(error)
-      // }
-
-   // } else {
-      // fishingProfile = await SG.fishing.findOne({ ownerId: message.author.id });
-      // fishingProfile.fish.push({
-         // id: `fish_smallmouthBass`,
-         // weight: C.rndNo0(10)
-      // });
-      // fishingProfile.records.push(fishingProfile.fish[0]);
-
-      // fishingProfile.rod = { id: 'xd', condition: 2.15 };
-   // }
-
-   // try {
-      // await fishingProfile.save().catch(err => console.log(err));
-   // } catch(error) {
-      // console.log(error)
-   // }
-
-   // console.log(fishingProfile);
-
-   // ownerId: String,
-   // rod: {
-      // id: String,
-      // condition: Number
-   // },
-   // bait: {
-      // id: String,
-      // amount: Number
-   // },
-   // records: [{
-      // id: String,
-      // weight: Number,
-   // }],
-   // fish: [{
-      // id: String,
-      // weight: Number,
-   // }]
-
-
-
+      testExecute(memberData, uuid1);
+      testExecute(memberData, uuid2);
 
 
    },
 }
 
+async function testExecute(memberData, uuid) {
+
+   while (!memberData.first(uuid)) {
+      console.log('waiting ' + uuid);
+      await C.sleep(args[1]);
+   }
+   
+   console.log(`Weszlo z ${uuid}`);
+   await C.sleep(3);
+   console.log(`Wyszlo z ${uuid}`);
+   if (memberData.removeIfFirst(uuid))
+      console.log(`Task ${uuid} finished correctly`);
+}

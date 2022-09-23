@@ -11,12 +11,13 @@ const DB = require('./db.js');
 
 //----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-function cdGetOrCreateMemberData(client, id) {
-   let memberData = client.data.members.find(e => e.id == id);
+function cdGetOrCreateMemberData(element, id) {
+   const clt = C.dcCheckIfMessage(element) ? message.client : element;
+   let memberData = clt.data.members.find(e => e.userId == id);
 
    if (!memberData) {
       memberData = new CL.MemberData(id);
-      client.data.members.push(memberData);
+      clt.data.members.push(memberData);
    }
 
    return memberData;
@@ -26,7 +27,7 @@ module.exports.cdGetOrCreateMemberData = cdGetOrCreateMemberData;
 
 //------------------------------------------------------------------------------------------------------------------
 function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you') {
-   const memberData = message.client.data.members.find(e => e.id == id);
+   const memberData = message.client.data.members.find(e => e.userId == id);
 
    if (!memberData || memberData.breakable)
       return true;
@@ -41,7 +42,7 @@ module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
 
 //------------------------------------------------------------------------------------------------------------------
 function cdAssignNewTask(message, collector, breakable = true, transcationOpen = false, id = message.author.id) {
-   let memberData = message.client.data.members.find(e => e.id == id);
+   let memberData = message.client.data.members.find(e => e.userId == id);
 
    if (!memberData) {
       memberData = new CL.MemberData(id, breakable, transcationOpen, collector);
@@ -65,7 +66,7 @@ module.exports.cdAssignNewTask = cdAssignNewTask;
 
 //------------------------------------------------------------------------------------------------------------------
 function cdFinishTask(message, id = message.author.id) {
-   const memberData = message.client.data.members.find(e => e.id == id);
+   const memberData = message.client.data.members.find(e => e.userId == id);
 
    if (memberData) {
       memberData.breakable = true;
@@ -104,7 +105,7 @@ async function cdWaitForAvailableTransaction(memberData, message, messageContent
             msgContent = messageContent;
       }
 
-      console.log(`The transaction for member ${memberData.id} is still in progress!`);
+      console.log(`The transaction for member ${memberData.userId} is still in progress!`);
       await C.sleep(5);
    }
 

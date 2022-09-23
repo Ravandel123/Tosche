@@ -1,5 +1,5 @@
 const C = require('./common.js');
-
+const { v4: uuidv4 } = require('uuid');
 
 //----------------------------------------------------------- SPEECH ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
@@ -38,11 +38,31 @@ module.exports.PersonGrammar = PersonGrammar;
 //----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 class MemberData {
-   constructor(id, breakable = true, transactionOpen = false, collector = null) {
-      this.id = id;
+   constructor(userId, breakable = true, transactionOpen = false, collector = null) {
+      this.userId = userId;
       this.breakable = breakable;
       this.transactionOpen = transactionOpen;
       this.collector = collector;
+      this.uuidQueue = [];
+   }
+
+   get first() {
+      return this.uuidQueue.length > 0 ? this.elements[0] : undefined;
+   }
+
+   addId() {
+      const uuid = uuidv4();
+      this.uuidQueue.push(uuid); console.log(`UUID queue:` + this.uuidQueue);
+      return uuid;
+   }
+
+   removeIfFirst(uuid) {
+      if (this.uuidQueue[0] == uuid) {
+         this.uuidQueue.shift(); console.log(`UUID removed ${uuid}, queue: ` + this.uuidQueue);
+         return true;
+      }
+console.log(`UUID NOT !!! removed ${uuid}, queue: ` + this.uuidQueue);
+      return false;
    }
 }
 
@@ -76,40 +96,6 @@ class SelectOptionData {
 }
 
 module.exports.SelectOptionData = SelectOptionData;
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-//----------------------------------------------------------- STRUCTURES ----------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------
-class Queue {
-   constructor(item) {
-      this.elements = [];
-
-      if (item)
-         this.push(item);
-   }
-
-   get first() {
-      return this.elements.length > 0 ? this.elements[0] : undefined;
-   }
-
-   push(item) {
-      this.elements.push(item);
-   }
-
-   removeIfFirst(id) {
-      if (this.elements[0] == id) {
-         this.elements.shift();
-         return true;
-      }
-
-      return false;
-   }
-}
-
-module.exports.Queue = Queue;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
