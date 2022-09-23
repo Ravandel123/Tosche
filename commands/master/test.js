@@ -43,13 +43,13 @@ async function testExecute(memberData, uuid, func) {
       await C.sleep(1);
    }
 
-   await func();
+   await func(uuid);
    if (memberData.removeIfFirst(uuid))
       console.log(`Task ${uuid} finished correctly`);
 
 }
 
-async function doIt() {
+async function doIt(uuid) {
    console.log(`Weszlo z ${uuid}`);
    await C.sleep(3);
    console.log(`Wyszlo z ${uuid}`);
