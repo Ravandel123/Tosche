@@ -12,7 +12,7 @@ const DB = require('./db.js');
 //----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 function cdGetOrCreateMemberData(element, id) {
-   const clt = C.dcCheckIfMessage(element) ? message.client : element;
+   const clt = C.dcCheckIfMessage(element) ? element.client : element;
    let memberData = clt.data.members.find(e => e.userId == id);
 
    if (!memberData) {
