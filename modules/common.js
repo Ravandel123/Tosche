@@ -1030,10 +1030,12 @@ function dcSendMsg(message, msgContent, msgType = 'channel') {
 console.log('weszlo');
    if (!dcCheckIfMessage(message))
       return;
-
+console.log('weszlo2');
    const finalMsg = getFixedMessageContent(msgContent);
+console.log('finalMsg' + finalMsg);
    if (!finalMsg)
       return;
+console.log('msgType=' + msgType);
 
    switch(msgType) {
       case 'channel':
