@@ -1027,6 +1027,7 @@ module.exports.deleteMessages = deleteMessages;
 
 // OK ---------------------------------------------------------------------------------------------------------------
 function dcSendMsg(message, msgContent, msgType = 'channel') {
+console.log('weszlo');
    if (!dcCheckIfMessage(message))
       return;
 
@@ -1055,12 +1056,10 @@ module.exports.dcSendMsg = dcSendMsg;
 function dcSendMsgToChannel(channel, msgContent) {
    if (!dcCheckIfChannel(channel) || !checkIfExists(msgContent))
       return;
-console.log('weszlo');
+
    const finalMsg = getFixedMessageContent(msgContent);
    if (!finalMsg)
       return;
-   
-console.log('finalMsg = ' + finalMsg);
 
    runFunctionOnAll(finalMsg, e => { if (e) channel.send(e) });
 }
