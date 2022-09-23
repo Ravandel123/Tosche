@@ -16,8 +16,7 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
-      
-   
+
 
       console.log(uuidv4);
       console.log(uuidv4());

@@ -32,10 +32,9 @@ function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you'
       return true;
 
    const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? ` are` : ` is`);
-   C.dcRespondToMsg(message, `${firstPart} too busy right now! Can't cancel your current task!`);
+   C.dcRespondToMsg(message, `${firstPart} too busy right now!`);
 
    return false;
-
 }
 
 module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
