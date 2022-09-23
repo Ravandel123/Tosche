@@ -1053,10 +1053,10 @@ module.exports.dcSendMsg = dcSendMsg;
 
 //------------------------------------------------------------------------------------------------------------------
 function dcSendMsgToChannel(channel, msgContent) {
-console.log('weszlo')'
+console.log('weszlo')
    if (!dcCheckIfChannel(channel) || !checkIfExists(msgContent))
       return;
-console.log('weszlo2')'
+console.log('weszlo2')
    const finalMsg = getFixedMessageContent(msgContent);
    if (!finalMsg)
       return;
