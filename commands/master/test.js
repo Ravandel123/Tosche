@@ -29,23 +29,28 @@ module.exports = {
       const uuid1 = memberData.addId();
       const uuid2 = memberData.addId();
 
-      testExecute(memberData, uuid1);
-      testExecute(memberData, uuid2);
+      testExecute(memberData, uuid1, doIt);
+      testExecute(memberData, uuid2, doIt);
 
 
    },
 }
 
-async function testExecute(memberData, uuid) {
+async function testExecute(memberData, uuid, func) {
 
    while (!memberData.isFirst(uuid)) {
       console.log('waiting ' + uuid);
       await C.sleep(1);
    }
-   
+
+   await func();
+   if (memberData.removeIfFirst(uuid))
+      console.log(`Task ${uuid} finished correctly`);
+
+}
+
+async function doIt() {
    console.log(`Weszlo z ${uuid}`);
    await C.sleep(3);
    console.log(`Wyszlo z ${uuid}`);
-   if (memberData.removeIfFirst(uuid))
-      console.log(`Task ${uuid} finished correctly`);
 }
