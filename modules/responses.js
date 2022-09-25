@@ -97,7 +97,7 @@ module.exports.resIssueSingle = resIssueSingle;
 
 //------------------------------------------------------------------------------------------------------------------
 function resBusy(reason, isMsgAuthor = true, name) {
-   return `${isMsgAuthor ? 'You are ' : name + 'is'} busy. (${isMsgAuthor})`
+   return `${isMsgAuthor ? 'You are ' : name + ' is'} busy. (${reason})`;
 }
 
 module.exports.resBusy = resBusy;
