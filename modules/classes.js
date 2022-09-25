@@ -51,7 +51,7 @@ class MemberData {
    }
 
    get currentTaskDescription() {
-      return this.gotAnyTask ? queue[0].description : `Currently doing nothing`;
+      return this.gotAnyTask ? this.queue[0].description : `Currently doing nothing`;
    }
 
    addTask(description) {
