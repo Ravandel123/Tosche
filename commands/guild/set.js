@@ -1,5 +1,6 @@
 const D = require('discord.js');
 const C = require('../../modules/common.js');
+const R = require('../../modules/responses.js');
 const CC = require('../../modules/commonCommands.js');
 const CG = require('../../modules/commonGuild.js');
 
@@ -13,9 +14,16 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
+      const memberData = cdGetOrCreateMemberData(message.guild.client, message.author.id);
+      if (memberData.gotAnyTask) {
+         C.dcRespondToMsg(message, R.resBusy(memberData.currentTaskDescription));
+         C.dcRespondToMsg(message, R.resBusy(memberData.currentTaskDescription, false, 'xdwojownik'));
+         return;
+      }
+
       try {
          let profile = await CG.getMessageAuthorProfile(message);
-         
+
          if (C.strCompare(args[1], 'picture')) {
             if (C.chackIfImageUrl(args[2]) && C.checkIfValidHttpUrl(args[2])) {
                profile.picture = args[2];

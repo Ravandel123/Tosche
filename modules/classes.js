@@ -46,10 +46,18 @@ class MemberData {
       this.queue = [];
    }
 
+   get gotAnyTask() {
+      return this.queue.length > 0;
+   }
+
+   get currentTaskDescription() {
+      return this.gotAnyTask ? queue[0].description : `Currently doing nothing`;
+   }
+
    addTask(description) {
       const uuid = uuidv4();
       this.queue.push(new MemberDataTask(uuid, description));
-      console.log(`UUID queue:` + uuid); //to remove
+      console.log(`New UUID: ` + uuid); //to remove
       return uuid;
    }
 
@@ -67,10 +75,10 @@ class MemberData {
    removeIfFirst(uuid) {
       if (this.queue[0].id == uuid) {
          this.queue.shift();
-         console.log(`UUID removed ${uuid}, queue: ` + this.queue.reduce((c, n) => c += ',' + n, '')); //to remove
+         console.log(`UUID removed ${uuid}, queue: ` + this.queue.reduce((c, n) => c += n.id + '|', '')); //to remove
          return true;
       }
-      console.log(`ERROR!!! UUID ${uuid} NOT removed !!! Queue elements: ` + this.queue.reduce((c, n) => c += ',' + n, '')); //to remove
+      console.log(`ERROR!!! UUID ${uuid} NOT removed !!! Queue elements: ` + this.queue.reduce((c, n) => c += n.id + '|', '')); //to remove
       return false;
    }
 }
