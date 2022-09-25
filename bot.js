@@ -83,10 +83,10 @@ for (const file of commandFilesM) {
 
 //mongodb+srv://ravandel:dawidson123@cluster0-enjdy.mongodb.net/testdb?retryWrites=true&w=majority
 Mongoose.connect(GUriString, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, res) {
-   if(err)
+   if (err)
       console.log('ERROR connecting to: ' + GUriString + '. ' + err);
    else
-      console.log('Succeeded connected to: ' + GUriString);
+      console.log(`Successfully connected to the database`);
 })
 
 //https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
