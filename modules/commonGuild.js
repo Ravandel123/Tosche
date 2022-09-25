@@ -365,7 +365,6 @@ async function profilesUpdate1h(guild, id) {
    await memberData.waitForYourTurn(taskId);
    try {
       const profile = await getProfileById(guild, id);
-      await C.sleep(7);
       CM.regenerateHp1h(profile);
       CM.modifyActionPoints(profile, 1);
       await profile.save();
