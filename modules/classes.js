@@ -67,10 +67,10 @@ class MemberData {
    removeIfFirst(uuid) {
       if (this.queue[0].id == uuid) {
          this.queue.shift();
-         console.log(`UUID removed ${uuid}, queue: ` + this.queue.reduce((c, n) => c += ',' + n, c); //to remove
+         console.log(`UUID removed ${uuid}, queue: ` + this.queue.reduce((c, n) => c += ',' + n, c)); //to remove
          return true;
       }
-      console.log(`ERROR!!! UUID ${uuid} NOT removed !!! Queue elements: ` + this.queue.reduce((c, n) => c += ',' + n, c); //to remove
+      console.log(`ERROR!!! UUID ${uuid} NOT removed !!! Queue elements: ` + this.queue.reduce((c, n) => c += ',' + n, c)); //to remove
       return false;
    }
 }
