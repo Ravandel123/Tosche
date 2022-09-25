@@ -14,7 +14,7 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
-      const memberData = cdGetOrCreateMemberData(message.guild.client, message.author.id);
+      const memberData = CG.cdGetOrCreateMemberData(message.guild.client, message.author.id);
       if (memberData.gotAnyTask) {
          C.dcRespondToMsg(message, R.resBusy(memberData.currentTaskDescription));
          C.dcRespondToMsg(message, R.resBusy(memberData.currentTaskDescription, false, 'xdwojownik'));
