@@ -43,30 +43,47 @@ class MemberData {
       this.breakable = breakable;
       this.transactionOpen = transactionOpen;
       this.collector = collector;
-      this.uuidQueue = [];
+      this.queue = [];
    }
 
-   addId() {
+   addTask(description) {
       const uuid = uuidv4();
-      this.uuidQueue.push(uuid); console.log(`UUID queue:` + this.uuidQueue);
+      this.queue.push(new MemberDataTask(uuid, description));
+      console.log(`UUID queue:` + this.queue); //to remove
       return uuid;
    }
 
    isFirst(uuid) {
-      return this.uuidQueue.length > 0 ? this.uuidQueue[0] == uuid : false;
+      return this.queue.length > 0 ? this.queue[0].id == uuid : false;
+   }
+
+   async waitForYourTurn(uuid) {
+      while (!this.isFirst(uuid)) {
+         console.log(`waiting for ` + uuid); //to remove
+         await C.sleep(1);
+      }
    }
 
    removeIfFirst(uuid) {
-      if (this.uuidQueue[0] == uuid) {
-         this.uuidQueue.shift(); console.log(`UUID removed ${uuid}, queue: ` + this.uuidQueue);
+      if (this.queue[0].id == uuid) {
+         this.queue.shift();
+         console.log(`UUID removed ${uuid}, queue: ` + this.queue); //to remove
          return true;
       }
-console.log(`UUID NOT !!! removed ${uuid}, queue: ` + this.uuidQueue);
+      console.log(`ERROR!!! UUID ${uuid} NOT removed !!! Queue elements: ` + this.queue); //to remove
       return false;
    }
 }
 
 module.exports.MemberData = MemberData;
+
+//------------------------------------------------------------------------------------------------------------------
+class MemberDataTask {
+   constructor(id, description) {
+      this.id = id;
+      this.description = description;
+   }
+}
 
 //------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

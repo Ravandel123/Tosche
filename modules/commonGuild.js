@@ -360,18 +360,33 @@ module.exports.mainUpdate1h = mainUpdate1h;
 //------------------------------------------------------------------------------------------------------------------
 async function profilesUpdate1h(guild, id) {
    const memberData = cdGetOrCreateMemberData(guild.client, id);
-   await cdWaitForAvailableTransaction(memberData);
+   const taskId = memberData.addTask(`Profile update - 1h.`);
 
-   memberData.transactionOpen = true;
+   await memberData.waitForYourTurn(taskId);
    try {
-      let profile = await getProfileById(guild, id);
+      const profile = await getProfileById(guild, id);
+      await C.sleep(4);
       CM.regenerateHp1h(profile);
       CM.modifyActionPoints(profile, 1);
       await profile.save();
    } catch {
       console.log(`Error while doing hourly update for user with ID: ${id}`);
    }
-   memberData.transactionOpen = false;
+   await memberData.removeIfFirst(taskId);
+
+
+   // await cdWaitForAvailableTransaction(memberData);
+
+   // memberData.transactionOpen = true;
+   // try {
+      // let profile = await getProfileById(guild, id);
+      // CM.regenerateHp1h(profile);
+      // CM.modifyActionPoints(profile, 1);
+      // await profile.save();
+   // } catch {
+      // console.log(`Error while doing hourly update for user with ID: ${id}`);
+   // }
+   // memberData.transactionOpen = false;
 }
 
 module.exports.profilesUpdate1h = profilesUpdate1h;

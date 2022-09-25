@@ -25,14 +25,20 @@ module.exports = {
       
       
       
-      const memberData = CG.cdGetOrCreateMemberData(message, message.author.id);
-      const uuid1 = memberData.addId();
-      const uuid2 = memberData.addId();
+      
+      
+      CG.profilesUpdate1h(message.guild, message.author.id);
+      
+      
+      
+      
+      
+      // const memberData = CG.cdGetOrCreateMemberData(message, message.author.id);
+      // const uuid1 = memberData.addTask();
+      // const uuid2 = memberData.addTask();
 
-      testExecute(memberData, uuid1, doIt);
-      testExecute(memberData, uuid2, doIt);
-
-
+      // testExecute(memberData, uuid1, doIt);
+      // testExecute(memberData, uuid2, doIt);
    },
 }
 
