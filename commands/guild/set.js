@@ -20,8 +20,11 @@ module.exports = {
          return;
       }
 
+      const taskId = memberData.addTask(`Chaning profile data`);
+
+      await memberData.waitForYourTurn(taskId);
       try {
-         let profile = await CG.getMessageAuthorProfile(message);
+         const profile = await CG.getMessageAuthorProfile(message);
 
          if (C.strCompare(args[1], 'picture')) {
             if (C.chackIfImageUrl(args[2]) && C.checkIfValidHttpUrl(args[2])) {
@@ -36,5 +39,6 @@ module.exports = {
       } catch (e) {
          C.dcRespondToMsg(message, e);
       }
+      await memberData.removeIfFirst(taskId);
    },
 }
