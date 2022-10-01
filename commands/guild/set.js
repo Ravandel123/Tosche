@@ -26,19 +26,28 @@ module.exports = {
       try {
          const profile = await CG.getMessageAuthorProfile(message);
 
-         if (C.strCompare(args[1], 'picture')) {
-            if (C.chackIfImageUrl(args[2]) && C.checkIfValidHttpUrl(args[2])) {
-               profile.picture = args[2];
-               C.dcRespondToMsg(message, `Your profile picture has been changed.`);
-            } else {
-               C.dcRespondToMsg(message, `${args[2]} is not a valid image url!`);
-            }
+         switch (C.strToLowerCase(args[1])) {
+            case 'picture':
+               await setPicture(message, profile, args[2]);
+               break;
+
+            default:
+               C.dcRespondToMsg(message, `You can't set '${args[1]}'!`);
          }
 
-         await profile.save();
       } catch (e) {
          C.dcRespondToMsg(message, e);
       }
       await memberData.removeIfFirst(taskId);
    },
+}
+
+async function setPicture(message, profile, picture) {
+   if (C.chackIfImageUrl(picture) && C.checkIfValidHttpUrl(picture)) {
+      profile.picture = picture;
+      await profile.save();
+      C.dcRespondToMsg(message, `Your profile picture has been changed.`);
+   } else {
+      C.dcRespondToMsg(message, `${picture} is not a valid image url!`);
+   }
 }

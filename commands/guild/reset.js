@@ -16,18 +16,24 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
+      const memberData = CG.cdGetOrCreateMemberData(message.guild.client, message.author.id);
+      if (memberData.gotAnyTask) {
+         C.dcRespondToMsg(message, R.resBusy(memberData.currentTaskDescription));
+         return;
+      }
+
+      const taskId = memberData.addTask(`Resetting profile data`);
+
+      await memberData.waitForYourTurn(taskId);
       switch (C.strToLowerCase(args[1])) {
          case 'picture':
             await resetPicture(message);
             break;
 
-         case 'task':
-            resetTask(message);
-            break;
-
          default:
             C.dcRespondToMsg(message, `You can't reset '${args[1]}'!`);
       }
+      await memberData.removeIfFirst(taskId);
    },
 }
 
@@ -41,11 +47,4 @@ async function resetPicture(message) {
    } catch (e) {
       C.dcRespondToMsg(message, e);
    }
-}
-
-function resetTask(message) {
-   if (CG.cdCheckIfTaskCanBeAssigned(message))
-      CG.cdFinishTask(message);
-   else
-      C.dcRespondToMsg(message, `Unable to reset your task!`);
 }
