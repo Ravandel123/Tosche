@@ -43,7 +43,7 @@ async function resetPicture(message) {
 
       profile.picture = '';
       await profile.save();
-      C.dcRespondToMsg(message, `Your profile picture has been reseted.`);
+      C.dcRespondToMsg(message, `Your profile picture has been reset.`);
    } catch (e) {
       C.dcRespondToMsg(message, e);
    }

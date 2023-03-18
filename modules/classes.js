@@ -90,6 +90,7 @@ class MemberDataTask {
    constructor(id, description) {
       this.id = id;
       this.description = description;
+	  //timeout
    }
 }
 

@@ -175,6 +175,7 @@ const verbsIrregular = [
    ['prefer', 'preferred', 'preferred', 'preferring'],
    ['quit', 'quit', 'quit', 'quitting'],
    ['refer', 'referred', 'referred', 'referring'],
+   ['reset', 'reset', 'reset', 'resetting'],
    ['smite', 'smote', 'smitten', 'smitting'],
    ['strike', 'struck', 'struck|stricken', 'striking'],
    ['submit', 'submitted', 'submitted', 'submiting'],
