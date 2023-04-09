@@ -33,7 +33,7 @@ module.exports = {
                default:
                   break;
             }
-         } else if (i.isSelectMenu()) {
+         } else if (i.isStringSelectMenu()) {
             if (i.customId === 'chapterId') {
                chapter = i.values[0];
                page = 0;

@@ -32,7 +32,7 @@ module.exports = {
 
       const collector = embedMessage.createMessageComponentCollector({ time: 3600000 });
       collector.on('collect', async i => {
-         if (i.isSelectMenu()) {
+         if (i.isStringSelectMenu()) {
             currentMenu = i.values[0];
             index = 0;
          } else if (i.isButton()) {

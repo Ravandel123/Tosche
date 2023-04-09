@@ -46,7 +46,7 @@ module.exports = {
                   index = 0;
                   reloadNeeded = true;
                }
-            } else if (i.isSelectMenu()) {
+            } else if (i.isStringSelectMenu()) {
                if (i.customId === 'menu') {
                   currentMenu = i.values[0];
                   reloadNeeded = true;

@@ -1305,12 +1305,12 @@ function dcCreateButton(id, label, emoji, style = 'primary', isDisabled = false)
 module.exports.dcCreateButton = dcCreateButton;
 
 //------------------------------------------------------------------------------------------------------------------
-function dcCreateSelectMenu(id, placeholderText, options) {
+function dcCreateSelectMenu(id, placeholderText, options, maxValues = 1) {
    if (checkIfExists(id) && checkIfString(placeholderText) && checkIfExists(options))
       return new D.StringSelectMenuBuilder({
          custom_id: id,
          placeholder: placeholderText,
-         max_values: 2,
+         max_values: maxValues,
          options: options
       });
 }
