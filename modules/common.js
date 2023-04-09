@@ -941,7 +941,7 @@ module.exports.dcCheckIfMessage = dcCheckIfMessage;
 
 //------------------------------------------------------------------------------------------------------------------
 function dcCheckIfMessageComponents(value) {
-   return checkAllByFunction(value, e => e instanceof D.ButtonBuilder || e instanceof D.SelectMenuBuilder)
+   return checkAllByFunction(value, e => e instanceof D.ButtonBuilder || e instanceof D.StringSelectMenuBuilder)
 }
 
 module.exports.dcCheckIfMessage = dcCheckIfMessage;
@@ -1310,7 +1310,6 @@ function dcCreateSelectMenu(id, placeholderText, options) {
       return new D.StringSelectMenuBuilder({
          custom_id: id,
          placeholder: placeholderText,
-         max_values: 2,
          options: options
       });
    
