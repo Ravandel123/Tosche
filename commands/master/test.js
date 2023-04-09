@@ -26,8 +26,8 @@ module.exports = {
       
       
       
-      
-      CG.profilesUpdate1h(message.guild, message.author.id);
+      CG.mainUpdate1h(message.client);
+      // CG.profilesUpdate1h(message.guild, message.author.id);
       
       
       

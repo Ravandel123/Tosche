@@ -81,6 +81,8 @@ for (const file of commandFilesM) {
    client.commandsM.set(command.name, command);
 }
 
+//----------------------------------------DB----------------------------------------
+
 //mongodb+srv://ravandel:dawidson123@cluster0-enjdy.mongodb.net/testdb?retryWrites=true&w=majority
 Mongoose.connect(GUriString, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, res) {
    if (err)
@@ -89,6 +91,7 @@ Mongoose.connect(GUriString, { useNewUrlParser: true, useUnifiedTopology: true }
       console.log(`Successfully connected to the database`);
 })
 
+//----------------------------------------Main----------------------------------------
 //https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
 async function startUp() {
    for (const file of eventFiles) {
