@@ -1307,7 +1307,7 @@ module.exports.dcCreateButton = dcCreateButton;
 //------------------------------------------------------------------------------------------------------------------
 function dcCreateSelectMenu(id, placeholderText, options) {
    if (checkIfExists(id) && checkIfString(placeholderText) && checkIfExists(options))
-      return new D.SelectMenuBuilder()
+      return new D.StringSelectMenuBuilder()
          .setCustomId(id)
          .setPlaceholder(placeholderText)
          .addOptions(options);
