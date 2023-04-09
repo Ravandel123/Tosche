@@ -105,10 +105,8 @@ module.exports.canTakeAction = canTakeAction;
 
 //------------------------------------------------------------------------------------------------------------------
 function modifyActionPoints(profile, amount) {
-   // profile.actionPoints.current += amount;
-   // profile.actionPoints.totalEarned += amount;
-   profile.actionPoints.current = 0;
-   profile.actionPoints.totalEarned = 0;
+   profile.actionPoints.current += amount;
+   profile.actionPoints.totalEarned += amount;
 }
 
 module.exports.modifyActionPoints = modifyActionPoints;

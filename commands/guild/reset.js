@@ -5,7 +5,7 @@ const CG = require('../../modules/commonGuild.js');
 
 module.exports = {
    name: 'reset',
-   description: 'Resets profile data.',
+   description: 'Resets the specified profile data.',
    usage: '[picture/task]',
    example: [
       `picture`,
@@ -37,9 +37,10 @@ module.exports = {
    },
 }
 
+//------------------------------------------------------------------------------------------------------------------
 async function resetPicture(message) {
    try {
-      let profile = await CG.getMessageAuthorProfile(message);
+      const profile = await CG.getMessageAuthorProfile(message);
 
       profile.picture = '';
       await profile.save();

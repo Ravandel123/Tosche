@@ -54,6 +54,7 @@ class MemberData {
       return this.gotAnyTask ? this.queue[0].description : `Currently doing nothing`;
    }
 
+   //Adds task to the user's queue.
    addTask(description) {
       const uuid = uuidv4();
       this.queue.push(new MemberDataTask(uuid, description));
@@ -90,7 +91,7 @@ class MemberDataTask {
    constructor(id, description) {
       this.id = id;
       this.description = description;
-	  //timeout
+     //timeout
    }
 }
 
