@@ -1310,20 +1310,9 @@ function dcCreateSelectMenu(id, placeholderText, options) {
       return new D.StringSelectMenuBuilder({
          custom_id: id,
          placeholder: placeholderText,
+         max_values: 2,
          options: options
       });
-   
-   
-   
-   
-   
-   
-   
-   
-   // StringSelectMenuBuilder()
-         // .setCustomId(id)
-         // .setPlaceholder(placeholderText)
-         // .addOptions(options);
 }
 
 module.exports.dcCreateSelectMenu = dcCreateSelectMenu;
