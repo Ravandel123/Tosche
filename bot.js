@@ -92,18 +92,20 @@ Mongoose.connect(GUriString, { useNewUrlParser: true, useUnifiedTopology: true }
 })
 
 //----------------------------------------Main----------------------------------------
+//Move this function at the bottom after cleanup of bot.js
 //https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584
 async function startUp() {
    for (const file of eventFiles) {
       const event = require(`./events/${file}`);
 
-      if (event.once) {
+      if (event.once)
          client.once(event.name, (...args) => event.execute(...args, client));
-      } else {
+      else
          client.on(event.name, (...args) => event.execute(...args, client));
-      }
    }
 }
+
+console.log(`----------------------------------------------------------------------------------------------------`);
 
 startUp();
 

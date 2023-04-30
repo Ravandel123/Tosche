@@ -119,9 +119,15 @@ async function startFishing(message, thread) {
       CG.cdFinishTask(message);
 
       if (i.size == 0) {
-         mainMessage.edit({ content: `It looks you are not interesting in fishing...`, components: [] });
+         mainMessage.edit({
+            content: `It looks you are not interesting in fishing...`,
+            components: []
+         });
       } else if (i.size == 1) {
-         mainMessage.edit({ content: R.fishCatchFailed(fishingSpot.name, fish), components: [] });
+         mainMessage.edit({
+            content: R.fishCatchFailed(fishingSpot.name, fish),
+            components: []
+         });
       } else {
          const memberData = CG.cdGetOrCreateMemberData(message.client, message.author.id);
          await CG.cdWaitForAvailableTransaction(memberData, message, `Checking the records and adding your fish to the inventory`);
