@@ -2,7 +2,7 @@ const C = require('./common.js');
 const CL = require('./classes.js');
 const DC = require('./dataCommon.js');
 const DS = require('./dataSpeech.js');
-const G = require('./generators.js');
+const GEN = require('./generators.js');
 
 "use strict";
 
@@ -57,7 +57,7 @@ function resMissingArgs(missingArgs) {
 
    const arrayResult = [
       `You must give me the following arguments:\n${missingArgsEOL}\n`,
-      `You didn't provide the correct amount of arguments, you ${G.genPersonalInsult()}. You need to provide:\n${missingArgsEOL}\n`
+      `You didn't provide the correct amount of arguments, you ${GEN.genPersonalInsult()}. You need to provide:\n${missingArgsEOL}\n`
    ];
 
    return arrayResult;
@@ -71,7 +71,7 @@ function resIssue(issue, additionalText = '') {
       return;
 
    const issueInMid = C.strDecapitalizeFirstLetter(issue);
-   const insult = G.genPersonalInsult();
+   const insult = GEN.genPersonalInsult();
    const insultWithArticle = C.strAddArticle(insult);
 
    let arrayResult = [
@@ -155,9 +155,9 @@ module.exports.resDefault = resDefault;
 
 //------------------------------------------------------------------------------------------------------------------
 function resAmount(maxMultiplier = 8, additionalSymbol = '') {
-   const maxNumber = G.genRandomMultiplier(maxMultiplier, 75) + 1;
+   const maxNumber = GEN.genRandomMultiplier(maxMultiplier, 75) + 1;
    const amountPart = C.rnd(maxNumber) + additionalSymbol;
-   const defaultEnding = G.genAccuracy(false) + amountPart;
+   const defaultEnding = GEN.genAccuracy(false) + amountPart;
 
    const arrayResult = [
       `${amountPart}`,
@@ -166,7 +166,7 @@ function resAmount(maxMultiplier = 8, additionalSymbol = '') {
       `I think it's ${defaultEnding}`
    ];
 
-   return G.addFunnyEndingToAll(arrayResult);
+   return GEN.addFunnyEndingToAll(arrayResult);
 }
 
 module.exports.resAmount = resAmount;
@@ -177,14 +177,14 @@ function resChance() {
 
    let arrayResult = [
       `${number}`,
-      `${G.genAccuracy(true)}${number}`,
+      `${GEN.genAccuracy(true)}${number}`,
       `The chance for that is ${number}`,
-      `The chance for that is ${G.genAccuracy(false)}${number}`
+      `The chance for that is ${GEN.genAccuracy(false)}${number}`
    ];
 
    arrayResult = C.arrAddTextToAllItems(arrayResult, '', '%');
 
-   return G.addFunnyEndingToAll(arrayResult);
+   return GEN.addFunnyEndingToAll(arrayResult);
 }
 
 module.exports.resChance = resChance;
@@ -199,19 +199,19 @@ function resCost() {
          `Only acceptable payment for that is ${C.arrGetRandom(DC.charactersIrlOnly)}`
       ];
 
-      return G.addFunnyEndingToAll(arrayResultSpecial);
+      return GEN.addFunnyEndingToAll(arrayResultSpecial);
    } else {
-      const amount = C.rnd(G.genRandomMultiplier(8));
+      const amount = C.rnd(GEN.genRandomMultiplier(8));
       const cost = `${amount} ${C.arrGetRandom(DC.currenciesAll)}`;
 
       const arrayResult = [
          `${cost}`,
          `That costs ${cost}`,
          `That is worth ${cost}`,
-         `Price for that is ${G.genAccuracy(false)}${cost}`
+         `Price for that is ${GEN.genAccuracy(false)}${cost}`
       ];
       
-      return G.addFunnyEndingToAll(arrayResult);
+      return GEN.addFunnyEndingToAll(arrayResult);
    }
 }
 
@@ -229,7 +229,7 @@ function resDndalign(who) {
       `${C.strCapitalizeFirstLetter(RND(DS.termsNoDoubt))} ${alignment}.`
    ];
 
-   return G.addFunnyEnding(RND(arrayResult));
+   return GEN.addFunnyEnding(RND(arrayResult));
 }
 
 module.exports.resDndalign = resDndalign;
@@ -311,8 +311,8 @@ function resIs() {
          `Why are you asking me about that`
       ];
 
-      arrayResultSpecialNormal = G.addFunnyEndingToAll(arrayResultSpecialNormal);
-      arrayResultSpecialQuestion = G.addFunnyEndingToAll(arrayResultSpecialQuestion, '?');
+      arrayResultSpecialNormal = GEN.addFunnyEndingToAll(arrayResultSpecialNormal);
+      arrayResultSpecialQuestion = GEN.addFunnyEndingToAll(arrayResultSpecialQuestion, '?');
 
       result = RND(arrayResultSpecialNormal.concat(arrayResultSpecialQuestion));
    } else {
@@ -338,7 +338,7 @@ function resIs() {
 
       result = RND(arrayResult);
       if (!result.startsWith('http'))
-         result = result + G.genFunnyEnding();
+         result = result + GEN.genFunnyEnding();
    }
 
    return result;
@@ -410,7 +410,7 @@ function resPercentSpecial(who, what) {
       `${who} is ${value}% ${what}`
    ];
 
-   return G.addFunnyEndingToAll(arrayResult);
+   return GEN.addFunnyEndingToAll(arrayResult);
 }
 
 module.exports.resPercentSpecial = resPercentSpecial;
@@ -473,7 +473,7 @@ module.exports.resResolve = resResolve;
 
 //------------------------------------------------------------------------------------------------------------------
 function resWho() {
-   return G.genPerson() + G.genFunnyEnding();
+   return GEN.genPerson() + GEN.genFunnyEnding();
 }
 
 module.exports.resWho = resWho;
