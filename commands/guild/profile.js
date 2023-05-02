@@ -67,7 +67,7 @@ module.exports = {
          });
       } catch (e) {
          console.log(e);
-         C.dcRespondToMsg(message, `An error occured while showing this profile!`);
+         C.dcRespondToMsg(message, e);
       }
    },
 }

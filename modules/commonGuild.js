@@ -411,7 +411,6 @@ async function getProfileById(element, id) {
 
 module.exports.getProfileById = getProfileById;
 
-
 //------------------------------------------------------------------------------------------------------------------
 function getFoundMembers(message, nameOrMention) {
    const found = C.getMemberIdByNameOrMention(message, nameOrMention);
@@ -435,7 +434,7 @@ function getFoundMembers(message, nameOrMention) {
    return result;
 }
 
-
+module.exports.getFoundMembers = getFoundMembers;
 
 //------------------------------------------------------------------------------------------------------------------
 async function getMemberProfile(message, nameOrMention) {
