@@ -441,7 +441,7 @@ function getFoundMembers(message, nameOrMention) {
 async function getMemberProfile(message, nameOrMention) {
    const found = getFoundMembers(message, nameOrMention);
 
-   if (C.checkIfStringOfNumbers(found))
+   if (!C.checkIfStringOfNumbers(found))
       return Promise.reject(found);
 
    return Promise.resolve(getProfileById(message, found));
