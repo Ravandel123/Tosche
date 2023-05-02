@@ -432,6 +432,8 @@ function getFoundMembers(message, nameOrMention) {
       }
    }
 
+   console.log(result);
+
    return result;
 }
 
@@ -441,9 +443,12 @@ function getFoundMembers(message, nameOrMention) {
 async function getMemberProfile(message, nameOrMention) {
    const found = getFoundMembers(message, nameOrMention);
 
-   if (C.checkIfString(found))
+   if (C.checkIfString(found)) {
       return Promise.reject(found);
 
+   }
+
+   console.log('weszlo');
    return Promise.resolve(getProfileById(message, found));
 }
 // async function getMemberProfile(message, nameOrMention) {
