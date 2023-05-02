@@ -411,29 +411,63 @@ async function getProfileById(element, id) {
 
 module.exports.getProfileById = getProfileById;
 
+
 //------------------------------------------------------------------------------------------------------------------
-async function getMemberProfile(message, nameOrMention) {
-   let found = C.getMemberIdByNameOrMention(message, nameOrMention);
+function getFoundMembers(message, nameOrMention) {
+   const found = C.getMemberIdByNameOrMention(message, nameOrMention);
+   let result;
 
    if (C.dcCheckIfCollection(found)) {
       const membersAmount = found.size;
 
       if (membersAmount == 0) {
-         return Promise.reject(`No users found!`);
+         result = `No users found!`;
       } else if (membersAmount > 1) {
-         let msg = `Found more than 1 user!\nUsers found: `;
+         result = `Found more than 1 user!\nUsers found: `;
          const memberNames = found.map(e => e.displayName);
 
-         memberNames.forEach(e => msg += `${e}; `);
-
-         return Promise.reject(msg);
+         memberNames.forEach(e => result += `${e}; `);
       } else {
-         found = found.at(0).id;
+         result = found.at(0).id;
       }
    }
 
+   return result;
+}
+
+
+
+//------------------------------------------------------------------------------------------------------------------
+async function getMemberProfile(message, nameOrMention) {
+   const found = getFoundMembers(message, nameOrMention);
+
+   if (C.checkIfString(found))
+      return Promise.reject(found);
+
    return Promise.resolve(getProfileById(message, found));
 }
+// async function getMemberProfile(message, nameOrMention) {
+//    let found = C.getMemberIdByNameOrMention(message, nameOrMention);
+
+//    if (C.dcCheckIfCollection(found)) {
+//       const membersAmount = found.size;
+
+//       if (membersAmount == 0) {
+//          return Promise.reject(`No users found!`);
+//       } else if (membersAmount > 1) {
+//          let msg = `Found more than 1 user!\nUsers found: `;
+//          const memberNames = found.map(e => e.displayName);
+
+//          memberNames.forEach(e => msg += `${e}; `);
+
+//          return Promise.reject(msg);
+//       } else {
+//          found = found.at(0).id;
+//       }
+//    }
+
+//    return Promise.resolve(getProfileById(message, found));
+// }
 
 module.exports.getMemberProfile = getMemberProfile;
 
