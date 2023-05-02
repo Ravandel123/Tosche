@@ -752,6 +752,13 @@ function checkIfString(value) {
 module.exports.checkIfString = checkIfString;
 
 //------------------------------------------------------------------------------------------------------------------
+function checkIfStringOfNumbers(value) {
+   return /^\d+$/.test(value);
+}
+
+module.exports.checkIfStringOfNumbers = checkIfStringOfNumbers;
+
+//------------------------------------------------------------------------------------------------------------------
 function checkIfNaturalNumber(value) {
    return checkIfInt(value) && value >= 0;
 }
