@@ -429,6 +429,8 @@ function getFoundMembers(message, nameOrMention) {
       } else {
          result = found.at(0).id;
       }
+   } else {
+      result = found;
    }
 
    console.log(`Found items: ${found}`);
