@@ -433,9 +433,6 @@ function getFoundMembers(message, nameOrMention) {
       result = found;
    }
 
-   console.log(`Found items: ${found}`);
-   console.log(`Result: ${result}`);
-
    return result;
 }
 
