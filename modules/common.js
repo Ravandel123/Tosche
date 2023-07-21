@@ -1197,13 +1197,6 @@ module.exports.dcGetUserByID = dcGetUserByID;
 
 //-------------------------------------------------------Members-------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-function getMemberIdByNameOrMention(message, nameOrMention) {
-   return dcGetMemberIDFromMention(nameOrMention) ?? dcGetAllMembersByNick(message, nameOrMention);
-}
-
-module.exports.getMemberIdByNameOrMention = getMemberIdByNameOrMention;
-
-//------------------------------------------------------------------------------------------------------------------
 function dcGetMemberByID(element, userID) {
    if (!userID)
       return;
@@ -1262,12 +1255,57 @@ function dcGetMemberIDFromMention(mention) {
    if (!strCheckIfContainsAll(mention, ['<@', '>']))
       return;
 
+   //The discord tag could be with or without '!', so we either omit 2 or 3 first characters
    const mentionStart = mention.indexOf('<@!') == -1 ? mention.indexOf('<@') + 2 : mention.indexOf('<@') + 3;
 
+   //The discord tag consists of 18 digits
    return mention.substr(mentionStart, 18);
 }
 
 module.exports.dcGetMemberIDFromMention = dcGetMemberIDFromMention;
+
+//------------------------------------------------------------------------------------------------------------------
+function getFoundMembers(message, nameOrMention) {
+   //If 'nameOrMention' is not a mention, then assume it is a user's name and search all users whose names contain 'nameOrMention'
+   const found = dcGetMemberIDFromMention(nameOrMention) ?? dcGetAllMembersByNick(message, nameOrMention);
+   let result;
+
+   //'found' is a collection only if we ran 'dcGetAllMembersByNick()'
+   if (dcCheckIfCollection(found)) {
+      const membersAmount = found.size;
+
+      if (membersAmount == 0) {
+         result = `No users found!`;
+      } else if (membersAmount > 1) {
+         result = `Found more than 1 user!\nUsers found: `;
+         const memberNames = found.map(e => e.displayName);
+
+         memberNames.forEach(e => result += `${e}; `);
+      } else {
+         result = found.at(0).id;
+      }
+   } else {
+      result = found;
+   }
+
+   return result;
+}
+
+module.exports.getFoundMembers = getFoundMembers;
+
+//------------------------------------------------------------------------------------------------------------------
+function getMemberByNameOrMention(message, nameOrMention) {
+   const found = getFoundMembers(message, nameOrMention);
+
+   if (!checkIfStringOfNumbers(found)) {
+      dcSendMsg(message, found);
+      return;
+   }
+
+   return dcGetMemberByID(message, found);
+}
+
+module.exports.getMemberByNameOrMention = getMemberByNameOrMention;
 
 // ---------------------------------------------------------------------------------------------------------------
 
@@ -1583,3 +1621,165 @@ function getLeftoverOunces(ounces, decimalPlaces = 0) {
 
 //---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- ARRAYS ----------------------------------------------------------
+// arrCheckIfNotEmpty(array)
+// arrGetDimension(array)
+// arrGetRandom(array)
+// arrConvertToUnqiue(array)
+// arrGetFirstByFunction(array, findFunction)
+// arrGetAllByFunction(array, findFunction)
+// arrGetObjectByAnyOfItsValues(array, valueToFind)
+// arrAddTextToAllItems(array, textAtStart = '', textAtEnd = '')
+// arrGetRandomFromPopulated1D(array2DToPopulate)
+// arr2DCheckItemExistence(array, itemToFind, columnToSearch)
+// arr2DGetItemRow(array, itemToFind, columnToSearch = 0)
+// arr2DGetItemColumnValue(array, itemToFind, columnToReturn, columnToSearch = -1)
+// arrGetPopulatedFrom2D(array2D)
+// arrGenerateFromFrequency(array, keyName, valueName)
+// arrRandomFromFrequency(array, keyName, valueName)
+
+//----------------------------------------------------------- RANDOM -----------------------------------------------------------
+// rnd(max = 100)
+// rndNo0(max = 100)
+// rndBetween(min, max, decimalPlaces = 0)
+// chance(chanceOfSuccess)
+// generateRandomMultiplier(maxDigitScope)
+
+//----------------------------------------------------------- SCHEMATICS -----------------------------------------------------------
+// checkIfProfile(value)
+
+//----------------------------------------------------------- TEXT -----------------------------------------------------------
+// strRemoveSpaces(string)
+// strGetFirstChar(string)
+// strGetLastChar(string)
+// strGetCharAt(string, index)
+// strToLowerCase(value)
+// strCapitalizeFirstLetter(value, extraCheck = true)
+// strGetSyllablesAmount(wordToCheck)
+// strDecapitalizeFirstLetter(value)
+// strBold(string)
+// strItalics(string)
+// strUnderline(string)
+// strCompare(string1, string2, ignoreCase = true)
+// strCheckIfContains(string, fragment, ignoreCase = true)
+// strCheckIfContainsAny(value, array, ignoreCase = true)
+// strCheckIfContainsAll(string, array, ignoreCase = true)
+// strCheckIfAnyMatch(string, array, ignoreCase = true)
+// strCheckIfVowel(letter)
+// strRemoveBetween(string, startIndex, endIndex)
+// strRemoveAllSpecialChars(string)
+// strAddArticle(string, makeBold = false)
+// strAddEndingApostrophe(string)
+// strGetPastTense(verb)
+// strGetBasicPronoun(string)
+// strGetPronoun(string, version = 1)
+
+//----------------------------------------------------------- TIME ----------------------------------------------------------
+// sleep(s)
+
+//----------------------------------------------------------- OBJECTS ----------------------------------------------------------
+// objCompare(object1, object2)
+
+//----------------------------------------------------------- VALIDATION ----------------------------------------------------------
+// checkIfExists(itemToCheck)
+// checkIfNumberIsPositive(value)
+// checkAllByFunction(objectToCheck, checkFunction)
+// checkIfAnyByFunction(objectToCheck, checkFunction)
+// checkIfAnyMatch(soughtItem, objectToCheck, checkType = false)
+// checkIfArray(value)
+// checkIfFunction(value)
+// checkIfObject(value)
+// checkIfNumber(value)
+// checkIfString(value)
+// checkIfStringOfNumbers(value)
+// checkIfNaturalNumber(value)
+// checkIfNaturalNumberInScope(value, min, max)
+// checkIfInt(objectToCheck, convertToNumberFirst = true)
+// checkIfIntInRange(value, min, max, convertToNumberFirst = true)
+// chackIfImageUrl(url)
+// checkIfValidHttpUrl(string)
+
+//----------------------------------------------------------- CONVERTERS ----------------------------------------------------------
+// convertByFunction(objectToConvert, convertFunction)
+// convertToInt(value)
+// convertToString(value)
+// roundNumber(value, decimalPlaces = 0)
+
+//----------------------------------------------------------- DISCORD ----------------------------------------------------------
+//------------------------------Channels------------------------------
+// dcGetChannel(element)
+// dcGetChannelByName(element, channelName)
+// dcGetChannelByID(message, channelID)
+// dcGetCreateOrUnarchiveThread(channel, threadName, member)
+//------------------------------Checkers------------------------------
+// dcCheckIfCollection(value)
+// dcCheckIfMessage(value)
+// dcCheckIfMessageComponents(value)
+// dcCheckIfGuildMessage(message)
+// dcCheckIfChannel(value)
+// dcCheckIfGuildChannel(value)
+// dcCheckIfThread(value)
+// dcCheckIfRole(value)
+// dcCheckIfMember(value)
+// dcCheckIfGuild(value)
+// dcCheckIfDM(message)
+//------------------------------Messages------------------------------
+// deleteMessages(message, amount)
+// dcSendMsg(message, msgContent, msgType = 'channel')
+// dcSendMsgToChannel(channel, msgContent)
+// dcSendMsgToChannelAndGetItsRef(msgOrChannel, msgContent)
+// dcRespondToMsg(message, msgContent)
+// dcSendDM(message, userID, msgContent)
+// dcSendDMToAuthor(message, msgContent)
+// dcReplyToMsg(message, msgContent)
+// dcRespondFromArray(message, array, msgType = 'channel')
+//------------------------------Roles------------------------------
+// dcGetRoleByName(element, roleName)
+// dcAddRoleToMember(member, roleName)
+// dcRemoveRoleFromMember(member, roleName)
+// dcCheckIfMemberHasRole(member, roleName)
+//------------------------------Users------------------------------
+// dcGetUserByID(message, userID)
+//------------------------------Members------------------------------
+// dcGetMemberByID(element, userID)
+// dcGetMessageAuthorAsMember(message)
+// dcGetAllMembersByNick(element, nick)
+// dcGetAllMembers(element)
+// dcGetMentionedMember(message)
+// dcGetMemberIDFromMention(mention)
+// getFoundMembers(message, nameOrMention)
+// getMemberByNameOrMention(message, nameOrMention)
+//------------------------------Interactions------------------------------
+// dcCreateRow(components)
+// dcCreateButton(id, label, emoji, style = 'primary', isDisabled = false)
+// dcCreateSelectMenu(id, placeholderText, options, maxValues = 1)
+//------------------------------Internal------------------------------
+// getFixedMessageContent(msgContent)
+
+//----------------------------------------------------------- CALCULATION ----------------------------------------------------------
+// calcBMI(height, weight)
+// calcBMIWeight(height, bmi)
+// calcFixMaxDecimal(value, maxDecimal = 2)
+// calcCmToImperial(centimeters, decimalPlaces = 0)
+// calcKgToImperial(kilograms, decimalPlaces = 0)
+// calcFahrenheitToCelsius(value)
+// calcCelsiusToFahrenheit(value)
+// getFullKgToImperial(kilograms, decimalPlaces = 0)
+// getFullCmToImperial(centimeters, decimalPlaces = 0)
+
+//----------------------------------------------------------- OTHER ----------------------------------------------------------
+// runFunctionOnAll(objectToRunOn, functionToRun)
+// recognizeWhoFullText(argument, message, command)
+// recognizeWhoOneArg(argument, message)
+// recognizeWhoOneArgNoAuthor(argument, message)
+// slicePrefix(argumentWithPrefix)
+
+//----------------------------------------------------------- INTERNALS ----------------------------------------------------------
+// convertToInches(centimeters)
+// convertToOunces(kilograms)
+// getTotalFeet(inches)
+// getTotalPounds(ounces)
+// getLeftoverInches(inches, decimalPlaces = 0)
+// getLeftoverOunces(ounces, decimalPlaces = 0)

@@ -5,8 +5,21 @@ const CM = require('./commonMechanics.js');
 const DG = require('./dataGuild.js');
 const SG = require('./schematicsGuild.js');
 const DB = require('./db.js');
+const DSV = require('./dataServer.js');
 
 "use strict";
+
+
+//----------------------------------------------------------- GENERAL ----------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+function checkIfServerOwner(member) {
+   return member.id == DSV.ownerID;
+}
+
+module.exports.checkIfServerOwner = checkIfServerOwner;
+
+// ---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 //----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
@@ -397,7 +410,7 @@ async function getProfileById(element, id) {
    if (!profileDoc) {
       profileDoc = createNewGuildProfileFromID(element, id);
       if (!profileDoc)
-         return Promise.reject(`Unable to find or create guild profile! The user ${member} doesn't exist or is not in Deltrada!`);
+         return Promise.reject(`Unable to find or create guild profile! The user with ID '${id}' doesn't exist or is not a member of Deltrada!`);
 
       try {
          await profileDoc.save();
@@ -412,35 +425,8 @@ async function getProfileById(element, id) {
 module.exports.getProfileById = getProfileById;
 
 //------------------------------------------------------------------------------------------------------------------
-function getFoundMembers(message, nameOrMention) {
-   const found = C.getMemberIdByNameOrMention(message, nameOrMention);
-   let result;
-
-   if (C.dcCheckIfCollection(found)) {
-      const membersAmount = found.size;
-
-      if (membersAmount == 0) {
-         result = `No users found!`;
-      } else if (membersAmount > 1) {
-         result = `Found more than 1 user!\nUsers found: `;
-         const memberNames = found.map(e => e.displayName);
-
-         memberNames.forEach(e => result += `${e}; `);
-      } else {
-         result = found.at(0).id;
-      }
-   } else {
-      result = found;
-   }
-
-   return result;
-}
-
-module.exports.getFoundMembers = getFoundMembers;
-
-//------------------------------------------------------------------------------------------------------------------
 async function getMemberProfile(message, nameOrMention) {
-   const found = getFoundMembers(message, nameOrMention);
+   const found = C.getFoundMembers(message, nameOrMention);
 
    if (!C.checkIfStringOfNumbers(found))
       return Promise.reject(found);

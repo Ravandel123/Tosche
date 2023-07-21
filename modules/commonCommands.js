@@ -1,6 +1,6 @@
 const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
-const DG = require('./dataGuild.js');
+
 const R = require('./responses.js');
 
 "use strict";
@@ -143,39 +143,13 @@ module.exports.checkIfArgIsNaturalNumberInScope = checkIfArgIsNaturalNumberInSco
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-//----------------------------------------------------------- OTHERS -----------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------
-function getMemberByNameOrMention(message, nameOrMention) {
-   let found = C.getMemberIdByNameOrMention(message, nameOrMention);
 
-   if (C.dcCheckIfCollection(found)) {
-      const membersAmount = found.size;
+//----------------------------------------------------------- MAIN -----------------------------------------------------------
+// showCommands(commands, message, commandName, prefix, groupName)
+// dcValidateForBannedWords(message)
 
-      if (membersAmount == 0) {
-         C.dcSendMsg(message, `No users found!`, 'reply');
-         return;
-      } else if (membersAmount > 1) {
-         let msg = `Found more than 1 user!\nUsers found: `;
-         const memberNames = found.map(e => e.displayName);
-
-         memberNames.forEach(e => msg += `${e}; `);
-
-         C.dcSendMsg(message, msg, 'reply');
-         return;
-      } else {
-         return found.at(0);
-      }
-   } else {
-      const member = C.dcGetMemberByID(message, found);
-
-      if (member)
-         return member;
-      else
-         C.dcSendMsg(message, `No users found!`, 'reply');
-   }
-}
-
-module.exports.getMemberByNameOrMention = getMemberByNameOrMention;
-
-// ---------------------------------------------------------------------------------------------------------------
-//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------- CHECKERS -----------------------------------------------------------
+// checkArgsAmount(message, args, requiredArgs)
+// checkIfArgIsNumber(message, argument)
+// checkIfArgIsNaturalNumber(message, argument)
+// checkIfArgIsNaturalNumberInScope(message, argument, min, max)

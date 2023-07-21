@@ -237,7 +237,7 @@ function getMoreInterestingHitLocationName(bodyPart) {
          return C.arrGetRandom(['head', 'face', 'jaw', 'nose', 'snout']);
 
       case 'torso':
-         return C.arrGetRandom(['chest', 'guts', 'side', 'ribs']);
+         return C.arrGetRandom(['thorax', 'trunk', 'midsection', 'flank']);
 
       case 'primary arm':
       case 'secondary arm':

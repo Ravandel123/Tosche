@@ -170,6 +170,7 @@ const verbsIrregular = [
    ['fly', 'flew', 'flown', 'flying'],
    ['go', 'went', 'gone', 'going'],
    ['hit', 'hit', 'hit', 'hitting'],
+   ['make', 'made', 'made'],
    ['occur', 'occurred', 'occurred', 'occurring'],
    ['patrol', 'patrolled', 'patrolled', 'patrolling'],
    ['prefer', 'preferred', 'preferred', 'preferring'],

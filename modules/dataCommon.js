@@ -1,6 +1,6 @@
 //A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
 
-const charactersIrl = ['Dinly', 'Lanaar', 'Me', 'Ravandel', 'Catz', 'You', 'Nachtkind'];
+const charactersIrl = ['Dinly', 'Lanaar', 'Me', 'Ravandel', 'Catz', 'You', 'Nachtkind', 'Shereshoy', 'Storyteller'];
 const charactersSpecial = ['Everybody', 'Nobody'];
 const charactersBwd = [
    'Asha', 'Ashtor', 'Beck', 'Bevan', 'Cain', 'Clovis', 'Crim', 'Dakkan', 'Eira', 'Hardin', 'Janik', 'Kenosh',
@@ -18,7 +18,7 @@ const charactersIrlOnly = charactersIrl.concat(charactersSpecial);
 const charactersAll = charactersIrl.concat(charactersSpecial, charactersBwd, charactersBadGuys);
 
 
-const additionalFunnyWords = ['lol', 'yes-yes', 'lmao'];
+const additionalFunnyWords = ['lol', 'yes-yes', 'lmao', 'xD'];
 
 
 const dndAlignments = ['Lawful Good', 'Lawful Neutral', 'Lawful Evil', 'Neutral Good', 'True Neutral', 'Neutral Evil', 'Chaotic Evil', 'Chaotic Neutral', 'Chaotic Good'];
