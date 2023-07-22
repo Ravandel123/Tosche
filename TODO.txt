@@ -31,8 +31,3 @@ getProfileById
 
 Add timeout for memberData tasks
 Wrap that stuff into a function in CG
-
-In order to test your microphone we need access to it.
- Please click allow in the top right corner.
- 
- https://www.onlinemictest.com/
