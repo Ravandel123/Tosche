@@ -85,11 +85,14 @@ for (const file of commandFilesM) {
 
 //mongodb+srv://ravandel:dawidson123@cluster0-enjdy.mongodb.net/testdb?retryWrites=true&w=majority
 Mongoose.connect(GUriString, { useNewUrlParser: true, useUnifiedTopology: true }, function (err, res) {
-   if (err)
-      console.log('ERROR connecting to: ' + GUriString + '. ' + err);
-   else
-      console.log(`Successfully connected to the database`);
+   if (err) {
+    console.log('ERROR connecting to: ' + GUriString + '. ' + err);
+   } else {
+    console.log(`Successfully connected to the database.`);
+   }
 })
+
+console.log(`----------------------------------------------------------------------------------------------------`);
 
 //----------------------------------------Main----------------------------------------
 //Move this function at the bottom after cleanup of bot.js

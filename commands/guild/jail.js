@@ -16,7 +16,7 @@ module.exports = {
       const cmdCaller = C.dcGetMessageAuthorAsMember(message);
 
       //Must be the server owner or a guard & can't be in prison
-      if (!CG.checkIfServerOwner(cmdCaller.author) && !C.dcCheckIfMemberHasRole(cmdCaller, DSV.roleGuard)) {
+      if (!CG.checkIfServerOwner(cmdCaller) && !C.dcCheckIfMemberHasRole(cmdCaller, DSV.roleGuard)) {
          C.dcRespondToMsg(message, 'Really pushing your luck, huh? Guards get the reins, not you!');
          return;
       } else if (C.dcCheckIfMemberHasRole(cmdCaller, DSV.rolePrisoners)) {
@@ -32,7 +32,7 @@ module.exports = {
       C.dcRemoveRoleFromMember(cmdTarget, DSV.roleDefault);
       C.dcAddRoleToMember(cmdTarget, DSV.rolePrisoner1);
 
-      
+
 
 
    //    if (!C.dcCheckIfMemberHasRole(member, DSV.roleGuard) && !C.dcCheckIfMemberHasRole(member, DSV.rolePrisoner)) {
