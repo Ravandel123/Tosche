@@ -17,7 +17,7 @@ const roleGuard = 'Guard';
 const rolePrisoner1 = 'Detainee';
 const rolePrisoner2 = 'Prisoner';
 const rolePrisoner3 = 'Chained Inmate';
-const rolePrisoners = rolePrisoner1.concat(rolePrisoner2, rolePrisoner3);)
+const rolePrisoners = rolePrisoner1.concat(rolePrisoner2, rolePrisoner3);
 
 
 
