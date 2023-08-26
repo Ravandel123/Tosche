@@ -8,7 +8,8 @@ module.exports = {
    example: `<@!392728479696814092>`,
    execute(message, args) {
       const who = args[1] ? C.getMemberByNameOrMention(message, args[1]) : message.author;
-      if (who)
+      if (who) {
          C.dcRespondToMsg(message, who.displayAvatarURL());
+      }
    },
 }

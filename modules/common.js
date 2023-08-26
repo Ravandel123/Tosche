@@ -1138,16 +1138,25 @@ module.exports.dcRespondFromArray = dcRespondFromArray;
 
 //-------------------------------------------------------Roles-------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
+/**
+ * Retrieves a role by name from a Discord element.
+ *
+ * @param {Discord.GuildMember|Discord.Message|Discord.Guild} element - The Discord element from which to retrieve the role.
+ * @param {string} roleName - The name of the role to retrieve.
+ * @returns {Discord.Role|null} The role with the specified name, or null if not found.
+ */
 function dcGetRoleByName(element, roleName) {
-   if (!checkIfExists(roleName))
-      return;
+   if (!checkIfExists(roleName)) {
+      return null;
+   }
 
-   const searchFunction = e => e.name == roleName;
+   const searchFunction = role => role.name == roleName;
 
-   if (dcCheckIfMember(element) || dcCheckIfGuildMessage(element))
+   if (dcCheckIfMember(element) || dcCheckIfGuildMessage(element)) {
       return element.guild.roles.cache.find(searchFunction);
-   else if (dcCheckIfGuild(element))
+   } else if (dcCheckIfGuild(element)) {
       return element.roles.cache.find(searchFunction);
+   }
 }
 
 module.exports.dcGetRoleByName = dcGetRoleByName;
@@ -1156,8 +1165,9 @@ module.exports.dcGetRoleByName = dcGetRoleByName;
 function dcAddRoleToMember(member, roleName) {
    const role = dcGetRoleByName(member, roleName);
 
-   if (role)
+   if (role) {
       member.roles.add(role);
+   }
 }
 
 module.exports.dcAddRoleToMember = dcAddRoleToMember;
@@ -1166,16 +1176,30 @@ module.exports.dcAddRoleToMember = dcAddRoleToMember;
 function dcRemoveRoleFromMember(member, roleName) {
    const role = dcGetRoleByName(member, roleName);
 
-   if (role)
+   if (role) {
       member.roles.remove(role);
+   }
 }
 
 module.exports.dcRemoveRoleFromMember = dcRemoveRoleFromMember;
 
 //------------------------------------------------------------------------------------------------------------------
+/**
+ * Checks if a member has a certain role.
+ *
+ * @param {Discord.GuildMember} member - The member to check.
+ * @param {string|string[]} roleName - The role name(s) to check for.
+ *                                    Can be a string or an array of strings.
+ * @returns {boolean} True if the member has the role(s), false otherwise.
+ */
 function dcCheckIfMemberHasRole(member, roleName) {
-   if (dcCheckIfMember(member) && roleName)
-      return member.roles.cache.some(e => e.name == roleName);
+   if (!dcCheckIfMember(member) || !roleName) {
+      return false;
+   }
+
+   const rolesToFind = checkIfArray(roleName) ? roleName : [roleName];
+
+   return member.roles.cache.some(role => rolesToFind.includes(role.name));
 }
 
 module.exports.dcCheckIfMemberHasRole = dcCheckIfMemberHasRole;
