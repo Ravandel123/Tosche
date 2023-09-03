@@ -58,23 +58,23 @@ module.exports = {
 
       switch (args[2]) {
          case undefined:
-         case 1:
+         case '1':
             roleToSwitchTo = DSV.rolePrisoner1;
             channelToSendJailMsg = DSV.channelPrison1.id;
             break;
 
-         case 2:
+         case '2':
             roleToSwitchTo = DSV.rolePrisoner2;
             channelToSendJailMsg = DSV.channelPrison2.id;
             break;
 
-         case 3:
+         case '3':
             roleToSwitchTo = DSV.rolePrisoner3;
             channelToSendJailMsg = DSV.channelPrison3.id;
             break;
 
          default:
-            C.dcRespondToMsg(message, `We don't have a prison level of ${args[2]}}`);
+            C.dcRespondToMsg(message, `We don't have a prison level of ${args[2]}`);
             return;
       }
 

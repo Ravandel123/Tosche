@@ -1194,12 +1194,10 @@ module.exports.dcAddRolesToMember = dcAddRolesToMember;
  */
 function dcRemoveRolesFromMember(member, roleNames) {
    const rolesToRemove = checkIfArray(roleNames) ? roleNames : [roleNames];
-   console.log(rolesToRemove);
+
    for (const roleName of rolesToRemove) {
-      console.log(`Trying to get ${roleName}`);
       const role = dcGetRoleByName(member, roleName);
       if (role) {
-         console.log(`Removing ${roleName}`);
          member.roles.remove(role);
       }
    }
