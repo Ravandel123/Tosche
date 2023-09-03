@@ -92,6 +92,6 @@ module.exports = {
       C.dcSwitchMemberRoles(cmdTarget, DSV.roleDefault, roleToSwitchTo);
 
       const channelToSendWelcomeMsg = C.dcGetChannelByID(message, channelToSendJailMsg);
-      C.dcSendMsgToChannel(channelToSendWelcomeMsg, `Welcome <@!${cmdTarget.id}>!`);
+      C.dcSendMsgToChannel(channelToSendWelcomeMsg, `Welcome to your comfy cell, <@!${cmdTarget.id}>!`);
    },
 }
