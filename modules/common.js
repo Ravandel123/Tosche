@@ -1181,7 +1181,7 @@ function dcAddRolesToMember(member, roleNames) {
    }
 }
 
-module.exports.dcAddRolesToMember = dcAddRoleToMember;
+module.exports.dcAddRolesToMember = dcAddRolesToMember;
 
 //------------------------------------------------------------------------------------------------------------------
 /**
@@ -1203,7 +1203,7 @@ function dcRemoveRolesFromMember(member, roleNames) {
    }
 }
 
-module.exports.dcRemoveRolesFromMember = dcRemoveRoleFromMember;
+module.exports.dcRemoveRolesFromMember = dcRemoveRolesFromMember;
 
 //------------------------------------------------------------------------------------------------------------------
 /**
