@@ -42,13 +42,13 @@ module.exports = {
       }
 
       //Can't jail bots
-      if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleBot)) {
+      if (C.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleBot)) {
          C.dcRespondToMsg(message, `This one has the Imperator's immunity!`);
          return;
       }
 
       //Can't jail other guards
-      if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleGuard) && cmdCaller.id != cmdTarget.id) {
+      if (C.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleGuard) && cmdCaller.id != cmdTarget.id) {
          C.dcRespondToMsg(message, `Nice try, but that's not how the guard duty works! Guards can't imprison their own!`);
          return;
       }
@@ -83,7 +83,7 @@ module.exports = {
       }
 
 
-      if (CG.dcCheckIfMemberHasRoles(cmdTarget, roleToSwitchTo)) {
+      if (C.dcCheckIfMemberHasRoles(cmdTarget, roleToSwitchTo)) {
          C.dcRespondToMsg(message, `${cmdTarget.displayName} is already rotting there!`);
          return;
       }
