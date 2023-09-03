@@ -37,13 +37,13 @@ module.exports = {
       let currentPrisonerRole;
       let currentPrisoneChannel;
 
-      if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.rolePrisoner1)) {
+      if (C.dcCheckIfMemberHasRoles(cmdTarget, DSV.rolePrisoner1)) {
          currentPrisonerRole = DSV.rolePrisoner1;
          currentPrisoneChannel = DSV.channelPrison1.id;
-      } else if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.rolePrisoner2)) {
+      } else if (C.dcCheckIfMemberHasRoles(cmdTarget, DSV.rolePrisoner2)) {
          currentPrisonerRole = DSV.rolePrisoner2;
          currentPrisoneChannel = DSV.channelPrison2.id;
-      } else if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.rolePrisoner3)) {
+      } else if (C.dcCheckIfMemberHasRoles(cmdTarget, DSV.rolePrisoner3)) {
          currentPrisonerRole = DSV.rolePrisoner3;
          currentPrisoneChannel = DSV.channelPrison3.id;
       } else {
