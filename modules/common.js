@@ -1196,6 +1196,7 @@ function dcRemoveRolesFromMember(member, roleNames) {
    const rolesToRemove = checkIfArray(roleNames) ? roleNames : [roleNames];
 
    for (const roleName of rolesToRemove) {
+      console.log(`Trying to get ${roleName}`);
       const role = dcGetRoleByName(member, roleName);
       if (role) {
          console.log(`Removing ${roleName}}`);
