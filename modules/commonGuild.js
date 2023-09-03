@@ -12,11 +12,30 @@ const DSV = require('./dataServer.js');
 
 //----------------------------------------------------------- GENERAL ----------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
+/**
+ * Checks if a user is the server owner
+ *
+ * @param {Discord.GuildMember} member - The member to check.
+ * @returns {boolean} True if the member is the server owner, false otherwise.
+ */
 function checkIfServerOwner(member) {
    return member.id == DSV.ownerID;
 }
 
 module.exports.checkIfServerOwner = checkIfServerOwner;
+
+//------------------------------------------------------------------------------------------------------------------
+/**
+ * Checks if a user is Tosche
+ *
+ * @param {Discord.GuildMember} member - The member to check.
+ * @returns {boolean} True if the member is Tosche, false otherwise.
+ */
+function checkIfTosche(member) {
+   return member.id == DSV.botID;
+}
+
+module.exports.checkIfTosche = checkIfTosche;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -485,3 +504,49 @@ module.exports.getRecordDoc = getRecordDoc;
 
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
+// checkIfServerOwner(member)
+// checkIfTosche(member)
+
+//----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
+// cdGetOrCreateMemberData(element, id)
+// cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you')
+// cdAssignNewTask(message, collector, breakable = true, transcationOpen = false, id = message.author.id)
+// cdFinishTask(message, id = message.author.id)
+// cdCanAct(message, userProfile)
+// cdWaitForAvailableTransaction(memberData, message, messageContent)
+
+//----------------------------------------------------------- CURRENCIES ----------------------------------------------------------
+// getCurrencyObject(currencyAlias)
+// transferCurrency(message, source, target, amount, currency)
+
+//----------------------------------------------------------- FIGHT CLUB ----------------------------------------------------------
+// getFightClubDoc()
+
+//----------------------------------------------------------- FISHING ----------------------------------------------------------
+// checkIfFishingDoc(value)
+// getMessageAuthorFishingDoc(message)
+// getFishingDocById(message, id)
+// createNewFishingDocFromID(message, id)
+// createNewFishingDoc(member)
+// addFishToFishingDoc(fishingDoc, fishToAdd)
+// addFishToMessageOwnerFishingDoc(message, fish)
+// updateFishingRecords(fishingDoc, fish, serverRecords)
+// setFishingResult(result, element, placeNumber)
+// moveFishingRecordDown(records, placeNumber)
+
+//----------------------------------------------------------- PERIODIC----------------------------------------------------------
+// mainUpdate1h(client)
+// profilesUpdate1h(guild, id)
+
+//----------------------------------------------------------- PROFILE ----------------------------------------------------------
+// getMessageAuthorProfile(message)
+// getProfileById(element, id)
+// getMemberProfile(message, nameOrMention)
+// createNewGuildProfile(member)
+// createNewGuildProfileFromID(element, id)
+
+//----------------------------------------------------------- RECORDS ----------------------------------------------------------
+// getRecordDoc()

@@ -656,3 +656,31 @@ module.exports.fishRecord = fishRecord;
 // ---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+
+//----------------------------------------------------------- COMMON DATA ----------------------------------------------------------
+// universalResponses()
+
+//----------------------------------------------------------- COMMON ----------------------------------------------------------
+// resMissingArgs(missingArgs)
+// resIssue(issue, additionalText = '')
+// resIssueSingle(issue, additionalText = '')
+// resBusy(reason, isMsgAuthor = true, name)
+
+//----------------------------------------------------------- COMMANDS ----------------------------------------------------------
+// resDefault()
+// resAmount(maxMultiplier = 8, additionalSymbol = '')
+// resChance()
+// resCost()
+// resDndalign(who)
+// resHate()
+// resIs()
+// resLove(who)
+// resPercentSpecial(who, what)
+// resRate(subject)
+// resResolve(who)
+// resWho()
+// resYou()
+
+//----------------------------------------------------------- ADVANCED COMMANDS ----------------------------------------------------------
+// fishCatchFailed(spotName, fish)
+// fishRecord(recordResult, fish, previousRecordHolder)

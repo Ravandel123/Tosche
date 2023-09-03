@@ -27,10 +27,12 @@ async function showCommands(commands, message, commandName, prefix, groupName) {
 
       if (command.aliases)
          data += `**Aliases:** ${command.aliases.join(', ')}\n`;
-      if (command.cooldown)
-         data += `**Cooldown:** ${command.cooldown}\n`;
       if (command.description)
          data += `**Description:** ${command.description}\n`;
+      if (command.requirements)
+         data += `**Requirements:** ${command.requirements}\n`;
+      if (command.cooldown)
+         data += `**Cooldown:** ${command.cooldown}\n`;
       if (command.usage)
          data += `**Usage:** ${prefix}${command.name} ${command.usage}\n`;
       if (command.example) {

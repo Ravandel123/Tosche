@@ -1162,47 +1162,86 @@ function dcGetRoleByName(element, roleName) {
 module.exports.dcGetRoleByName = dcGetRoleByName;
 
 //------------------------------------------------------------------------------------------------------------------
-function dcAddRoleToMember(member, roleName) {
-   const role = dcGetRoleByName(member, roleName);
+/**
+ * Add roles to a member by name.
+ *
+ * @param {Discord.GuildMember} member - The member to add roles to.
+ * @param {string|string[]} roleNames - The name of the role(s) to add, can be a string or an array of strings.
+ * 
+ * @returns {void}
+ */
+function dcAddRolesToMember(member, roleNames) {
+   const rolesToAdd = checkIfArray(roleNames) ? roleNames : [roleNames];
 
-   if (role) {
-      member.roles.add(role);
+   for (const roleName of rolesToAdd) {
+      const role = dcGetRoleByName(member, roleName);
+      if (role) {
+        member.roles.add(role);
+      }
    }
 }
 
-module.exports.dcAddRoleToMember = dcAddRoleToMember;
+module.exports.dcAddRolesToMember = dcAddRoleToMember;
 
 //------------------------------------------------------------------------------------------------------------------
-function dcRemoveRoleFromMember(member, roleName) {
-   const role = dcGetRoleByName(member, roleName);
+/**
+ * Remove roles from a member by name.
+ *
+ * @param {Discord.GuildMember} member - The member to remove roles from.
+ * @param {string|string[]} roleNames - The name of the role(s) to remove, can be a string or an array of strings.
+ * 
+ * @returns {void}
+ */
+function dcRemoveRolesFromMember(member, roleNames) {
+   const rolesToRemove = checkIfArray(roleNames) ? roleNames : [roleNames];
 
-   if (role) {
-      member.roles.remove(role);
+   for (const roleName of rolesToRemove) {
+      const role = dcGetRoleByName(member, roleName);
+      if (role) {
+        member.roles.remove(role);
+      }
    }
 }
 
-module.exports.dcRemoveRoleFromMember = dcRemoveRoleFromMember;
+module.exports.dcRemoveRolesFromMember = dcRemoveRoleFromMember;
 
 //------------------------------------------------------------------------------------------------------------------
 /**
  * Checks if a member has a certain role.
  *
  * @param {Discord.GuildMember} member - The member to check.
- * @param {string|string[]} roleName - The role name(s) to check for.
+ * @param {string|string[]} roleNames - The role name(s) to check for.
  *                                    Can be a string or an array of strings.
  * @returns {boolean} True if the member has the role(s), false otherwise.
  */
-function dcCheckIfMemberHasRole(member, roleName) {
-   if (!dcCheckIfMember(member) || !roleName) {
+function dcCheckIfMemberHasRole(member, roleNames) {
+   if (!dcCheckIfMember(member) || !roleNames) {
       return false;
    }
 
-   const rolesToFind = checkIfArray(roleName) ? roleName : [roleName];
+   const rolesToFind = checkIfArray(roleNames) ? roleNames : [roleNames];
 
    return member.roles.cache.some(role => rolesToFind.includes(role.name));
 }
 
 module.exports.dcCheckIfMemberHasRole = dcCheckIfMemberHasRole;
+
+//------------------------------------------------------------------------------------------------------------------
+
+/**
+ * Switch a role of a member to another one.
+ *
+ * @param {Discord.GuildMember} member - The member to check.
+ * @param {string|string[]} roleName - The role name(s) to check for.
+ * 
+ * @returns {void}
+ */
+function dcSwitchMemberRoles(member, roleNameToRemove, roleNameToAdd) {
+   dcRemoveRolesFromMember(member, roleNameToRemove);
+   dcAddRolesToMember(member, roleNameToAdd);
+}
+
+module.exports.dcSwitchMemberRoles = dcSwitchMemberRoles;
 
 // ---------------------------------------------------------------------------------------------------------------
 
@@ -1761,9 +1800,10 @@ function getLeftoverOunces(ounces, decimalPlaces = 0) {
 // dcRespondFromArray(message, array, msgType = 'channel')
 //------------------------------Roles------------------------------
 // dcGetRoleByName(element, roleName)
-// dcAddRoleToMember(member, roleName)
-// dcRemoveRoleFromMember(member, roleName)
-// dcCheckIfMemberHasRole(member, roleName)
+// dcAddRolesToMember(member, roleNames)
+// dcRemoveRolesFromMember(member, roleNames)
+// dcCheckIfMemberHasRole(member, roleNames)
+// dcSwitchMemberRoles(member, roleNameToRemove, roleNameToAdd);
 //------------------------------Users------------------------------
 // dcGetUserByID(message, userID)
 //------------------------------Members------------------------------

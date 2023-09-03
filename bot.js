@@ -92,8 +92,6 @@ Mongoose.connect(GUriString, { useNewUrlParser: true, useUnifiedTopology: true }
    }
 })
 
-console.log(`----------------------------------------------------------------------------------------------------`);
-
 //----------------------------------------Main----------------------------------------
 //Move this function at the bottom after cleanup of bot.js
 //https://gist.github.com/koad/316b265a91d933fd1b62dddfcc3ff584

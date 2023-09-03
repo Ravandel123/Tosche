@@ -31,3 +31,8 @@ getProfileById
 
 Add timeout for memberData tasks
 Wrap that stuff into a function in CG
+
+<#${ChannelID}>
+user.displayName
+<@!380485376759824385>
+<@!${cmdTarget.id}>

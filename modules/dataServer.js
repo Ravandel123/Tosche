@@ -6,11 +6,12 @@ const serverID = '553933942193913856';
 
 
 //----------------------------------------------------------- CHANNELS ----------------------------------------------------------
-const channelPrison1 = 'detainee-quarters';
-const channelPrison2 = 'prison';
-const channelPrison3 = 'the-dark-cell';
+const channelPrison1 = { name: 'detainee-quarters', id: '1142435056586084463' };
+const channelPrison2 = { name: 'prison', id: '1142435088613777489' };
+const channelPrison3 = { name: 'the-dark-cell', id: '1142435118577889382' };
 
 //----------------------------------------------------------- ROLES ----------------------------------------------------------
+const roleBot = 'Useful Tool';
 const roleDefault = 'Comrade';
 const roleGuard = 'Guard';
 
@@ -31,6 +32,7 @@ module.exports = {
    channelPrison2,
    channelPrison3,
 
+   roleBot,
    roleDefault,
    roleGuard,
    rolePrisoner1,

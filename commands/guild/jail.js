@@ -6,6 +6,7 @@ const DSV = require('../../modules/dataServer.js');
 module.exports = {
    name: 'jail',
    description: 'Jails a nasty troublemaker.',
+   requirements: 'Role (Guard)',
    usage: '[user] [level of prison (1-3)]',
    example: 'Lanaar',
    execute(message, args) {
@@ -13,38 +14,84 @@ module.exports = {
       if (!CC.checkArgsAmount(message, args, requiredArgs))
          return;
 
+      //Caller checks------------------------------------------------------------------------------------------------------------------------------
       const cmdCaller = C.dcGetMessageAuthorAsMember(message);
 
-      //Must be the server owner or a guard & can't be in prison
+      //Must be the server owner OR must be a guard & can't be in the prison already
       if (!CG.checkIfServerOwner(cmdCaller) && !C.dcCheckIfMemberHasRole(cmdCaller, DSV.roleGuard)) {
-         C.dcRespondToMsg(message, 'Really pushing your luck, huh? Guards get the reins, not you!');
+         C.dcRespondToMsg(message, `Really pushing your luck, huh? Guards get the reins, not you!`);
          return;
-      } else if (C.dcCheckIfMemberHasRole(cmdCaller, DSV.rolePrisoners)) {
+      }
+
+      if (C.dcCheckIfMemberHasRole(cmdCaller, DSV.rolePrisoners)) {
          C.dcRespondToMsg(message, `Attempting to jail someone while confined yourself? Looks like you're already behind those bars. Try again once you've earned your freedom!`);
          return;
       }
 
+      //Target checks------------------------------------------------------------------------------------------------------------------------------
       const cmdTarget = C.getMemberByNameOrMention(message, args[1]);
       if (!cmdTarget) {
          return;
       }
 
-      C.dcRemoveRoleFromMember(cmdTarget, DSV.roleDefault);
-      C.dcAddRoleToMember(cmdTarget, DSV.rolePrisoner1);
+      //Can't jail the Imperator or Tosche
+      if (CG.checkIfServerOwner(cmdTarget) || CG.checkIfTosche(cmdTarget)) {
+         C.dcRespondToMsg(message, `Guard, attempting to jail ${cmdTarget.displayName}? That's a new level of ambition! Congratulations, you've just earned a one-way ticket to <#${DSV.channelPrison1.id}>`);
+         C.dcSwitchMemberRoles(cmdCaller, DSV.roleDefault, DSV.rolePrisoner1);
+         return;
+      }
+
+      //Can't jail bots
+      if (CG.dcCheckIfMemberHasRole(cmdTarget, DSV.roleBot)) {
+         C.dcRespondToMsg(message, `This one has the Imperator's immunity!`);
+         return;
+      }
+
+      //Can't jail other guards
+      if (CG.dcCheckIfMemberHasRole(cmdTarget, DSV.roleGuard) && cmdCaller.id != cmdTarget.id) {
+         C.dcRespondToMsg(message, `Nice try, but that's not how the guard duty works! Guards can't imprison their own!`);
+         return;
+      }
+
+      let roleToSwitchTo;
+      let channelToSendJailMsg;
+
+      switch (args[2]) {
+         case undefined:
+         case 1:
+            roleToSwitchTo = DSV.rolePrisoner1;
+            channelToSendJailMsg = DSV.channelPrison1.id;
+            break;
+
+         case 2:
+            roleToSwitchTo = DSV.rolePrisoner2;
+            channelToSendJailMsg = DSV.channelPrison2.id;
+            break;
+
+         case 3:
+            roleToSwitchTo = DSV.rolePrisoner3;
+            channelToSendJailMsg = DSV.channelPrison3.id;
+            break;
+
+         default:
+            C.dcRespondToMsg(message, `We don't have a prison level of ${args[2]}}`);
+            return;
+      }
+
+      if (cmdCaller.id == cmdTarget.id) {
+         C.dcRespondToMsg(message, `Taking a vacation, are we? Then enjoy your own company in the comfort of our cold cell!`);
+      }
 
 
+      if (CG.dcCheckIfMemberHasRole(cmdTarget, roleToSwitchTo)) {
+         C.dcRespondToMsg(message, `${cmdTarget.displayName} is already rotting there!`);
+         return;
+      }
 
+      C.dcRemoveRolesFromMember(cmdTarget, DSV.rolePrisoners);
+      C.dcSwitchMemberRoles(cmdTarget, DSV.roleDefault, roleToSwitchTo);
 
-   //    if (!C.dcCheckIfMemberHasRole(member, DSV.roleGuard) && !C.dcCheckIfMemberHasRole(member, DSV.rolePrisoner)) {
-   //       C.dcRespondToMsg(message, 'You are not a prisoner!');
-   //    } else {
-   //       if (C.chance(25)) {
-   //          C.dcAddRoleToMember(member, 'Comrade');
-   //          C.dcRemoveRoleFromMember(member, 'Prisoner');
-   //          C.dcRespondToMsg(message, 'Unbelivable! You have escaped!');
-   //       } else {
-   //          C.dcRespondToMsg(message, 'Did you really think that you would escape?! Not this time!');
-   //       }
-   //    }
+      const channelToSendWelcomeMsg = C.dcGetChannelByID(message, channelToSendJailMsg);
+      C.dcSendMsgToChannel(channelToSendWelcomeMsg, `Welcome <@!${cmdTarget.id}>!`);
    },
 }
