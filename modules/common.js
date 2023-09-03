@@ -1198,7 +1198,8 @@ function dcRemoveRolesFromMember(member, roleNames) {
    for (const roleName of rolesToRemove) {
       const role = dcGetRoleByName(member, roleName);
       if (role) {
-        member.roles.remove(role);
+         console.log(`Removing ${roleName}}`);
+         member.roles.remove(role);
       }
    }
 }
