@@ -24,7 +24,7 @@ module.exports = {
          return;
       }
 
-      if (C.dcCheckIfMemberHasRoles(cmdCaller, DSV.rolePrisoners)) {
+      if (!isOwner && C.dcCheckIfMemberHasRoles(cmdCaller, DSV.rolePrisoners)) {
          C.dcRespondToMsg(message, `Attempting to jail someone while confined yourself? Looks like you're already behind those bars. Try again once you've earned your freedom!`);
          return;
       }
