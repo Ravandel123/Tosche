@@ -10,7 +10,7 @@ module.exports = {
    execute(message, args) {
       const cmdCaller = C.dcGetMessageAuthorAsMember(message);
 
-      if (C.dcCheckIfMemberHasRoles(cmdCaller, DSV.rolePrisoners)) {
+      if (!C.dcCheckIfMemberHasRoles(cmdCaller, DSV.rolePrisoners)) {
          C.dcRespondToMsg(message, `What the... You are not a prisoner!`);
          return;
       }
