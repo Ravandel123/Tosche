@@ -18,12 +18,12 @@ module.exports = {
       const cmdCaller = C.dcGetMessageAuthorAsMember(message);
 
       //Must be the server owner OR must be a guard & can't be in the prison already
-      if (!CG.checkIfServerOwner(cmdCaller) && !C.dcCheckIfMemberHasRole(cmdCaller, DSV.roleGuard)) {
+      if (!CG.checkIfServerOwner(cmdCaller) && !C.dcCheckIfMemberHasRoles(cmdCaller, DSV.roleGuard)) {
          C.dcRespondToMsg(message, `Really pushing your luck, huh? Guards get the reins, not you!`);
          return;
       }
 
-      if (C.dcCheckIfMemberHasRole(cmdCaller, DSV.rolePrisoners)) {
+      if (C.dcCheckIfMemberHasRoles(cmdCaller, DSV.rolePrisoners)) {
          C.dcRespondToMsg(message, `Attempting to unjail someone while confined yourself? Looks like you're already behind those bars. Try again once you've earned your freedom!`);
          return;
       }
@@ -37,13 +37,13 @@ module.exports = {
       let currentPrisonerRole;
       let currentPrisoneChannel;
 
-      if (CG.dcCheckIfMemberHasRole(cmdTarget, DSV.rolePrisoner1)) {
+      if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.rolePrisoner1)) {
          currentPrisonerRole = DSV.rolePrisoner1;
          currentPrisoneChannel = DSV.channelPrison1.id;
-      } else if (CG.dcCheckIfMemberHasRole(cmdTarget, DSV.rolePrisoner2)) {
+      } else if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.rolePrisoner2)) {
          currentPrisonerRole = DSV.rolePrisoner2;
          currentPrisoneChannel = DSV.channelPrison2.id;
-      } else if (CG.dcCheckIfMemberHasRole(cmdTarget, DSV.rolePrisoner3)) {
+      } else if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.rolePrisoner3)) {
          currentPrisonerRole = DSV.rolePrisoner3;
          currentPrisoneChannel = DSV.channelPrison3.id;
       } else {

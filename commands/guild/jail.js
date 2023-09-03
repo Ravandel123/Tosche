@@ -18,12 +18,12 @@ module.exports = {
       const cmdCaller = C.dcGetMessageAuthorAsMember(message);
 
       //Must be the server owner OR must be a guard & can't be in the prison already
-      if (!CG.checkIfServerOwner(cmdCaller) && !C.dcCheckIfMemberHasRole(cmdCaller, DSV.roleGuard)) {
+      if (!CG.checkIfServerOwner(cmdCaller) && !C.dcCheckIfMemberHasRoles(cmdCaller, DSV.roleGuard)) {
          C.dcRespondToMsg(message, `Really pushing your luck, huh? Guards get the reins, not you!`);
          return;
       }
 
-      if (C.dcCheckIfMemberHasRole(cmdCaller, DSV.rolePrisoners)) {
+      if (C.dcCheckIfMemberHasRoles(cmdCaller, DSV.rolePrisoners)) {
          C.dcRespondToMsg(message, `Attempting to jail someone while confined yourself? Looks like you're already behind those bars. Try again once you've earned your freedom!`);
          return;
       }
@@ -42,13 +42,13 @@ module.exports = {
       }
 
       //Can't jail bots
-      if (CG.dcCheckIfMemberHasRole(cmdTarget, DSV.roleBot)) {
+      if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleBot)) {
          C.dcRespondToMsg(message, `This one has the Imperator's immunity!`);
          return;
       }
 
       //Can't jail other guards
-      if (CG.dcCheckIfMemberHasRole(cmdTarget, DSV.roleGuard) && cmdCaller.id != cmdTarget.id) {
+      if (CG.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleGuard) && cmdCaller.id != cmdTarget.id) {
          C.dcRespondToMsg(message, `Nice try, but that's not how the guard duty works! Guards can't imprison their own!`);
          return;
       }
@@ -83,7 +83,7 @@ module.exports = {
       }
 
 
-      if (CG.dcCheckIfMemberHasRole(cmdTarget, roleToSwitchTo)) {
+      if (CG.dcCheckIfMemberHasRoles(cmdTarget, roleToSwitchTo)) {
          C.dcRespondToMsg(message, `${cmdTarget.displayName} is already rotting there!`);
          return;
       }

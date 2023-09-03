@@ -10,7 +10,7 @@ module.exports = {
       C.dcRespondToMsg(message, `Well... You can't do that yet. So enjoy rotting in that cell ^^`);
       // const member = C.dcGetMessageAuthorAsMember(message);
 
-      // if (!C.dcCheckIfMemberHasRole(member, 'Prisoner')) {
+      // if (!C.dcCheckIfMemberHasRoles(member, 'Prisoner')) {
       //    C.dcRespondToMsg(message, 'You are not a prisoner!');
       // } else {
       //    if (C.chance(25)) {

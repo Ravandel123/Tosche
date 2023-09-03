@@ -1207,14 +1207,14 @@ module.exports.dcRemoveRolesFromMember = dcRemoveRolesFromMember;
 
 //------------------------------------------------------------------------------------------------------------------
 /**
- * Checks if a member has a certain role.
+ * Checks if a member has cetain role(s).
  *
  * @param {Discord.GuildMember} member - The member to check.
  * @param {string|string[]} roleNames - The role name(s) to check for.
  *                                    Can be a string or an array of strings.
  * @returns {boolean} True if the member has the role(s), false otherwise.
  */
-function dcCheckIfMemberHasRole(member, roleNames) {
+function dcCheckIfMemberHasRoles(member, roleNames) {
    if (!dcCheckIfMember(member) || !roleNames) {
       return false;
    }
@@ -1224,7 +1224,7 @@ function dcCheckIfMemberHasRole(member, roleNames) {
    return member.roles.cache.some(role => rolesToFind.includes(role.name));
 }
 
-module.exports.dcCheckIfMemberHasRole = dcCheckIfMemberHasRole;
+module.exports.dcCheckIfMemberHasRoles = dcCheckIfMemberHasRoles;
 
 //------------------------------------------------------------------------------------------------------------------
 
@@ -1802,7 +1802,7 @@ function getLeftoverOunces(ounces, decimalPlaces = 0) {
 // dcGetRoleByName(element, roleName)
 // dcAddRolesToMember(member, roleNames)
 // dcRemoveRolesFromMember(member, roleNames)
-// dcCheckIfMemberHasRole(member, roleNames)
+// dcCheckIfMemberHasRoles(member, roleNames)
 // dcSwitchMemberRoles(member, roleNameToRemove, roleNameToAdd);
 //------------------------------Users------------------------------
 // dcGetUserByID(message, userID)
