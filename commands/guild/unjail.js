@@ -16,6 +16,7 @@ module.exports = {
 
       //Caller checks------------------------------------------------------------------------------------------------------------------------------
       const cmdCaller = C.dcGetMessageAuthorAsMember(message);
+      const isOwner = CG.checkIfServerOwner(cmdCaller);
 
       //Must be the server owner OR must be a guard & can't be in the prison already
       if (!CG.checkIfServerOwner(cmdCaller) && !C.dcCheckIfMemberHasRoles(cmdCaller, DSV.roleGuard)) {
@@ -23,7 +24,7 @@ module.exports = {
          return;
       }
 
-      if (C.dcCheckIfMemberHasRoles(cmdCaller, DSV.rolePrisoners)) {
+      if (!isOwner && C.dcCheckIfMemberHasRoles(cmdCaller, DSV.rolePrisoners)) {
          C.dcRespondToMsg(message, `Attempting to unjail someone while confined yourself? Looks like you're already behind those bars. Try again once you've earned your freedom!`);
          return;
       }

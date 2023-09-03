@@ -7,19 +7,19 @@ module.exports = {
    usage: '',
    example: '',
    execute(message, args) {
-      C.dcRespondToMsg(message, `Well... You can't do that yet. So enjoy rotting in that cell ^^`);
-      // const member = C.dcGetMessageAuthorAsMember(message);
+      const cmdCaller = C.dcGetMessageAuthorAsMember(message);
 
-      // if (!C.dcCheckIfMemberHasRoles(member, 'Prisoner')) {
-      //    C.dcRespondToMsg(message, 'You are not a prisoner!');
-      // } else {
-      //    if (C.chance(25)) {
-      //       C.dcAddRoleToMember(member, 'Comrade');
-      //       C.dcRemoveRolesFromMember(member, 'Prisoner');
-      //       C.dcRespondToMsg(message, 'Unbelivable! You have escaped!');
-      //    } else {
-      //       C.dcRespondToMsg(message, 'Did you really think that you would escape?! Not this time!');
-      //    }
-      // }
+      if (C.dcCheckIfMemberHasRoles(cmdCaller, DSV.rolePrisoners)) {
+         C.dcRespondToMsg(message, `What the... You are not a prisoner!`);
+         return;
+      }
+
+      if (C.chance(25)) {
+         C.dcRemoveRolesFromMember(cmdTarget, DSV.rolePrisoners);
+         C.dcAddRolesToMember(cmdTarget, DSV.roleDefault);
+         C.dcRespondToMsg(message, 'Unbelivable! You have escaped!');
+      } else {
+         C.dcRespondToMsg(message, 'Did you really think that you would escape?! Not this time!');
+      }
    },
 }

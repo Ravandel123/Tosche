@@ -8,7 +8,7 @@ module.exports = {
    description: 'Jails a nasty troublemaker.',
    requirements: 'Role (Guard)',
    usage: '[user] [level of prison (1-3)]',
-   example: 'Lanaar',
+   example: 'Lanaar 2',
    execute(message, args) {
       const requiredArgs = [`who you want to jail`];
       if (!CC.checkArgsAmount(message, args, requiredArgs))
@@ -16,9 +16,10 @@ module.exports = {
 
       //Caller checks------------------------------------------------------------------------------------------------------------------------------
       const cmdCaller = C.dcGetMessageAuthorAsMember(message);
+      const isOwner = CG.checkIfServerOwner(cmdCaller);
 
       //Must be the server owner OR must be a guard & can't be in the prison already
-      if (!CG.checkIfServerOwner(cmdCaller) && !C.dcCheckIfMemberHasRoles(cmdCaller, DSV.roleGuard)) {
+      if (!isOwner && !C.dcCheckIfMemberHasRoles(cmdCaller, DSV.roleGuard)) {
          C.dcRespondToMsg(message, `Really pushing your luck, huh? Guards get the reins, not you!`);
          return;
       }
@@ -35,20 +36,20 @@ module.exports = {
       }
 
       //Can't jail the Imperator or Tosche
-      if (CG.checkIfServerOwner(cmdTarget) || CG.checkIfTosche(cmdTarget)) {
-         C.dcRespondToMsg(message, `Guard, attempting to jail ${cmdTarget.displayName}? That's a new level of ambition! Congratulations, you've just earned a one-way ticket to <#${DSV.channelPrison1.id}>`);
+      if (!isOwner && (CG.checkIfServerOwner(cmdTarget) || CG.checkIfTosche(cmdTarget))) {
+         C.dcRespondToMsg(message, `Attempting to jail ${cmdTarget.displayName}? That's a new level of ambition! Congratulations, you've just earned a one-way ticket to <#${DSV.channelPrison1.id}>`);
          C.dcSwitchMemberRoles(cmdCaller, DSV.roleDefault, DSV.rolePrisoner1);
          return;
       }
 
       //Can't jail bots
-      if (C.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleBot)) {
+      if (!isOwner && C.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleBot)) {
          C.dcRespondToMsg(message, `This one has the Imperator's immunity!`);
          return;
       }
 
       //Can't jail other guards
-      if (C.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleGuard) && cmdCaller.id != cmdTarget.id) {
+      if (!isOwner && C.dcCheckIfMemberHasRoles(cmdTarget, DSV.roleGuard) && cmdCaller.id != cmdTarget.id) {
          C.dcRespondToMsg(message, `Nice try, but that's not how the guard duty works! Guards can't imprison their own!`);
          return;
       }
