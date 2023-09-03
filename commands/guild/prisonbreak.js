@@ -15,7 +15,7 @@ module.exports = {
          return;
       }
 
-      if (C.chance(25)) {
+      if (C.chance(75)) {
          C.dcRemoveRolesFromMember(cmdTarget, DSV.rolePrisoners);
          C.dcAddRolesToMember(cmdTarget, DSV.roleDefault);
          C.dcRespondToMsg(message, 'Unbelivable! You have escaped!');
