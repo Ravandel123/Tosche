@@ -1247,6 +1247,7 @@ module.exports.dcSwitchMemberRoles = dcSwitchMemberRoles;
 
 //-------------------------------------------------------Users-------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
+
 function dcGetUserByID(message, userID) {
    if (!dcCheckIfMessage(message) || !userID)
       return;

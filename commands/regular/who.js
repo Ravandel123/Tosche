@@ -1,7 +1,6 @@
 const C = require('../../modules/common.js');
 const R = require('../../modules/responses.js');
 
-
 module.exports = {
    name: 'who',
    description: 'Responds with a name of a person from this server or a fictional character.',
