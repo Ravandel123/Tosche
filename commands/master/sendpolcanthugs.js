@@ -9,8 +9,8 @@ module.exports = {
    usage: '[user]',
    example: '',
    async execute(message, args) {
-      if (!message.client.data.smackDownSpire.fightInProgress) {
-         message.client.data.smackDownSpire.fightInProgress = true;
+      if (!message.client.data.smackdownSpire.fightInProgress) {
+         message.client.data.smackdownSpire.fightInProgress = true;
          
          try {
             let msg;
@@ -20,7 +20,7 @@ module.exports = {
             C.dcRespondToMsg(message, error);
          }
          
-         message.client.data.smackDownSpire.fightInProgress = false;
+         message.client.data.smackdownSpire.fightInProgress = false;
       } else {
          C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
       }

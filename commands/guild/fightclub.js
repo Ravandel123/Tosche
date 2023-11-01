@@ -16,7 +16,7 @@ module.exports = {
          return;
 
       if (initialCheck(message, args[1])) {
-         message.client.data.smackDownSpire.fightInProgress = true;
+         message.client.data.smackdownSpire.fightInProgress = true;
 
          try {
             let user1 = {};
@@ -54,7 +54,7 @@ module.exports = {
             C.dcRespondToMsg(message, error);
          }
 
-         message.client.data.smackDownSpire.fightInProgress = false;
+         message.client.data.smackdownSpire.fightInProgress = false;
       }
    },
 }
@@ -65,7 +65,7 @@ function initialCheck(message, command) {
    let msgContent = '';
    let result = true;
 
-   if (message.client.data.smackDownSpire.fightInProgress) {
+   if (message.client.data.smackdownSpire.fightInProgress) {
       msgContent = `The fight is already on! Wait until it is over.`;
       result = false;
    } else if (!C.strCheckIfAnyMatch(command, ['sparring', 'duel'])) {
