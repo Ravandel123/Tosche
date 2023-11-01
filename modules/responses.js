@@ -449,7 +449,7 @@ function resRate(subject) {
          `Better than ${RND(DC.charactersBadGuys)}.`,
          `${RND(DC.charactersBadGuys)} was better.`,
          `Over 9000!`,
-         `https://tenor.com/view/caroline-cameron-sportsnet-awful-absolutely-awful-horrible-gif-18101478`
+         `https://tenor.com/pl/view/caroline-cameron-sportsnet-awful-absolutely-awful-horrible-gif-11225079422258787761`
       ];
 
       result = RND(arrayResult);

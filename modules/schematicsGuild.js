@@ -76,7 +76,7 @@ const gProfileSchema = new MG.Schema({
 const profile = MG.model('gProfile', gProfileSchema);
 
 //---------------------------------------------------------------------------------------------------------------
-const gFightClubSchema = new MG.Schema({
+const gSmackdownSpireSchema = new MG.Schema({
    ownerId: String,
    duel: {
       rating: { type: Number, default: 0 },
@@ -90,7 +90,7 @@ const gFightClubSchema = new MG.Schema({
    }
 });
 
-const fightClub = MG.model('gFighClub', gFightClubSchema);
+const smackdownSpire = MG.model('gSmackdownSpire', gSmackdownSpireSchema);
 
 //---------------------------------------------------------------------------------------------------------------
 const gFishingSchema = new MG.Schema({
@@ -133,7 +133,7 @@ const record = MG.model('gRecord', gRecordSchema);
 //---------------------------------------------------------------------------------------------------------------
 module.exports = {
    profile,
-   fightClub,
+   smackdownSpire,
    fishing,
    record
 };

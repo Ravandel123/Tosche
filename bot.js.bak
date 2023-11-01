@@ -43,7 +43,7 @@ const gBotOwner = '392728479696814092';
 const GUriString = MONGODB_URI;
 
 client.data = {
-   smackdownSpire : {
+   smackDownSpire : {
       fightInProgress: false
    },
    members: []
@@ -2582,7 +2582,7 @@ client.on('messageCreate', message => {
       'Icy', 'Immortal', 'Immoral', 'Insane',
       'Just',
       'Lesser', 'Lunar',
-      'Mad', 'Magical', 'Maniacal', 'Meek', 'Mighty', 'Mindless', 'Murderous',
+      'Mad', 'Magica', 'Maniacal', 'Meek', 'Mighty', 'Mindless', 'Murderous',
       'Nutty',
       'Power', 'Primitive', 'Psychopathic',
       'Rocket', 'Rotten', 'Ruby',

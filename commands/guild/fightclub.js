@@ -5,9 +5,9 @@ const CM = require('../../modules/commonMechanics.js');
 const DB = require('../../modules/db.js');
 
 module.exports = {
-   name: 'fightclub',
-   aliases: ['fc'],
-   description: 'Used to access Fight Club.',
+   name: 'smackdown',
+   aliases: ['sd'],
+   description: 'Used to call a smackdown spire command.',
    usage: '[sparring/duel] [user]',
    example: 'sparring Ravandel',
    async execute(message, args) {
@@ -16,7 +16,7 @@ module.exports = {
          return;
 
       if (initialCheck(message, args[1])) {
-         message.client.data.fightClub.fightInProgress = true;
+         message.client.data.smackDownSpire.fightInProgress = true;
 
          try {
             let user1 = {};
@@ -25,12 +25,12 @@ module.exports = {
             user1.profile = await CG.getMessageAuthorProfile(message);
             user2.profile = await CG.getMemberProfile(message, args[2]);
 
-            const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club');
+            const smackdownSpireChannel = C.dcGetChannelByName(message.guild, 'smackdown-spire');
 
-            if (additionalCheck(user1.profile, user2.profile, fightClubChannel)) {
+            if (additionalCheck(user1.profile, user2.profile, smackdownSpireChannel)) {
                switch (args[1].toLowerCase()) {
                   case 'sparring':
-                     await sparring(user1.profile, user2.profile, fightClubChannel);
+                     await sparring(user1.profile, user2.profile, smackdownSpireChannel);
                      break;
 
                   case 'duel': //trzeba sprawdzic raz jeszcze cdCheckIfTaskCanBeAssigned przy klikaniu buttona zeby sie nie sypnal jak ktos zwleka, jak przeciwnik kliknie buttona to robi assign new test
@@ -43,7 +43,7 @@ module.exports = {
                         
                         // CG.cdAssignNewTask(message, undefined, false);
                         // CG.cdAssignNewTask(message, undefined, false);
-                        // await duel(user1.profile, user2.profile, fightClubChannel);
+                        // await duel(user1.profile, user2.profile, smackdownSpireChannel);
                         // CG.cdFinishTask(message);
                         // CG.cdFinishTask(message, user2.profile.ownerId);
                      }
@@ -54,7 +54,7 @@ module.exports = {
             C.dcRespondToMsg(message, error);
          }
 
-         message.client.data.fightClub.fightInProgress = false;
+         message.client.data.smackDownSpire.fightInProgress = false;
       }
    },
 }
@@ -65,11 +65,11 @@ function initialCheck(message, command) {
    let msgContent = '';
    let result = true;
 
-   if (message.client.data.fightClub.fightInProgress) {
+   if (message.client.data.smackDownSpire.fightInProgress) {
       msgContent = `The fight is already on! Wait until it is over.`;
       result = false;
    } else if (!C.strCheckIfAnyMatch(command, ['sparring', 'duel'])) {
-      msgContent = `There is no fight club action called ${command}.`;
+      msgContent = `There is no smackdown action called ${command}.`;
       result = false;
    }
 
@@ -80,11 +80,11 @@ function initialCheck(message, command) {
 }
 
 //------------------------------------------------------------------------------------------------------------------
-function additionalCheck(user1, user2, fightClubChannel) {
+function additionalCheck(user1, user2, smackdownSpireChannel) {
    let msgContent = '';
    let result = true;
 
-   if (!fightClubChannel) {
+   if (!smackdownSpireChannel) {
       msgContent = `There is no place to fight!`;
       result = false;
    } else if (C.strCompare(user1.ownerId, user2.ownerId)) {
@@ -138,16 +138,16 @@ async function collectChoice(targetId, challengerId, channel) {
 }
 
 //------------------------------------------------------------------------------------------------------------------
-async function sparring(profile1, profile2, fightClubChannel) {
+async function sparring(profile1, profile2, smackdownSpireChannel) {
    profile1.resources.health = CM.getMaxHp(profile1);
    profile2.resources.health = CM.getMaxHp(profile2);
 
-   await fight(profile1, profile2, fightClubChannel, 'sparring');
+   await fight(profile1, profile2, smackdownSpireChannel, 'sparring');
 }
 
 //------------------------------------------------------------------------------------------------------------------
-async function duel(profile1, profile2, fightClubChannel) {
-   await fight(profile1, profile2, fightClubChannel, 'duel');
+async function duel(profile1, profile2, smackdownSpireChannel) {
+   await fight(profile1, profile2, smackdownSpireChannel, 'duel');
 
    CM.modifyActionPoints(profile1, -1);
    CM.modifyActionPoints(profile2, -1);
@@ -157,15 +157,15 @@ async function duel(profile1, profile2, fightClubChannel) {
 }
 
 //------------------------------------------------------------------------------------------------------------------
-async function fight(profile1, profile2, fightClubChannel, modeName) {
+async function fight(profile1, profile2, smackdownSpireChannel, modeName) {
    let msg = `---------------------------------------------------------------------------------------------\n` + 
          `Get ready for the next fight! **${profile1.ownerName}** has challenged **${profile2.ownerName}** for a ${modeName}!`;
 
-   C.dcSendMsgToChannel(fightClubChannel, msg);
+   C.dcSendMsgToChannel(smackdownSpireChannel, msg);
    await C.sleep(0.5);
-   C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayStartGif));
+   C.dcSendMsgToChannel(smackdownSpireChannel, C.arrGetRandom(arrayStartGif));
    await C.sleep(0.5);
-   C.dcSendMsgToChannel(fightClubChannel, `-----------------------------------------------------------`);
+   C.dcSendMsgToChannel(smackdownSpireChannel, `-----------------------------------------------------------`);
    await C.sleep(3);
 
    //roll initiative //take stamina into account
@@ -190,7 +190,7 @@ async function fight(profile1, profile2, fightClubChannel, modeName) {
       }
 
       msg = getCombatMsg(profile1, profile2, attacker, defender, damage);
-      C.dcSendMsgToChannel(fightClubChannel, msg);
+      C.dcSendMsgToChannel(smackdownSpireChannel, msg);
 
       const tmp = defender;
       defender = attacker;
@@ -200,8 +200,8 @@ async function fight(profile1, profile2, fightClubChannel, modeName) {
    } while (attacker.resources.health > 0 && defender.resources.health > 0);
 
    const winner = profile1.resources.health > profile2.resources.health ? profile1 : profile2;
-   C.dcSendMsgToChannel(fightClubChannel, `**${winner.ownerName}** has won!`);
-   C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
+   C.dcSendMsgToChannel(smackdownSpireChannel, `**${winner.ownerName}** has won!`);
+   C.dcSendMsgToChannel(smackdownSpireChannel, C.arrGetRandom(arrayFinalGif));
 }
 
 //------------------------------------------------------------------------------------------------------------------
@@ -299,5 +299,6 @@ const arrayFinalGif = [
    `https://tenor.com/view/adriano-celentano-adrian-la-volpe-kick-gif-15732060`,
    `https://tenor.com/view/yubi-furry-fursuit-knock-out-punch-gif-25027965`,
    `https://tenor.com/view/morgan-morgan-charrière-mma-fight-win-gif-14756789`,
-   `https://tenor.com/view/adriano-celentano-adrian-la-volpe-kick-gif-15505088`
+   `https://tenor.com/view/adriano-celentano-adrian-la-volpe-kick-gif-15505088`,
+   `https://tenor.com/pl/view/face-smash-wall-hit-serious-man-gif-14519552`
 ];

@@ -9,8 +9,8 @@ module.exports = {
    usage: '[user]',
    example: '',
    async execute(message, args) {
-      if (!message.client.data.fightClub.fightInProgress) {
-         message.client.data.fightClub.fightInProgress = true;
+      if (!message.client.data.smackDownSpire.fightInProgress) {
+         message.client.data.smackDownSpire.fightInProgress = true;
          
          try {
             let msg;
@@ -20,7 +20,7 @@ module.exports = {
             C.dcRespondToMsg(message, error);
          }
          
-         message.client.data.fightClub.fightInProgress = false;
+         message.client.data.smackDownSpire.fightInProgress = false;
       } else {
          C.dcRespondToMsg(message, `The fight is already on! Wait until it is over.`);
       }
@@ -39,16 +39,16 @@ async function duel(message, user1) {
    let hpPolcan2 = 120;
    let hpPolcan3 = 150;
 
-   const fightClubChannel = C.dcGetChannelByName(message.guild, 'fight-club');
+   const smackdownSpireChannel = C.dcGetChannelByName(message.guild, 'smackdown-spire');
 
    msg = `---------------------------------------------------------------------------------------------\n` + 
          `**${user1Name}** get ready for some beating!`;
 
-   C.dcSendMsgToChannel(fightClubChannel, msg);
+   C.dcSendMsgToChannel(smackdownSpireChannel, msg);
    await C.sleep(0.5);
-   C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayStartGif));
+   C.dcSendMsgToChannel(smackdownSpireChannel, C.arrGetRandom(arrayStartGif));
    await C.sleep(0.5);
-   C.dcSendMsgToChannel(fightClubChannel, `-----------------------------------------------------------`);
+   C.dcSendMsgToChannel(smackdownSpireChannel, `-----------------------------------------------------------`);
    await C.sleep(2);
 
    do {
@@ -95,7 +95,7 @@ async function duel(message, user1) {
                `**${C.strAddEndingApostrophe(user2Name)}** HP: ${hp2}\n` +
                `-----------------------------------------------------------`;
 
-         C.dcSendMsgToChannel(fightClubChannel, msg);
+         C.dcSendMsgToChannel(smackdownSpireChannel, msg);
          if (user2Name == p1) {
             hpPolcan1 = hp2;
          } else if (user2Name == p2) {
@@ -108,11 +108,11 @@ async function duel(message, user1) {
    } while (hp1 > 0 && (hpPolcan1 > 0 || hpPolcan2 > 0 || hpPolcan3 > 0));
 
    if (hp1 > 0)
-      C.dcSendMsgToChannel(fightClubChannel, `Incredible! **${user1Name}** has defeated the polcan thugs!`);
+      C.dcSendMsgToChannel(smackdownSpireChannel, `Incredible! **${user1Name}** has defeated the polcan thugs!`);
    else
-      C.dcSendMsgToChannel(fightClubChannel, `The polcan thugs have taught **${user1Name}** a lesson!`);
+      C.dcSendMsgToChannel(smackdownSpireChannel, `The polcan thugs have taught **${user1Name}** a lesson!`);
 
-   C.dcSendMsgToChannel(fightClubChannel, C.arrGetRandom(arrayFinalGif));
+   C.dcSendMsgToChannel(smackdownSpireChannel, C.arrGetRandom(arrayFinalGif));
 }
 
 const arrayMoves = [
