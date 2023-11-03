@@ -1262,21 +1262,15 @@ module.exports.dcGetUserByID = dcGetUserByID;
 //-------------------------------------------------------Members-------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 function dcGetMemberByID(element, userID) {
-   if (!userID) {
-      console.log(`userID = ${userID}`);
+   if (!userID)
       return;
-   }
-      
 
    if (dcCheckIfGuild(element)) {
-      console.log(`if (dcCheckIfGuild(element))`);
       return element.members?.cache.get(userID);
    } else if (dcCheckIfGuildMessage(element)) {
-      console.log(`} else if (dcCheckIfGuildMessage(element)) {`);
       return element.guild.members.cache.get(userID);
    }
 
-   console.log(`XD`);
 }
 
 module.exports.dcGetMemberByID = dcGetMemberByID;

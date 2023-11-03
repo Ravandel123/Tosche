@@ -383,9 +383,10 @@ function moveFishingRecordDown(records, placeNumber) {
 async function mainUpdate1h(client) {
    const deltrada = client.guilds.cache.get(SETTINGS.deltradaId);
    const members = C.dcGetAllMembers(deltrada);
-   for (const member of members)
+   for (const member of members) {
       profilesUpdate1h(deltrada, member[1].id);
       console.log(member);
+   }
 }
 
 module.exports.mainUpdate1h = mainUpdate1h;
