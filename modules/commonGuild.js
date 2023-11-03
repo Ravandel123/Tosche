@@ -385,7 +385,7 @@ async function mainUpdate1h(client) {
    const members = C.dcGetAllMembers(deltrada);
    for (const member of members) {
       profilesUpdate1h(deltrada, member[1].id);
-      console.log(member);
+      console.log(member[1]);
    }
 }
 
