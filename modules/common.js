@@ -1265,10 +1265,15 @@ function dcGetMemberByID(element, userID) {
    if (!userID)
       return;
 
-   if (dcCheckIfGuild(element))
+   if (dcCheckIfGuild(element)) {
+      console.log(`if (dcCheckIfGuild(element))`);
       return element.members?.cache.get(userID);
-   else if (dcCheckIfGuildMessage(element))
+   } else if (dcCheckIfGuildMessage(element)) {
+      console.log(`} else if (dcCheckIfGuildMessage(element)) {`);
       return element.guild.members.cache.get(userID);
+   }
+
+   console.log(`XD`);
 }
 
 module.exports.dcGetMemberByID = dcGetMemberByID;
