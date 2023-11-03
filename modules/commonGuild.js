@@ -384,28 +384,45 @@ async function mainUpdate1h(client) {
    const deltrada = client.guilds.cache.get(SETTINGS.deltradaId);
    const members = C.dcGetAllMembers(deltrada);
    for (const member of members) {
-      profilesUpdate1h(deltrada, member[1].id);
+      profilesUpdate1h(deltrada, member[1]);
    }
 }
 
 module.exports.mainUpdate1h = mainUpdate1h;
 
 //------------------------------------------------------------------------------------------------------------------
-async function profilesUpdate1h(guild, id) {
-   const memberData = cdGetOrCreateMemberData(guild.client, id);
-   const member = C.dcGetMemberByID(guild, id);
-   console.log(member);
+// async function profilesUpdate1h(guild, id) {
+//    const memberData = cdGetOrCreateMemberData(guild.client, id);
+//    const member = C.dcGetMemberByID(guild, id);
+//    console.log(member);
+//    const taskId = memberData.addTask(`Profile update - 1h`);
+
+//    await memberData.waitForYourTurn(taskId);
+//    try {
+//       const profile = await getProfileById(guild, id);
+//       CM.regenerateHp1h(profile);
+//       CM.modifyActionPoints(profile, 1);
+//       updateGuildProfileToCurrentGuildData(profile, member);
+//       await profile.save();
+//    } catch {
+//       console.log(`Error while doing hourly update for user with ID: ${id}`);
+//    }
+//    await memberData.removeIfFirst(taskId);
+// }
+
+async function profilesUpdate1h(guild, member) {
+   const memberData = cdGetOrCreateMemberData(guild.client, member.id);
    const taskId = memberData.addTask(`Profile update - 1h`);
 
    await memberData.waitForYourTurn(taskId);
    try {
-      const profile = await getProfileById(guild, id);
+      const profile = await getProfileById(guild, member.id);
       CM.regenerateHp1h(profile);
       CM.modifyActionPoints(profile, 1);
       updateGuildProfileToCurrentGuildData(profile, member);
       await profile.save();
    } catch {
-      console.log(`Error while doing hourly update for user with ID: ${id}`);
+      console.log(`Error while doing hourly update for user with ID: ${member.id}`);
    }
    await memberData.removeIfFirst(taskId);
 }
