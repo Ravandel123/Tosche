@@ -42,6 +42,7 @@ module.exports = {
 
 
       const profile = await CG.getMessageAuthorProfile(message);
+      console.log(profile.ownerID);
       const member = C.dcGetMemberByID(message, profile.ownerID);
 
       console.log(profile);
