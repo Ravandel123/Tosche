@@ -512,11 +512,12 @@ module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
 
 //------------------------------------------------------------------------------------------------------------------
 function updateGuildProfileToCurrentGuildData(profile, member) {
-   console.log(member);
+   console.log(`profile.ownerTag = ${profile.ownerTag} / member.user.tag = ${member.user.tag}`);
    if (profile.ownerTag != member.user.tag) {
       profile.ownerTag = member.user.tag;
    }
 
+   console.log(`profile.ownerName = ${profile.ownerName} / member.displayName = ${member.displayName}`);
    if (profile.ownerName != member.displayName) {
       profile.ownerName = member.displayName;
    } 
