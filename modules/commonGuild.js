@@ -512,6 +512,7 @@ module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
 
 //------------------------------------------------------------------------------------------------------------------
 function updateGuildProfileToCurrentGuildData(profile, member) {
+   console.log(member);
    if (profile.ownerTag != member.user.tag) {
       profile.ownerTag = member.user.tag;
    }
