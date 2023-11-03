@@ -393,7 +393,7 @@ module.exports.mainUpdate1h = mainUpdate1h;
 //------------------------------------------------------------------------------------------------------------------
 async function profilesUpdate1h(guild, id) {
    const memberData = cdGetOrCreateMemberData(guild.client, id);
-   const member = C.dcGetMemberByID(message, id);
+   const member = C.dcGetMemberByID(guild, id);
    const taskId = memberData.addTask(`Profile update - 1h`);
 
    await memberData.waitForYourTurn(taskId);
