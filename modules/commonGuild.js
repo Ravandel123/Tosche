@@ -385,7 +385,6 @@ async function mainUpdate1h(client) {
    const members = C.dcGetAllMembers(deltrada);
    for (const member of members) {
       profilesUpdate1h(deltrada, member[1].id);
-      console.log(member[1]);
    }
 }
 
@@ -395,6 +394,7 @@ module.exports.mainUpdate1h = mainUpdate1h;
 async function profilesUpdate1h(guild, id) {
    const memberData = cdGetOrCreateMemberData(guild.client, id);
    const member = C.dcGetMemberByID(guild, id);
+   console.log(member);
    const taskId = memberData.addTask(`Profile update - 1h`);
 
    await memberData.waitForYourTurn(taskId);
