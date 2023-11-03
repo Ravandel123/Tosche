@@ -37,6 +37,22 @@ module.exports = {
 
       // testExecute(memberData, uuid1, doIt);
       // testExecute(memberData, uuid2, doIt);
+
+
+
+      
+      const profile = await CG.getMessageAuthorProfile(message);
+      const member = C.dcGetMemberByID(message, profile.ownerID);
+
+      if (profile.ownerTag != member.user.tag) {
+         profile.ownerTag = member.user.tag;
+      }
+
+      if (profile.ownerName != member.displayName) {
+         profile.ownerName = member.displayName;
+      } 
+
+      await profile.save();
    },
 }
 
