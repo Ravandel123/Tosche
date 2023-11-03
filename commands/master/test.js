@@ -40,11 +40,13 @@ module.exports = {
 
 
 
-      
+
       const profile = await CG.getMessageAuthorProfile(message);
       const member = C.dcGetMemberByID(message, profile.ownerID);
 
-      if (profile.ownerTag != member.user.tag) {
+      console.log(member);
+
+      if (profile.ownerTag != member?.user.tag) {
          profile.ownerTag = member.user.tag;
       }
 
