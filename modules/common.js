@@ -1263,7 +1263,7 @@ module.exports.dcGetUserByID = dcGetUserByID;
 //------------------------------------------------------------------------------------------------------------------
 function dcGetMemberByID(element, userID) {
    if (!userID) {
-      console.log(`XDDDDDDDDDDDDDDDDDDDDD`);
+      console.log(`userID = ${userID}}`);
       return;
    }
       
