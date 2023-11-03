@@ -1,6 +1,5 @@
 const D = require('discord.js');
 const C = require('../../modules/common.js');
-const CL = require('../../modules/classes.js');
 const CG = require('../../modules/commonGuild.js');
 const CC = require('../../modules/commonCommands.js');
 const DG = require('../../modules/dataGuild.js');

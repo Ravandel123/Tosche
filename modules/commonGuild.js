@@ -1,6 +1,6 @@
 const SETTINGS = require('./serverSettings.js');
 const C = require('./common.js');
-const CL = require('./classes.js');
+const CL_GD = require('../classes/guildData.js');
 const CM = require('./commonMechanics.js');
 const DG = require('./dataGuild.js');
 const SG = require('./schematicsGuild.js');
@@ -48,7 +48,7 @@ function cdGetOrCreateMemberData(element, id) {
    let memberData = clt.data.members.find(e => e.userId == id);
 
    if (!memberData) {
-      memberData = new CL.MemberData(id);
+      memberData = new CL_GD.MemberData(id);
       clt.data.members.push(memberData);
    }
 
@@ -77,7 +77,7 @@ function cdAssignNewTask(message, collector, breakable = true, transcationOpen =
    let memberData = message.client.data.members.find(e => e.userId == id);
 
    if (!memberData) {
-      memberData = new CL.MemberData(id, breakable, transcationOpen, collector);
+      memberData = new CL_GD.MemberData(id, breakable, transcationOpen, collector);
 
       message.client.data.members.push(memberData);
       return true;

@@ -1,6 +1,6 @@
 const D = require('discord.js');
 const C = require('../../modules/common.js');
-const CL = require('../../modules/classes.js');
+const CL_IN = require('../../classes/interactions.js');
 const CG = require('../../modules/commonGuild.js');
 const FIS = require('../../modules/advanced/fishing.js');
 
@@ -77,16 +77,16 @@ module.exports = {
 let currentDataLength = 0;
 const MAX_ITEMS_ON_PAGE = 5;
 
-const MAIN_BUTTON1 = new CL.ButtonData('character', 'Character', '', 'success');
-const MAIN_BUTTON2 = new CL.ButtonData('inventory', 'Inventory', '', 'success');
-const MAIN_BUTTON3 = new CL.ButtonData('records', 'Records', '', 'success');
+const MAIN_BUTTON1 = new CL_IN.ButtonData('character', 'Character', '', 'success');
+const MAIN_BUTTON2 = new CL_IN.ButtonData('inventory', 'Inventory', '', 'success');
+const MAIN_BUTTON3 = new CL_IN.ButtonData('records', 'Records', '', 'success');
 
-const MENU1_ITEM_1 = new CL.SelectOptionData('info', 'Info', '📋');
-const MENU1_ITEM_2 = new CL.SelectOptionData('currencies', 'Currencies', '💰');
+const MENU1_ITEM_1 = new CL_IN.SelectOptionData('info', 'Info', '📋');
+const MENU1_ITEM_2 = new CL_IN.SelectOptionData('currencies', 'Currencies', '💰');
 
-const MENU2_ITEM_1 = new CL.SelectOptionData('invFishes', 'Fishes', '🐟');
+const MENU2_ITEM_1 = new CL_IN.SelectOptionData('invFishes', 'Fishes', '🐟');
 
-const MENU3_ITEM_1 = new CL.SelectOptionData('recFishing', 'Fishing', '🐟');
+const MENU3_ITEM_1 = new CL_IN.SelectOptionData('recFishing', 'Fishing', '🐟');
 
 //-------------------------DATA-------------------------
 async function loadData(userData, menu, message) {

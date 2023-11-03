@@ -1,5 +1,5 @@
 const C = require('./common.js');
-const CL = require('./classes.js');
+const CL_LA = require('./../classes/language.js');
 const DC = require('./dataCommon.js');
 const DS = require('./dataSpeech.js');
 const GEN = require('./generators.js');
@@ -348,7 +348,7 @@ module.exports.resIs = resIs;
 
 //------------------------------------------------------------------------------------------------------------------
 function resLove(who) {
-   const pG = new CL.PersonGrammar(!who ? 'me' : who);
+   const pG = new CL_LA.PersonGrammar(!who ? 'me' : who);
    const array1 = ['a new book', 'a burning Ermehn village', 'the blood of my enemies'];
    const array2 = ['dumb', 'fat', 'stinky', 'stupid', 'ugly'];
 
