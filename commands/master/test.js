@@ -38,25 +38,21 @@ module.exports = {
       // testExecute(memberData, uuid1, doIt);
       // testExecute(memberData, uuid2, doIt);
 
+      CG.mainUpdate1h(message.client);
 
 
+      // const profile = await CG.getMessageAuthorProfile(message);
+      // const member = C.dcGetMemberByID(message, profile.ownerId);
 
-      const profile = await CG.getMessageAuthorProfile(message);
-      const member = C.dcGetMemberByID(message, profile.ownerId);
+      // if (profile.ownerTag != member.user.tag) {
+      //    profile.ownerTag = member.user.tag;
+      // }
 
-      console.log(profile);
-      console.log('--------');
-      console.log(member);
+      // if (profile.ownerName != member.displayName) {
+      //    profile.ownerName = member.displayName;
+      // } 
 
-      if (profile.ownerTag != member.user.tag) {
-         profile.ownerTag = member.user.tag;
-      }
-
-      if (profile.ownerName != member.displayName) {
-         profile.ownerName = member.displayName;
-      } 
-
-      await profile.save();
+      // await profile.save();
    },
 }
 
