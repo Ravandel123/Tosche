@@ -391,25 +391,6 @@ async function mainUpdate1h(client) {
 module.exports.mainUpdate1h = mainUpdate1h;
 
 //------------------------------------------------------------------------------------------------------------------
-// async function profilesUpdate1h(guild, id) {
-//    const memberData = cdGetOrCreateMemberData(guild.client, id);
-//    const member = C.dcGetMemberByID(guild, id);
-//    console.log(member);
-//    const taskId = memberData.addTask(`Profile update - 1h`);
-
-//    await memberData.waitForYourTurn(taskId);
-//    try {
-//       const profile = await getProfileById(guild, id);
-//       CM.regenerateHp1h(profile);
-//       CM.modifyActionPoints(profile, 1);
-//       updateGuildProfileToCurrentGuildData(profile, member);
-//       await profile.save();
-//    } catch {
-//       console.log(`Error while doing hourly update for user with ID: ${id}`);
-//    }
-//    await memberData.removeIfFirst(taskId);
-// }
-
 async function profilesUpdate1h(guild, member) {
    const memberData = cdGetOrCreateMemberData(guild.client, member.id);
    const taskId = memberData.addTask(`Profile update - 1h`);
@@ -512,12 +493,11 @@ module.exports.createNewGuildProfileFromID = createNewGuildProfileFromID;
 
 //------------------------------------------------------------------------------------------------------------------
 function updateGuildProfileToCurrentGuildData(profile, member) {
-   console.log(`profile.ownerTag = ${profile.ownerTag} / member.user.tag = ${member.user.tag}`);
+
    if (profile.ownerTag != member.user.tag) {
       profile.ownerTag = member.user.tag;
    }
 
-   console.log(`profile.ownerName = ${profile.ownerName} / member.displayName = ${member.displayName}`);
    if (profile.ownerName != member.displayName) {
       profile.ownerName = member.displayName;
    } 
