@@ -1262,8 +1262,11 @@ module.exports.dcGetUserByID = dcGetUserByID;
 //-------------------------------------------------------Members-------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
 function dcGetMemberByID(element, userID) {
-   if (!userID)
+   if (!userID) {
+      console.log(`XDDDDDDDDDDDDDDDDDDDDD`);
       return;
+   }
+      
 
    if (dcCheckIfGuild(element)) {
       console.log(`if (dcCheckIfGuild(element))`);
