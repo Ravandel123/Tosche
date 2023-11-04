@@ -8,7 +8,9 @@ const { v4: uuidv4 } = require('uuid');
 //------------------------------------------------------------------------------------------------------------------
 class GlobalServerData {
    constructor() {
-      this.smackdownSpire.fightInProgress = false;
+      this.smackdownSpire = {
+         fightInProgress: false
+      };
       this.members = [];
    }
 }
