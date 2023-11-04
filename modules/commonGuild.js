@@ -61,7 +61,7 @@ module.exports.cdGetOrCreateMemberData = cdGetOrCreateMemberData;
 function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you') {
    const memberData = message.client.data.members.find(e => e.userId == id);
 
-   if (!memberData || !memberData.gotAnyTask())
+   if (!memberData || !memberData.gotAnyTask)
       return true;
 
    const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? ` are` : ` is`);
