@@ -98,6 +98,7 @@ function additionalCheck(user1, user2, smackdownSpireChannel) {
    return result;
 }
 
+//------------------------------------------------------------------------------------------------------------------
 async function collectChoice(targetId, challengerId, channel) {
    const msgContent = `<@!${targetId}>!\n<@!${challengerId}> has challenged you for a duel!`;
    const acceptButton = C.dcCreateButton('acceptId', 'Accept', '', 'success');

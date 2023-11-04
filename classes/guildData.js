@@ -2,14 +2,31 @@ const C = require('./../modules/common.js');
 const { v4: uuidv4 } = require('uuid');
 
 
- //------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- SERVER DATA ----------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
+class GlobalServerData {
+   constructor() {
+      this.smackdownSpire.fightInProgress = false;
+      this.members = [];
+   }
+}
+
+module.exports.GlobalServerData = GlobalServerData;
+
+//---------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+//----------------------------------------------------------- MEMBER DATA ----------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------
 class MemberData {
-    constructor(userId, breakable = true, transactionOpen = false, collector = null) {
-       this.userId = userId;
-       this.breakable = breakable;
-       this.transactionOpen = transactionOpen;
-       this.collector = collector;
-       this.queue = [];
+    constructor(userId, transactionOpen = false, collector = null) {
+      this.userId = userId;
+      this.transactionOpen = transactionOpen;
+      this.collector = collector;
+      this.queue = [];
     }
  
     get gotAnyTask() {

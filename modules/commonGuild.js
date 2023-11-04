@@ -37,7 +37,7 @@ function checkIfTosche(member) {
 
 module.exports.checkIfTosche = checkIfTosche;
 
-// ---------------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -61,7 +61,7 @@ module.exports.cdGetOrCreateMemberData = cdGetOrCreateMemberData;
 function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you') {
    const memberData = message.client.data.members.find(e => e.userId == id);
 
-   if (!memberData || memberData.breakable)
+   if (!memberData || !memberData.gotAnyTask())
       return true;
 
    const firstPart = C.strCapitalizeFirstLetter(who) + (C.strCheckIfAnyMatch(who, ['you', 'i']) ? ` are` : ` is`);
@@ -73,23 +73,19 @@ function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you'
 module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
 
 //------------------------------------------------------------------------------------------------------------------
-function cdAssignNewTask(message, collector, breakable = true, transcationOpen = false, id = message.author.id) {
+function cdAssignNewTask(message, collector, transcationOpen = false, id = message.author.id) {
    let memberData = message.client.data.members.find(e => e.userId == id);
 
    if (!memberData) {
-      memberData = new CL_GD.MemberData(id, breakable, transcationOpen, collector);
+      memberData = new CL_GD.MemberData(id, transcationOpen, collector);
 
       message.client.data.members.push(memberData);
       return true;
    }
 
-   if (!memberData.breakable)
-      return false;
-
    if (memberData.collector)
       memberData.collector.stop();
 
-   memberData.breakable = breakable;
    memberData.collector = collector;
    return true;
 }
@@ -100,13 +96,9 @@ module.exports.cdAssignNewTask = cdAssignNewTask;
 function cdFinishTask(message, id = message.author.id) {
    const memberData = message.client.data.members.find(e => e.userId == id);
 
-   if (memberData) {
-      memberData.breakable = true;
-
-      if (memberData.collector) {
-         memberData.collector.stop();
-         memberData.collector = null;
-      }
+   if (memberData && memberData.collector) {
+      memberData.collector.stop();
+      memberData.collector = null;
    }
 }
 
@@ -529,7 +521,7 @@ module.exports.getRecordDoc = getRecordDoc;
 //----------------------------------------------------------- CLIENT DATA ----------------------------------------------------------
 // cdGetOrCreateMemberData(element, id)
 // cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you')
-// cdAssignNewTask(message, collector, breakable = true, transcationOpen = false, id = message.author.id)
+// cdAssignNewTask(message, collector, transcationOpen = false, id = message.author.id)
 // cdFinishTask(message, id = message.author.id)
 // cdCanAct(message, userProfile)
 // cdWaitForAvailableTransaction(memberData, message, messageContent)

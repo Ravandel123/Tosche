@@ -24,35 +24,16 @@ module.exports = {
       
       
       
-      // CG.mainUpdate1h(message.client);
-      // CG.profilesUpdate1h(message.guild, message.author.id);
       
       
       
-      
-      
-      // const memberData = CG.cdGetOrCreateMemberData(message, message.author.id);
-      // const uuid1 = memberData.addTask();
-      // const uuid2 = memberData.addTask();
+      const memberData = CG.cdGetOrCreateMemberData(message, message.author.id);
+      const uuid1 = memberData.addTask();
+      const uuid2 = memberData.addTask();
 
-      // testExecute(memberData, uuid1, doIt);
-      // testExecute(memberData, uuid2, doIt);
+      testExecute(memberData, uuid1, doIt);
+      testExecute(memberData, uuid2, doIt);
 
-      CG.mainUpdate1h(message.client);
-
-
-      // const profile = await CG.getMessageAuthorProfile(message);
-      // const member = C.dcGetMemberByID(message, profile.ownerId);
-
-      // if (profile.ownerTag != member.user.tag) {
-      //    profile.ownerTag = member.user.tag;
-      // }
-
-      // if (profile.ownerName != member.displayName) {
-      //    profile.ownerName = member.displayName;
-      // } 
-
-      // await profile.save();
    },
 }
 

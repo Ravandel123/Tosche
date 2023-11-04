@@ -6,7 +6,7 @@ const Config = require('./config.json');
 const CRON = require('node-cron');
 const DB = require('./modules/db.js');
 const CG = require('./modules/commonGuild.js');
-
+const CL_GD = require('./classes/guildData.js');
 
 const client = new Client({
    intents: [
@@ -42,12 +42,8 @@ const client = new Client({
 const gBotOwner = '392728479696814092';
 const GUriString = MONGODB_URI;
 
-client.data = {
-   smackdownSpire : {
-      fightInProgress: false
-   },
-   members: []
-};
+client.data = CL_GD.GlobalServerData();
+
 client.commands = new Collection();
 client.commandsRP = new Collection();
 client.commandsG = new Collection();
