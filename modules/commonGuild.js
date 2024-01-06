@@ -45,11 +45,11 @@ module.exports.checkIfTosche = checkIfTosche;
 //------------------------------------------------------------------------------------------------------------------
 function cdGetOrCreateMemberData(element, id) {
    const clt = C.dcCheckIfMessage(element) ? element.client : element;
-   let memberData = clt.data.members.find(e => e.userId == id);
+   let memberData = clt.data.getMemberData(id);
 
    if (!memberData) {
       memberData = new CL_GD.MemberData(id);
-      clt.data.members.push(memberData);
+	  clt.data.addOrUpdateMember(id, memberData);
    }
 
    return memberData;
@@ -59,7 +59,7 @@ module.exports.cdGetOrCreateMemberData = cdGetOrCreateMemberData;
 
 //------------------------------------------------------------------------------------------------------------------
 function cdCheckIfTaskCanBeAssigned(message, id = message.author.id, who = 'you') {
-   const memberData = message.client.data.members.find(e => e.userId == id);
+   const memberData = message.client.data.getMemberData(id);
 
    if (!memberData || !memberData.gotAnyTask)
       return true;
@@ -74,12 +74,12 @@ module.exports.cdCheckIfTaskCanBeAssigned = cdCheckIfTaskCanBeAssigned;
 
 //------------------------------------------------------------------------------------------------------------------
 function cdAssignNewTask(message, collector, transcationOpen = false, id = message.author.id) {
-   let memberData = message.client.data.members.find(e => e.userId == id);
+   let memberData = message.client.data.getMemberData(id);
 
    if (!memberData) {
       memberData = new CL_GD.MemberData(id, transcationOpen, collector);
 
-      message.client.data.members.push(memberData);
+      message.client.data.addOrUpdateMember(id, memberData);
       return true;
    }
 
@@ -94,7 +94,7 @@ module.exports.cdAssignNewTask = cdAssignNewTask;
 
 //------------------------------------------------------------------------------------------------------------------
 function cdFinishTask(message, id = message.author.id) {
-   const memberData = message.client.data.members.find(e => e.userId == id);
+   const memberData = message.client.data.getMemberData(id);
 
    if (memberData && memberData.collector) {
       memberData.collector.stop();

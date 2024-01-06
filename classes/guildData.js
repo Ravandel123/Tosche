@@ -11,7 +11,17 @@ class GlobalServerData {
       this.smackdownSpire = {
          fightInProgress: false
       };
-      this.members = [];
+      this.members = new Map();
+   }
+
+   // Add a new member or update existing member data
+   addOrUpdateMember(memberId, memberData) {
+      this.members.set(memberId, memberData);
+   }
+
+   // Retrieve member data by ID
+   getMemberData(memberId) {
+      return this.members.get(memberId);
    }
 }
 
