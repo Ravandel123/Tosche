@@ -14,11 +14,16 @@ module.exports = {
 
       let amount = C.convertToInt(args[1]);
 
-      while (amount > 99) {
-         C.deleteMessages(message, 99);
-         amount -= 99;
-      }
+      try {
+         while (amount > 99) {
+            C.deleteMessages(message, 99);
+            amount -= 99;
+         }
 
-      C.deleteMessages(message, amount);
+         C.deleteMessages(message, amount);
+      } catch(error) {
+         C.dcRespondToMsg(mainMessage, error);
+      }
+      
    },
 }
