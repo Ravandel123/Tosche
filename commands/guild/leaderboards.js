@@ -12,6 +12,12 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
+      //!!!TO RESTORE
+      C.dcSendMsg(message, 'Leaderboards temporary disabled.');
+
+
+
+
       let leaderboards = {};
       let currentMenu = 'fish';
       let index = 0;

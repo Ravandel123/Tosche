@@ -20,7 +20,7 @@ module.exports = {
          return;
       }
 
-      const taskId = memberData.addTask(`Chaning profile data`);
+      const taskId = memberData.addTask(`Changing profile data`);
 
       await memberData.waitForYourTurn(taskId);
       try {

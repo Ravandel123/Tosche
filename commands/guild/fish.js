@@ -11,6 +11,14 @@ module.exports = {
    usage: '',
    example: '',
    async execute(message, args) {
+      //!!!TO RESTORE
+      C.dcSendMsg(message, 'Fishing temporary disabled.');
+
+
+
+
+
+
       const profile = await CG.getMessageAuthorProfile(message);
       if (!CG.cdCanAct(message, profile))
          return;
