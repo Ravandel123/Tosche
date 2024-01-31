@@ -13,7 +13,7 @@ module.exports = {
    async execute(message, args) {
       //!!!TO RESTORE
       C.dcSendMsg(message, 'Fishing temporary disabled.');
-
+      return;
 
 
 

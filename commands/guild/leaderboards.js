@@ -14,7 +14,7 @@ module.exports = {
    async execute(message, args) {
       //!!!TO RESTORE
       C.dcSendMsg(message, 'Leaderboards temporary disabled.');
-
+      return;
 
 
 
