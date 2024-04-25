@@ -49,7 +49,7 @@ function cdGetOrCreateMemberData(element, id) {
 
    if (!memberData) {
       memberData = new CL_GD.MemberData(id);
-	  clt.data.addOrUpdateMember(id, memberData);
+      clt.data.addOrUpdateMember(id, memberData);
    }
 
    return memberData;

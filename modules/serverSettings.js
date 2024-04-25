@@ -9,7 +9,6 @@ const bannedWords = [
    'kurva', 'kurwa',
    'nigga', 'nigger',
    'pierdol',
-   '0laffson', 'titusW',
    'e621.net', 'furaffinity.net', 'weasyl.com'
 ];
 

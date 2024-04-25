@@ -238,7 +238,7 @@ function getMoreInterestingHitLocationName(bodyPart) {
          return C.arrGetRandom(['head', 'face', 'jaw', 'nose', 'snout']);
 
       case 'torso':
-         return C.arrGetRandom(['thorax', 'trunk', 'midsection', 'flank']);
+         return C.arrGetRandom(['thorax', 'torso', 'midsection', 'flank']);
 
       case 'primary arm':
       case 'secondary arm':
@@ -301,5 +301,5 @@ const arrayFinalGif = [
    `https://tenor.com/view/yubi-furry-fursuit-knock-out-punch-gif-25027965`,
    `https://tenor.com/view/morgan-morgan-charrière-mma-fight-win-gif-14756789`,
    `https://tenor.com/view/adriano-celentano-adrian-la-volpe-kick-gif-15505088`,
-   `https://tenor.com/pl/view/face-smash-wall-hit-serious-man-gif-14519552`
+   `https://tenor.com/view/face-smash-wall-hit-serious-man-gif-14519552`
 ];

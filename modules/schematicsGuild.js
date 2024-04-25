@@ -71,7 +71,7 @@ const gProfileSchema = new MG.Schema({
       goldCoins: Number,
       deltradaCoins: Number,
    }
-});
+}, /*{ collection: 'gProfile' }*/);
 
 const profile = MG.model('gProfile', gProfileSchema);
 
