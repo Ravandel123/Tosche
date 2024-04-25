@@ -7,6 +7,7 @@ const DG = require('../modules/dataGuild.js');
 const CC = require('../modules/commonCommands.js');
 const { Collection } = require('discord.js');
 const {
+   botName,
    prefix,
    prefixRP,
    prefixG,
@@ -112,7 +113,7 @@ function defaultBehavior(message) {
    if (C.strCheckIfAnyMatch(message.channel.name, SETTINGS.noToscheCommentsChannels))
       return;
 
-   if (C.strCheckIfContains(msgContent, 'tosch')) {
+   if (C.strCheckIfContains(msgContent, botName)) {
       C.dcRespondToMsg(message, R.resYou());
       return;
    }
