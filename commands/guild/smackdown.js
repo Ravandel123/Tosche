@@ -3,6 +3,8 @@ const CC = require('../../modules/commonCommands.js');
 const CG = require('../../modules/commonGuild.js');
 const CM = require('../../modules/commonMechanics.js');
 const DB = require('../../modules/db.js');
+const smackdownService = require('./../../database/services/smackdownSpireRecordService.js');
+const EloCalculator = require('./../../modules/advanced/eloCalculator.js');
 
 module.exports = {
    name: 'smackdown',
@@ -201,8 +203,28 @@ async function fight(profile1, profile2, smackdownSpireChannel, modeName) {
    } while (attacker.resources.health > 0 && defender.resources.health > 0);
 
    const winner = profile1.resources.health > profile2.resources.health ? profile1 : profile2;
+   const loser = profile1.resources.health < profile2.resources.health ? profile1 : profile2;
    C.dcSendMsgToChannel(smackdownSpireChannel, `**${winner.ownerName}** has won!`);
    C.dcSendMsgToChannel(smackdownSpireChannel, C.arrGetRandom(arrayFinalGif));
+
+   //Elo calculation
+   const eloCalculator = new EloCalculator();
+   const winnerRecord = await smackdownService.findOrCreateSmackdownSpireRecord(winner.ownerId);
+   const loserRecord = await smackdownService.findOrCreateSmackdownSpireRecord(loser.ownerId);
+
+   const ratingChange = eloCalculator.calculateChange(winnerRecord.sparring.eloRating, loserRecord.sparring.eloRating, 1);
+
+   const newWinnerRating = winnerRecord.sparring.eloRating + ratingChange;
+   const newLoserRating = loserRecord.sparring.eloRating - ratingChange;
+
+   // Update the database with the new ratings
+   await smackdownService.updateEloRating(winnerRecord._id, 'sparring', newWinnerRating);
+   await smackdownService.updateEloRating(loserRecord._id, 'sparring', newLoserRating);
+
+   const resultMessage = `**${winner.ownerName}** gained **+${ratingChange}** rating points! Current rating: **${newWinnerRating}**\n` +
+                         `**${loser.ownerName}** lost **-${ratingChange}** rating points! Current rating: **${newLoserRating}**`;
+
+   C.dcSendMsgToChannel(smackdownSpireChannel, resultMessage);
 }
 
 //------------------------------------------------------------------------------------------------------------------
@@ -211,7 +233,6 @@ function getCombatMsg(profile1, profile2, attacker, defender, damage) {
    const hitLocation = getMoreInterestingHitLocationName(CM.getHitLocation());
    let msg;
    let showHP = false;
-
 
    if (damage > 0) {
       msg = `**${attacker.ownerName}** ${C.strGetPastTense(moveName)} **${C.strAddEndingApostrophe(defender.ownerName)}** ${hitLocation} for ${damage} damage!\n`;
