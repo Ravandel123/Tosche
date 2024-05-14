@@ -45,11 +45,18 @@ async function updateEloRating(recordId, mode, newRating) {
    return SmackdownSpireRecord.findByIdAndUpdate(recordId, update, { new: true });
 }
 
+async function getSmackdownLeaderboard() {
+   return SmackdownSpireRecord.find({})
+         .sort({ 'sparring.eloRating': -1 }) // Sort by sparring ELO rating in descending order
+         .limit(10); // Limit to top 10 or adjust as needed
+}
+
 module.exports = {
    getSmackdownSpireRecordById,
    createSmackdownSpireRecord,
    updateSmackdownSpireRecord,
    deleteSmackdownSpireRecord,
    findOrCreateSmackdownSpireRecord,
-   updateEloRating
+   updateEloRating,
+   getSmackdownLeaderboard
 };

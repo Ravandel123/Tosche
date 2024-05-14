@@ -1,6 +1,4 @@
-/**
- * Generic find document by ID
- */
+
 async function findById(model, id) {
    try {
       const result = await model.findById(id);
@@ -14,9 +12,6 @@ async function findById(model, id) {
    }
 }
 
-/**
- * Generic create document
- */
 async function createDocument(model, data) {
    try {
       const document = new model(data);
@@ -28,9 +23,6 @@ async function createDocument(model, data) {
    }
 }
 
-/**
- * Generic update document
- */
 async function updateDocument(model, id, updates) {
    try {
       const result = await model.findByIdAndUpdate(id, updates, { new: true });
@@ -44,9 +36,6 @@ async function updateDocument(model, id, updates) {
    }
 }
 
-/**
- * Generic delete document
- */
 async function deleteDocument(model, id) {
    try {
       const result = await model.findByIdAndDelete(id);

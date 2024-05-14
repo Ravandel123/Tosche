@@ -218,13 +218,17 @@ async function fight(profile1, profile2, smackdownSpireChannel, modeName) {
    const newLoserRating = loserRecord.sparring.eloRating - ratingChange;
 
    // Update the database with the new ratings
-   await smackdownService.updateEloRating(winnerRecord._id, 'sparring', newWinnerRating);
-   await smackdownService.updateEloRating(loserRecord._id, 'sparring', newLoserRating);
+   if (winner.ownerId != 392728479696814092) {
+      await smackdownService.updateEloRating(winnerRecord._id, 'sparring', newWinnerRating);
+      await smackdownService.updateEloRating(loserRecord._id, 'sparring', newLoserRating);
 
-   const resultMessage = `**${winner.ownerName}** gained **+${ratingChange}** rating points! Current rating: **${newWinnerRating}**\n` +
-                         `**${loser.ownerName}** lost **-${ratingChange}** rating points! Current rating: **${newLoserRating}**`;
+      const resultMessage = `**${winner.ownerName}** gained **+${ratingChange}** rating points! Current rating: **${newWinnerRating}**\n` +
+                           `**${loser.ownerName}** lost **-${ratingChange}** rating points! Current rating: **${newLoserRating}**`;
 
-   C.dcSendMsgToChannel(smackdownSpireChannel, resultMessage);
+      C.dcSendMsgToChannel(smackdownSpireChannel, resultMessage);
+   } else {
+      C.dcSendMsgToChannel(smackdownSpireChannel, `Whoops! Looks like Imperator Ravandel just flexed those overpowered muscles a bit too hard! But don't worry, your precious ranking points are spared this time.`);
+   }
 }
 
 //------------------------------------------------------------------------------------------------------------------
