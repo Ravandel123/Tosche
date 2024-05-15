@@ -5,6 +5,7 @@ const R = require('../modules/responses.js');
 const DC = require('../modules/dataCommon.js');
 const DG = require('../modules/dataGuild.js');
 const CC = require('../modules/commonCommands.js');
+const GPT = require('../modules/chatGPT.js');
 const { Collection } = require('discord.js');
 const {
    botName,
@@ -49,6 +50,9 @@ module.exports = {
                return;
             }
             prefixLength = prefixM.length;
+         } else if (message.channel.name == 'tosche-office' && ![prefix, prefixG, prefixM, prefixRP].some(p => message.content.includes(p))) {
+            GPT.openAIResponse(message, client);
+            return;
          } else {
             defaultBehavior(message);
             return;

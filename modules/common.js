@@ -1138,13 +1138,6 @@ module.exports.dcRespondFromArray = dcRespondFromArray;
 
 //-------------------------------------------------------Roles-------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------
-/**
- * Retrieves a role by name from a Discord element.
- *
- * @param {Discord.GuildMember|Discord.Message|Discord.Guild} element - The Discord element from which to retrieve the role.
- * @param {string} roleName - The name of the role to retrieve.
- * @returns {Discord.Role|null} The role with the specified name, or null if not found.
- */
 function dcGetRoleByName(element, roleName) {
    if (!checkIfExists(roleName)) {
       return null;
@@ -1162,14 +1155,6 @@ function dcGetRoleByName(element, roleName) {
 module.exports.dcGetRoleByName = dcGetRoleByName;
 
 //------------------------------------------------------------------------------------------------------------------
-/**
- * Add roles to a member by name.
- *
- * @param {Discord.GuildMember} member - The member to add roles to.
- * @param {string|string[]} roleNames - The name of the role(s) to add, can be a string or an array of strings.
- * 
- * @returns {void}
- */
 function dcAddRolesToMember(member, roleNames) {
    const rolesToAdd = checkIfArray(roleNames) ? roleNames : [roleNames];
 
@@ -1184,14 +1169,6 @@ function dcAddRolesToMember(member, roleNames) {
 module.exports.dcAddRolesToMember = dcAddRolesToMember;
 
 //------------------------------------------------------------------------------------------------------------------
-/**
- * Remove roles from a member by name.
- *
- * @param {Discord.GuildMember} member - The member to remove roles from.
- * @param {string|string[]} roleNames - The name of the role(s) to remove, can be a string or an array of strings.
- * 
- * @returns {void}
- */
 function dcRemoveRolesFromMember(member, roleNames) {
    const rolesToRemove = checkIfArray(roleNames) ? roleNames : [roleNames];
 
@@ -1206,14 +1183,6 @@ function dcRemoveRolesFromMember(member, roleNames) {
 module.exports.dcRemoveRolesFromMember = dcRemoveRolesFromMember;
 
 //------------------------------------------------------------------------------------------------------------------
-/**
- * Checks if a member has cetain role(s).
- *
- * @param {Discord.GuildMember} member - The member to check.
- * @param {string|string[]} roleNames - The role name(s) to check for.
- *                                    Can be a string or an array of strings.
- * @returns {boolean} True if the member has the role(s), false otherwise.
- */
 function dcCheckIfMemberHasRoles(member, roleNames) {
    if (!dcCheckIfMember(member) || !roleNames) {
       return false;
