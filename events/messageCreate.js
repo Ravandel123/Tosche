@@ -30,28 +30,32 @@ module.exports = {
 
          let prefixLength, commandName, command, commands, args;
 
-         if (message.content.startsWith(prefix)) {
+         if (startsWithPrefix(message, prefix)) {
             prefixLength = prefix.length;
-         } else if (message.content.startsWith(prefixG)) {
+            commands = client.commands;
+         } else if (startsWithPrefix(message, prefixG)) {
             if (message.guildId != '553933942193913856') {
                C.dcReplyToMsg(message, `You can only use guild commands on Deltrada!`);
                return;
             }
             prefixLength = prefixG.length;
-         } else if (message.content.startsWith(prefixRP)) {
+            commands = client.commandsG;
+         } else if (startsWithPrefix(message, prefixRP)) {
             if (message.guildId != '553933942193913856') {
                C.dcReplyToMsg(message, `You can only use role playing commands on Deltrada!`);
                return;
             }
             prefixLength = prefixRP.length;
-         } else if (message.content.startsWith(prefixM)) {
+            commands = client.commandsRP;
+         } else if (startsWithPrefix(message, prefixM)) {
             if (message.author.id != ownerID) {
                C.dcReplyToMsg(message, `You are not the Imperator, you ${G.genPersonalInsult()}.`);
                return;
             }
             prefixLength = prefixM.length;
-         } else if (message.channel.name == 'tosche-office' && ![prefix, prefixG, prefixM, prefixRP].some(p => message.content.includes(p))) {
-            GPT.openAIResponse(message, client);
+            commands = client.commandsM;
+         } else if (startsWithPrefix(message, botName) || message.channel.name == 'tosche-office') {
+            GPT.openAIResponse(message);
             return;
          } else {
             defaultBehavior(message);
@@ -61,15 +65,6 @@ module.exports = {
          commandName = message.content.slice(prefixLength).trim().split(/ +/g);
          commandName = commandName.shift().toLowerCase();
          args = message.content.split(/[ ]+/);
-
-         if (message.content.startsWith(prefix))
-            commands = client.commands;
-         else if (message.content.startsWith(prefixG))
-            commands = client.commandsG;
-         else if (message.content.startsWith(prefixRP))
-            commands = client.commandsRP;
-         else if (message.content.startsWith(prefixM) && message.author.id == ownerID)
-            commands = client.commandsM;
 
          if (commands)
             command = commands.get(commandName) || commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -108,6 +103,11 @@ module.exports = {
    }
 }
 
+//Can be moved to common
+function startsWithPrefix(message, expectedPrefix) {
+   return message.content.toLowerCase().startsWith(expectedPrefix);
+}
+
 function defaultBehavior(message) {
    const msgContent = message.content.toLowerCase();
 
@@ -117,12 +117,18 @@ function defaultBehavior(message) {
    if (C.strCheckIfAnyMatch(message.channel.name, SETTINGS.noToscheCommentsChannels))
       return;
 
-   if (C.strCheckIfContains(msgContent, botName)) {
+   if (C.strCheckIfContains(msgContent, botName) && C.chance(33)) {
       C.dcRespondToMsg(message, R.resYou());
       return;
    }
 
    if (C.chance(2)) {
       C.dcRespondToMsg(message, R.resDefault());
+      return;
+   }
+
+   if (C.chance(1)) {
+      GPT.openAIResponse(message, 2);
+      return;
    }
 }

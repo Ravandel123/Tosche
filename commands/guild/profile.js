@@ -118,10 +118,11 @@ function generateComponents(button, menu, index) {
 
 function generateMainButtons() {
    const characterButton = C.dcCreateButton(MAIN_BUTTON1.id, MAIN_BUTTON1.label, '', MAIN_BUTTON1.style);
-   const inventoryButton = C.dcCreateButton(MAIN_BUTTON2.id, MAIN_BUTTON2.label, '', MAIN_BUTTON2.style);
-   const recordsButton = C.dcCreateButton(MAIN_BUTTON3.id, MAIN_BUTTON3.label, '', MAIN_BUTTON3.style);
+   //const inventoryButton = C.dcCreateButton(MAIN_BUTTON2.id, MAIN_BUTTON2.label, '', MAIN_BUTTON2.style);
+   //const recordsButton = C.dcCreateButton(MAIN_BUTTON3.id, MAIN_BUTTON3.label, '', MAIN_BUTTON3.style);
 
-   return C.dcCreateRow([characterButton, inventoryButton, recordsButton]);
+   //return C.dcCreateRow([characterButton, inventoryButton, recordsButton]);
+   return C.dcCreateRow([characterButton]);
 }
 
 function getDefaultMenuForButton(buttonId) {
