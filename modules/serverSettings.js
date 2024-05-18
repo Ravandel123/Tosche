@@ -25,7 +25,7 @@ const noToscheCommentsChannels = [
    'polcan',
    'resources', 'rules',
    'secret-chamber', 'secret-code-of-conduct', 'spire-of-deltrada',
-   'tamian', 'todo-tosche',
+   'tamian', 'todo-tosche', 'tosche-updates',
    'vulpin'
 ];
 
