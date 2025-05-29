@@ -1293,8 +1293,7 @@ function dcGetMemberIDFromMention(mention) {
    //The discord tag could be with or without '!', so we either omit 2 or 3 first characters
    const mentionStart = mention.indexOf('<@!') == -1 ? mention.indexOf('<@') + 2 : mention.indexOf('<@') + 3;
 
-   //The discord tag consists of 18 digits
-   return mention.substr(mentionStart, 18);
+   return mention.substring(mentionStart).match(/\d+/)?.[0];
 }
 
 module.exports.dcGetMemberIDFromMention = dcGetMemberIDFromMention;
