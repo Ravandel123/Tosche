@@ -1828,7 +1828,7 @@ client.on('messageCreate', message => {
     
 
     //First colour
-    if(isRare)
+    if (isRare)
       furColour1 = ReturnRandom(mainRareFurColours)
     else
       furColour1 = ReturnRandom(mainStandardFurColours)
@@ -1843,7 +1843,7 @@ client.on('messageCreate', message => {
 
 
     //Secound colour
-    if(!isMonoColoured)
+    if (!isMonoColoured)
     {
       furColour2 = ReturnRandom(secondaryFurColours)
       
@@ -1853,7 +1853,7 @@ client.on('messageCreate', message => {
     
     
     //Markings colour
-    if(gotMarkings)
+    if (gotMarkings)
     {
       furColour3 = ReturnRandom(markingsFurColours)
       markingsTone = FindToneForFurColour(furColour3)
@@ -1873,7 +1873,7 @@ client.on('messageCreate', message => {
     mainTone = CheckExistanceInArray(defaultColourTonesList, mainTone) ? '' : mainTone + ' '
     
     //Final construction of the message
-    if(strCompare(A_race, 'polcan'))
+    if (strCompare(A_race, 'polcan'))
     {
       msg = strCapitalizeFirstLetter(pronoun1) + ' has mostly ' + mainTone + furColour1 + ' pelage with mottled ' + markingsTone + furColour3 + ' fur on ' + pronoun2 + ' back. '
       msg = msg + strCapitalizeFirstLetter(pronoun2) + ' ' + additionalText + ' is primarily ' + furColour2 + ', except for a band of ' + furColour1 + ' fur across ' + pronoun2 +  ' eyes' 
