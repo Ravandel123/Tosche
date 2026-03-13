@@ -47,10 +47,11 @@ async function openAIResponse(message, maxRememberedMessages = 8) {
    });
 
    const openAIMessages = [{ role: 'system', content: generalDescription }, ...messageHistory];
+   let typingInterval;
 
    try {
       message.channel.sendTyping();
-      const typingInterval = setInterval(() => {
+      typingInterval = setInterval(() => {
          message.channel.sendTyping();
       }, 8000);
 
